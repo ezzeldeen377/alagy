@@ -11,7 +11,7 @@ jobs:
     name: 🎉 iOS Simulator Build
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
       - uses: subosito/flutter-action@v2
         with:
@@ -26,23 +26,19 @@ jobs:
       - name: Build iOS Simulator Version
         run: flutter build ios --simulator
 
-      - name: Prepare Appetize.io Upload
+      - name: Prepare App for Appetize.io
         run: |
           mkdir -p Payload
           cp -r build/ios/iphonesimulator/Runner.app Payload/
-          tar -czvf FlutterApp.tar.gz Payload/Runner.app
+          cd Payload
+          zip -qq -r -9 FlutterApp.zip Runner.app
+          mv FlutterApp.zip ../FlutterApp.zip
 
-      - name: Upload Artifact for Download
-        uses: actions/upload-artifact@v3
-        with:
-          name: FlutterApp
-          path: FlutterApp.tar.gz
-
-      - name: Upload to GitHub Releases
+      - name: Upload ZIP to GitHub Releases
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: FlutterApp.tar.gz
+          file: FlutterApp.zip
           tag: v1.0
           overwrite: true
           body: "iOS Simulator build for Appetize.io"
