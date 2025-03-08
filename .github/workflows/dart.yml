@@ -1,11 +1,14 @@
-name: iOS-ipa-build
+name: iOS-simulator-build
 
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write  # Ensure GITHUB_TOKEN has write access
+
 jobs:
   build-ios:
-    name: 🎉 iOS Build
+    name: 🎉 iOS Simulator Build
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -29,8 +32,17 @@ jobs:
           cp -r build/ios/iphonesimulator/Runner.app Payload/
           tar -czvf FlutterApp.tar.gz Payload/Runner.app
 
-      - name: Upload Artifact
+      - name: Upload Artifact for Download
         uses: actions/upload-artifact@v3
         with:
           name: FlutterApp
           path: FlutterApp.tar.gz
+
+      - name: Upload to GitHub Releases
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: FlutterApp.tar.gz
+          tag: v1.0
+          overwrite: true
+          body: "iOS Simulator build for Appetize.io"
