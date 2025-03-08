@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "81987773272",
+    "project_id": "alagy-92af4",
+    "storage_bucket": "alagy-92af4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81987773272:android:360e3aa2f597c274d37b2d",
+        "android_client_info": {
+          "package_name": "com.example.alagy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLduaIo49exBtG0o-mEdP1beFLY27_mDU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
