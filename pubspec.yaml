@@ -31,6 +31,8 @@ dependencies:
   badges: ^3.1.2
   flutter_secure_storage: ^9.2.4
   google_sign_in: ^6.2.2
+  animated_text_kit: ^4.2.3
+  flutter_animate: ^4.5.2
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +54,17 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/fonts/
   #   - images/a_dot_ham.jpeg
 
-
+  fonts:
+    - family: CircularSpotify
+      fonts:
+        - asset: assets/fonts/CircularSpotifyTxT-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/CircularSpotifyTxT-Med.ttf
+          weight: 500
+        - asset: assets/fonts/CircularSpotifyTxT-Light.ttf
+          weight: 300
+        - asset: assets/fonts/CircularSpotifyTxT-Book.ttf
+          weight: 400

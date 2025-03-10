@@ -79,24 +79,6 @@ class SignUpState {
     return 'SignUpState(state: $state, userModel: $userModel, erorrMessage: $erorrMessage, isVisiblePassword: $isVisiblePassword, isVisiblePasswordConfirm: $isVisiblePasswordConfirm, isChecked: $isChecked, role: $role)';
   }
 
-  @override
-  bool operator ==(covariant SignUpState other) {
-    if (identical(this, other)) return true;
-
-    return other.state == state &&
-        other.userModel == userModel &&
-        other.erorrMessage == erorrMessage &&
-        other.isVisiblePassword == isVisiblePassword &&
-        other.isVisiblePasswordConfirm == isVisiblePasswordConfirm;
-  }
-
-  @override
-  int get hashCode =>
-      state.hashCode ^
-      userModel.hashCode ^
-      erorrMessage.hashCode ^
-      isVisiblePassword.hashCode ^
-      isVisiblePasswordConfirm.hashCode;
 }
 
 

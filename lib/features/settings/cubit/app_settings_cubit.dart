@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'app_settings_state.dart';
-
+@injectable
 class AppSettingsCubit extends Cubit<AppSettingsState> {
   AppSettingsCubit()
       : super( AppSettingsState(
         status: AppSettingsStatus.initail,
-          themeMode: ThemeMode.system,
-          locale: Locale('en'),
+          themeMode: ThemeMode.dark,
+          locale: const Locale('en'),
         ));
 
   void toggleTheme() {

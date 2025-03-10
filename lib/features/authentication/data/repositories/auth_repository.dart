@@ -33,7 +33,6 @@ class AuthRepositoryImpl implements AuthRepository {
 
   AuthRepositoryImpl({required AuthRemoteDataSource authDataSource})
       : _authDataSource = authDataSource;
-
   @override
   Future<Either<Failure, UserModel>> signUp({
     required String email,
@@ -61,7 +60,6 @@ class AuthRepositoryImpl implements AuthRepository {
       return userModel;
     });
   }
-
   @override
   Future<Either<Failure, void>> sendVerificationEmail() async {
     return await executeTryAndCatchForRepository(() async {
@@ -117,14 +115,17 @@ class AuthRepositoryImpl implements AuthRepository {
       if (user != null) {
         return UserModel.fromMap(user);
       } else {
-        return UserModel(
+        final userModel = UserModel(
             type: 'normal',
             profileImage: userCredential.user?.photoURL,
             phoneNumber: userCredential.user?.phoneNumber,
             uid: userCredential.user!.uid,
             email: userCredential.user!.email!,
             name: userCredential.user!.displayName!,
-            createdAt: DateTime.now(), signFrom: '');
+            createdAt: DateTime.now(),
+            signFrom: 'google');
+        await _authDataSource.setUser(userModel: userModel);
+        return userModel;
       }
     });
   }
@@ -142,10 +143,11 @@ class AuthRepositoryImpl implements AuthRepository {
       return await _authDataSource.checkUesrSignin();
     });
   }
-    @override
-  Future<Either<Failure, void>> updateUser(String uid, Map<String, dynamic> data)async {
-  return await executeTryAndCatchForRepository(() async {
-      return await _authDataSource.updateUser(uid, data);
+
+  @override
+  Future<Either<Failure, void>> updateUser(String uid, Map<String, dynamic> data) async {
+    return await executeTryAndCatchForRepository(() async {
+      await _authDataSource.updateUser(uid, data);
     });
   }
 }

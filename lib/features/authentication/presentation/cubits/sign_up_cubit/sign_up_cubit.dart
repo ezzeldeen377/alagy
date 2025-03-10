@@ -93,12 +93,12 @@ class SignUpCubit extends Cubit<SignUpState> {
         state: SignUpStatus.visiblePasswordConfirm,
         isVisiblePasswordConfirm: !state.isVisiblePasswordConfirm));
   }
-
   void check(bool value) {
-    emit(state.copyWith(
-        state: SignUpStatus.checked, isChecked: !state.isChecked));
-  }
-
+  emit(state.copyWith(
+    state: SignUpStatus.checked,
+    isChecked: value, // Use the passed value directly
+  ));
+}
   Future<void> sendVerificationEmail() async {
     await authRepository.sendVerificationEmail();
   }
@@ -110,8 +110,4 @@ class SignUpCubit extends Cubit<SignUpState> {
     print("Role is already ${state.role}. No state change.");
   }
 }
-  @override
-  Future<void> close() {
-    return super.close();
-  }
 }

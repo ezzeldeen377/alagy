@@ -17,6 +17,8 @@ extension AppSettingsStateX on AppSettingsState{
   bool get isError => status == AppSettingsStatus.error;
   bool get isThemeChanged => status == AppSettingsStatus.themeChanged;
   bool get isLocaleChanged => status == AppSettingsStatus.localeChanged;
+  bool get isDarkMode => themeMode == ThemeMode.dark;
+  bool get isLightMode => themeMode == ThemeMode.light;
 } 
 class AppSettingsState {
   final AppSettingsStatus status;

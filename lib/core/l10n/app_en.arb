@@ -1,0 +1,143 @@
+{
+  "@@locale": "en",
+  "onboardingWelcome": "Welcome",
+  "@onboardingWelcome": {
+    "description": "Welcome text shown at the top of the onboarding screen"
+  },
+  "onboardingTitle": "Welcome to Alagy. Your Health, Our Priority",
+  "@onboardingTitle": {
+    "description": "Main title text shown on the onboarding screen"
+  },
+  "onboardingDescription": "Easily book appointments, consult doctors, and manage your medical records anytime, anywhere.",
+  "@onboardingDescription": {
+    "description": "Description text shown on the onboarding screen"
+  },
+  "onboardingGetStarted": "Get Started",
+  "@onboardingGetStarted": {
+    "description": "Text for the get started button on the onboarding screen"
+  },
+  "signInTitle": "Sign In",
+  "@signInTitle": {
+    "description": "Title text shown on the sign in screen"
+  },
+  "signInWelcomeBack": "Welcome back! please sign in to continue.",
+  "@signInWelcomeBack": {
+    "description": "Welcome back message shown on the sign in screen"
+  },
+  "signInButton": "Sign In",
+  "@signInButton": {
+    "description": "Text for the sign in button"
+  },
+  "signInDividerOr": "Or",
+  "@signInDividerOr": {
+    "description": "Text for the divider between sign in options"
+  },
+  "signInEmailLabel": "Email",
+  "@signInEmailLabel": {
+    "description": "Label for the email input field on the sign in screen"
+  },
+  "signInEmailHint": "Enter your email address",
+  "@signInEmailHint": {
+    "description": "Hint text for the email input field on the sign in screen"
+  },
+  "signInPasswordLabel": "Password",
+  "@signInPasswordLabel": {
+    "description": "Label for the password input field on the sign in screen"
+  },
+  "signInPasswordHint": "Enter your password",
+  "@signInPasswordHint": {
+    "description": "Hint text for the password input field on the sign in screen"
+  },
+  "dontHaveAccount": "Don't have an account?",
+  "@dontHaveAccount": {
+    "description": "Text shown to prompt users to register if they don't have an account"
+  },
+  "registerNow": "Register Now",
+  "@registerNow": {
+    "description": "Text for the register now link"
+  },
+  "connectWithGoogle": "Connect with Google",
+  "@connectWithGoogle": {
+    "description": "Text for the Google sign in button"
+  },
+  "signUpTitle": "Getting Started",
+  "@signUpTitle": {
+    "description": "Title text shown on the sign up screen"
+  },
+  "signUpSubtitle": "Create an account to continue!",
+  "@signUpSubtitle": {
+    "description": "Subtitle text shown on the sign up screen"
+  },
+  "patientTab": "Patient",
+  "@patientTab": {
+    "description": "Text for the patient tab in sign up screen"
+  },
+  "doctorTab": "Doctor",
+  "@doctorTab": {
+    "description": "Text for the doctor tab in sign up screen"
+  },
+  "signUpButton": "Sign Up",
+  "@signUpButton": {
+    "description": "Text for the sign up button"
+  },
+  "termsAndConditionsError": "Please accept terms and conditions",
+  "@termsAndConditionsError": {
+    "description": "Error message shown when terms and conditions are not accepted"
+  },
+  "signUpEmailLabel": "Email",
+  "@signUpEmailLabel": {
+    "description": "Label for the email input field on the sign up screen"
+  },
+  "signUpEmailHint": "Enter your email address",
+  "@signUpEmailHint": {
+    "description": "Hint text for the email input field on the sign up screen"
+  },
+  "signUpUsernameLabel": "Username",
+  "@signUpUsernameLabel": {
+    "description": "Label for the username input field on the sign up screen"
+  },
+  "signUpUsernameHint": "Enter your name",
+  "@signUpUsernameHint": {
+    "description": "Hint text for the username input field on the sign up screen"
+  },
+  "signUpPasswordLabel": "Password",
+  "@signUpPasswordLabel": {
+    "description": "Label for the password input field on the sign up screen"
+  },
+  "signUpPasswordHint": "Enter password",
+  "@signUpPasswordHint": {
+    "description": "Hint text for the password input field on the sign up screen"
+  },
+  "signUpConfirmPasswordLabel": "Confirm Password",
+  "@signUpConfirmPasswordLabel": {
+    "description": "Label for the confirm password input field on the sign up screen"
+  },
+  "signUpConfirmPasswordHint": "Confirm Password",
+  "@signUpConfirmPasswordHint": {
+    "description": "Hint text for the confirm password input field on the sign up screen"
+  },
+  "signUpConfirmPasswordError": "please enter your Confirm Password",
+  "@signUpConfirmPasswordError": {
+    "description": "Error message shown when confirm password is empty"
+  },
+  "signUpPasswordMismatchError": "Password and Confirm Password must be same",
+  "@signUpPasswordMismatchError": {
+    "description": "Error message shown when passwords don't match"
+  },
+  "signUpTermsText": "By creating an account, you agree to our",
+  "@signUpTermsText": {
+    "description": "Text shown before the terms and conditions link"
+  },
+  "signUpTermsLink": "Terms & Conditions",
+  "@signUpTermsLink": {
+    "description": "Text for the terms and conditions link"
+  },
+  "alreadyHaveAccount": "Already have an account?",
+  "@alreadyHaveAccount": {
+    "description": "Text shown to prompt users to sign in if they already have an account"
+  },
+  "signIn": "Sign In",
+  "@signIn": {
+    "description": "Text for the sign in link"
+  }
+}

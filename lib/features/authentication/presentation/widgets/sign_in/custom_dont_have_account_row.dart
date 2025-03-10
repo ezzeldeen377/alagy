@@ -1,3 +1,6 @@
+import 'package:alagy/core/helpers/extensions.dart';
+import 'package:alagy/core/helpers/spacer.dart';
+import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/theme/text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -14,15 +17,16 @@ class CustomDontHaveAccountRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          "Don't have an account? ",
-          style: TextStyles.font14RobotoLightBlackColorRegular,
+         Text(
+          context.l10n.dontHaveAccount,
+          style: context.theme.textTheme.labelLarge
         ),
+        horizontalSpace(5),
         InkWell(
           onTap: onTap,
-          child: Text(
-            'Sign Up',
-            style: TextStyles.font14RobotoLightBlackColorMedium,
+          child:  Text(
+            context.l10n.registerNow,
+            style: context.theme.textTheme.labelLarge?.copyWith(color: AppColor.tealNew),
           ),
         ),
       ],

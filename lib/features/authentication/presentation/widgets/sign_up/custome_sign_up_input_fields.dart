@@ -1,21 +1,28 @@
+import 'package:alagy/core/helpers/extensions.dart';
+import 'package:alagy/core/helpers/spacer.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/theme/text_styles.dart';
 import 'package:alagy/core/utils/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../core/helpers/validators.dart';
 import '../../cubits/sign_up_cubit/sign_up_cubit.dart';
 import '../../cubits/sign_up_cubit/sign_up_state.dart';
 
-
 class CustomeSignUpInputFields extends StatelessWidget {
-  const CustomeSignUpInputFields({super.key,});
+  final Function onSubmit;
+  const CustomeSignUpInputFields({
+    super.key,
+    required this.onSubmit,
+  });
 
   @override
   Widget build(BuildContext context) {
     final cubit = context.watch<SignUpCubit>();
+    final l10n = AppLocalizations.of(context)!;
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: 20.w,
@@ -23,45 +30,48 @@ class CustomeSignUpInputFields extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-      
+          Text(
+            l10n.signUpEmailLabel,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          verticalSpace(10),
           CustomTextFormField(
             validator: emailValidator,
-            hint: "Email",
+            hint: l10n.signUpEmailHint,
             keyboardType: TextInputType.emailAddress,
             suffixIcon: const Icon(
               Icons.email_outlined,
-              color: AppColor.accentBlackColor2,
             ),
             controller: cubit.emailController,
+            animationIndex: 0,
           ),
-          SizedBox(
-            height: 15.h,
+          SizedBox(height: 15.h),
+          Text(
+            l10n.signUpUsernameLabel,
+            style: Theme.of(context).textTheme.titleSmall,
           ),
-         
+          verticalSpace(10),
           CustomTextFormField(
-            validator: (String? value) {
-              if (value == null || value.trim().isEmpty) {
-                return "Plase enter your username";
-              }
-              return null;
-            },
-            hint: "Username",
-            keyboardType: TextInputType.emailAddress,
+            validator: emptyValidator,
+            hint: l10n.signUpUsernameHint,
+            keyboardType: TextInputType.name,
             suffixIcon: const Icon(
               Icons.person,
-              color: AppColor.accentBlackColor2,
             ),
             controller: cubit.nameController,
+            animationIndex: 1,
           ),
-          SizedBox(
-            height: 15.h,
+          SizedBox(height: 15.h),
+          Text(
+            l10n.signUpPasswordLabel,
+            style: Theme.of(context).textTheme.titleSmall,
           ),
-          
+          verticalSpace(10),
           BlocBuilder<SignUpCubit, SignUpState>(
             builder: (context, state) {
               return CustomTextFormField(
                 validator: passwordValidator,
-                hint: "Password",
+                hint: l10n.signUpPasswordHint,
                 obscureText: state.isVisiblePassword,
                 keyboardType: TextInputType.visiblePassword,
                 suffixIcon: IconButton(
@@ -72,29 +82,34 @@ class CustomeSignUpInputFields extends StatelessWidget {
                     state.isVisiblePassword == true
                         ? Icons.remove_red_eye_outlined
                         : Icons.visibility_off_outlined,
-                    color: AppColor.accentBlackColor2,
                   ),
                 ),
                 controller: cubit.passwordController,
+                animationIndex: 2,
               );
             },
           ),
           SizedBox(
             height: 15.h,
           ),
-     
+          Text(
+            l10n.signUpConfirmPasswordLabel,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          verticalSpace(10),
           BlocBuilder<SignUpCubit, SignUpState>(
             builder: (context, state) {
               return CustomTextFormField(
+                animationIndex: 3,
                 validator: (String? value) {
                   if (value == null || value.trim().isEmpty) {
-                    return "please enter your Confirm Password";
-                  } else if (value != cubit.passwordController!.text) {
-                    return "Password and Confirm Password must be same";
+                    return l10n.signUpConfirmPasswordError;
+                  } else if (value != cubit.passwordController.text) {
+                    return l10n.signUpPasswordMismatchError;
                   }
                   return null;
                 },
-                hint: "Confirm Password",
+                hint: l10n.signUpConfirmPasswordHint,
                 keyboardType: TextInputType.visiblePassword,
                 obscureText: state.isVisiblePasswordConfirm,
                 suffixIcon: IconButton(
@@ -105,7 +120,6 @@ class CustomeSignUpInputFields extends StatelessWidget {
                     state.isVisiblePasswordConfirm == true
                         ? Icons.remove_red_eye_outlined
                         : Icons.visibility_off_outlined,
-                    color: AppColor.accentBlackColor2,
                   ),
                 ),
                 controller: cubit.confirmPasswordController,
@@ -113,28 +127,41 @@ class CustomeSignUpInputFields extends StatelessWidget {
             },
           ),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               BlocBuilder<SignUpCubit, SignUpState>(
                 builder: (context, state) {
                   return Checkbox(
-                      value: state.isChecked,
-                      onChanged: (value) {
-                        context.read<SignUpCubit>().check(value!);
-                      });
+                    activeColor: AppColor.tealNew,
+                    value: state.isChecked,
+                    onChanged: (value) {
+                      context.read<SignUpCubit>().check(value!);
+                    },
+                  );
                 },
               ),
-              Text(
-                'By creating an account, you agree to our',
-                style: TextStyles.font11RobotoAccentBlackColor2Regular
-                    .copyWith(fontSize: 10.h),
+              SizedBox(width: 3.w),
+              Expanded(
+                child: Wrap(
+                  children: [
+                    Text(
+                      l10n.signUpTermsText,
+                      style: context.theme.textTheme.bodySmall
+                          ?.copyWith(fontSize: 10.h),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        // Navigate to Terms & Conditions page if needed
+                      },
+                      child: Text(
+                        l10n.signUpTermsLink,
+                        style: context.theme.textTheme.bodySmall?.copyWith(
+                            fontSize: 11.h, color: AppColor.blueColor),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              InkWell(
-                  onTap: () {},
-                  child: Text(
-                    'Term & Conditions',
-                    style: TextStyles.font11RobotoBlueColorRegular
-                        .copyWith(fontSize: 10.h),
-                  )),
             ],
           ),
         ],

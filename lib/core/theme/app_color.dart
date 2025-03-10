@@ -11,7 +11,7 @@ class AppColor {
   static const Color whiteColor = Colors.white;
   static const Color blackColor = Colors.black;
   static const Color accentBlackColor2 = Color(0xFF424242);
-  
+
   // Error colors
   static const Color errorColor = Color(0xFFD32F2F);
   static const Color errorLightColor = Color(0xFFFFEBEE);
@@ -23,7 +23,10 @@ class AppColor {
   static const Color lightGray = Color(0xFFF4F5F5);
   static const Color beige = Color(0xFFE3DDDA);
   static const Color tealNew = Color(0xFF386F6C);
+  static const Color mintGreen = Color(0xFFA8E6CF);
   static const Color darkTeal = Color(0xFF004542);
   static const Color darkGray = Color(0xFF1D1D1D);
   static const Color offWhite = Color(0xFFFEFEFE);
+  static const Color textFieldFill = Color(0xFF2A2A2A); // Dark Charcoal for subtle contrast
+static const Color textFieldBorder = Color(0xFF386F6C); // Main color for a branded feel
 }

@@ -1,5 +1,6 @@
+import 'package:alagy/core/helpers/extensions.dart';
+import 'package:alagy/core/helpers/spacer.dart';
 import 'package:alagy/core/helpers/validators.dart';
-import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/utils/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +10,6 @@ import '../../cubits/sign_in_cubit/sign_in_cubit.dart';
 import '../../cubits/sign_in_cubit/sign_in_state.dart';
 
 class CustomSignInInputFields extends StatelessWidget {
-
   const CustomSignInInputFields({
     super.key,
   });
@@ -22,23 +22,32 @@ class CustomSignInInputFields extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-       
+          Text(
+            context.l10n.signInEmailLabel,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          verticalSpace(10),
           CustomTextFormField(
+            animationIndex: 0,
             validator: emailValidator,
-            hint: "Email",
+            hint: context.l10n.signInEmailHint,
             keyboardType: TextInputType.emailAddress,
             suffixIcon: const Icon(
               Icons.email_outlined,
-              color: AppColor.accentBlackColor2,
             ),
             controller: cubit.emailController,
           ),
           SizedBox(height: 15.h),
-          
+          Text(
+            context.l10n.signInPasswordLabel,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          verticalSpace(10),
           BlocBuilder<SignInCubit, SignInState>(
             builder: (context, state) {
               return CustomTextFormField(
-                hint: "Password",
+                animationIndex: 1,
+                hint: context.l10n.signInPasswordHint,
                 obscureText: state.isVisible,
                 keyboardType: TextInputType.visiblePassword,
                 suffixIcon: IconButton(
@@ -49,7 +58,6 @@ class CustomSignInInputFields extends StatelessWidget {
                     state.isVisible
                         ? Icons.remove_red_eye_outlined
                         : Icons.visibility_off_outlined,
-                    color: AppColor.accentBlackColor2,
                   ),
                 ),
                 controller: cubit.passwordController,

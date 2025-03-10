@@ -12,6 +12,7 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Settings'),
       ),
+      
       body: BlocBuilder<AppSettingsCubit, AppSettingsState>(
         builder: (context, state) {
           return ListView(

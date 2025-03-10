@@ -1,13 +1,13 @@
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/theme/text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:flutter_animate/flutter_animate.dart';
 
 typedef MyValidator = String? Function(String?);
 
 class CustomTextFormField extends StatelessWidget {
-  final String hint;
+  final String? hint;
+  final String? label;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final bool obscureText;
@@ -17,9 +17,10 @@ class CustomTextFormField extends StatelessWidget {
   final ImageIcon? suffixIconShowed;
   final int? maxLength;
   final TextInputType? keyboardType;
-  const CustomTextFormField({
-      super.key,
-      required this.hint,
+  final int? maxLines;
+  const CustomTextFormField(
+      {super.key,
+      this.hint,
       this.suffixIcon,
       this.obscureText = false,
       this.validator,
@@ -28,9 +29,13 @@ class CustomTextFormField extends StatelessWidget {
       this.prefixIcon,
       required this.controller,
       this.keyboardType,
-      this.maxLength});
+      this.maxLength,
+      this.maxLines,
+      required this.animationIndex,
+      this.label});
 
-  @override
+  final int? animationIndex;
+
  
 
   @override
@@ -38,50 +43,38 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
-      obscureText: obscureText ?? false,
       maxLength: maxLength,
       validator: validator,
-      maxLines: null,
-      style: TextStyles.fontInter14BlackMedium,
+      maxLines: maxLines ?? 1,
+      style: TextStyles.fontCircularSpotify14BlackMedium,
+      autocorrect: true,
+      obscureText: obscureText,
       decoration: InputDecoration(
-        errorMaxLines: 2,
-        contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
         suffixIcon: suffixIcon,
         hintText: hint,
-        hintStyle: TextStyles.fontRoboto12GreyRegular,
-        filled: true,
-        fillColor: AppColor.lightWhiteColor,
+        labelText: label,
         prefixIcon: prefixIcon,
-        errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColor.redColor.withOpacity(.5),
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(20)),
-        focusedErrorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: AppColor.redColor,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(20)),
-        enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: AppColor.lgGreyColor,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(20)),
-        focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: AppColor.grayColor,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(20)),
       ),
-      buildCounter: maxLength != null?(context, {required currentLength, required isFocused, required maxLength}) {
-                              return Text('$currentLength/$maxLength',style: TextStyle(
-                                fontSize: 12,
-                                color: currentLength==maxLength?AppColor.redColor:AppColor.blueColor
-                              ),);}:null,
-    );
+      buildCounter: maxLength != null
+          ? (context,
+              {required currentLength,
+              required isFocused,
+              required maxLength}) {
+              return Text(
+                '$currentLength/$maxLength',
+                style: TextStyle(
+                    fontSize: 12,
+                    color: currentLength == maxLength
+                        ? AppColor.redColor
+                        : AppColor.blueColor),
+              );
+            }
+          : null,
+    )
+    .animate()
+    .slideX(begin: 1, end: 0, duration: const Duration(milliseconds: 500), delay: Duration(milliseconds: (animationIndex ?? 0) * 200))
+    .fadeIn(duration: const Duration(milliseconds: 500));
+    
+    
   }
 }

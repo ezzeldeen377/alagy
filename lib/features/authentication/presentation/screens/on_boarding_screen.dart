@@ -1,181 +1,155 @@
 import 'package:alagy/core/common/cubit/app_user/app_user_cubit.dart';
+import 'package:alagy/core/helpers/extensions.dart';
+import 'package:alagy/core/helpers/spacer.dart';
 import 'package:alagy/core/routes/routes.dart';
+import 'package:alagy/core/theme/app_color.dart';
+import 'package:alagy/features/settings/cubit/app_settings_cubit.dart';
+import 'package:alagy/features/settings/cubit/app_settings_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({Key? key}) : super(key: key);
-
+  const OnboardingScreen({super.key});
   @override
-  _OnboardingScreenState createState() => _OnboardingScreenState();
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
-  final PageController _pageController = PageController();
-  int currentPage = 0;
-
-  final List<Map<String, String>> onboardingData = [
-    {
-      'title': 'Welcome to Pulse Max',
-      'description': 'We provide the best health solutions, right at your fingertips.',
-      'image': 'assets/images/onboarding_1.jpg', // Update with actual image
-    },
-    {
-      'title': 'Track Your Health',
-      'description': 'Monitor your health progress and stay on top of your fitness goals.',
-      'image': 'assets/images/onboarding_2.jpg', // Update with actual image
-    },
-    {
-      'title': 'Get Expert Advice',
-      'description': 'Consult with doctors and specialists with just a few taps.',
-      'image': 'assets/images/onboarding_3.jpg', // Update with actual image
-    },
-  ];
+class _OnboardingScreenState extends State<OnboardingScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    );
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeIn,
+    ));
+    _animationController.forward();
+  }
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 50.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Text(
-                'Onboarding',
-                style: TextStyle(
-                  fontSize: 30.sp,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xff1A998E),
-                ),
-              ),
-            ),
-            SizedBox(height: 20.h),
-            Expanded(
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: onboardingData.length,
-                onPageChanged: (index) {
-                  setState(() {
-                    currentPage = index;
-                  });
-                },
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // Image.asset(
-                        //   onboardingData[index]['image']!,
-                        //   width: double.infinity,
-                        //   fit: BoxFit.fitWidth,
-                        // ),
-                        SizedBox(height: 30.h),
-                        Text(
-                          onboardingData[index]['title']!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 28.sp,
-                            fontWeight: FontWeight.bold,
-                            color: const Color(0xff1A998E),
-                          ),
-                        ),
-                        SizedBox(height: 10.h),
-                        Text(
-                          onboardingData[index]['description']!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-            SizedBox(height: 20.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    final l10n = context.l10n;
+    final theme = context.theme;
+    return BlocBuilder<AppSettingsCubit, AppSettingsState>(
+      builder: (context, settingsState) {
+        return Scaffold(
+          body: SafeArea(
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (currentPage != 0)
-                    GestureDetector(
+                  SizedBox(height: 50.h),
+                  Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Text(context.l10n.onboardingWelcome,
+                          style: theme.textTheme.headlineLarge)),
+                  SizedBox(height: 20.h),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/images/onboarding_1.jpg',
+                            width: double.infinity,
+                            fit: BoxFit.fitWidth,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                width: double.infinity,
+                                height: 200.h,
+                                color: settingsState.isDarkMode
+                                    ? AppColor.darkTeal
+                                    : AppColor.tealNew,
+                                child: Center(
+                                  child: Icon(
+                                    Icons.image_not_supported,
+                                    size: 40.sp,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                          SizedBox(height: 30.h),
+                          Text(l10n.onboardingTitle,
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.headlineMedium?.copyWith(color: AppColor.tealNew)),
+                          SizedBox(height: 10.h),
+                          Text(l10n.onboardingDescription,
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.bodyLarge),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: GestureDetector(
                       onTap: () {
-                        _pageController.previousPage(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeInOut,
-                        );
+                        context.read<AppUserCubit>().saveInstallationFlag();
+                        Navigator.pushReplacementNamed(
+                            context, RouteNames.signIn);
                       },
-                      child: Text(
-                        'Back',
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          color: const Color(0xff1A998E),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  Row(
-                    children: List.generate(
-                      onboardingData.length,
-                      (index) => Container(
-                        margin: EdgeInsets.symmetric(horizontal: 3.w),
-                        height: 10.h,
-                        width: 10.w,
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(vertical: 15.h),
                         decoration: BoxDecoration(
-                          color: currentPage == index
-                              ? const Color(0xff1A998E)
-                              : Colors.grey[400],
-                          shape: BoxShape.circle,
+                          gradient: const LinearGradient(
+                            colors: [
+                              AppColor.mintGreen,
+                              AppColor.tealNew,
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColor.darkTeal.withOpacity(0.3),
+                              spreadRadius: 2,
+                              blurRadius: 8,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(l10n.onboardingGetStarted,
+                                textAlign: TextAlign.center,
+                                style: theme.textTheme.titleMedium),
+                            horizontalSpace(10),
+                            const Icon(Icons.arrow_forward, color: AppColor.offWhite)
+                          ],
                         ),
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      if (currentPage == onboardingData.length - 1) {
-                        // Navigate to the next screen
-                              context.read<AppUserCubit>().saveInstallationFlag();
-
-                        Navigator.pushReplacementNamed(context, RouteNames.signIn);
-                      } else {
-                        _pageController.nextPage(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeInOut,
-                        );
-                      }
-                    },
-                    child: Text(
-                      currentPage == onboardingData.length - 1 ? 'Finish' : 'Next',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: const Color(0xff1A998E),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  SizedBox(height: 20.h),
                 ],
               ),
             ),
-            SizedBox(height: 20.h),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

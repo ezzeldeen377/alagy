@@ -20,6 +20,7 @@ import '../../features/authentication/presentation/cubits/sign_in_cubit/sign_in_
     as _i670;
 import '../../features/authentication/presentation/cubits/sign_up_cubit/sign_up_cubit.dart'
     as _i531;
+import '../../features/settings/cubit/app_settings_cubit.dart' as _i50;
 import '../common/cubit/app_user/app_user_cubit.dart' as _i94;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -33,18 +34,17 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    gh.factory<_i50.AppSettingsCubit>(() => _i50.AppSettingsCubit());
     gh.factory<_i21.AuthRemoteDataSource>(
         () => _i21.AuthRemoteDataSourceImpl());
-    gh.factory<_i94.AppUserCubit>(
-        () => _i94.AppUserCubit(authRepository: gh<_i935.AuthRepository>()));
     gh.factory<_i935.AuthRepository>(() => _i935.AuthRepositoryImpl(
         authDataSource: gh<_i21.AuthRemoteDataSource>()));
-    gh.factory<_i531.SignUpCubit>(() => _i531.SignUpCubit(
-          authRepository: gh<_i935.AuthRepository>(),
-        ));
-    gh.factory<_i670.SignInCubit>(() => _i670.SignInCubit(
-          authRepository: gh<_i935.AuthRepository>(),
-        ));
+    gh.factory<_i94.AppUserCubit>(
+        () => _i94.AppUserCubit(authRepository: gh<_i935.AuthRepository>()));
+    gh.factory<_i670.SignInCubit>(
+        () => _i670.SignInCubit(authRepository: gh<_i935.AuthRepository>()));
+    gh.factory<_i531.SignUpCubit>(
+        () => _i531.SignUpCubit(authRepository: gh<_i935.AuthRepository>()));
     return this;
   }
 }
