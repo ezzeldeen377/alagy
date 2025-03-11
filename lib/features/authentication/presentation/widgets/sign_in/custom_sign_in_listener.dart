@@ -10,40 +10,76 @@ class CustomSignInListener extends StatelessWidget {
   final Widget child;
   const CustomSignInListener({super.key, required this.child});
 
+  void _navigateToHome(BuildContext context) {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      RouteNames.initial,
+      (route) => false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final appUserCubit = context.read<AppUserCubit>();
     final signInCubit = context.read<SignInCubit>();
 
-    // checkuser signin --> if user signin --> signout --> user signin again --> get user data --> save user data
-
     return BlocListener<SignInCubit, SignInState>(
       listener: (context, state) async {
         if (state.isAlreadySignIn) {
           signInCubit.signOut();
-        } else if (state.isNotSignIn) {
+          return;
+        }
+
+        if (state.isNotSignIn) {
           signInCubit.signIn();
-        } else if (state.isSuccessSignOut) {
-          // signInCubit.signIn();
-        } else if (state.isFailure) {
-          showSnackBar(context, state.erorrMessage ?? "");
-        } else if (state.isSuccessSignIn) {
-          signInCubit.getUser(uid: state.uid ?? "");
-        } else if (state.isSuccessGetData) {
+          return;
+        }
+
+        if (state.isFailure) {
+          showSnackBar(context, state.erorrMessage ?? "Sign-in failed");
+          return;
+        }
+
+        if (state.isSuccessSignIn) {
+          if (state.uid?.isNotEmpty ?? false) {
+            signInCubit.getUser(uid: state.uid!);
+          } else {
+            showSnackBar(context, "User ID is missing");
+          }
+          return;
+        }
+
+        if (state.isSuccessGetData) {
           await appUserCubit.saveUserData(state.userModel);
-         Navigator.pushNamedAndRemoveUntil(context,RouteNames.initial, (route) => false);
-        } else if (state.isFailureGetData) {
-          showSnackBar(context, state.erorrMessage ?? "");
+          _navigateToHome(context);
+          return;
+        }
+
+        if (state.isFailureGetData) {
+          showSnackBar(context, state.erorrMessage ?? "Failed to retrieve user data");
           signInCubit.signOut();
-        } else if (state.isGoogleAuthSuccess) {
-          signInCubit.setUserData(userModel: state.userModel!); // to firestore
-        } else if (state.isSetUserDataSuccess) {
-          await appUserCubit.saveUserData(state.userModel);// local
-         Navigator.pushNamedAndRemoveUntil(context,RouteNames.initial, (route) => false);
-          
-        } else if (state.isGoogleAuthFailure) {
-          showSnackBar(context, state.erorrMessage ?? "");
-          signInCubit.signOut();
+          return;
+        }
+
+        if (state.isGoogleAuthSuccess) {
+          signInCubit.setUserData(userModel: state.userModel!);
+          return;
+        }
+
+        if (state.isSetUserDataSuccess) {
+          await appUserCubit.saveUserData(state.userModel);
+          _navigateToHome(context);
+          return;
+        }
+
+        if (state.isGoogleAuthFailure) {
+          showSnackBar(context, state.erorrMessage ?? "Google authentication failed");
+          return;
+        }
+
+        if (state.isSuccessSignOut) {
+          // Optional: Handle post-logout logic here
+          return;
         }
       },
       child: child,

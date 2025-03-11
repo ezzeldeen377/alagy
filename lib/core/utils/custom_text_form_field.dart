@@ -1,3 +1,4 @@
+import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/theme/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +19,15 @@ class CustomTextFormField extends StatelessWidget {
   final int? maxLength;
   final TextInputType? keyboardType;
   final int? maxLines;
-  const CustomTextFormField(
-      {super.key,
+  final Function(String)? onSubmitted;
+  final TextInputAction? textInputAction;
+  final Iterable<String>? autofillHints;
+ 
+
+  final int? animationIndex;
+
+  const CustomTextFormField({
+      super.key,
       this.hint,
       this.suffixIcon,
       this.obscureText = false,
@@ -31,12 +39,11 @@ class CustomTextFormField extends StatelessWidget {
       this.keyboardType,
       this.maxLength,
       this.maxLines,
-      required this.animationIndex,
-      this.label});
-
-  final int? animationIndex;
-
- 
+      this.label,
+      this.animationIndex,
+      this.onSubmitted,
+      this.textInputAction,
+      this.autofillHints});
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +53,12 @@ class CustomTextFormField extends StatelessWidget {
       maxLength: maxLength,
       validator: validator,
       maxLines: maxLines ?? 1,
-      style: TextStyles.fontCircularSpotify14BlackMedium,
+      style: context.theme.textTheme.bodyLarge,
       autocorrect: true,
       obscureText: obscureText,
+      onFieldSubmitted: onSubmitted,
+      textInputAction: textInputAction,
+      autofillHints: autofillHints,
       decoration: InputDecoration(
         suffixIcon: suffixIcon,
         hintText: hint,
@@ -72,9 +82,8 @@ class CustomTextFormField extends StatelessWidget {
           : null,
     )
     .animate()
-    .slideX(begin: 1, end: 0, duration: const Duration(milliseconds: 500), delay: Duration(milliseconds: (animationIndex ?? 0) * 200))
+    .slideX(begin: -1, end: 0, duration: const Duration(milliseconds: 500), delay: Duration(milliseconds: (animationIndex ?? 0) * 200))
     .fadeIn(duration: const Duration(milliseconds: 500));
-    
     
   }
 }

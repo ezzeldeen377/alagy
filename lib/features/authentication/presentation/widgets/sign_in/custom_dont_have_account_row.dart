@@ -1,7 +1,6 @@
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/helpers/spacer.dart';
 import 'package:alagy/core/theme/app_color.dart';
-import 'package:alagy/core/theme/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomDontHaveAccountRow extends StatelessWidget {

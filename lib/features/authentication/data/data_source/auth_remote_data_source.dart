@@ -5,7 +5,6 @@ import 'package:firebase_cloud_firestore/firebase_cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 
-
 abstract interface class AuthRemoteDataSource {
   Future<UserCredential> signUp(
       {required String email, required String password, required String name});
@@ -16,11 +15,9 @@ abstract interface class AuthRemoteDataSource {
       {required String email, required String password});
   Future<Map<String, dynamic>?> getUserData({required String uid});
   Future<void> signOut();
-  Future<void> googleSignOut();
   Future<UserCredential> googleAuth();
   Future<bool> checkUesrSignin();
- Future<void> updateUser(String uid,Map<String, dynamic> data);
-
+  Future<void> updateUser(String uid, Map<String, dynamic> data);
 }
 
 @Injectable(as: AuthRemoteDataSource)
@@ -136,10 +133,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<UserCredential> googleAuth() async {
     return await executeTryAndCatchForDataLayer(() async {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
-
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
@@ -152,21 +147,16 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<void> googleSignOut() async {
-    return await executeTryAndCatchForDataLayer(() async {
-      await GoogleSignIn().signOut();
-    });
-  }
-
-  @override
   Future<bool> checkUesrSignin() async {
     return await executeTryAndCatchForDataLayer(() async {
       return _auth.currentUser != null;
     });
   }
-    @override
-  Future<void> updateUser(String uid, Map<String, dynamic> data) async{
-  return await executeTryAndCatchForDataLayer(() async {
-await _userCollection.doc(uid).update(data);
-    });  }
+
+  @override
+  Future<void> updateUser(String uid, Map<String, dynamic> data) async {
+    return await executeTryAndCatchForDataLayer(() async {
+      await _userCollection.doc(uid).update(data);
+    });
+  }
 }

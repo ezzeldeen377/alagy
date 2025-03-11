@@ -2,7 +2,6 @@ import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/theme/font_weight_helper.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomeTitleText extends StatelessWidget {
   final String title;

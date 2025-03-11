@@ -24,118 +24,143 @@ class SignInScreen extends StatelessWidget {
     return CustomSignInListener(
       child: PopScope(
         canPop: false,
-        child: Scaffold(
-          body: SingleChildScrollView(
-            child: Form(
-                key: cubit.formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                     CustomeTitleText(title: context.l10n.signInTitle,animatedText: context.l10n.signInWelcomeBack,padding:EdgeInsetsDirectional.only(top: 148.h, bottom: 65.h,end:35.w,start: 35.w),),
-                    const CustomSignInInputFields(),
-                    SizedBox(height: 60.h),
-                    Column(
-                      children: [
-                        BlocBuilder<SignInCubit, SignInState>(
-                          builder: (context, state) {
-                            return state.isLoading ||
-                                    state.isAlreadySignIn ||
-                                    state.isNotSignIn ||
-                                    state.isSuccessSignOut ||
-                                    state.isSuccessSignIn ||
-                                    state.isSuccessGetData
-                                ? const Center(
-                                    child: CircularProgressIndicator(
-                                      color: AppColor.teal,
-                                    ),
-                                  )
-                                : Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                                    child: Center(
-                                      child: CustomButton(
-                                        buttonText: context.l10n.signInButton,
-                                        animationIndex: 3,
-                                        onTapButton: () {
-                                          if (cubit.formKey.currentState!
-                                              .validate()) {
-                                            context
-                                                .read<SignInCubit>()
-                                                .checkUesrSignin(
-                                                  email: cubit.emailController.text,
-                                                  password:
-                                                      cubit.passwordController.text,
-                                                );
-                                          }
-                                        },
-                                      ),
-                                    ),
-                                  );
-                          },
-                        ),
-                        SizedBox(height: 22.h),
-                        CustomDontHaveAccountRow(
-                          onTap: () {
-                            Navigator.pushNamed(context, RouteNames.signUp);
-                          },
-                        ),
-                        verticalSpace(15),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Divider(
-                                indent: 20.w,
-                                thickness: 2,
-                                color: context.isDark
-                                    ? AppColor.ofWhiteColor
-                                    : AppColor.grayColor,
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: Scaffold(
+            body: SingleChildScrollView(
+              child: Form(
+                  key: cubit.formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomeTitleText(
+                        title: context.l10n.signInTitle,
+                        animatedText: context.l10n.signInWelcomeBack,
+                        padding: EdgeInsetsDirectional.only(
+                            top: 148.h, bottom: 65.h, end: 35.w, start: 35.w),
+                      ),
+                      const CustomSignInInputFields(),
+                      SizedBox(height: 60.h),
+                      Column(
+                        children: [
+                          BlocBuilder<SignInCubit, SignInState>(
+                            builder: (context, state) {
+                              return Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                child: Center(
+                                  child: CustomButton(
+                                    buttonContent: state.isLoading ||
+                                            state.isAlreadySignIn ||
+                                            state.isNotSignIn ||
+                                            state.isSuccessSignOut ||
+                                            state.isSuccessSignIn ||
+                                            state.isSuccessGetData
+                                        ? const CircularProgressIndicator()
+                                        : Text(
+                                            context.l10n.signInButton,
+                                            style: context
+                                                .theme.textTheme.titleLarge
+                                                ?.copyWith(
+                                                    color: AppColor.white),
+                                          ),
+                                    animationIndex: 3,
+                                    onTapButton: state.isLoading ||
+                                            state.isAlreadySignIn ||
+                                            state.isNotSignIn ||
+                                            state.isSuccessSignOut ||
+                                            state.isSuccessSignIn ||
+                                            state.isSuccessGetData
+                                        ? null
+                                        : () {
+                                            if (cubit.formKey.currentState!
+                                                .validate()) {
+                                              context
+                                                  .read<SignInCubit>()
+                                                  .checkUesrSignin(
+                                                    email: cubit
+                                                        .emailController.text,
+                                                    password: cubit
+                                                        .passwordController
+                                                        .text,
+                                                  );
+                                            }
+                                          },
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                          SizedBox(height: 22.h),
+                          CustomDontHaveAccountRow(
+                            onTap: () {
+                              Navigator.pushNamed(context, RouteNames.signUp);
+                            },
+                          ),
+                          verticalSpace(15),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Divider(
+                                  indent: 20.w,
+                                  thickness: 2,
+                                  color: context.isDark
+                                      ? AppColor.ofWhiteColor
+                                      : AppColor.grayColor,
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Text(
-                                context.l10n.signInDividerOr,
-                                style: context.theme.textTheme.bodyMedium,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Text(
+                                  context.l10n.signInDividerOr,
+                                  style: context.theme.textTheme.bodyMedium,
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              child: Divider(
-                                endIndent: 20.w,
-                                thickness: 2,
-                                color: context.isDark
-                                    ? AppColor.ofWhiteColor
-                                    : AppColor.grayColor,
+                              Expanded(
+                                child: Divider(
+                                  endIndent: 20.w,
+                                  thickness: 2,
+                                  color: context.isDark
+                                      ? AppColor.ofWhiteColor
+                                      : AppColor.grayColor,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        verticalSpace(25),
-                        BlocBuilder<SignInCubit, SignInState>(
-                          builder: (context, state) {
-                            return state.isGoogleAuthLoading
-                                ? const Center(
-                                    child: CircularProgressIndicator(
-                                      color: AppColor.teal,
-                                    ),
-                                  )
-                                : Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 30.w),
-                                    child: GoogleButton(
-                                      onTapButton: () {
-                                        context.read<SignInCubit>().googleAuth();
-                                      },
-                                    ),
-                                  );
-                          },
-                        ),
-                        SizedBox(height: 10.h),
-                      ],
-                    ).animate()
-          .slideY(begin: 1, end: 0, duration: const Duration(milliseconds: 500), delay: Duration(milliseconds: ( 3) * 200 + 200))
-          .fadeIn(duration: const Duration(milliseconds: 500), delay: Duration(milliseconds: (3) * 200 + 200))
-          .then(delay: const Duration(milliseconds: 200)),
-                  ],
-                )),
+                            ],
+                          ),
+                          verticalSpace(25),
+                          BlocBuilder<SignInCubit, SignInState>(
+                            builder: (context, state) {
+                              return Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 30.w),
+                                child: GoogleButton(
+                                  isLoading: state.isGoogleAuthLoading,
+                                  onTapButton: () {
+                                    context.read<SignInCubit>().googleAuth();
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                          SizedBox(height: 10.h),
+                        ],
+                      )
+                          .animate()
+                          .slideY(
+                              begin: 1,
+                              end: 0,
+                              duration: const Duration(milliseconds: 500),
+                              delay:
+                                  const Duration(milliseconds: (3) * 200 + 200))
+                          .fadeIn(
+                              duration: const Duration(milliseconds: 500),
+                              delay:
+                                  const Duration(milliseconds: (3) * 200 + 200))
+                          .then(delay: const Duration(milliseconds: 200)),
+                    ],
+                  )),
+            ),
           ),
         ),
       ),

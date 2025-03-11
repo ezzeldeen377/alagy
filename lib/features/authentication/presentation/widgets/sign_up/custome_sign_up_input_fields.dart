@@ -1,7 +1,6 @@
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/helpers/spacer.dart';
 import 'package:alagy/core/theme/app_color.dart';
-import 'package:alagy/core/theme/text_styles.dart';
 import 'package:alagy/core/utils/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,6 +43,8 @@ class CustomeSignUpInputFields extends StatelessWidget {
             ),
             controller: cubit.emailController,
             animationIndex: 0,
+            textInputAction: TextInputAction.next,
+            autofillHints: const [AutofillHints.email],
           ),
           SizedBox(height: 15.h),
           Text(
@@ -60,6 +61,8 @@ class CustomeSignUpInputFields extends StatelessWidget {
             ),
             controller: cubit.nameController,
             animationIndex: 1,
+            textInputAction: TextInputAction.next,
+            autofillHints: const [AutofillHints.username],
           ),
           SizedBox(height: 15.h),
           Text(
@@ -86,6 +89,8 @@ class CustomeSignUpInputFields extends StatelessWidget {
                 ),
                 controller: cubit.passwordController,
                 animationIndex: 2,
+                textInputAction: TextInputAction.next,
+                autofillHints: const [AutofillHints.newPassword],
               );
             },
           ),
@@ -123,6 +128,8 @@ class CustomeSignUpInputFields extends StatelessWidget {
                   ),
                 ),
                 controller: cubit.confirmPasswordController,
+                textInputAction: TextInputAction.done,
+                autofillHints: const [AutofillHints.newPassword],
               );
             },
           ),

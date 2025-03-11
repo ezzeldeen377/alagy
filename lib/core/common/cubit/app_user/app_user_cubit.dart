@@ -82,7 +82,7 @@ class AppUserCubit extends Cubit<AppUserState> {
         (r) => emit(state.copyWith(state: AppUserStates.loggedIn, user: r)));
   }
 
-  Future<void> signOutFromEmailandPassword() async {
+  Future<void> onSignOut() async {
     final res = await authRepository.signOut();
     res.fold(
         (l) => emit(state.copyWith(
@@ -92,15 +92,7 @@ class AppUserCubit extends Cubit<AppUserState> {
         (r) => emit(state.copyWith(state: AppUserStates.signOut)));
   }
 
-  Future<void> signOutFromGoogle() async {
-    final res = await authRepository.googleSignOut();
-    res.fold(
-        (l) => emit(state.copyWith(
-              state: AppUserStates.failure,
-              errorMessage: l.message,
-            )),
-        (r) => emit(state.copyWith(state: AppUserStates.signOut)));
-  }
+
 
   void isFirstInstallation() async {
     final res = await SecureStorageHelper.isFirstInstallation();

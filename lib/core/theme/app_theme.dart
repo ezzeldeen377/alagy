@@ -12,7 +12,12 @@ class AppTheme {
       primaryColor: AppColor.tealNew,
       scaffoldBackgroundColor: AppColor.white,
       applyElevationOverlayColor: true,
+      progressIndicatorTheme:
+          const ProgressIndicatorThemeData(color: AppColor.white),
       iconTheme: const IconThemeData(color: AppColor.darkTeal),
+      snackBarTheme: const SnackBarThemeData(
+          backgroundColor: AppColor.tealNew,
+          contentTextStyle: TextStyles.fontCircularSpotify14BlackMedium),
       inputDecorationTheme: InputDecorationTheme(
         errorMaxLines: 2,
         contentPadding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
@@ -138,6 +143,11 @@ class AppTheme {
       primaryColor: AppColor.offWhite,
       scaffoldBackgroundColor: AppColor.darkGray,
       applyElevationOverlayColor: true,
+      progressIndicatorTheme:
+          const ProgressIndicatorThemeData(color: AppColor.white),
+      snackBarTheme: const SnackBarThemeData(
+          backgroundColor: AppColor.tealNew,
+          contentTextStyle: TextStyles.fontCircularSpotify14BlackMedium),
       iconTheme: const IconThemeData(color: AppColor.white),
       inputDecorationTheme: InputDecorationTheme(
         isDense: true,
@@ -173,7 +183,7 @@ class AppTheme {
             ),
             borderRadius: BorderRadius.circular(15)),
         focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: AppColor.textFieldBorder,
               width: 2,
             ),

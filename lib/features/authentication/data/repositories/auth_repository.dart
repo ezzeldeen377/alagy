@@ -20,10 +20,9 @@ abstract interface class AuthRepository {
       {required String email, required String password});
   Future<Either<Failure, UserModel>> getUser({required String uid});
   Future<Either<Failure, void>> signOut();
-  Future<Either<Failure, void>> googleSignOut();
   Future<Either<Failure, UserModel>> googleAuth();
   Future<Either<Failure, bool>> checkUesrSignin();
-    Future<Either<Failure, void>> updateUser(String uid,Map<String, dynamic> data);
+  Future<Either<Failure, void>> updateUser(String uid,Map<String, dynamic> data);
 
 }
 
@@ -130,12 +129,7 @@ class AuthRepositoryImpl implements AuthRepository {
     });
   }
 
-  @override
-  Future<Either<Failure, void>> googleSignOut() async {
-    return await executeTryAndCatchForRepository(() async {
-      await _authDataSource.googleSignOut();
-    });
-  }
+
 
   @override
   Future<Either<Failure, bool>> checkUesrSignin() async {

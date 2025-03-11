@@ -36,6 +36,8 @@ class CustomSignInInputFields extends StatelessWidget {
               Icons.email_outlined,
             ),
             controller: cubit.emailController,
+            textInputAction: TextInputAction.next,
+            autofillHints: const [AutofillHints.email],
           ),
           SizedBox(height: 15.h),
           Text(
@@ -47,6 +49,7 @@ class CustomSignInInputFields extends StatelessWidget {
             builder: (context, state) {
               return CustomTextFormField(
                 animationIndex: 1,
+              validator: emptyValidator,
                 hint: context.l10n.signInPasswordHint,
                 obscureText: state.isVisible,
                 keyboardType: TextInputType.visiblePassword,
@@ -61,6 +64,16 @@ class CustomSignInInputFields extends StatelessWidget {
                   ),
                 ),
                 controller: cubit.passwordController,
+                onSubmitted: (value) {
+                  if (cubit.formKey.currentState!.validate()) {
+                    context.read<SignInCubit>().checkUesrSignin(
+                          email: cubit.emailController.text,
+                          password: cubit.passwordController.text,
+                        );
+                  }
+                  print("done");
+                },
+                textInputAction: TextInputAction.done,
               );
             },
           ),

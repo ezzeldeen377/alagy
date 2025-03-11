@@ -1,3 +1,4 @@
+import 'package:alagy/core/common/screens/initial_screen.dart';
 import 'package:alagy/core/di/di.dart';
 import 'package:alagy/core/routes/routes.dart';
 import 'package:alagy/features/authentication/presentation/cubits/sign_in_cubit/sign_in_cubit.dart';
@@ -8,25 +9,57 @@ import 'package:alagy/features/authentication/presentation/screens/sign_up_scree
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 class AlagyRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case RouteNames.onboarding:
-        return MaterialPageRoute(builder: (_) => const OnboardingScreen());
-      case RouteNames.signIn:
-        return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-                  create: (context) => getIt<SignInCubit>(),
-                  child: const SignInScreen(),
-                ));
-      case RouteNames.signUp:
-        return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-                  create: (context) => getIt<SignUpCubit>(),
-                  child: const SignUpScreen(),
-                ));
 
+      // Auth routes
+      case RouteNames.onboarding:
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const OnboardingScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+        );
+      case RouteNames.signIn:
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
+            create: (context) => getIt<SignInCubit>(),
+            child: const SignInScreen(),
+          ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(-1.0, 0.0),
+                end: Offset.zero,
+              ).animate(CurvedAnimation(
+                parent: animation,
+                curve: Curves.easeInOut,
+              )),
+              child: child,
+            );
+          },
+        );
+      case RouteNames.signUp:
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
+            create: (context) => getIt<SignUpCubit>(),
+            child: const SignUpScreen(),
+          ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+        );
+        // home screen routes
+              case RouteNames.initial:
+        return MaterialPageRoute(builder: (context) => const InitialScreen());
 //       case RouteNames.doctorsScreen:
 //         return MaterialPageRoute(
 //             builder: (_) => BlocProvider(
@@ -61,8 +94,7 @@ class AlagyRouter {
 //                 ));
 //       case RouteNames.measurement:
 //         return MaterialPageRoute(builder: (context) =>  MeasurementPage());
-//       case RouteNames.initial:
-//         return MaterialPageRoute(builder: (context) => const InitialScreen());
+
 //       case RouteNames.editDoctor:
 //         return MaterialPageRoute(
 //             builder: (context) => BlocProvider(

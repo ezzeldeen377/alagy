@@ -63,6 +63,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '81987773272',
     projectId: 'alagy-92af4',
     storageBucket: 'alagy-92af4.firebasestorage.app',
+    androidClientId: '81987773272-1hj1eq7bm1iktbj2j0qo5gquanf7o8pc.apps.googleusercontent.com',
+    iosClientId: '81987773272-i9q8r9hk9h0cvhgv7pok2q2rrivr0td4.apps.googleusercontent.com',
     iosBundleId: 'com.example.alagy',
   );
+
 }
