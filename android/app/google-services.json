@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "81987773272",
+    "project_id": "alagy-92af4",
+    "storage_bucket": "alagy-92af4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81987773272:android:360e3aa2f597c274d37b2d",
+        "android_client_info": {
+          "package_name": "com.example.alagy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81987773272-chatcduls4e15ptd5knfs6k9pk5rhn33.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.alagy",
+            "certificate_hash": "a64034eed826f18e1c59b0856a9f98a2655f8459"
+          }
+        },
+        {
+          "client_id": "81987773272-h73s3u5losac5d1vdpiv2pfqhs7rahot.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLduaIo49exBtG0o-mEdP1beFLY27_mDU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81987773272-dqcptv391978stocs5a2l5aa6r1qa44j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "81987773272-i9q8r9hk9h0cvhgv7pok2q2rrivr0td4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.alagy"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
