@@ -1,18 +1,18 @@
-# Set the iOS platform version (e.g., 13.0)
-platform :ios, '13.0'
+platform :ios, '13.0'  # Adjust this based on your app's minimum iOS version
 
-# Include Flutter dependencies
+use_frameworks!
+use_modular_headers!
+
 flutter_application_path = '../'
 load File.join(flutter_application_path, '.ios', 'Flutter', 'podhelper.rb')
 
-# Install Flutter plugins
-install_all_flutter_pods(flutter_application_path)
+target 'Runner' do
+  use_frameworks!
+  use_modular_headers!
 
-# Disable CocoaPods static framework warning
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    target.build_configurations.each do |config|
-      config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
-    end
+  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+
+  target 'RunnerTests' do
+    inherit! :search_paths
   end
 end
