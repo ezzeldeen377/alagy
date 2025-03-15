@@ -1,4 +1,5 @@
 import 'package:alagy/core/common/enities/user_model.dart';
+import 'package:alagy/core/constants/firebase_collections.dart';
 import 'package:alagy/core/utils/try_and_catch.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_cloud_firestore/firebase_cloud_firestore.dart';
@@ -25,8 +26,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  CollectionReference get _userCollection => firestore.collection('users');
-  CollectionReference get _doctorCollection => firestore.collection('doctors');
+  CollectionReference get _userCollection => firestore.collection(FirebaseCollections.usersCollection);
   @override
   Future<UserCredential> signUp(
       {required String email,

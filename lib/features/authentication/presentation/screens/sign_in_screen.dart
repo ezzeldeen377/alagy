@@ -78,13 +78,7 @@ class SignInScreen extends StatelessWidget {
                                                 .validate()) {
                                               context
                                                   .read<SignInCubit>()
-                                                  .checkUesrSignin(
-                                                    email: cubit
-                                                        .emailController.text,
-                                                    password: cubit
-                                                        .passwordController
-                                                        .text,
-                                                  );
+                                                  .signIn();
                                             }
                                           },
                                   ),

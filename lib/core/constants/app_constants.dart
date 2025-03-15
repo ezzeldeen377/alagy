@@ -21,3 +21,7 @@ enum SignInMethods{
     google,
    
   }
+  enum Role{
+  patient,
+  doctor
+}

@@ -1,3 +1,4 @@
+import 'package:alagy/core/common/enities/user_model.dart';
 import 'package:alagy/core/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,10 +11,10 @@ class CustomSignInListener extends StatelessWidget {
   final Widget child;
   const CustomSignInListener({super.key, required this.child});
 
-  void _navigateToHome(BuildContext context) {
+  void _navigateToHome(BuildContext context,UserModel user) {
     Navigator.pushNamedAndRemoveUntil(
       context,
-      RouteNames.initial,
+      RouteNames.editDoctor,arguments:user ,
       (route) => false,
     );
   }
@@ -51,7 +52,7 @@ class CustomSignInListener extends StatelessWidget {
 
         if (state.isSuccessGetData) {
           await appUserCubit.saveUserData(state.userModel);
-          _navigateToHome(context);
+          _navigateToHome(context,state.userModel!);
           return;
         }
 
@@ -68,7 +69,7 @@ class CustomSignInListener extends StatelessWidget {
 
         if (state.isSetUserDataSuccess) {
           await appUserCubit.saveUserData(state.userModel);
-          _navigateToHome(context);
+          _navigateToHome(context,state.userModel!);
           return;
         }
 

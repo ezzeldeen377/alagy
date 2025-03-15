@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/app_settings_cubit.dart';
 import '../cubit/app_settings_state.dart';
+import 'package:alagy/core/helpers/extensions.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -10,7 +11,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(context.l10n.settings),
       ),
       
       body: BlocBuilder<AppSettingsCubit, AppSettingsState>(
@@ -18,8 +19,9 @@ class SettingsScreen extends StatelessWidget {
           return ListView(
             children: [
               SwitchListTile(
-                title: const Text('Dark Mode'),
+                title: Text(context.l10n.darkMode),
                 value: state.themeMode == ThemeMode.dark,
+                activeColor: Theme.of(context).primaryColor,
                 onChanged: (value) {
                   context.read<AppSettingsCubit>().setTheme(
                         value ? ThemeMode.dark : ThemeMode.light,
@@ -27,7 +29,7 @@ class SettingsScreen extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: const Text('Language'),
+                title: Text(context.l10n.language),
                 trailing: Text(state.locale.languageCode.toUpperCase()),
                 onTap: () {
                   showModalBottomSheet(
@@ -38,7 +40,7 @@ class SettingsScreen extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           ListTile(
-                            title: const Text('English'),
+                            title: Text(context.l10n.english),
                             trailing: state.locale.languageCode == 'en'
                                 ? const Icon(Icons.check)
                                 : null,
@@ -50,7 +52,7 @@ class SettingsScreen extends StatelessWidget {
                             },
                           ),
                           ListTile(
-                            title: const Text('العربية'),
+                            title: Text(context.l10n.arabic),
                             trailing: state.locale.languageCode == 'ar'
                                 ? const Icon(Icons.check)
                                 : null,

@@ -1,5 +1,110 @@
 {
   "@@locale": "en",
+  "editDoctorTitle": "Edit Profile",
+  "@editDoctorTitle": {
+    "description": "Title text shown on the edit doctor profile screen"
+  },
+  "editDoctorPersonalInfo": "Personal Information",
+  "@editDoctorPersonalInfo": {
+    "description": "Section header for personal information in edit doctor profile"
+  },
+  "editDoctorProfessionalInfo": "Professional Information",
+  "@editDoctorProfessionalInfo": {
+    "description": "Section header for professional information in edit doctor profile"
+  },
+  "editDoctorBio": "Bio",
+  "@editDoctorBio": {
+    "description": "Section header for bio in edit doctor profile"
+  },
+  "editDoctorBioHint": "Write something about yourself...",
+  "@editDoctorBioHint": {
+    "description": "Hint text for bio input field"
+  },
+  "editDoctorRequiredField": "This field is required",
+  "@editDoctorRequiredField": {
+    "description": "Error message for required fields"
+  },
+  "editDoctorInvalidEmail": "Please enter a valid email address",
+  "@editDoctorInvalidEmail": {
+    "description": "Error message for invalid email format"
+  },
+  "editDoctorInvalidPhone": "Phone number must be at least 10 digits",
+  "@editDoctorInvalidPhone": {
+    "description": "Error message for invalid phone number"
+  },
+  "editDoctorBioRequired": "Please write something about yourself",
+  "@editDoctorBioRequired": {
+    "description": "Error message when bio is empty"
+  },
+  "editDoctorName": "Name",
+  "@editDoctorName": {
+    "description": "Label for doctor name field"
+  },
+  "editDoctorEmail": "Email",
+  "@editDoctorEmail": {
+    "description": "Label for doctor email field"
+  },
+  "editDoctorPhone": "Phone Number",
+  "@editDoctorPhone": {
+    "description": "Label for doctor phone number field"
+  },
+  "editDoctorProfilePicture": "Profile Picture",
+  "@editDoctorProfilePicture": {
+    "description": "Section header for profile picture in edit doctor profile"
+  },
+  "editDoctorSpecialization": "Specialization",
+  "@editDoctorSpecialization": {
+    "description": "Label for doctor specialization field"
+  },
+  "editDoctorQualification": "Qualification",
+  "@editDoctorQualification": {
+    "description": "Label for doctor qualification field"
+  },
+  "editDoctorLicense": "License Number",
+  "@editDoctorLicense": {
+    "description": "Label for doctor license number field"
+  },
+  "editDoctorHospital": "Hospital/Clinic Name",
+  "@editDoctorHospital": {
+    "description": "Label for doctor hospital/clinic name field"
+  },
+  "editDoctorExperience": "Years of Experience",
+  "@editDoctorExperience": {
+    "description": "Label for doctor years of experience field"
+  },
+  "editDoctorFee": "Consultation Fee",
+  "@editDoctorFee": {
+    "description": "Label for doctor consultation fee field"
+  },
+  "editDoctorAddress": "Address",
+  "@editDoctorAddress": {
+    "description": "Label for doctor address field"
+  },
+  "skip": "Skip",
+  "@skip": {
+    "description": "Skip button text used in various screens"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Title text shown on the settings screen"
+  },
+  "darkMode": "Dark Mode",
+  "@darkMode": {
+    "description": "Label for dark mode toggle in settings"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Label for language selection in settings"
+  },
+  "english": "English",
+  "@english": {
+    "description": "English language option in settings"
+  },
+  "arabic": "Arabic",
+  "@arabic": {
+    "description": "Arabic language option in settings"
+  },
+
   "onboardingWelcome": "Welcome",
   "@onboardingWelcome": {
     "description": "Welcome text shown at the top of the onboarding screen"
@@ -100,6 +205,35 @@
   "@signUpUsernameHint": {
     "description": "Hint text for the username input field on the sign up screen"
   },
+  "validatorEmptyField": "Oops! It looks like you missed this one. Please fill it in.",
+  "@validatorEmptyField": {
+    "description": "Error message shown when a required field is empty"
+  },
+  "validatorInvalidPhone": "Please enter a valid Egyptian mobile number (starting with 01 followed by 9 numbers).",
+  "@validatorInvalidPhone": {
+    "description": "Error message shown when phone number format is invalid"
+  },
+  "validatorInvalidNumber": "Please enter a valid number greater than 0.",
+  "@validatorInvalidNumber": {
+    "description": "Error message shown when number input is invalid"
+  },
+  "validatorEnterEmail": "Please enter your email",
+  "@validatorEnterEmail": {
+    "description": "Error message shown when email field is empty"
+  },
+  "validatorInvalidEmail": "Please enter a valid email address",
+  "@validatorInvalidEmail": {
+    "description": "Error message shown when email format is invalid"
+  },
+  "validatorEnterPassword": "Please enter your password",
+  "@validatorEnterPassword": {
+    "description": "Error message shown when password field is empty"
+  },
+  "validatorInvalidPassword": "Password must be at least 8 characters,\ninclude an uppercase letter,\n number, and symbol",
+  "@validatorInvalidPassword": {
+    "description": "Error message shown when password format is invalid"
+  },
+
   "signUpPasswordLabel": "Password",
   "@signUpPasswordLabel": {
     "description": "Label for the password input field on the sign up screen"
@@ -139,5 +273,99 @@
   "signIn": "Sign In",
   "@signIn": {
     "description": "Text for the sign in link"
+  },
+  "tryCatchNetworkError": "Network error. Please check your connection and try again.",
+  "@tryCatchNetworkError": {
+    "description": "Error message shown when there is a network connectivity issue"
+  },
+  "tryCatchInvalidEmail": "Please enter a valid email address",
+  "@tryCatchInvalidEmail": {
+    "description": "Error message shown when the email format is invalid"
+  },
+  "tryCatchUserDisabled": "This account has been disabled",
+  "@tryCatchUserDisabled": {
+    "description": "Error message shown when the user account is disabled"
+  },
+  "tryCatchUserNotFound": "Account not found. Please check your credentials",
+  "@tryCatchUserNotFound": {
+    "description": "Error message shown when the user account is not found"
+  },
+  "tryCatchWrongPassword": "Incorrect password",
+  "@tryCatchWrongPassword": {
+    "description": "Error message shown when the password is incorrect"
+  },
+  "tryCatchEmailInUse": "This email is already registered",
+  "@tryCatchEmailInUse": {
+    "description": "Error message shown when the email is already registered"
+  },
+  "tryCatchWeakPassword": "Please use a stronger password",
+  "@tryCatchWeakPassword": {
+    "description": "Error message shown when the password is too weak"
+  },
+  "tryCatchInvalidCredential": "Invalid email or password",
+  "@tryCatchInvalidCredential": {
+    "description": "Error message shown when the credentials are invalid"
+  },
+  "tryCatchTooManyRequests": "Too many attempts. Please try again later.",
+  "@tryCatchTooManyRequests": {
+    "description": "Error message shown when there are too many login attempts"
+  },
+  "tryCatchOperationNotAllowed": "This operation is not allowed. Please try again later.",
+  "@tryCatchOperationNotAllowed": {
+    "description": "Error message shown when the operation is not allowed"
+  },
+  "tryCatchAuthFailed": "Authentication failed. Please try again.",
+  "@tryCatchAuthFailed": {
+    "description": "Generic authentication failure message"
+  },
+  "appName": "Alagy",
+  "@appName": {
+    "description": "The name of the application"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings menu item text"
+  },
+  "welcomeMessage": "Welcome, {name}",
+  "@welcomeMessage": {
+    "description": "Welcome message with user name placeholder",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "roleLabel": "Role: {role}",
+  "@roleLabel": {
+    "description": "Role label with role type placeholder",
+    "placeholders": {
+      "role": {
+        "type": "String"
+      }
+    }
+  },
+  "signOut": "Sign Out",
+  "@signOut": {
+    "description": "Sign out button text"
+  },
+  "tryCatchRequestTimeout": "Request timed out. Please check your connection and try again.",
+  "@tryCatchRequestTimeout": {
+    "description": "Error message shown when the request times out"
+  },
+  "tryCatchServiceUnavailable": "Service temporarily unavailable. Please try again later.",
+  "@tryCatchServiceUnavailable": {
+    "description": "Error message shown when the service is temporarily unavailable"
+  },
+  "tryCatchGenericError": "Something went wrong. Please try again later.",
+  "@tryCatchGenericError": {
+    "description": "Generic error message for unexpected errors"
+  },
+  "editDoctorSave": "Save",
+  "@editDoctorSave": {
+    "description": "Save button text in edit doctor profile"
+  },
+  "editDoctorCompleteDataLater": "You can complete entering data later and continue to the application.",
+  "@editDoctorCompleteDataLater": {
+    "description": "Message shown for completing data later option"
   }
 }

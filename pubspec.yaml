@@ -34,7 +34,8 @@ dependencies:
   animated_text_kit: ^4.2.3
   flutter_animate: ^4.5.2
   fluttertoast: ^8.2.12
-
+  dismissible_page: ^1.0.2
+  supabase_flutter: ^2.8.4
 dev_dependencies:
   flutter_test:
     sdk: flutter
