@@ -49,7 +49,7 @@ class CustomSignInInputFields extends StatelessWidget {
             builder: (context, state) {
               return CustomTextFormField(
                 animationIndex: 1,
-              validator: emptyValidator,
+                validator: emptyValidator,
                 hint: context.l10n.signInPasswordHint,
                 obscureText: state.isVisible,
                 keyboardType: TextInputType.visiblePassword,
@@ -66,10 +66,7 @@ class CustomSignInInputFields extends StatelessWidget {
                 controller: cubit.passwordController,
                 onSubmitted: (value) {
                   if (cubit.formKey.currentState!.validate()) {
-                    context.read<SignInCubit>().checkUesrSignin(
-                          email: cubit.emailController.text,
-                          password: cubit.passwordController.text,
-                        );
+                    context.read<SignInCubit>().signIn();
                   }
                   print("done");
                 },

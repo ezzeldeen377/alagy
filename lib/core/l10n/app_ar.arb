@@ -1,5 +1,110 @@
 {
   "@@locale": "ar",
+  "editDoctorTitle": "تعديل الملف الشخصي",
+  "@editDoctorTitle": {
+    "description": "Title text shown on the edit doctor profile screen"
+  },
+  "editDoctorPersonalInfo": "المعلومات الشخصية",
+  "@editDoctorPersonalInfo": {
+    "description": "Section header for personal information in edit doctor profile"
+  },
+  "editDoctorProfessionalInfo": "المعلومات المهنية",
+  "@editDoctorProfessionalInfo": {
+    "description": "Section header for professional information in edit doctor profile"
+  },
+  "editDoctorBio": "السيرة الذاتية",
+  "@editDoctorBio": {
+    "description": "Section header for bio in edit doctor profile"
+  },
+  "editDoctorBioHint": "اكتب شيئاً عن نفسك...",
+  "@editDoctorBioHint": {
+    "description": "Hint text for bio input field"
+  },
+  "editDoctorRequiredField": "هذا الحقل مطلوب",
+  "@editDoctorRequiredField": {
+    "description": "Error message for required fields"
+  },
+  "editDoctorInvalidEmail": "الرجاء إدخال بريد إلكتروني صحيح",
+  "@editDoctorInvalidEmail": {
+    "description": "Error message for invalid email format"
+  },
+  "editDoctorInvalidPhone": "يجب أن يتكون رقم الهاتف من 10 أرقام على الأقل",
+  "@editDoctorInvalidPhone": {
+    "description": "Error message for invalid phone number"
+  },
+  "editDoctorBioRequired": "الرجاء كتابة شيء عن نفسك",
+  "@editDoctorBioRequired": {
+    "description": "Error message when bio is empty"
+  },
+  "editDoctorName": "الاسم",
+  "@editDoctorName": {
+    "description": "Label for doctor name field"
+  },
+  "editDoctorEmail": "البريد الإلكتروني",
+  "@editDoctorEmail": {
+    "description": "Label for doctor email field"
+  },
+  "editDoctorPhone": "رقم الهاتف",
+  "@editDoctorPhone": {
+    "description": "Label for doctor phone number field"
+  },
+  "editDoctorProfilePicture": "الصورة الشخصية",
+  "@editDoctorProfilePicture": {
+    "description": "Section header for profile picture in edit doctor profile"
+  },
+  "editDoctorSpecialization": "التخصص",
+  "@editDoctorSpecialization": {
+    "description": "Label for doctor specialization field"
+  },
+  "editDoctorQualification": "المؤهل العلمي",
+  "@editDoctorQualification": {
+    "description": "Label for doctor qualification field"
+  },
+  "editDoctorLicense": "رقم الترخيص",
+  "@editDoctorLicense": {
+    "description": "Label for doctor license number field"
+  },
+  "editDoctorHospital": "اسم المستشفى/العيادة",
+  "@editDoctorHospital": {
+    "description": "Label for doctor hospital/clinic name field"
+  },
+  "editDoctorExperience": "سنوات الخبرة",
+  "@editDoctorExperience": {
+    "description": "Label for doctor years of experience field"
+  },
+  "editDoctorFee": "رسوم الاستشارة",
+  "@editDoctorFee": {
+    "description": "Label for doctor consultation fee field"
+  },
+  "editDoctorAddress": "العنوان",
+  "@editDoctorAddress": {
+    "description": "Label for doctor address field"
+  },
+  "skip": "تخطي",
+  "@skip": {
+    "description": "Skip button text used in various screens"
+  },
+  "settings": "الإعدادات",
+  "@settings": {
+    "description": "Title text shown on the settings screen"
+  },
+  "darkMode": "الوضع الداكن",
+  "@darkMode": {
+    "description": "Label for dark mode toggle in settings"
+  },
+  "language": "اللغة",
+  "@language": {
+    "description": "Label for language selection in settings"
+  },
+  "english": "الإنجليزية",
+  "@english": {
+    "description": "English language option in settings"
+  },
+  "arabic": "العربية",
+  "@arabic": {
+    "description": "Arabic language option in settings"
+  },
+
   "onboardingWelcome": "مرحباً",
   "@onboardingWelcome": {
     "description": "Welcome text shown at the top of the onboarding screen"
@@ -100,6 +205,35 @@
   "@signUpUsernameHint": {
     "description": "Hint text for the username input field on the sign up screen"
   },
+  "validatorEmptyField": "عذراً! يبدو أنك نسيت هذا الحقل. يرجى ملؤه.",
+  "@validatorEmptyField": {
+    "description": "Error message shown when a required field is empty"
+  },
+  "validatorInvalidPhone": "يرجى إدخال رقم هاتف مصري صالح (يبدأ بـ 01 متبوعاً بـ 9 أرقام).",
+  "@validatorInvalidPhone": {
+    "description": "Error message shown when phone number format is invalid"
+  },
+  "validatorInvalidNumber": "يرجى إدخال رقم صالح أكبر من 0.",
+  "@validatorInvalidNumber": {
+    "description": "Error message shown when number input is invalid"
+  },
+  "validatorEnterEmail": "يرجى إدخال بريدك الإلكتروني",
+  "@validatorEnterEmail": {
+    "description": "Error message shown when email field is empty"
+  },
+  "validatorInvalidEmail": "يرجى إدخال عنوان بريد إلكتروني صالح",
+  "@validatorInvalidEmail": {
+    "description": "Error message shown when email format is invalid"
+  },
+  "validatorEnterPassword": "يرجى إدخال كلمة المرور",
+  "@validatorEnterPassword": {
+    "description": "Error message shown when password field is empty"
+  },
+  "validatorInvalidPassword": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل،\nوتتضمن حرفاً كبيراً،\nورقماً، ورمزاً",
+  "@validatorInvalidPassword": {
+    "description": "Error message shown when password format is invalid"
+  },
+  
   "signUpPasswordLabel": "كلمة المرور",
   "@signUpPasswordLabel": {
     "description": "Label for the password input field on the sign up screen"
@@ -139,5 +273,43 @@
   "signIn": "تسجيل الدخول",
   "@signIn": {
     "description": "Text for the sign in link"
+  },
+  "editDoctorSave": "حفظ",
+  "@editDoctorSave": {
+    "description": "Save button text in edit doctor profile"
+  },
+  "editDoctorCompleteDataLater": "يمكنك إكمال إدخال البيانات لاحقًا والاستمرار إلى التطبيق",
+  "@editDoctorCompleteDataLater": {
+    "description": "Message shown for completing data later option"
+  },
+  "appName": "علاجي",
+  "@appName": {
+    "description": "The name of the application"
+  },
+  "settings": "الإعدادات",
+  "@settings": {
+    "description": "Settings menu item text"
+  },
+  "welcomeMessage": "مرحباً، {name}",
+  "@welcomeMessage": {
+    "description": "Welcome message with user name placeholder",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "roleLabel": "الدور: {role}",
+  "@roleLabel": {
+    "description": "Role label with role type placeholder",
+    "placeholders": {
+      "role": {
+        "type": "String"
+      }
+    }
+  },
+  "signOut": "تسجيل الخروج",
+  "@signOut": {
+    "description": "Sign out button text"
   }
 }

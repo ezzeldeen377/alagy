@@ -1,9 +1,10 @@
 
 import 'package:alagy/core/helpers/app_regex.dart';
+import 'package:alagy/core/helpers/global_l10n.dart';
 
 String? emptyValidator(String? value) {
   if (value == null || value.trim().isEmpty) {
-    return "Oops! It looks like you missed this one. Please fill it in.";
+    return GlobalL10n.instance.validatorEmptyField;
   }
   return null;
 }
@@ -15,7 +16,7 @@ String? phoneValidator(String? value) {
     return emptyValidation;
   }
   if (!AppRegex.isPhoneValid(value!)) {
-    return "Please enter a valid Egyptian mobile number (starting with 01 followed by 9 numbers).";
+    return GlobalL10n.instance.validatorInvalidPhone;
   }
   return null;
 }
@@ -27,28 +28,28 @@ String? numbersValidator(String? value) {
     return emptyValidation;
   }
   if (!AppRegex.isNumber(value!)) {
-    return "Please enter a valid number greater than 0.";
+    return GlobalL10n.instance.validatorInvalidNumber;
   }
   return null;
 }
 
 String? emailValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your email';
+      return GlobalL10n.instance.validatorEnterEmail;
     }
     // RegEx to validate email format
     if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-      return 'Please enter a valid email address';
+      return GlobalL10n.instance.validatorInvalidEmail;
     }
     return null; // Validation passed
   }
   
 String? passwordValidator(String? value) {
   if (value == null || value.isEmpty) {
-    return 'Please enter your password';
+    return GlobalL10n.instance.validatorEnterPassword;
   }
   if (!RegExp(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$').hasMatch(value)) {
-    return 'Password must be at least 8 characters,\ninclude an uppercase letter,\n number, and symbol';
+    return GlobalL10n.instance.validatorInvalidPassword;
   }
   return null;
  }

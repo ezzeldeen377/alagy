@@ -1,3 +1,4 @@
+import 'package:alagy/core/constants/app_constants.dart';
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/helpers/spacer.dart';
 import 'package:alagy/core/theme/app_color.dart';
@@ -26,7 +27,7 @@ class SignUpScreen extends StatefulWidget {
 class SignUpScreenState extends State<SignUpScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  String selectedRole = 'patient';
+  String selectedRole = Role.patient.name;
 
   @override
   void initState() {
@@ -34,7 +35,7 @@ class SignUpScreenState extends State<SignUpScreen>
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
       setState(() {
-        selectedRole = _tabController.index == 0 ? 'patient' : 'doctor';
+        selectedRole = _tabController.index == 0 ? Role.patient.name : Role.doctor.name;
       });
     });
   }
@@ -55,9 +56,9 @@ class SignUpScreenState extends State<SignUpScreen>
         },
         child: Scaffold(
           body: SafeArea(
-            child: SingleChildScrollView(
-              child: Form(
-                key: cubit.formKey,
+            child: Form(
+              key: cubit.formKey,
+              child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -100,20 +101,22 @@ class SignUpScreenState extends State<SignUpScreen>
                     ),
                     SizedBox(height: 15.h),
                     SizedBox(
-                      height: 460.h,
+                      height: 470.h,
                       child: TabBarView(
                         controller: _tabController,
                         children: [
                           // Patient Form
-                          CustomeSignUpInputFields(
-                            onSubmit: () => () {},
+                          SingleChildScrollView(
+                            child: CustomeSignUpInputFields(
+                              onSubmit: () => () {},
+                            ),
                           ),
                           // Doctor Form
-                          CustomeSignUpInputFields(onSubmit: () => () {}),
+                          SingleChildScrollView(child: CustomeSignUpInputFields(onSubmit: () => () {})),
                         ],
                       ),
                     ),
-
+                            
                     // Sign-Up Button
                     Column(
                       children: [

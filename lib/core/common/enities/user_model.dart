@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class UserModel {
@@ -7,10 +8,8 @@ class UserModel {
   final DateTime createdAt;
   final String? type;
   final String? city;
-  final String? signFrom;
   final String? profileImage;
   final String? phoneNumber;
-   bool? spamer;
   UserModel({
     required this.uid,
     required this.email,
@@ -18,10 +17,8 @@ class UserModel {
     required this.createdAt,
     required this.type,
     this.city,
-    required this.signFrom,
     this.profileImage,
     this.phoneNumber,
-    this.spamer,
   });
   // Add any other fields you need
 
@@ -32,10 +29,8 @@ class UserModel {
     DateTime? createdAt,
     String? type,
     String? city,
-    String? signFrom,
     String? profileImage,
     String? phoneNumber,
-    bool? spamer,
   }) {
     return UserModel(
       uid: uid ?? this.uid,
@@ -44,10 +39,8 @@ class UserModel {
       createdAt: createdAt ?? this.createdAt,
       type: type ?? this.type,
       city: city ?? this.city,
-      signFrom: signFrom ?? this.signFrom,
       profileImage: profileImage ?? this.profileImage,
       phoneNumber: phoneNumber ?? this.phoneNumber,
-      spamer: spamer ?? this.spamer,
     );
   }
 
@@ -59,10 +52,8 @@ class UserModel {
       'createdAt': createdAt.millisecondsSinceEpoch,
       'type': type,
       'city': city,
-      'signFrom': signFrom,
       'profileImage': profileImage,
       'phoneNumber': phoneNumber,
-      'spamer': spamer,
     };
   }
 
@@ -74,10 +65,8 @@ class UserModel {
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
       type: map['type'] != null ? map['type'] as String : null,
       city: map['city'] != null ? map['city'] as String : null,
-      signFrom: map['signFrom'] != null ? map['signFrom'] as String : null,
       profileImage: map['profileImage'] != null ? map['profileImage'] as String : null,
       phoneNumber: map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
-      spamer: map['spamer'] != null ? map['spamer'] as bool : null,
     );
   }
 
@@ -87,7 +76,7 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(uid: $uid, email: $email, name: $name, createdAt: $createdAt, type: $type, city: $city, signFrom: $signFrom, profileImage: $profileImage, phoneNumber: $phoneNumber, spamer: $spamer)';
+    return 'UserModel(uid: $uid, email: $email, name: $name, createdAt: $createdAt, type: $type, city: $city, profileImage: $profileImage, phoneNumber: $phoneNumber)';
   }
 
   @override
@@ -101,10 +90,8 @@ class UserModel {
       other.createdAt == createdAt &&
       other.type == type &&
       other.city == city &&
-      other.signFrom == signFrom &&
       other.profileImage == profileImage &&
-      other.phoneNumber == phoneNumber &&
-      other.spamer == spamer;
+      other.phoneNumber == phoneNumber;
   }
 
   @override
@@ -115,9 +102,7 @@ class UserModel {
       createdAt.hashCode ^
       type.hashCode ^
       city.hashCode ^
-      signFrom.hashCode ^
       profileImage.hashCode ^
-      phoneNumber.hashCode ^
-      spamer.hashCode;
+      phoneNumber.hashCode;
   }
 }

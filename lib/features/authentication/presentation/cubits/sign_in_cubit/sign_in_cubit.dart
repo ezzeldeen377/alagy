@@ -21,7 +21,7 @@ class SignInCubit extends Cubit<SignInState> {
   Future<void> signIn() async {
     emit(state.copyWith(state: SignInStatus.loading));
     final result = await authRepository.signIn(
-        email: state.email!, password: state.password!);
+        email: emailController.text.trim(), password: passwordController.text.trim());
     result.fold(
         (l) => emit(state.copyWith(
               state: SignInStatus.failure,
@@ -97,25 +97,25 @@ class SignInCubit extends Cubit<SignInState> {
             )));
   }
 
-  Future<void> checkUesrSignin(
-      {required String email, required String password}) async {
-    final result = await authRepository.checkUesrSignin();
-    result.fold((error) {
-      emit(state.copyWith(
-          state: SignInStatus.isAlreadySignIn,
-          email: email,
-          password: password,
-          erorrMessage: state.erorrMessage));
-    }, (userData) {
-      if (userData) {
-        emit(state.copyWith(
-            state: SignInStatus.isAlreadySignIn,
-            email: email,
-            password: password));
-      } else {
-        emit(state.copyWith(
-            state: SignInStatus.isNotSignIn, email: email, password: password));
-      }
-    });
-  }
+  // Future<void> checkUesrSignin(
+  //     {required String email, required String password}) async {
+  //   final result = await authRepository.checkUesrSignin();
+  //   result.fold((error) {
+  //     emit(state.copyWith(
+  //         state: SignInStatus.isAlreadySignIn,
+  //         email: email,
+  //         password: password,
+  //         erorrMessage: state.erorrMessage));
+  //   }, (userData) {
+  //     if (userData) {
+  //       emit(state.copyWith(
+  //           state: SignInStatus.isAlreadySignIn,
+  //           email: email,
+  //           password: password));
+  //     } else {
+  //       emit(state.copyWith(
+  //           state: SignInStatus.isNotSignIn, email: email, password: password));
+  //     }
+  //   });
+  // }
 }

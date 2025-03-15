@@ -155,7 +155,5 @@ class AppUserCubit extends Cubit<AppUserState> {
     });
   }
 
-  bool isSpammer(){
-    return state.user?.spamer??false;
-  }
+
 }

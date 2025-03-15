@@ -1,3 +1,4 @@
+import 'package:alagy/core/common/enities/user_model.dart';
 import 'package:alagy/core/common/screens/initial_screen.dart';
 import 'package:alagy/core/di/di.dart';
 import 'package:alagy/core/routes/routes.dart';
@@ -6,6 +7,8 @@ import 'package:alagy/features/authentication/presentation/cubits/sign_up_cubit/
 import 'package:alagy/features/authentication/presentation/screens/on_boarding_screen.dart';
 import 'package:alagy/features/authentication/presentation/screens/sign_in_screen.dart';
 import 'package:alagy/features/authentication/presentation/screens/sign_up_screen.dart';
+import 'package:alagy/features/doctor/presentation/bloc/add_doctor_cubit.dart';
+import 'package:alagy/features/doctor/presentation/pages/edit_doctor_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -60,6 +63,14 @@ class AlagyRouter {
         // home screen routes
               case RouteNames.initial:
         return MaterialPageRoute(builder: (context) => const InitialScreen());
+
+        // doctors screen 
+          case RouteNames.editDoctor:
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => getIt<AddDoctorCubit>()..initState(settings.arguments as UserModel)..initControllers(),
+                  child: const EditProfileScreen(),
+                ));
 //       case RouteNames.doctorsScreen:
 //         return MaterialPageRoute(
 //             builder: (_) => BlocProvider(
@@ -95,12 +106,7 @@ class AlagyRouter {
 //       case RouteNames.measurement:
 //         return MaterialPageRoute(builder: (context) =>  MeasurementPage());
 
-//       case RouteNames.editDoctor:
-//         return MaterialPageRoute(
-//             builder: (context) => BlocProvider(
-//                   create: (context) => getIt<DoctorBloc>()..initState(settings.arguments as DoctorModel),
-//                   child: const EditProfileScreen(),
-//                 ));
+//     
 //       case RouteNames.alarm:
 //         return MaterialPageRoute(
 //             builder: (context) =>  BlocProvider(

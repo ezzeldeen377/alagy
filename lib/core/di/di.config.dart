@@ -20,6 +20,11 @@ import '../../features/authentication/presentation/cubits/sign_in_cubit/sign_in_
     as _i670;
 import '../../features/authentication/presentation/cubits/sign_up_cubit/sign_up_cubit.dart'
     as _i531;
+import '../../features/doctor/data/datasources/doctor_remote_data_source.dart'
+    as _i59;
+import '../../features/doctor/data/repositories/doctor_repository.dart'
+    as _i611;
+import '../../features/doctor/presentation/bloc/add_doctor_cubit.dart' as _i538;
 import '../../features/settings/cubit/app_settings_cubit.dart' as _i50;
 import '../common/cubit/app_user/app_user_cubit.dart' as _i94;
 
@@ -35,10 +40,16 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     gh.factory<_i50.AppSettingsCubit>(() => _i50.AppSettingsCubit());
+    gh.factory<_i59.DoctorRemoteDataSource>(
+        () => _i59.DoctorRemoteDataSourceImpl());
     gh.factory<_i21.AuthRemoteDataSource>(
         () => _i21.AuthRemoteDataSourceImpl());
     gh.factory<_i935.AuthRepository>(() => _i935.AuthRepositoryImpl(
         authDataSource: gh<_i21.AuthRemoteDataSource>()));
+    gh.factory<_i611.DoctorRepository>(() => _i611.DoctorRepositoryImpl(
+        dataSource: gh<_i59.DoctorRemoteDataSource>()));
+    gh.factory<_i538.AddDoctorCubit>(
+        () => _i538.AddDoctorCubit(repository: gh<_i611.DoctorRepository>()));
     gh.factory<_i94.AppUserCubit>(
         () => _i94.AppUserCubit(authRepository: gh<_i935.AuthRepository>()));
     gh.factory<_i670.SignInCubit>(

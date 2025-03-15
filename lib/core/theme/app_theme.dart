@@ -12,11 +12,21 @@ class AppTheme {
       primaryColor: AppColor.tealNew,
       scaffoldBackgroundColor: AppColor.white,
       applyElevationOverlayColor: true,
+      drawerTheme: DrawerThemeData(
+        backgroundColor: AppColor.white,
+        scrimColor: AppColor.offWhite,
+        elevation: 16,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+      
+        
+      ),
       progressIndicatorTheme:
           const ProgressIndicatorThemeData(color: AppColor.white),
       iconTheme: const IconThemeData(color: AppColor.darkTeal),
       snackBarTheme: const SnackBarThemeData(
-          backgroundColor: AppColor.tealNew,
+          backgroundColor: AppColor.darkTeal,
           contentTextStyle: TextStyles.fontCircularSpotify14BlackMedium),
       inputDecorationTheme: InputDecorationTheme(
         errorMaxLines: 2,
@@ -143,6 +153,15 @@ class AppTheme {
       primaryColor: AppColor.offWhite,
       scaffoldBackgroundColor: AppColor.darkGray,
       applyElevationOverlayColor: true,
+      drawerTheme: DrawerThemeData(
+        backgroundColor: AppColor.darkGray,
+        scrimColor: AppColor.blackColor.withOpacity(0.5),
+        elevation: 16,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+     
+      ),
       progressIndicatorTheme:
           const ProgressIndicatorThemeData(color: AppColor.white),
       snackBarTheme: const SnackBarThemeData(

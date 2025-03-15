@@ -1,4 +1,5 @@
 import 'package:alagy/core/common/enities/user_model.dart';
+import 'package:alagy/core/constants/app_constants.dart';
 import 'package:alagy/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -49,12 +50,12 @@ class AuthRepositoryImpl implements AuthRepository {
       final userModel = UserModel(
           uid: userCredential.user!.uid,
           profileImage: userCredential.user?.photoURL ??
-              'https://cdn.vectorstock.com/i/1000v/92/16/default-profile-picture-avatar-user-icon-vector-46389216.jpg',
+              'https://t3.ftcdn.net/jpg/05/87/76/66/360_F_587766653_PkBNyGx7mQh9l1XXPtCAq1lBgOsLl6xH.jpg',
           phoneNumber: userCredential.user?.phoneNumber,
           email: email,
           name: name,
           createdAt: DateTime.now(),
-          type: type, signFrom: '');
+          type: type,);
 
       return userModel;
     });
@@ -115,14 +116,14 @@ class AuthRepositoryImpl implements AuthRepository {
         return UserModel.fromMap(user);
       } else {
         final userModel = UserModel(
-            type: 'normal',
+            type:Role.patient.name ,
             profileImage: userCredential.user?.photoURL,
             phoneNumber: userCredential.user?.phoneNumber,
             uid: userCredential.user!.uid,
             email: userCredential.user!.email!,
             name: userCredential.user!.displayName!,
             createdAt: DateTime.now(),
-            signFrom: 'google');
+            );
         await _authDataSource.setUser(userModel: userModel);
         return userModel;
       }

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:alagy/core/error/failure.dart';
 import 'package:alagy/core/error/netowrk_exception.dart';
+import 'package:alagy/core/helpers/global_l10n.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
@@ -15,66 +16,66 @@ Future<Either<Failure, T>> executeTryAndCatchForRepository<T>(
     return right(result);
   } on NoInternetException {
     return left(
-        Failure("Network error. Please check your connection and try again."));
+        Failure(GlobalL10n.instance.tryCatchNetworkError));
   } on FirebaseAuthException catch (e) {
     if (e.code == 'network-request-failed' ||
         e.message?.contains('network error') == true) {
       return left(Failure(
-          'Network error. Please check your connection and try again.'));
+          GlobalL10n.instance.tryCatchNetworkError));
     }
 
     switch (e.code) {
       case 'invalid-email':
-        return left(Failure("Please enter a valid email address"));
+        return left(Failure(GlobalL10n.instance.tryCatchInvalidEmail));
       case 'user-disabled':
-        return left(Failure("This account has been disabled"));
+        return left(Failure(GlobalL10n.instance.tryCatchUserDisabled));
       case 'user-not-found':
         return left(
-            Failure("Account not found. Please check your credentials"));
+            Failure(GlobalL10n.instance.tryCatchUserNotFound));
       case 'wrong-password':
-        return left(Failure("Incorrect password"));
+        return left(Failure(GlobalL10n.instance.tryCatchWrongPassword));
       case 'email-already-in-use':
-        return left(Failure("This email is already registered"));
+        return left(Failure(GlobalL10n.instance.tryCatchEmailInUse));
       case 'weak-password':
-        return left(Failure("Please use a stronger password"));
+        return left(Failure(GlobalL10n.instance.tryCatchWeakPassword));
       case 'invalid-credential':
-        return left(Failure("Invalid email or password"));
+        return left(Failure(GlobalL10n.instance.tryCatchInvalidCredential));
       case 'too-many-requests':
-        return left(Failure("Too many attempts. Please try again later."));
+        return left(Failure(GlobalL10n.instance.tryCatchTooManyRequests));
       case 'operation-not-allowed':
         return left(
-            Failure("This operation is not allowed. Please try again later."));
+            Failure(GlobalL10n.instance.tryCatchOperationNotAllowed));
       default:
-        return left(Failure('Authentication failed. Please try again.'));
+        return left(Failure(GlobalL10n.instance.tryCatchAuthFailed));
     }
   } on TimeoutException {
     return left(Failure(
-        'Request timed out. Please check your connection and try again.'));
+        GlobalL10n.instance.tryCatchRequestTimeout));
   } on SocketException {
     return left(
-        Failure('Network error. Please check your connection and try again.'));
+        Failure(GlobalL10n.instance.tryCatchNetworkError));
   } on FormatException {
-    return left(Failure('Something went wrong. Please try again.'));
+    return left(Failure(GlobalL10n.instance.tryCatchGenericError));
   } on FirebaseException catch (e) {
     if (e.code == 'network-request-failed' ||
         e.message?.contains('network error') == true) {
       return left(Failure(
-          'Network error. Please check your connection and try again.'));
+          GlobalL10n.instance.tryCatchNetworkError));
     }
-            print('@@@@@@@@@@@@@@@@${e.toString()}');
+    print('@@@@@@@@@@@@@@@@${e.toString()}');
 
     return left(
-        Failure('Service temporarily unavailable. Please try again later.'));
+        Failure(GlobalL10n.instance.tryCatchServiceUnavailable));
   } catch (e) {
     if (e.toString().contains('network error') ||
         e.toString().contains('timeout') ||
         e.toString().contains('RecaptchaCallWrapper')) {
       return left(Failure(
-          'Network error. Please check your connection and try again.'));
+          GlobalL10n.instance.tryCatchNetworkError));
     }
-        print('@@@@@@@@@@@@@@@@${e.toString()}');
+    print('@@@@@@@@@@@@@@@@${e.toString()}');
 
-    return left(Failure('Something went wrong. Please try again later.'));
+    return left(Failure(GlobalL10n.instance.tryCatchGenericError));
   }
 }
 
@@ -87,35 +88,35 @@ Future<T> executeTryAndCatchForDataLayer<T>(Future<T> Function() action) async {
       return await action();
     } else {
       throw NoInternetException(
-          "Network error. Please check your internet connection.");
+          GlobalL10n.instance.tryCatchNetworkError);
     }
   } on FirebaseAuthException catch (e) {
     switch (e.code) {
       case 'invalid-credential':
         throw FirebaseAuthException(
-            message: "Invalid email or password", code: e.code);
+            message: GlobalL10n.instance.tryCatchInvalidCredential, code: e.code);
       case 'weak-password':
         throw FirebaseAuthException(
-            message: "Please use a stronger password", code: e.code);
+            message: GlobalL10n.instance.tryCatchWeakPassword, code: e.code);
       case 'email-already-in-use':
         throw FirebaseAuthException(
-            message: "This email is already registered", code: e.code);
+            message: GlobalL10n.instance.tryCatchEmailInUse, code: e.code);
       case 'wrong-password':
         throw FirebaseAuthException(
-            message: "Incorrect password", code: e.code);
+            message: GlobalL10n.instance.tryCatchWrongPassword, code: e.code);
       case 'user-not-found':
         throw FirebaseAuthException(
-            message: "Account not found. Please check your credentials",
+            message: GlobalL10n.instance.tryCatchUserNotFound,
             code: e.code);
       case 'user-disabled':
         throw FirebaseAuthException(
-            message: "This account has been disabled", code: e.code);
+            message: GlobalL10n.instance.tryCatchUserDisabled, code: e.code);
       case 'invalid-email':
         throw FirebaseAuthException(
-            message: "Please enter a valid email address", code: e.code);
+            message: GlobalL10n.instance.tryCatchInvalidEmail, code: e.code);
       default:
         throw FirebaseAuthException(
-            message: "Authentication failed. Please try again.", code: e.code);
+            message: GlobalL10n.instance.tryCatchAuthFailed, code: e.code);
     }
   } on FirebaseException {
     rethrow;
@@ -127,13 +128,15 @@ Future<T> executeTryAndCatchForDataLayer<T>(Future<T> Function() action) async {
     rethrow;
   } catch (e) {
     print('@@@@@@@@@@@@@@@@${e.toString()}');
-    throw Exception('Something went wrong. Please try again later.');
+    throw Exception(GlobalL10n.instance.tryCatchGenericError);
   }
 }
 
 
 
 // for debug
+
+
 
 
 
