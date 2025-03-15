@@ -25,6 +25,7 @@ jobs:
 
       - name: Install CocoaPods Dependencies
         run: |
+          rm -rf ios/Pods ios/Podfile.lock  # Clean previous Pods
           pod repo update
           pod install --repo-update
         working-directory: ios
