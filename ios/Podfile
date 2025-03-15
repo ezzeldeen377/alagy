@@ -1,1 +1,13 @@
 platform :ios, '13.0'
+
+# Enable Flipper for debugging (optional)
+# Uncomment the following line if you experience issues with Flipper
+# use_frameworks!
+
+target 'Runner' do
+  use_frameworks!
+  use_modular_headers!
+
+  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+
+end
