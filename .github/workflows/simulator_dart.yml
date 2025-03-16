@@ -25,20 +25,25 @@ jobs:
           flutter clean
           flutter pub get
 
+      - name: Verify Installed Plugins
+        run: flutter pub deps  # Check if app_links is installed
+
       - name: Setup Xcode CLI
         run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 
-      - name: Install CocoaPods Dependencies
+      - name: Install CocoaPods (Force Fresh Install)
         run: |
           sudo gem install cocoapods
+          pod repo update
+          rm -rf ios/Pods ios/Podfile.lock
           arch -x86_64 pod install --repo-update
         working-directory: ios
 
-      - name: Verify Flutter Plugins
-        run: flutter pub deps
+      - name: Debug Plugin Registration
+        run: cat ios/Runner/GeneratedPluginRegistrant.m
 
-      - name: Build iOS App (Release)
-        run: flutter build ios --release --no-codesign
+      - name: Build iOS App for Simulator
+        run: flutter build ios --simulator --no-codesign
 
       - name: Prepare IPA Export
         run: |
