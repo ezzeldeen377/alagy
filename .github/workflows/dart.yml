@@ -11,16 +11,33 @@ jobs:
     name: 🎉 iOS Simulator Build
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-      - uses: subosito/flutter-action@v2
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           architecture: x64
 
-      - run: flutter pub get
-      
-      - run: pod repo update
+      - name: Clean and Get Dependencies
+        run: |
+          flutter clean
+          flutter pub get
+
+      - name: Debug System Architecture
+        run: uname -m  # Check if it's arm64 or x86_64
+
+      - name: Verify Installed Plugins
+        run: flutter pub deps  # Check if all dependencies are installed
+
+      - name: Install CocoaPods
+        run: |
+          sudo gem install ffi
+          sudo gem install cocoapods
+          pod repo update
+          rm -rf ios/Pods ios/Podfile.lock
+          arch -x86_64 pod install --repo-update
         working-directory: ios
 
       - name: Build iOS Simulator Version
@@ -41,4 +58,4 @@ jobs:
           file: FlutterApp.zip
           tag: v1.0
           overwrite: true
-          body: "iOS Simulator build for Appetize.io"
+          body: "🚀 iOS Simulator build for Appetize.io (Fixes applied)"
