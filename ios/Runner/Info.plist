@@ -2,8 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>GIDClientID</key>
+	<string>81987773272-i9q8r9hk9h0cvhgv7pok2q2rrivr0td4.apps.googleusercontent.com</string>
 	<key>CFBundleDisplayName</key>
 	<string>Alagy</string>
 	<key>CFBundleExecutable</key>
@@ -45,5 +48,18 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.81987773272-i9q8r9hk9h0cvhgv7pok2q2rrivr0td4</string>
+			</array>
+		</dict>
+	</array>
+
+	
+
 </dict>
 </plist>
