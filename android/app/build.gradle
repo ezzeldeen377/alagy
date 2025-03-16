@@ -25,7 +25,7 @@ android {
     }
     signingConfigs {
     release {
-        storeFile= file("C:/Users/Ezzeldeen/.android/release-key.jks") // Path to your keystore
+        storeFile= file("android/release-key.jks") // Path to your keystore
         storePassword= "01210026268"
         keyAlias ="my-key-alias"
         keyPassword= "01210026268"
