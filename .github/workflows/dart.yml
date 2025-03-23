@@ -1,14 +1,14 @@
-name: iOS-simulator-build
+name: iOS-ipa-build
 
 on:
   workflow_dispatch:
 
 permissions:
-  contents: write  # Ensure GITHUB_TOKEN has write access
+  contents: write  # Allows uploading releases
 
 jobs:
   build-ios:
-    name: 🎉 iOS Simulator Build
+    name: 🎉 iOS Build
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -23,22 +23,27 @@ jobs:
       - run: pod repo update
         working-directory: ios
 
-      - name: Build iOS Simulator Version
-        run: flutter build ios --simulator
 
-      - name: Prepare App for Appetize.io
-        run: |
-          mkdir -p Payload
-          cp -r build/ios/iphonesimulator/Runner.app Payload/
-          cd Payload
-          zip -qq -r -9 FlutterApp.zip Runner.app
-          mv FlutterApp.zip ../FlutterApp.zip
+      # ✅ Build for Simulator (outputs in `build/ios/iphonesimulator`)
+      - run: flutter build ios --simulator --no-codesign
 
-      - name: Upload ZIP to GitHub Releases
+
+
+      # ✅ Prepare iOS Simulator App Archive
+      - run: mkdir Payload
+        working-directory: build/ios/iphonesimulator
+      - run: mv Runner.app Payload
+        working-directory: build/ios/iphonesimulator
+      - run: zip -qq -r -9 FlutterSimulatorExport.zip Payload
+        working-directory: build/ios/iphonesimulator
+
+
+
+      # ✅ Upload iOS Simulator Build
+      - name: Upload iOS Simulator Zip
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: FlutterApp.zip
+          file: build/ios/iphonesimulator/FlutterSimulatorExport.zip
           tag: v1.0
           overwrite: true
-          body: "iOS Simulator build for Appetize.io"
