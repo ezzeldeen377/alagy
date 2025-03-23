@@ -31,7 +31,7 @@ class DoctorModel extends UserModel {
     this.bio,
   }) ;
 
-  factory DoctorModel.fromJson(Map<String, dynamic> json) {
+  factory DoctorModel.fromMap(Map<String, dynamic> json) {
     return DoctorModel(
       uid: json['uid'],
       name: json['name'],

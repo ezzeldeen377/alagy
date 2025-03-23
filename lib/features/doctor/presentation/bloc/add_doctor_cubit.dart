@@ -48,8 +48,16 @@ class AddDoctorCubit extends Cubit<AddDoctorState> {
     return super.close();
   }
 
-  void initState(UserModel doctor) {
-    emit(state.copyWith(status: AddDoctorStatus.initial, doctor: doctor));
+  Future<void> getDoctorDetails(String uid) async {
+    emit(state.copyWith(status: AddDoctorStatus.loading));
+    final response = await repository.getDoctor(uid);
+    response.fold((error) {
+      emit(state.copyWith(
+          status: AddDoctorStatus.error, errorMessage: error.message));
+    }, (success) {
+      emit(state.copyWith(status: AddDoctorStatus.success, doctor: success));
+      initControllers();
+    });
   }
 
   Future<void> addDoctor() async {
@@ -61,7 +69,6 @@ class AddDoctorCubit extends Cubit<AddDoctorState> {
     }, (success) {
       emit(state.copyWith(status: AddDoctorStatus.success));
     });
-      
   }
 
   Future<void> pickPofilePicture() async {
@@ -72,10 +79,8 @@ class AddDoctorCubit extends Cubit<AddDoctorState> {
         status: AddDoctorStatus.pickProfileImageSuccess,
         selectedProfilePicture: image,
       ));
-    
-    }else{
-          emit(state.copyWith(status: AddDoctorStatus.pickProfileImageError));
-
+    } else {
+      emit(state.copyWith(status: AddDoctorStatus.pickProfileImageError));
     }
   }
 
@@ -97,10 +102,10 @@ class AddDoctorCubit extends Cubit<AddDoctorState> {
   void resetState() {
     emit(const AddDoctorState(status: AddDoctorStatus.initial));
   }
-  
+
   DoctorModel prepareDoctorData() {
     return DoctorModel(
-     uid: state.doctor?.uid ?? '',
+      uid: state.doctor?.uid ?? '',
       name: nameController.text,
       email: emailController.text,
       phoneNumber: phoneNumberController.text,
@@ -110,17 +115,20 @@ class AddDoctorCubit extends Cubit<AddDoctorState> {
       licenseNumber: licenseNumberController.text,
       hospitalName: hospitalOrClinicNameController.text,
       createdAt: DateTime.now(),
-      consultationFee:consultationFeeController.text.isEmpty?null: double.parse(consultationFeeController.text),
-      profileImage: state.profilePictureUrl??state.doctor?.profileImage?? '',
-      yearsOfExperience:yearsOfExperienceController.text.isEmpty?null: int.parse(yearsOfExperienceController.text),
+      consultationFee: consultationFeeController.text.isEmpty
+          ? null
+          : double.parse(consultationFeeController.text),
+      profileImage: state.profilePictureUrl ?? state.doctor?.profileImage ?? '',
+      yearsOfExperience: yearsOfExperienceController.text.isEmpty
+          ? null
+          : int.parse(yearsOfExperienceController.text),
       bio: bioController.text,
     );
   }
+
   void initControllers() {
-      nameController.text = state.doctor?.name??'';
-      emailController.text = state.doctor?.email??'';
-      phoneNumberController.text = state.doctor?.phoneNumber??'';
-    
-    
+    nameController.text = state.doctor?.name ?? '';
+    emailController.text = state.doctor?.email ?? '';
+    phoneNumberController.text = state.doctor?.phoneNumber ?? '';
   }
 }

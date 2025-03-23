@@ -74,7 +74,6 @@ class EditProfileScreen extends StatelessWidget {
                         controller: cubit.nameController,
                         label: context.l10n.editDoctorName,
                         icon: Icons.person,
-                        isRequired: true,
                       ),
                       CustomTextField(
                         controller: cubit.emailController,
@@ -82,20 +81,18 @@ class EditProfileScreen extends StatelessWidget {
                         icon: Icons.email,
                         keyboardType: TextInputType.emailAddress,
                         isEnable: false,
-                        isRequired: true,
                       ),
                       CustomTextField(
                         controller: cubit.phoneNumberController,
                         label: context.l10n.editDoctorPhone,
                         icon: Icons.phone,
-                        isRequired: true,
                         keyboardType: TextInputType.phone,
                       ),
                     ],
                   ),
                 ),
 
-                const SizedBox(height: 20.h),
+                 SizedBox(height: 20.h),
 
                 // Professional Information Section
                 CustomContainer(
@@ -108,32 +105,27 @@ class EditProfileScreen extends StatelessWidget {
                         controller: cubit.specializationController,
                         label: context.l10n.editDoctorSpecialization,
                         icon: Icons.work,
-                        isRequired: true,
                       ),
                       CustomTextField(
                         controller: cubit.qualificationController,
                         label: context.l10n.editDoctorQualification,
                         icon: Icons.school,
-                        isRequired: true,
                       ),
                       CustomTextField(
                         controller: cubit.licenseNumberController,
                         label: context.l10n.editDoctorLicense,
                         icon: Icons.assignment,
-                        isRequired: true,
                       ),
                       CustomTextField(
                         controller: cubit.hospitalOrClinicNameController,
                         label: context.l10n.editDoctorHospital,
                         icon: Icons.local_hospital,
-                        isRequired: true,
                       ),
                       CustomTextField(
                         controller: cubit.yearsOfExperienceController,
                         label: context.l10n.editDoctorExperience,
                         icon: Icons.timeline,
                         keyboardType: TextInputType.number,
-                        isRequired: true,
                       ),
                       CustomTextField(
                         controller: cubit.consultationFeeController,
@@ -141,13 +133,12 @@ class EditProfileScreen extends StatelessWidget {
                         icon: Icons.attach_money,
                         keyboardType: const TextInputType.numberWithOptions(
                             decimal: true),
-                        isRequired: true,
                       ),
                     ],
                   ),
                 ),
 
-                const SizedBox(height: 20.h),
+                 SizedBox(height: 20.h),
 
                 // Bio Section
                 CustomContainer(
