@@ -55,7 +55,7 @@ class AddDoctorCubit extends Cubit<AddDoctorState> {
       emit(state.copyWith(
           status: AddDoctorStatus.error, errorMessage: error.message));
     }, (success) {
-      emit(state.copyWith(status: AddDoctorStatus.success, doctor: success));
+      emit(state.copyWith(status: AddDoctorStatus.initial, doctor: success));
       initControllers();
     });
   }
@@ -104,31 +104,46 @@ class AddDoctorCubit extends Cubit<AddDoctorState> {
   }
 
   DoctorModel prepareDoctorData() {
-    return DoctorModel(
-      uid: state.doctor?.uid ?? '',
-      name: nameController.text,
-      email: emailController.text,
-      phoneNumber: phoneNumberController.text,
-      address: addressController.text,
-      specialization: specializationController.text,
-      qualification: qualificationController.text,
-      licenseNumber: licenseNumberController.text,
-      hospitalName: hospitalOrClinicNameController.text,
-      createdAt: DateTime.now(),
-      consultationFee: consultationFeeController.text.isEmpty
-          ? null
-          : double.parse(consultationFeeController.text),
-      profileImage: state.profilePictureUrl ?? state.doctor?.profileImage ?? '',
-      yearsOfExperience: yearsOfExperienceController.text.isEmpty
-          ? null
-          : int.parse(yearsOfExperienceController.text),
-      bio: bioController.text,
-    );
+     final doctor = state.doctor;
+
+  return doctor!.copyWith(
+        name: nameController.text.isEmpty ? null : nameController.text,
+        email: emailController.text.isEmpty ? null : emailController.text,
+        phoneNumber: phoneNumberController.text.isEmpty ? null : phoneNumberController.text,
+        address: addressController.text.isEmpty ? null : addressController.text,
+        specialization: specializationController.text.isEmpty ? null : specializationController.text,
+        qualification: qualificationController.text.isEmpty ? null : qualificationController.text,
+        licenseNumber: licenseNumberController.text.isEmpty ? null : licenseNumberController.text,
+        hospitalName: hospitalOrClinicNameController.text.isEmpty ? null : hospitalOrClinicNameController.text,
+        createdAt: doctor?.createdAt ?? DateTime.now(),
+        consultationFee: consultationFeeController.text.isEmpty
+            ? null
+            : double.tryParse(consultationFeeController.text),
+        profileImage: state.profilePictureUrl?.isNotEmpty == true
+            ? state.profilePictureUrl
+            : doctor?.profileImage,
+        yearsOfExperience: yearsOfExperienceController.text.isEmpty
+            ? null
+            : int.tryParse(yearsOfExperienceController.text),
+        bio: bioController.text.isEmpty ? null : bioController.text,
+        uid: doctor.uid,
+        type: doctor.type
+      );
   }
 
   void initControllers() {
     nameController.text = state.doctor?.name ?? '';
     emailController.text = state.doctor?.email ?? '';
     phoneNumberController.text = state.doctor?.phoneNumber ?? '';
+    addressController.text = state.doctor?.address ?? '';
+    specializationController.text = state.doctor?.specialization ?? '';
+    qualificationController.text = state.doctor?.qualification ?? '';
+    licenseNumberController.text = state.doctor?.licenseNumber ?? '';
+    hospitalOrClinicNameController.text = state.doctor?.hospitalName ?? '';
+    consultationFeeController.text =
+        (state.doctor?.consultationFee != null ? state.doctor!.consultationFee?.toStringAsFixed(0) : '')!;
+    yearsOfExperienceController.text =
+        state.doctor?.yearsOfExperience != null ? state.doctor!.yearsOfExperience.toString() : '';
+    bioController.text = state.doctor?.bio ?? '';
   }
 }

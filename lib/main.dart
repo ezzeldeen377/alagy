@@ -99,24 +99,6 @@ class MyApp extends StatelessWidget {
                     )),
                   );
                 }
-
-                if (state.isFailure()) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(state.errorMessage ?? 'An error occurred'),
-                        TextButton(
-                          onPressed: () => context
-                              .read<AppUserCubit>()
-                              .isFirstInstallation(),
-                          child: Text(context.l10n.retryButton),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-
                 if (state.isNotInstalled()) {
                   return const OnboardingScreen();
                 }

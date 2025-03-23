@@ -311,5 +311,25 @@
   "signOut": "تسجيل الخروج",
   "@signOut": {
     "description": "Sign out button text"
-  }
+  },
+  "retryButton": "حاول مرة اخرى",
+  "@retryButton": {
+    "description": "Retry button text"
+  },
+  "dialogAlertTitle":"تنبية",
+  "@dialogAlertTitle":{
+    "description":"Dialog alert title"
+  },
+  "dialogAlertCancel":"اغلاق",
+  "@dialogAlertCancel":{
+    "description":"Dialog alert cancel button"
+  },
+  "dialogAlertOk":"حسنا",
+  "@dialogAlertOk":{
+    "description":"Dialog alert ok button"
+  },
+  "generalError": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+  "createAccountSuccessfully": "تم إنشاء الحساب بنجاح.",
+  "deleteDataSuccessfully": "تم حذف البيانات بنجاح."
+  
 }

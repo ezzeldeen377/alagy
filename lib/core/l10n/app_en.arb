@@ -367,5 +367,20 @@
   "editDoctorCompleteDataLater": "You can complete entering data later and continue to the application.",
   "@editDoctorCompleteDataLater": {
     "description": "Message shown for completing data later option"
-  }
+  },
+  "retryButton": "Retry",
+  "@retryButton": {
+    "description": "Retry button text"
+  },
+  "dialogAlertTitle": "Alert",
+  "@dialogAlertTitle": {
+    "description": "Title for an alert dialog"
+  },
+  "dialogOkButton": "OK",
+  "@dialogOkButton": {
+    "description": "OK button text in an alert dialog"
+  },
+  "generalError": "An error occurred. Please try again.",
+  "createAccountSuccessfully": "Account created successfully.",
+  "deleteDataSuccessfully": "Data deleted successfully."
 }

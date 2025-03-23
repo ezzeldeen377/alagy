@@ -63,13 +63,13 @@ class SecureStorageHelper {
     }
   }
 
-  static Future<Either<String, String>> isFirstInstallation() async {
+  static Future<Either<String, String?>> isFirstInstallation() async {
     try {
       final flag = await _storage.read(key: _firstTime);
       if (flag != null) {
         return Right(flag);
       }
-      return const Left('User is not Install the app');
+      return const Right(null);
     } catch (e) {
       return Left(e.toString());
     }

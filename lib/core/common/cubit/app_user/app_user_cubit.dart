@@ -18,7 +18,6 @@ class AppUserCubit extends Cubit<AppUserState> {
 
   void init() {
     _authStateSubscription = authRepository.authStateChanges.listen((user) async {
-          await Future.delayed(const Duration(milliseconds: 1500)); // Small delay to let GoogleAuth finish
 
       if (user != null) {
         print("sign in success!!");
