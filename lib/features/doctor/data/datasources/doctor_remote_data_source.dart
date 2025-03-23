@@ -10,6 +10,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class DoctorRemoteDataSource {
   Future<Unit> addDoctor(DoctorModel doctor);
+  Future<Map<String,dynamic>> getDoctor(String uid );
   Future<String> uploadProfilePicture(File image);
 }
 
@@ -17,7 +18,7 @@ abstract class DoctorRemoteDataSource {
 class DoctorRemoteDataSourceImpl extends DoctorRemoteDataSource {
   final supabase = Supabase.instance.client;
   final firestore = FirebaseFirestore.instance;
-  CollectionReference get doctorCollection => firestore.collection(FirebaseCollections.doctorsRequestCollection);
+  CollectionReference get doctorCollection => firestore.collection(FirebaseCollections.usersCollection);
   @override
   Future<Unit> addDoctor(DoctorModel doctor) {
     return executeTryAndCatchForDataLayer(() async {
@@ -45,6 +46,15 @@ class DoctorRemoteDataSourceImpl extends DoctorRemoteDataSource {
 
       // Get the public URL of the uploaded file
       return supabase.storage.from('alagybucket').getPublicUrl(fileName);
+    });
+  }
+  
+  @override
+  Future<Map<String, dynamic>> getDoctor(String uid) async {
+    return executeTryAndCatchForDataLayer(() async {
+      final doctorDoc = await doctorCollection.doc(uid).get();
+
+    return doctorDoc.data() as Map<String, dynamic>;
     });
   }
 }

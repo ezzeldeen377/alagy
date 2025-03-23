@@ -9,6 +9,8 @@ import 'package:injectable/injectable.dart';
 
 abstract class DoctorRepository {
   Future<Either<Failure, Unit>> addDoctor(DoctorModel doctor);
+  Future<Either<Failure, DoctorModel?>> getDoctor(String uid);
+
   Future<Either<Failure, String>> uploadProfilePicture(File image);
 }
 
@@ -29,4 +31,12 @@ class DoctorRepositoryImpl extends DoctorRepository {
       return dataSource.uploadProfilePicture(image);
     });
   }
+  
+  @override
+Future<Either<Failure, DoctorModel?>> getDoctor(String uid) {
+  return executeTryAndCatchForRepository(() async {
+    final data = await dataSource.getDoctor(uid);
+    return DoctorModel.fromMap(data) ;
+  });
+}
 }

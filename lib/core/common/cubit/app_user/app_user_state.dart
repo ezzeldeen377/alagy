@@ -39,31 +39,36 @@ class AppUserState {
   final AppUserStates state;
   final UserModel? user;
   final String? userIntialRoute;
+  final String? userId;
   final String? errorMessage;
   AppUserState({
     required this.state,
     this.user,
     this.userIntialRoute,
+    this.userId,
     this.errorMessage,
   });
 
   AppUserState copyWith({
     AppUserStates? state,
     UserModel? user,
-    String? errorMessage,
     String? userIntialRoute,
+    String? userId,
+    String? errorMessage,
   }) {
     return AppUserState(
       state: state ?? this.state,
       user: user ?? this.user,
-      errorMessage: errorMessage ?? this.errorMessage,
       userIntialRoute: userIntialRoute ?? this.userIntialRoute,
+      userId: userId ?? this.userId,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
   @override
-  String toString() =>
-      'AppUserState(state: $state, user: $user, errorMessage: $errorMessage )';
+  String toString() {
+    return 'AppUserState(state: $state, user: $user, userIntialRoute: $userIntialRoute, userId: $userId, errorMessage: $errorMessage)';
+  }
 
   @override
   bool operator ==(covariant AppUserState other) {

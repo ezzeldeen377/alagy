@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:alagy/core/common/enities/user_model.dart';
+import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 
 enum AddDoctorStatus{
   initial,
@@ -32,7 +33,7 @@ extension AddDoctorStateX on AddDoctorState {
 }
 class AddDoctorState {
 final AddDoctorStatus status;
-final UserModel? doctor;
+final DoctorModel? doctor;
 final String? errorMessage;
 final File? selectedProfilePicture;
 final String? profilePictureUrl;
@@ -48,7 +49,7 @@ final String? profilePictureUrl;
 
   AddDoctorState copyWith({
     AddDoctorStatus? status,
-    UserModel? doctor,
+    DoctorModel? doctor,
     String? errorMessage,
     File? selectedProfilePicture,
     String? profilePictureUrl,

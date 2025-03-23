@@ -10,24 +10,43 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.light,
       primaryColor: AppColor.tealNew,
+      colorScheme: const ColorScheme.light(
+        primary: AppColor.tealNew,
+        onPrimary: AppColor.white,
+        primaryContainer: AppColor.mintGreen,
+        secondary: AppColor.darkTeal,
+        onSecondary: AppColor.white,
+        secondaryContainer: AppColor.teal,
+        surface: AppColor.white,
+        onSurface: AppColor.darkGray,
+        background: AppColor.lightGray,
+        onBackground: AppColor.darkGray
+      ),
       scaffoldBackgroundColor: AppColor.white,
       applyElevationOverlayColor: true,
+      
       drawerTheme: DrawerThemeData(
         backgroundColor: AppColor.white,
-        scrimColor: AppColor.offWhite,
+        scrimColor: AppColor.beige,
         elevation: 16,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
-      
-        
       ),
+      dialogTheme: DialogTheme(
+        backgroundColor: AppColor.white,
+        elevation: 8,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+      ),
+      dialogBackgroundColor: AppColor.white,
       progressIndicatorTheme:
           const ProgressIndicatorThemeData(color: AppColor.white),
       iconTheme: const IconThemeData(color: AppColor.darkTeal),
-      snackBarTheme: const SnackBarThemeData(
+      snackBarTheme:  SnackBarThemeData(
           backgroundColor: AppColor.darkTeal,
-          contentTextStyle: TextStyles.fontCircularSpotify14BlackMedium),
+          contentTextStyle: TextStyles.fontCircularSpotify14BlackMedium.copyWith(color: AppColor.whiteColor) ),
       inputDecorationTheme: InputDecorationTheme(
         errorMaxLines: 2,
         contentPadding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
@@ -150,7 +169,19 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
-      primaryColor: AppColor.offWhite,
+      primaryColor: AppColor.darkTeal,
+      colorScheme: const ColorScheme.dark(
+        primary: AppColor.darkTeal,
+        onPrimary: AppColor.offWhite,
+        primaryContainer: AppColor.teal,
+        secondary: AppColor.mintGreen,
+        onSecondary: AppColor.darkGray,
+        secondaryContainer: AppColor.tealNew,
+        surface: AppColor.darkGray,
+        onSurface: AppColor.offWhite,
+        background: AppColor.textFieldFill,
+        onBackground: AppColor.offWhite
+      ),
       scaffoldBackgroundColor: AppColor.darkGray,
       applyElevationOverlayColor: true,
       drawerTheme: DrawerThemeData(
@@ -160,13 +191,20 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
-     
       ),
+      dialogTheme: DialogTheme(
+        backgroundColor: AppColor.darkGray,
+        elevation: 8,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+      ),
+      dialogBackgroundColor: AppColor.darkGray,
       progressIndicatorTheme:
           const ProgressIndicatorThemeData(color: AppColor.white),
-      snackBarTheme: const SnackBarThemeData(
+      snackBarTheme:  SnackBarThemeData(
           backgroundColor: AppColor.tealNew,
-          contentTextStyle: TextStyles.fontCircularSpotify14BlackMedium),
+          contentTextStyle: TextStyles.fontCircularSpotify14BlackMedium.copyWith(color: AppColor.whiteColor) ),
       iconTheme: const IconThemeData(color: AppColor.white),
       inputDecorationTheme: InputDecorationTheme(
         isDense: true,

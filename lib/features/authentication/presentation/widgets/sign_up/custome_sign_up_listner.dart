@@ -1,3 +1,6 @@
+import 'package:alagy/core/common/cubit/app_user/app_user_cubit.dart';
+import 'package:alagy/core/helpers/extensions.dart';
+import 'package:alagy/core/helpers/navigator.dart';
 import 'package:alagy/core/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,17 +24,14 @@ class CustomeSignUpListner extends StatelessWidget {
         } else if (state.isFailureSaveData) {
           state.erorrMessage;
           cubit.deleteUser(uid: state.userModel?.uid ?? "");
-          showSnackBar(context, state.erorrMessage ?? "error");
+          showSnackBar(context, state.erorrMessage ?? context.l10n.generalError);
         } else if (state.isSuccessSaveData) {
-          cubit.sendVerificationEmail();
-          cubit.signOut();
-          showCustomDialog(context,
-              "your account has been created successfully, please verify your email",
-              () {
-            Navigator.pushReplacementNamed(context, RouteNames.signIn);
+          context.read<AppUserCubit>().onSignOut();
+          showCustomDialog(context, context.l10n.createAccountSuccessfully, () {
+          context.pushNamed(RouteNames.signIn);
           });
         } else if (state.isSuccessDeleteUser) {
-          showSnackBar(context, "delete data Successfully");
+          showSnackBar(context, context.l10n.deleteDataSuccessfully);
         }
       },
       child: child,

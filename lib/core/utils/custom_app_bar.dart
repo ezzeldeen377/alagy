@@ -42,7 +42,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
               onPressed: () {
-context.pushNamedAndRemoveAll(RouteNames.initial)              ;},
+context.pushReplacementNamed(RouteNames.initial)              ;},
             ):const SizedBox.shrink(),
           ],
         );

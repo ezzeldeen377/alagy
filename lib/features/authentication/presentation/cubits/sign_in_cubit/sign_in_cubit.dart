@@ -21,16 +21,14 @@ class SignInCubit extends Cubit<SignInState> {
   Future<void> signIn() async {
     emit(state.copyWith(state: SignInStatus.loading));
     final result = await authRepository.signIn(
-        email: emailController.text.trim(), password: passwordController.text.trim());
-    result.fold(
-        (l) => emit(state.copyWith(
-              state: SignInStatus.failure,
-              erorrMessage: l.message,
-            )),
-        (r) => emit(state.copyWith(
-              state: SignInStatus.successSignIn,
-              uid: r,
-            )));
+        email: emailController.text.trim(),
+        password: passwordController.text.trim());
+    result.fold((l) {
+      emit(state.copyWith(
+        state: SignInStatus.failure,
+        erorrMessage: l.message,
+      ));
+    }, (r) {});
   }
 
   Future<void> getUser({required String uid}) async {
@@ -74,11 +72,7 @@ class SignInCubit extends Cubit<SignInState> {
       emit(state.copyWith(
           state: SignInStatus.googleAuthFailure,
           erorrMessage: state.erorrMessage));
-    }, (userData) {
-      emit(SignInState(
-          state: SignInStatus.googleAuthSuccess,
-          userModel: userData,
-          uid: userData.uid));
+    }, (userData)  {
     });
   }
 

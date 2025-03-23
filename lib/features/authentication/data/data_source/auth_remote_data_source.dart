@@ -9,7 +9,7 @@ import 'package:injectable/injectable.dart';
 abstract interface class AuthRemoteDataSource {
   Future<UserCredential> signUp(
       {required String email, required String password, required String name});
-  Future<void> sendVerificationEmail();
+  // Future<void> sendVerificationEmail();
   Future<void> setUser({required UserModel userModel});
   Future<void> deleteUser({required String uid});
   Future<UserCredential> signIn(
@@ -19,6 +19,7 @@ abstract interface class AuthRemoteDataSource {
   Future<UserCredential> googleAuth();
   Future<bool> checkUesrSignin();
   Future<void> updateUser(String uid, Map<String, dynamic> data);
+  Stream<User?> get authStateChanges;
 }
 
 @Injectable(as: AuthRemoteDataSource)
@@ -27,6 +28,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   CollectionReference get _userCollection => firestore.collection(FirebaseCollections.usersCollection);
+  
+  @override
+  Stream<User?> get authStateChanges => _auth.authStateChanges();
   @override
   Future<UserCredential> signUp(
       {required String email,
@@ -42,21 +46,23 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         throw FirebaseAuthException(
             message: "User creation failed", code: 'user-not-found');
       }
+print("User logged in: ${userCredential.user?.emailVerified}");
 
       // Update display name
       await userCredential.user!.updateDisplayName(name);
-
+      
+      // Skip email verification
       return userCredential;
     });
   }
 
-  @override
-  Future<void> sendVerificationEmail() async {
-    return await executeTryAndCatchForDataLayer(() async {
-      await _auth.currentUser?.sendEmailVerification();
-      await _auth.signOut();
-    });
-  }
+  // @override
+  // Future<void> sendVerificationEmail() async {
+  //   return await executeTryAndCatchForDataLayer(() async {
+  //     await _auth.currentUser?.sendEmailVerification();
+  //     await _auth.signOut();
+  //   });
+  //}
 
   @override
   Future<void> setUser({required UserModel userModel}) async {
@@ -81,12 +87,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           .signInWithEmailAndPassword(email: email, password: password)
           .timeout(const Duration(seconds: 45));
 
-      if (!userCredential.user!.emailVerified) {
-        throw FirebaseAuthException(
-          code: 'email-not-verified',
-          message: 'Please verify your email before signing in.',
-        );
-      }
+      // Email verification check removed to allow immediate access
 
       return userCredential;
     });

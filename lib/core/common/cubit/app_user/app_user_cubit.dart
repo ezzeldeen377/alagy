@@ -1,16 +1,38 @@
+import 'dart:async';
+
 import 'package:alagy/core/common/cubit/app_user/app_user_state.dart';
 import 'package:alagy/core/common/enities/user_model.dart';
 import 'package:alagy/core/helpers/secure_storage_helper.dart';
 import 'package:alagy/features/authentication/data/repositories/auth_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-
 
 @injectable
 class AppUserCubit extends Cubit<AppUserState> {
   AuthRepository authRepository;
+  late final StreamSubscription<User?> _authStateSubscription;
+
   AppUserCubit({required this.authRepository})
       : super(AppUserState(state: AppUserStates.initial));
+
+  void init() {
+    _authStateSubscription = authRepository.authStateChanges.listen((user) async {
+          await Future.delayed(const Duration(milliseconds: 1500)); // Small delay to let GoogleAuth finish
+
+      if (user != null) {
+        print("sign in success!!");
+        emit(state.copyWith(state: AppUserStates.loggedIn,userId: user.uid));
+      } else {
+                print("sign out success??????");
+
+        emit(state.copyWith(
+          state: AppUserStates.notLoggedIn,
+          user: null,
+        ));
+      }
+    });
+  }
 
   Future<void> saveUserData(
     UserModel? user,
@@ -92,20 +114,21 @@ class AppUserCubit extends Cubit<AppUserState> {
         (r) => emit(state.copyWith(state: AppUserStates.signOut)));
   }
 
-
-
   void isFirstInstallation() async {
+    emit(state.copyWith(state: AppUserStates.loading));
     final res = await SecureStorageHelper.isFirstInstallation();
-    res.fold((l) {
-      emit(state.copyWith(
-        state: AppUserStates.notInstalled,
-        errorMessage: l,
-      ));
-    }, (r) {
-      emit(state.copyWith(
-        state: AppUserStates.installed,
-      ));
-    });
+    res.fold(
+        (l) => emit(state.copyWith(
+              state: AppUserStates.failure,
+              errorMessage: l,
+            )),
+        (r) {
+          if (r==null) {
+            emit(state.copyWith(state: AppUserStates.notInstalled));
+          } else {
+            emit(state.copyWith(state: AppUserStates.installed));
+          }
+        });
   }
 
   void saveInstallationFlag() async {
@@ -135,12 +158,13 @@ class AppUserCubit extends Cubit<AppUserState> {
         user: null,
       ));
     });
- 
-}
- Future<void> updateUser (UserModel user,Map<String, dynamic> changedAttributes) async {
-  emit(state.copyWith(
-        state: AppUserStates.loading,
-      ));
+  }
+
+  Future<void> updateUser(
+      UserModel user, Map<String, dynamic> changedAttributes) async {
+    emit(state.copyWith(
+      state: AppUserStates.loading,
+    ));
     final res = await authRepository.updateUser(user.uid, changedAttributes);
     res.fold((l) {
       emit(state.copyWith(
@@ -155,5 +179,10 @@ class AppUserCubit extends Cubit<AppUserState> {
     });
   }
 
-
+  @override
+  Future<void> close() {
+    print("cubit closssssssssssssssssssssssssssssssssed!!!!!!!!!!!!!!!");
+    _authStateSubscription.cancel();
+    return super.close();
+  }
 }

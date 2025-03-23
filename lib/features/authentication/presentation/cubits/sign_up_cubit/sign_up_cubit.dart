@@ -32,16 +32,19 @@ class SignUpCubit extends Cubit<SignUpState> {
         email: email, password: password, name: name, type: type);
 
     result.fold(
-      (l) => emit(state.copyWith(
+      (l) {
+        emit(state.copyWith(
         state: SignUpStatus.failure,
         erorrMessage: l.message,
-      )),
-      (r) => emit(state.copyWith(
+      ));},
+      (r) {
+
+        emit(state.copyWith(
         state: SignUpStatus.success,
         userModel: r,
         erorrMessage:
             'Account created! Please check your email to verify your account before signing in.',
-      )),
+      ));},
     );
   }
 
@@ -99,9 +102,9 @@ class SignUpCubit extends Cubit<SignUpState> {
     isChecked: value, // Use the passed value directly
   ));
 }
-  Future<void> sendVerificationEmail() async {
-    await authRepository.sendVerificationEmail();
-  }
+  // Future<void> sendVerificationEmail() async {
+  //   await authRepository.sendVerificationEmail();
+  // }
  void changeRole(String value) {
   if (state.role != value) { // Ensure state is actually changing
     emit(state.copyWith(role: value));

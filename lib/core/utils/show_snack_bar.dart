@@ -1,3 +1,4 @@
+import 'package:alagy/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -13,12 +14,12 @@ showCustomDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text("Alert"),
+        title: Text(context.l10n.dialogAlertTitle),
         content: Text(content),
         actions: <Widget>[
           TextButton(
             onPressed: onPressed,
-            child: const Text("OK"),
+            child: Text(context.l10n.dialogOkButton),
           ),
         ],
       );

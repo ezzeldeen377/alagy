@@ -62,7 +62,7 @@ Future<Either<Failure, T>> executeTryAndCatchForRepository<T>(
       return left(Failure(
           GlobalL10n.instance.tryCatchNetworkError));
     }
-    print('@@@@@@@@@@@@@@@@${e.toString()}');
+    print('#############${e.toString()}');
 
     return left(
         Failure(GlobalL10n.instance.tryCatchServiceUnavailable));
@@ -73,7 +73,7 @@ Future<Either<Failure, T>> executeTryAndCatchForRepository<T>(
       return left(Failure(
           GlobalL10n.instance.tryCatchNetworkError));
     }
-    print('@@@@@@@@@@@@@@@@${e.toString()}');
+    print('%%%%%%%%%%%%%%%%${e.toString()}');
 
     return left(Failure(GlobalL10n.instance.tryCatchGenericError));
   }
@@ -114,7 +114,12 @@ Future<T> executeTryAndCatchForDataLayer<T>(Future<T> Function() action) async {
       case 'invalid-email':
         throw FirebaseAuthException(
             message: GlobalL10n.instance.tryCatchInvalidEmail, code: e.code);
+      case 'email-not-verified':
+        throw FirebaseAuthException(
+            message: "Please verify your email before signing in.", code: e.code);
       default:
+              print("@@@@@@@@@@@@@@${e.toString()}   ${e.code}");
+
         throw FirebaseAuthException(
             message: GlobalL10n.instance.tryCatchAuthFailed, code: e.code);
     }
@@ -127,7 +132,7 @@ Future<T> executeTryAndCatchForDataLayer<T>(Future<T> Function() action) async {
   } on FormatException {
     rethrow;
   } catch (e) {
-    print('@@@@@@@@@@@@@@@@${e.toString()}');
+    print('######################${e.toString()}');
     throw Exception(GlobalL10n.instance.tryCatchGenericError);
   }
 }

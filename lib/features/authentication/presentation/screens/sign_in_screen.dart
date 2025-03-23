@@ -89,7 +89,7 @@ class SignInScreen extends StatelessWidget {
                           SizedBox(height: 22.h),
                           CustomDontHaveAccountRow(
                             onTap: () {
-                              Navigator.pushNamed(context, RouteNames.signUp);
+                              Navigator.of(context).pushNamed(RouteNames.signUp);
                             },
                           ),
                           verticalSpace(15),

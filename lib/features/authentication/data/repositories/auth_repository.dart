@@ -2,6 +2,7 @@ import 'package:alagy/core/common/enities/user_model.dart';
 import 'package:alagy/core/constants/app_constants.dart';
 import 'package:alagy/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/utils/try_and_catch.dart';
@@ -14,7 +15,7 @@ abstract interface class AuthRepository {
     required String name,
     required String type,
   });
-  Future<Either<Failure, void>> sendVerificationEmail();
+  // Future<Either<Failure, void>> sendVerificationEmail();
   Future<Either<Failure, void>> setUser({required UserModel userModel});
   Future<Either<Failure, void>> deleteUser({required String uid});
   Future<Either<Failure, String>> signIn(
@@ -24,7 +25,7 @@ abstract interface class AuthRepository {
   Future<Either<Failure, UserModel>> googleAuth();
   Future<Either<Failure, bool>> checkUesrSignin();
   Future<Either<Failure, void>> updateUser(String uid,Map<String, dynamic> data);
-
+  Stream<User?> get authStateChanges;
 }
 
 @Injectable(as: AuthRepository)
@@ -33,6 +34,9 @@ class AuthRepositoryImpl implements AuthRepository {
 
   AuthRepositoryImpl({required AuthRemoteDataSource authDataSource})
       : _authDataSource = authDataSource;
+
+  @override
+  Stream<User?> get authStateChanges => _authDataSource.authStateChanges;
   @override
   Future<Either<Failure, UserModel>> signUp({
     required String email,
@@ -60,12 +64,12 @@ class AuthRepositoryImpl implements AuthRepository {
       return userModel;
     });
   }
-  @override
-  Future<Either<Failure, void>> sendVerificationEmail() async {
-    return await executeTryAndCatchForRepository(() async {
-      await _authDataSource.sendVerificationEmail();
-    });
-  }
+  // @override
+  // Future<Either<Failure, void>> sendVerificationEmail() async {
+  //   return await executeTryAndCatchForRepository(() async {
+  //     await _authDataSource.sendVerificationEmail();
+  //   });
+  // }
 
   @override
   Future<Either<Failure, void>> setUser({required UserModel userModel}) async {
@@ -110,11 +114,8 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, UserModel>> googleAuth() async {
     return await executeTryAndCatchForRepository(() async {
       final userCredential = await _authDataSource.googleAuth();
-      final user =
-          await _authDataSource.getUserData(uid: userCredential.user!.uid);
-      if (user != null) {
-        return UserModel.fromMap(user);
-      } else {
+   
+     
         final userModel = UserModel(
             type:Role.patient.name ,
             profileImage: userCredential.user?.photoURL,
@@ -126,7 +127,7 @@ class AuthRepositoryImpl implements AuthRepository {
             );
         await _authDataSource.setUser(userModel: userModel);
         return userModel;
-      }
+      
     });
   }
 

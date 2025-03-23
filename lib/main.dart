@@ -1,9 +1,16 @@
 import 'package:alagy/bloc_observer.dart';
 import 'package:alagy/core/common/cubit/app_user/app_user_cubit.dart';
+import 'package:alagy/core/common/cubit/app_user/app_user_state.dart';
+import 'package:alagy/core/common/screens/initial_screen.dart';
 import 'package:alagy/core/di/di.dart';
+import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/helpers/global_l10n.dart';
 import 'package:alagy/core/routes/router_genrator.dart';
+import 'package:alagy/core/theme/app_color.dart';
+import 'package:alagy/core/utils/show_snack_bar.dart';
+import 'package:alagy/features/authentication/presentation/cubits/sign_in_cubit/sign_in_cubit.dart';
 import 'package:alagy/features/authentication/presentation/screens/on_boarding_screen.dart';
+import 'package:alagy/features/authentication/presentation/screens/sign_in_screen.dart';
 import 'package:alagy/features/doctor/presentation/bloc/add_doctor_cubit.dart';
 import 'package:alagy/features/doctor/presentation/pages/edit_doctor_details.dart';
 import 'package:alagy/features/settings/cubit/app_settings_state.dart';
@@ -32,7 +39,8 @@ Future<void> main() async {
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(create: (context) => getIt<AppSettingsCubit>()),
-      BlocProvider(create: (context) => getIt<AppUserCubit>())
+      BlocProvider(
+          create: (context) => getIt<AppUserCubit>()..isFirstInstallation())
     ],
     child: const MyApp(),
   ));
@@ -64,9 +72,81 @@ class MyApp extends StatelessWidget {
               GlobalL10n.init(context); // Initialize here
               return child ?? const SizedBox();
             },
-            home: BlocProvider(
-              create: (context) => getIt<AddDoctorCubit>(),
-              child: const OnboardingScreen(),
+            home: BlocConsumer<AppUserCubit, AppUserState>(
+              listener: (context, state) {
+                if (state.isLoggedIn()) {
+                  print("uid:${state.user?.uid}     ${state.userId}");
+                    context.read<AppUserCubit>().getUser(uid: state.userId ?? "");
+                    // context.read<AppUserCubit>().onSignOut();
+                  
+                }
+                if (state.isInstalled()) {
+                  context.read<AppUserCubit>().init();
+                }
+                if(
+                    state.isClearUserData()){
+                      showSnackBar(context, "signout");
+                    }
+              },
+              builder: (context, state) {
+                if (state.isLoading()) {
+                  return Container(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    child: Center(
+                        child: CircularProgressIndicator(
+                      color:
+                          context.isDark ? AppColor.white : AppColor.darkTeal,
+                    )),
+                  );
+                }
+
+                if (state.isFailure()) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(state.errorMessage ?? 'An error occurred'),
+                        TextButton(
+                          onPressed: () => context
+                              .read<AppUserCubit>()
+                              .isFirstInstallation(),
+                          child: Text(context.l10n.retryButton),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                if (state.isNotInstalled()) {
+                  return const OnboardingScreen();
+                }
+
+                if (state.isSignOut() ||
+                    state.isNotLoggedIn()||state.isClearUserData() ) {
+                  return BlocProvider(
+                    create: (context) => getIt<SignInCubit>(),
+                    child: const SignInScreen(),
+                  );
+                }
+
+                if (state.isGettedData()) {
+                  if (state.user?.type == "doctor") {
+                    return BlocProvider(
+                  create: (context) => getIt<AddDoctorCubit>()..getDoctorDetails(state.userId!),
+                      child: const EditProfileScreen(),
+                    );
+                  }
+                  return const InitialScreen();
+                }
+
+                return Container(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  child: Center(
+                      child: CircularProgressIndicator(
+                    color: context.isDark ? AppColor.white : AppColor.darkTeal,
+                  )),
+                );
+              },
             ),
             onGenerateRoute: AlagyRouter.generateRoute,
           );
