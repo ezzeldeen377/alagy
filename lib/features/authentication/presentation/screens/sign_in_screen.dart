@@ -42,7 +42,7 @@ class SignInScreen extends StatelessWidget {
                             top: 148.h, bottom: 65.h, end: 35.w, start: 35.w),
                       ),
                       const CustomSignInInputFields(),
-                      SizedBox(height: 60.h),
+                      SizedBox(height: 30.h),
                       Column(
                         children: [
                           BlocBuilder<SignInCubit, SignInState>(

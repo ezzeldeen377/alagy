@@ -1,0 +1,19 @@
+{
+  "ar": [
+    "tryCatchNetworkError",
+    "tryCatchInvalidEmail",
+    "tryCatchUserDisabled",
+    "tryCatchUserNotFound",
+    "tryCatchWrongPassword",
+    "tryCatchEmailInUse",
+    "tryCatchWeakPassword",
+    "tryCatchInvalidCredential",
+    "tryCatchTooManyRequests",
+    "tryCatchOperationNotAllowed",
+    "tryCatchAuthFailed",
+    "tryCatchRequestTimeout",
+    "tryCatchServiceUnavailable",
+    "tryCatchGenericError",
+    "dialogOkButton"
+  ]
+}

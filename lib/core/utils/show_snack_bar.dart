@@ -26,6 +26,27 @@ showCustomDialog(
     },
   );
 }
+
+showCustomSnackBar({
+  required BuildContext context,
+  required String message,
+  required bool isError,
+}) {
+  return ScaffoldMessenger.of(context)
+    ..hideCurrentSnackBar()
+    ..showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: isError ? Colors.red : Colors.green,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+       
+      ),
+    );
+}
+
 showToast(String content){
   Fluttertoast.showToast(
   msg: content,

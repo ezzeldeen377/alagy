@@ -1,0 +1,2 @@
+D:/apps/alagy/android/app/.cxx/Debug/i6c3q2b2/x86/CMakeFiles/edit_cache.dir
+D:/apps/alagy/android/app/.cxx/Debug/i6c3q2b2/x86/CMakeFiles/rebuild_cache.dir

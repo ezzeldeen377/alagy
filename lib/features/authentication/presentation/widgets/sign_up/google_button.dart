@@ -25,7 +25,7 @@ class GoogleButton extends StatelessWidget {
         ),
         child: isLoading
             ? Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.h),
+                padding: EdgeInsets.symmetric(vertical: 3.h),
                 child: Center(
                   child: CircularProgressIndicator(
                     color:

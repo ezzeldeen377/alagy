@@ -16,6 +16,8 @@ import '../../features/authentication/data/data_source/auth_remote_data_source.d
     as _i21;
 import '../../features/authentication/data/repositories/auth_repository.dart'
     as _i935;
+import '../../features/authentication/presentation/cubits/forget_password_cubit/forget_password_cubit.dart'
+    as _i158;
 import '../../features/authentication/presentation/cubits/sign_in_cubit/sign_in_cubit.dart'
     as _i670;
 import '../../features/authentication/presentation/cubits/sign_up_cubit/sign_up_cubit.dart'
@@ -52,6 +54,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i538.AddDoctorCubit(repository: gh<_i611.DoctorRepository>()));
     gh.factory<_i94.AppUserCubit>(
         () => _i94.AppUserCubit(authRepository: gh<_i935.AuthRepository>()));
+    gh.factory<_i158.ForgetPasswordCubit>(() =>
+        _i158.ForgetPasswordCubit(authRepository: gh<_i935.AuthRepository>()));
     gh.factory<_i670.SignInCubit>(
         () => _i670.SignInCubit(authRepository: gh<_i935.AuthRepository>()));
     gh.factory<_i531.SignUpCubit>(

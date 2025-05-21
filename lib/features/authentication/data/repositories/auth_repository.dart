@@ -26,6 +26,7 @@ abstract interface class AuthRepository {
   Future<Either<Failure, bool>> checkUesrSignin();
   Future<Either<Failure, void>> updateUser(String uid,Map<String, dynamic> data);
   Stream<User?> get authStateChanges;
+ Future<Either<Failure, void>> resetPassword({required String email}); 
 }
 
 @Injectable(as: AuthRepository)
@@ -144,6 +145,13 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, void>> updateUser(String uid, Map<String, dynamic> data) async {
     return await executeTryAndCatchForRepository(() async {
       await _authDataSource.updateUser(uid, data);
+    });
+  }
+  
+  @override
+  Future<Either<Failure, void>> resetPassword({required String email}) {
+    return executeTryAndCatchForRepository(() async {
+      await _authDataSource.resetPassword(email: email);
     });
   }
 }

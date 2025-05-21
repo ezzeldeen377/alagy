@@ -1,6 +1,8 @@
 import 'package:alagy/core/helpers/extensions.dart';
+import 'package:alagy/core/helpers/navigator.dart';
 import 'package:alagy/core/helpers/spacer.dart';
 import 'package:alagy/core/helpers/validators.dart';
+import 'package:alagy/core/routes/routes.dart';
 import 'package:alagy/core/utils/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,9 +42,15 @@ class CustomSignInInputFields extends StatelessWidget {
             autofillHints: const [AutofillHints.email],
           ),
           SizedBox(height: 15.h),
-          Text(
-            context.l10n.signInPasswordLabel,
-            style: Theme.of(context).textTheme.titleSmall,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                context.l10n.signInPasswordLabel,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              
+            ],
           ),
           verticalSpace(10),
           BlocBuilder<SignInCubit, SignInState>(
@@ -73,6 +81,20 @@ class CustomSignInInputFields extends StatelessWidget {
                 textInputAction: TextInputAction.done,
               );
             },
+          ),
+          Align(
+            alignment: AlignmentDirectional.centerEnd,
+            child: TextButton(
+              onPressed: () {
+                context.pushNamed(RouteNames.forgetPassword);
+              },
+              child: Text(
+                context.l10n.forgotPassword,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+              ),
+            ),
           ),
         ],
       ),

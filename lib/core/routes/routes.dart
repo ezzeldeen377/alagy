@@ -1,7 +1,9 @@
+
 class RouteNames {
   static const onboarding = '/onboarding';
   static const signIn = '/signIn';
   static const signUp = '/signUp';
+  static const forgetPassword = '/forgetPassword';
   static const home = '/home';
   static const doctorsScreen = '/doctorsScreen';
   static const doctorDetails = '/doctorDetails';

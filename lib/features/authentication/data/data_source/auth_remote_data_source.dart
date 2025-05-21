@@ -20,6 +20,7 @@ abstract interface class AuthRemoteDataSource {
   Future<bool> checkUesrSignin();
   Future<void> updateUser(String uid, Map<String, dynamic> data);
   Stream<User?> get authStateChanges;
+  Future<void> resetPassword({required String email});
 }
 
 @Injectable(as: AuthRemoteDataSource)
@@ -159,5 +160,12 @@ print("User logged in: ${userCredential.user?.emailVerified}");
     return await executeTryAndCatchForDataLayer(() async {
       await _userCollection.doc(uid).update(data);
     });
+  }
+  
+  @override
+  Future<void> resetPassword({required String email}) {
+  return executeTryAndCatchForDataLayer(() async {
+    await _auth.sendPasswordResetEmail(email: email);
+  });
   }
 }
