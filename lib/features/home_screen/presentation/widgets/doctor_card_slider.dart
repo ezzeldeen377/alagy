@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 // Imports for separated classes
 import '../models/doctor_card_model.dart';
 import './doctor_card.dart';
-import '../pages/doctor_detail_page.dart';
+import '../../../doctor/presentation/pages/doctor_detail_page.dart';
 
 class DoctorCardSlider extends StatefulWidget {
   const DoctorCardSlider({Key? key}) : super(key: key);

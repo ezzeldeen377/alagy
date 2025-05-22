@@ -10,6 +10,7 @@ class UserModel {
   final String? city;
   final String? profileImage;
   final String? phoneNumber;
+  final bool? isSaved;
   UserModel({
     required this.uid,
     required this.email,
@@ -19,6 +20,7 @@ class UserModel {
     this.city,
     this.profileImage,
     this.phoneNumber,
+    this.isSaved,
   });
   // Add any other fields you need
 
@@ -31,6 +33,7 @@ class UserModel {
     String? city,
     String? profileImage,
     String? phoneNumber,
+    bool? isSaved,
   }) {
     return UserModel(
       uid: uid ?? this.uid,
@@ -41,6 +44,7 @@ class UserModel {
       city: city ?? this.city,
       profileImage: profileImage ?? this.profileImage,
       phoneNumber: phoneNumber ?? this.phoneNumber,
+      isSaved: isSaved ?? this.isSaved,
     );
   }
 
@@ -54,6 +58,7 @@ class UserModel {
       'city': city,
       'profileImage': profileImage,
       'phoneNumber': phoneNumber,
+      'isSaved': isSaved,
     };
   }
 
@@ -67,6 +72,7 @@ class UserModel {
       city: map['city'] != null ? map['city'] as String : null,
       profileImage: map['profileImage'] != null ? map['profileImage'] as String : null,
       phoneNumber: map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
+      isSaved: map['isSaved'] != null ? map['isSaved'] as bool : null,
     );
   }
 
@@ -76,7 +82,7 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(uid: $uid, email: $email, name: $name, createdAt: $createdAt, type: $type, city: $city, profileImage: $profileImage, phoneNumber: $phoneNumber)';
+    return 'UserModel(uid: $uid, email: $email, name: $name, createdAt: $createdAt, type: $type, city: $city, profileImage: $profileImage, phoneNumber: $phoneNumber, isSaved: $isSaved)';
   }
 
   @override
@@ -91,7 +97,8 @@ class UserModel {
       other.type == type &&
       other.city == city &&
       other.profileImage == profileImage &&
-      other.phoneNumber == phoneNumber;
+      other.phoneNumber == phoneNumber &&
+      other.isSaved == isSaved;
   }
 
   @override
@@ -103,6 +110,7 @@ class UserModel {
       type.hashCode ^
       city.hashCode ^
       profileImage.hashCode ^
-      phoneNumber.hashCode;
+      phoneNumber.hashCode ^
+      isSaved.hashCode;
   }
 }

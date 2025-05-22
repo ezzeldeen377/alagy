@@ -13,7 +13,7 @@ class CustomAddDoctorBlocListener extends StatelessWidget {
     return BlocListener<AddDoctorCubit,AddDoctorState>(
       listener: (context, state) {
         if(state.isSuccess){
-          print("@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        context.pushNamedAndRemoveAll(RouteNames.initial);
           // context.pushReplacementNamed(RouteNames.initial);
         }
         if(state.isUploadProfilePictureSuccess){

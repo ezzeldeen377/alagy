@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, child) {
           return MaterialApp(
-            title: 'Flutter Demo',
+            title: 'Alagy',
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
             themeMode: state.themeMode,
@@ -76,17 +76,15 @@ class MyApp extends StatelessWidget {
               listener: (context, state) {
                 if (state.isLoggedIn()) {
                   print("uid:${state.user?.uid}     ${state.userId}");
-                    context.read<AppUserCubit>().getUser(uid: state.userId ?? "");
-                    // context.read<AppUserCubit>().onSignOut();
-                  
+                  context.read<AppUserCubit>().getUser(uid: state.userId ?? "");
+                  // context.read<AppUserCubit>().onSignOut();
                 }
                 if (state.isInstalled()) {
                   context.read<AppUserCubit>().init();
                 }
-                if(
-                    state.isClearUserData()){
-                      showSnackBar(context, "signout");
-                    }
+                if (state.isClearUserData()) {
+                  showSnackBar(context, "signout");
+                }
               },
               builder: (context, state) {
                 if (state.isLoading()) {
@@ -104,7 +102,8 @@ class MyApp extends StatelessWidget {
                 }
 
                 if (state.isSignOut() ||
-                    state.isNotLoggedIn()||state.isClearUserData() ) {
+                    state.isNotLoggedIn() ||
+                    state.isClearUserData()) {
                   return BlocProvider(
                     create: (context) => getIt<SignInCubit>(),
                     child: const SignInScreen(),
@@ -113,10 +112,15 @@ class MyApp extends StatelessWidget {
 
                 if (state.isGettedData()) {
                   if (state.user?.type == "doctor") {
-                    return BlocProvider(
-                  create: (context) => getIt<AddDoctorCubit>()..getDoctorDetails(state.userId!),
-                      child: const EditProfileScreen(),
-                    );
+                    if (state.user?.isSaved ?? false) {
+                      return const InitialScreen();
+                    } else {
+                      return BlocProvider(
+                        create: (context) => getIt<AddDoctorCubit>()
+                          ..getDoctorDetails(state.userId!),
+                        child: const EditProfileScreen(),
+                      );
+                    }
                   }
                   return const InitialScreen();
                 }

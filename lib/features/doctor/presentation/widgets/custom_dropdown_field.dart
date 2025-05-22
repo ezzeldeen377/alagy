@@ -23,19 +23,26 @@ class CustomDropdownField<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-            padding: const EdgeInsets.only(bottom: 16),
-
+      padding: const EdgeInsets.only(bottom: 16),
       child: DropdownButtonFormField<T>(
         value: value,
         items: items,
-        onChanged: onChanged,menuMaxHeight: 500.h,
+        onChanged: onChanged,
+        menuMaxHeight: 500.h,
         validator: validator,
         decoration: InputDecoration(
           labelText: label,
-          prefixIcon: Icon(icon,color: AppColor.tealNew,),
+          prefixIcon: Icon(icon, color: AppColor.tealNew),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-          contentPadding:  EdgeInsets.symmetric(vertical: 16, horizontal: 5.w),
+          contentPadding: EdgeInsets.symmetric(vertical: 16, ),
         ),
+        dropdownColor: Theme.of(context).cardColor,
+        iconEnabledColor: AppColor.tealNew,
+        iconDisabledColor: Colors.grey,
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context).textTheme.bodyMedium?.color,
+              fontWeight: FontWeight.w500,
+            ),
       ),
     );
   }

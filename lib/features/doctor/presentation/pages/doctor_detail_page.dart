@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/helpers/extensions.dart';
-import '../models/doctor_card_model.dart';
+import '../../../home_screen/presentation/models/doctor_card_model.dart';
 
 class DoctorDetailPage extends StatelessWidget {
   final DoctorCardModel doctor;

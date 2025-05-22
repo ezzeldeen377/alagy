@@ -1,245 +1,156 @@
 {
   "@@locale": "ar",
   "editDoctorTitle": "تعديل الملف الشخصي",
-  "@editDoctorTitle": {
-    "description": "Title text shown on the edit doctor profile screen"
-  },
   "editDoctorPersonalInfo": "المعلومات الشخصية",
-  "@editDoctorPersonalInfo": {
-    "description": "Section header for personal information in edit doctor profile"
-  },
   "editDoctorProfessionalInfo": "المعلومات المهنية",
-  "@editDoctorProfessionalInfo": {
-    "description": "Section header for professional information in edit doctor profile"
-  },
   "editDoctorBio": "السيرة الذاتية",
-  "@editDoctorBio": {
-    "description": "Section header for bio in edit doctor profile"
-  },
   "editDoctorBioHint": "اكتب شيئاً عن نفسك...",
-  "@editDoctorBioHint": {
-    "description": "Hint text for bio input field"
-  },
   "editDoctorRequiredField": "هذا الحقل مطلوب",
-  "@editDoctorRequiredField": {
-    "description": "Error message for required fields"
-  },
   "editDoctorInvalidEmail": "الرجاء إدخال بريد إلكتروني صحيح",
-  "@editDoctorInvalidEmail": {
-    "description": "Error message for invalid email format"
-  },
   "editDoctorInvalidPhone": "يجب أن يتكون رقم الهاتف من 10 أرقام على الأقل",
-  "@editDoctorInvalidPhone": {
-    "description": "Error message for invalid phone number"
-  },
   "editDoctorBioRequired": "الرجاء كتابة شيء عن نفسك",
-  "@editDoctorBioRequired": {
-    "description": "Error message when bio is empty"
-  },
   "editDoctorName": "الاسم",
-  "@editDoctorName": {
-    "description": "Label for doctor name field"
-  },
   "editDoctorEmail": "البريد الإلكتروني",
-  "@editDoctorEmail": {
-    "description": "Label for doctor email field"
-  },
   "editDoctorPhone": "رقم الهاتف",
-  "@editDoctorPhone": {
-    "description": "Label for doctor phone number field"
-  },
+  "editDoctorProfilePicture": "الصورة الشخصية",
   "editDoctorSpecialization": "التخصص",
-  "@editDoctorSpecialization": {
-    "description": "Label for doctor specialization field"
-  },
   "editDoctorQualification": "المؤهل العلمي",
-  "@editDoctorQualification": {
-    "description": "Label for doctor qualification field"
-  },
   "editDoctorLicense": "رقم الترخيص",
-  "@editDoctorLicense": {
-    "description": "Label for doctor license number field"
-  },
   "editDoctorHospital": "اسم المستشفى/العيادة",
-  "@editDoctorHospital": {
-    "description": "Label for doctor hospital/clinic name field"
-  },
   "editDoctorExperience": "سنوات الخبرة",
-  "@editDoctorExperience": {
-    "description": "Label for doctor years of experience field"
-  },
   "editDoctorFee": "رسوم الاستشارة",
-  "@editDoctorFee": {
-    "description": "Label for doctor consultation fee field"
-  }
-,
+  "editDoctorAddress": "العنوان",
+  "skip": "تخطي",
+  "settings": "الإعدادات",
+  "darkMode": "الوضع الداكن",
+  "language": "اللغة",
+  "english": "الإنجليزية",
+  "arabic": "العربية",
   "onboardingWelcome": "مرحباً",
-  "@onboardingWelcome": {
-    "description": "Welcome text shown at the top of the onboarding screen"
-  },
   "onboardingTitle": "مرحباً بك في علاجي. صحتك هي أولويتنا",
-  "@onboardingTitle": {
-    "description": "Main title text shown on the onboarding screen"
-  },
   "onboardingDescription": "احجز المواعيد واستشر الأطباء وأدر سجلاتك الطبية بسهولة في أي وقت وأي مكان.",
-  "@onboardingDescription": {
-    "description": "Description text shown on the onboarding screen"
-  },
   "onboardingGetStarted": "ابدأ الآن",
-  "@onboardingGetStarted": {
-    "description": "Text for the get started button on the onboarding screen"
-  },
   "signInTitle": "تسجيل الدخول",
-  "@signInTitle": {
-    "description": "Title text shown on the sign in screen"
-  },
   "signInWelcomeBack": "مرحبا بعودتك! الرجاء تسجيل الدخول للمتابعة.",
-  "@signInWelcomeBack": {
-    "description": "Welcome back message shown on the sign in screen"
-  },
   "signInButton": "تسجيل الدخول",
-  "@signInButton": {
-    "description": "Text for the sign in button"
-  },
   "signInDividerOr": "أو",
-  "@signInDividerOr": {
-    "description": "Text for the divider between sign in options"
-  },
   "signInEmailLabel": "البريد الإلكتروني",
-  "@signInEmailLabel": {
-    "description": "Label for the email input field on the sign in screen"
-  },
   "signInEmailHint": "أدخل عنوان بريدك الإلكتروني",
-  "@signInEmailHint": {
-    "description": "Hint text for the email input field on the sign in screen"
-  },
   "signInPasswordLabel": "كلمة المرور",
-  "@signInPasswordLabel": {
-    "description": "Label for the password input field on the sign in screen"
-  },
   "signInPasswordHint": "أدخل كلمة المرور",
-  "@signInPasswordHint": {
-    "description": "Hint text for the password input field on the sign in screen"
-  },
   "dontHaveAccount": "ليس لديك حساب؟",
-  "@dontHaveAccount": {
-    "description": "Text shown to prompt users to register if they don't have an account"
-  },
   "registerNow": "سجل الآن",
-  "@registerNow": {
-    "description": "Text for the register now link"
-  },
   "connectWithGoogle": "المتابعة باستخدام Google",
-  "@connectWithGoogle": {
-    "description": "Text for the connect with Google button"
-  },
   "signUpTitle": "البدء",
-  "@signUpTitle": {
-    "description": "Title text shown on the sign up screen"
-  },
   "signUpSubtitle": "أنشئ حسابًا للمتابعة!",
-  "@signUpSubtitle": {
-    "description": "Subtitle text shown on the sign up screen"
-  },
   "patientTab": "مريض",
-  "@patientTab": {
-    "description": "Text for the patient tab in sign up screen"
-  },
   "doctorTab": "طبيب",
-  "@doctorTab": {
-    "description": "Text for the doctor tab in sign up screen"
-  },
   "signUpButton": "إنشاء حساب",
-  "@signUpButton": {
-    "description": "Text for the sign up button"
-  },
   "termsAndConditionsError": "يرجى قبول الشروط والأحكام",
-  "@termsAndConditionsError": {
-    "description": "Error message shown when terms and conditions are not accepted"
-  },
   "signUpEmailLabel": "البريد الإلكتروني",
-  "@signUpEmailLabel": {
-    "description": "Label for the email input field on the sign up screen"
-  },
   "signUpEmailHint": "أدخل عنوان بريدك الإلكتروني",
-  "@signUpEmailHint": {
-    "description": "Hint text for the email input field on the sign up screen"
-  },
   "signUpUsernameLabel": "اسم المستخدم",
-  "@signUpUsernameLabel": {
-    "description": "Label for the username input field on the sign up screen"
-  },
   "signUpUsernameHint": "أدخل اسمك",
-  "@signUpUsernameHint": {
-    "description": "Hint text for the username input field on the sign up screen"
-  },
   "validatorEmptyField": "عذراً! يبدو أنك نسيت هذا الحقل. يرجى ملؤه.",
-  "@validatorEmptyField": {
-    "description": "Error message shown when a required field is empty"
-  },
   "validatorInvalidPhone": "يرجى إدخال رقم هاتف مصري صالح (يبدأ بـ 01 متبوعاً بـ 9 أرقام).",
-  "@validatorInvalidPhone": {
-    "description": "Error message shown when phone number format is invalid"
-  },
   "validatorInvalidNumber": "يرجى إدخال رقم صالح أكبر من 0.",
-  "@validatorInvalidNumber": {
-    "description": "Error message shown when number input is invalid"
-  },
   "validatorEnterEmail": "يرجى إدخال بريدك الإلكتروني",
-  "@validatorEnterEmail": {
-    "description": "Error message shown when email field is empty"
-  },
   "validatorInvalidEmail": "يرجى إدخال عنوان بريد إلكتروني صالح",
-  "@validatorInvalidEmail": {
-    "description": "Error message shown when email format is invalid"
-  },
   "validatorEnterPassword": "يرجى إدخال كلمة المرور",
-  "@validatorEnterPassword": {
-    "description": "Error message shown when password field is empty"
-  },
   "validatorInvalidPassword": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل،\nوتتضمن حرفاً كبيراً،\nورقماً، ورمزاً",
-  "@validatorInvalidPassword": {
-    "description": "Error message shown when password format is invalid"
-  },
-  
   "signUpPasswordLabel": "كلمة المرور",
-  "@signUpPasswordLabel": {
-    "description": "Label for the password input field on the sign up screen"
-  },
   "signUpPasswordHint": "أدخل كلمة المرور",
-  "@signUpPasswordHint": {
-    "description": "Hint text for the password input field on the sign up screen"
-  },
   "signUpConfirmPasswordLabel": "تأكيد كلمة المرور",
-  "@signUpConfirmPasswordLabel": {
-    "description": "Label for the confirm password input field on the sign up screen"
-  },
   "signUpConfirmPasswordHint": "تأكيد كلمة المرور",
-  "@signUpConfirmPasswordHint": {
-    "description": "Hint text for the confirm password input field on the sign up screen"
-  },
   "signUpConfirmPasswordError": "الرجاء إدخال تأكيد كلمة المرور",
-  "@signUpConfirmPasswordError": {
-    "description": "Error message shown when confirm password is empty"
-  },
   "signUpPasswordMismatchError": "يجب أن تتطابق كلمة المرور وتأكيد كلمة المرور",
-  "@signUpPasswordMismatchError": {
-    "description": "Error message shown when passwords don't match"
-  },
   "signUpTermsText": "بإنشاء حساب، فإنك توافق على",
-  "@signUpTermsText": {
-    "description": "Text shown before the terms and conditions link"
-  },
   "signUpTermsLink": "الشروط والأحكام",
-  "@signUpTermsLink": {
-    "description": "Text for the terms and conditions link"
-  },
   "alreadyHaveAccount": "هل لديك حساب؟",
-  "@alreadyHaveAccount": {
-    "description": "Text shown to prompt users to sign in if they already have an account"
-  },
   "signIn": "تسجيل الدخول",
-  "@signIn": {
-    "description": "Text for the sign in link"
-  }
+  "editDoctorSave": "حفظ",
+  "editDoctorCompleteDataLater": "يمكنك إكمال إدخال البيانات لاحقًا والاستمرار إلى التطبيق",
+  "appName": "علاجي",
+  "welcomeMessage": "مرحباً، {name}",
+  "roleLabel": "الدور: {role}",
+  "signOut": "تسجيل الخروج",
+  "retryButton": "حاول مرة اخرى",
+  "dialogAlertTitle": "تنبية",
+  "dialogAlertCancel": "اغلاق",
+  "dialogAlertOk": "حسنا",
+  "generalError": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+  "createAccountSuccessfully": "تم إنشاء الحساب بنجاح.",
+  "deleteDataSuccessfully": "تم حذف البيانات بنجاح.",
+  "forgetPassword": "نسيت كلمة المرور؟",
+  "forgotPassword": "نسيت كلمة المرور؟",
+  "forgotPasswordInstructions": "أدخل عنوان بريدك الإلكتروني وسنرسل لك رابطًا لإعادة تعيين كلمة المرور الخاصة بك.",
+  "resetPassword": "إعادة تعيين كلمة المرور",
+  "passwordResetEmailSent": "تم إرسال بريد إلكتروني لإعادة تعيين كلمة المرور. يرجى التحقق من صندوق الوارد الخاص بك.",
+  "home": "الرئيسية",
+  "bookmarks": "المفضلة",
+  "search": "البحث",
+  "notifications": "الإشعارات",
+  "topDoctors": "أفضل الأطباء",
+  "bookNow": "احجز الآن",
+  "ourServices": "خدماتنا",
+  "chatWithDoctor": "الدردشة مع الطبيب",
+  "chatWithDoctorDescription": "رسائل فورية مع متخصصي الرعاية الصحية",
+  "videoConsultation": "استشارة بالفيديو",
+  "videoConsultationDescription": "مواعيد افتراضية وجهاً لوجه مع المتخصصين",
+  "voiceCall": "مكالمة صوتية",
+  "voiceCallDescription": "استشارات هاتفية سريعة للنصائح الطبية",
+  "bookAppointment": "حجز موعد",
+  "bookAppointmentDescription": "جدولة زيارات شخصية مع طبيبك",
+  "topRatedDoctors": "أطباء مميزون",
+  "available": "متاح",
+  "unavailable": "غير متاح",
+  "seeAll": "عرض الكل",
+  "featuredDoctors": "أطباء مميزون",
+  "reviews": "تقيمات",
+  "logout": "تسجيل خروج",
+  "editDoctorLocation": "الموقع",
+  "editDoctorLatitude": "خط العرض",
+  "editDoctorLongitude": "خط الطول",
+  "editDoctorLocationNotSet": "لم يتم التعيين",
+  "editDoctorSelectLocation": "اختر الموقع من الخريطة",
+  "locationPermissionDenied": "تم رفض إذن الموقع",
+  "locationPermissionPermanentlyDenied": "تم رفض إذن الموقع بشكل دائم",
+  "locationError": "فشل في الحصول على الموقع: {error}",
+  "selectLocationTitle": "اختر الموقع",
+  "selectedLocationTitle": "الموقع المحدد",
+  "saveLocation": "حفظ الموقع",
+  "specialty_internal_medicine": "الباطنة",
+  "specialty_general_surgery": "الجراحة العامة",
+  "specialty_pediatrics": "طب الأطفال",
+  "specialty_gynecology": "طب النساء",
+  "specialty_orthopedics": "العظام",
+  "specialty_urology": "المسالك البولية",
+  "specialty_ent": "الأنف والأذن والحنجرة",
+  "specialty_dermatology": "الأمراض الجلدية",
+  "specialty_ophthalmology": "طب العيون",
+  "specialty_dentistry": "طب الأسنان",
+  "specialty_emergency": "الطوارئ",
+  "specialty_laboratory": "المختبر",
+  "specialty_radiology": "الأشعة",
+  "specialty_cardiology": "أمراض القلب",
+  "specialty_cardiothoracic_surgery": "جراحة القلب والصدر",
+  "specialty_neurosurgery": "جراحة الأعصاب",
+  "specialty_oncology": "الأورام",
+  "specialty_nephrology": "أمراض الكلى",
+  "specialty_pulmonology": "أمراض الصدر",
+  "specialty_rheumatology": "أمراض الروماتيزم",
+  "specialty_rehabilitation": "التأهيل",
+  "specialty_psychiatry": "الطب النفسي",
+  "specialty_hematology": "أمراض الدم",
+  "specialty_infectious_diseases": "الأمراض المعدية",
+  "specialty_endocrinology": "أمراض الغدد الصماء",
+  "specialty_icu": "العناية المركزة",
+  "specialty_burns_plastic": "الحروق والجراحة التجميلية",
+  "specialty_laparoscopy": "المناظير",
+  "specialty_vascular_surgery": "جراحة الأوعية الدموية",
+  "specialty_geriatrics": "طب الشيخوخة",
+  "specialty_audiology": "السمعيات",
+  "specialty_neonatology": "حديثي الولادة",
+  "editDoctorChangeLocation": "تغيير الموقع",
+  "editDoctorLocationSelected": "تم تحديد الموقع"
 }
