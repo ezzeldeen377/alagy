@@ -1,67 +1,63 @@
-import 'dart:convert';
 
 import 'package:alagy/core/common/enities/user_model.dart';
 
 class DoctorModel extends UserModel {
-  final String? specialization;
-  final String? qualification;
-  final String? licenseNumber;
-  final int? yearsOfExperience;
-  final String? hospitalName;
-  final String? address;
-  final double? consultationFee;
+  final String specialization;
+  final String qualification;
+  final String licenseNumber;
+  final int yearsOfExperience;
+  final String hospitalName;
+  final String address;
+  final double consultationFee;
   final String? bio;
-  final double? longitude;
-  final double? latitude;
 
   DoctorModel({
-    required super.uid,
-    required super.name,
-    required super.email,
-    required super.createdAt,
-    super.phoneNumber,
-    super.profileImage,
-    super.city,
-    super.type,
-    this.specialization,
-    this.qualification,
-    this.licenseNumber,
-    this.yearsOfExperience,
-    this.hospitalName,
-    this.address,
-    this.consultationFee,
+    required String id,
+    required String name,
+    required String email,
+    required String phone,
+    required this.specialization,
+    required this.qualification,
+    required this.licenseNumber,
+    required this.yearsOfExperience,
+    required this.hospitalName,
+    required this.address,
+    required this.consultationFee,
+    String? profilePicture,
     this.bio,
-    this.longitude,
-    this.latitude,
-  }) ;
+  }) : super(
+          id: id,
+          name: name,
+          email: email,
+          phone: phone,
+          profilePicture: profilePicture,
+          type: 'doctor',
+        );
 
-  factory DoctorModel.fromMap(Map<String, dynamic> json) {
+  factory DoctorModel.fromJson(Map<String, dynamic> json) {
     return DoctorModel(
-      uid: json['uid'],
-      name: json['name'],
-      email: json['email'],
-      createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt']),
-      phoneNumber: json['phoneNumber'],
-      profileImage: json['profileImage'],
-      city: json['city'],
-      type: json['type'],
-      specialization: json['specialization'],
-      qualification: json['qualification'],
-      licenseNumber: json['licenseNumber'],
-      yearsOfExperience: json['yearsOfExperience'],
-      hospitalName: json['hospitalName'],
-      address: json['address'],
-      consultationFee: (json['consultationFee'] as num?)?.toDouble(),
-      bio: json['bio'],
-      latitude: json['latitude'],
-      longitude: json['longitude'],
+      id: json['id'] as String,
+      name: json['name'] as String,
+      email: json['email'] as String,
+      phone: json['phone'] as String,
+      specialization: json['specialization'] as String,
+      qualification: json['qualification'] as String,
+      licenseNumber: json['licenseNumber'] as String,
+      yearsOfExperience: json['yearsOfExperience'] as int,
+      hospitalName: json['hospitalName'] as String,
+      address: json['address'] as String,
+      consultationFee: (json['consultationFee'] as num).toDouble(),
+      profilePicture: json['profilePicture'] as String?,
+      bio: json['bio'] as String?,
     );
   }
 
-  @override
-  Map<String, dynamic> toMap() {
-    final map = super.toMap();
-    map.addAll({
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'phone': phone,
       'specialization': specialization,
       'qualification': qualification,
       'licenseNumber': licenseNumber,
@@ -69,26 +65,17 @@ class DoctorModel extends UserModel {
       'hospitalName': hospitalName,
       'address': address,
       'consultationFee': consultationFee,
+      'profilePicture': profilePicture,
       'bio': bio,
-      'latitude': latitude,
-      'longitude': longitude,
-    });
-    return map;
+      'type': type,
+    };
   }
 
-  @override
-  String toJson() => json.encode(toMap());
-
-  @override
   DoctorModel copyWith({
-    String? uid,
-    String? email,
+    String? id,
     String? name,
-    DateTime? createdAt,
-    String? phoneNumber,
-    String? profileImage,
-    String? city,
-    String? type,
+    String? email,
+    String? phone,
     String? specialization,
     String? qualification,
     String? licenseNumber,
@@ -96,19 +83,14 @@ class DoctorModel extends UserModel {
     String? hospitalName,
     String? address,
     double? consultationFee,
+    String? profilePicture,
     String? bio,
-    double? longitude,
-    double? latitude,
   }) {
     return DoctorModel(
-      uid: uid ?? this.uid,
-      email: email ?? this.email,
+      id: id ?? this.id,
       name: name ?? this.name,
-      createdAt: createdAt ?? this.createdAt,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      profileImage: profileImage ?? this.profileImage,
-      city: city ?? this.city,
-      type: type ?? this.type,
+      email: email ?? this.email,
+      phone: phone ?? this.phone,
       specialization: specialization ?? this.specialization,
       qualification: qualification ?? this.qualification,
       licenseNumber: licenseNumber ?? this.licenseNumber,
@@ -116,9 +98,8 @@ class DoctorModel extends UserModel {
       hospitalName: hospitalName ?? this.hospitalName,
       address: address ?? this.address,
       consultationFee: consultationFee ?? this.consultationFee,
+      profilePicture: profilePicture ?? this.profilePicture,
       bio: bio ?? this.bio,
-      longitude: longitude?? this.longitude,
-      latitude: latitude?? this.latitude,
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:alagy/core/common/screens/view_full_image.dart';
 import 'package:alagy/core/helpers/navigator.dart';
 import 'package:alagy/features/doctor/presentation/bloc/add_doctor_cubit.dart';
-import 'package:alagy/features/doctor/presentation/bloc/add_doctor_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,51 +40,37 @@ class CustomProfilePicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddDoctorCubit, AddDoctorState>(
-      builder: (context, state) {
-        final cubit = context.read<AddDoctorCubit>();
+    final cubit = context.watch<AddDoctorCubit>();
 
-        return Stack(
-          alignment: Alignment.center,
-          children: [
-            GestureDetector(
-              onTap: () => _handleImageTap(context, cubit),
-              child: Hero(
-                tag: 'profile_picture',
-                child: Opacity(
-                  opacity: state.isPickProfileImageLoading||state.isUploadProfilePictureLoading ? 0.5 : 1.0,  // Reduce opacity while loading
-                  child: CircleAvatar(
-                    radius: 70.r,
-                    backgroundColor: Colors.grey.shade300,
-                    backgroundImage: _getBackgroundImage(cubit),
-                    child: _shouldShowDefaultIcon(cubit)
-                        ? Icon(Icons.person, size: 70.r, color: Colors.white)
-                        : null,
-                  ),
-                ),
-              ),
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: () => _handleImageTap(context, cubit),
+          child: Hero(
+            tag: 'profile_picture',
+            child: CircleAvatar(
+              radius: 70.r,
+              backgroundColor: Colors.grey.shade300,
+              backgroundImage: _getBackgroundImage(cubit),
+              child: _shouldShowDefaultIcon(cubit)
+                  ? Icon(Icons.person, size: 70.r, color: Colors.white)
+                  : null,
             ),
-            if (state.isPickProfileImageLoading ||state.isUploadProfilePictureLoading) // Show loading indicator when uploading
-              const Positioned.fill(
-                child: Center(
-                  child: CircularProgressIndicator(color: Colors.teal),
-                ),
-              ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: GestureDetector(
-                onTap: () => cubit.pickPofilePicture(),
-                child: CircleAvatar(
-                  radius: 18.r,
-                  backgroundColor: Colors.teal,
-                  child: Icon(Icons.camera_alt, color: Colors.white, size: 18.r),
-                ),
-              ),
+          ),
+        ),
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: GestureDetector(
+            onTap: () => cubit.pickPofilePicture(),
+            child: CircleAvatar(
+              radius: 18.r,
+              backgroundColor: Colors.teal,
+              child: Icon(Icons.camera_alt, color: Colors.white, size: 18.r),
             ),
-          ],
-        );
-      },
+          ),
+        ),
+      ],
     );
   }
 }

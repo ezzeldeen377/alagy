@@ -1,4 +1,3 @@
-import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/theme/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +21,20 @@ class CustomTextFormField extends StatelessWidget {
   final Function(String)? onSubmitted;
   final TextInputAction? textInputAction;
   final Iterable<String>? autofillHints;
- 
+  const CustomTextFormField(
+      {super.key,
+      this.hint,
+      this.suffixIcon,
+      this.obscureText = false,
+      this.validator,
+      this.show = false,
+      this.suffixIconShowed,
+      this.prefixIcon,
+      required this.controller,
+      this.keyboardType,
+      this.maxLength,
+      this.maxLines,
+      this.label});
 
   final int? animationIndex;
 
@@ -53,7 +65,7 @@ class CustomTextFormField extends StatelessWidget {
       maxLength: maxLength,
       validator: validator,
       maxLines: maxLines ?? 1,
-      style: context.theme.textTheme.bodyLarge,
+      style: TextStyles.fontCircularSpotify14BlackMedium,
       autocorrect: true,
       obscureText: obscureText,
       onFieldSubmitted: onSubmitted,
@@ -84,6 +96,35 @@ class CustomTextFormField extends StatelessWidget {
     .animate()
     .slideX(begin: -1, end: 0, duration: const Duration(milliseconds: 500), delay: Duration(milliseconds: (animationIndex ?? 0) * 200))
     .fadeIn(duration: const Duration(milliseconds: 500));
-    
+      controller: controller,
+      keyboardType: keyboardType,
+      maxLength: maxLength,
+      validator: validator,
+      maxLines: maxLines ?? 1,
+      style: TextStyles.fontCircularSpotify14BlackMedium,
+      autocorrect: true,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        suffixIcon: suffixIcon,
+        hintText: hint,
+        labelText: label,
+        prefixIcon: prefixIcon,
+      ),
+      buildCounter: maxLength != null
+          ? (context,
+              {required currentLength,
+              required isFocused,
+              required maxLength}) {
+              return Text(
+                '$currentLength/$maxLength',
+                style: TextStyle(
+                    fontSize: 12,
+                    color: currentLength == maxLength
+                        ? AppColor.redColor
+                        : AppColor.blueColor),
+              );
+            }
+          : null,
+    );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:alagy/core/constants/app_constants.dart';
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/helpers/spacer.dart';
 import 'package:alagy/core/theme/app_color.dart';
@@ -56,9 +55,9 @@ class SignUpScreenState extends State<SignUpScreen>
         },
         child: Scaffold(
           body: SafeArea(
-            child: Form(
-              key: cubit.formKey,
-              child: SingleChildScrollView(
+            child: SingleChildScrollView(
+              child: Form(
+                key: cubit.formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -106,17 +105,15 @@ class SignUpScreenState extends State<SignUpScreen>
                         controller: _tabController,
                         children: [
                           // Patient Form
-                          SingleChildScrollView(
-                            child: CustomeSignUpInputFields(
-                              onSubmit: () => () {},
-                            ),
+                          CustomeSignUpInputFields(
+                            onSubmit: () => () {},
                           ),
                           // Doctor Form
-                          SingleChildScrollView(child: CustomeSignUpInputFields(onSubmit: () => () {})),
+                          CustomeSignUpInputFields(onSubmit: () => () {}),
                         ],
                       ),
                     ),
-                            
+
                     // Sign-Up Button
                     Column(
                       children: [

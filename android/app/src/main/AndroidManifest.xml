@@ -33,6 +33,16 @@
         <service 
             android:name="com.dexterous.flutterlocalnotifications.ForegroundService" 
             android:foregroundServiceType="mediaProjection" />
+        <service
+            android:name="com.google.android.gms.metadata.ModuleDependencies"
+            android:enabled="false"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection" />
+            
+        <!-- Add Google Maps API Key inside the application tag -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDfZ9Tane13TmbMuudVbqaV0DJvOxcxmq0"/>
     </application>
 
     <queries>
@@ -41,8 +51,4 @@
             <data android:mimeType="text/plain"/>
         </intent>
     </queries>
-    <!-- Add this line inside the <application> tag -->
-    <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyDfZ9Tane13TmbMuudVbqaV0DJvOxcxmq0"/>
 </manifest>

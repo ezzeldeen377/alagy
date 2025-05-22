@@ -15,6 +15,7 @@ import 'package:alagy/features/authentication/presentation/screens/sign_up_scree
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 import 'package:alagy/features/doctor/presentation/bloc/add_doctor_cubit.dart';
 import 'package:alagy/features/doctor/presentation/pages/edit_doctor_details.dart';
+import 'package:alagy/features/map/presentation/screens/select_location_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -59,6 +60,9 @@ class AlagyRouter {
           create: (context) => getIt<ForgetPasswordCubit>(),
           child: const ForgetPassword(),
         ));
+      case RouteNames.selectLocationScreen:
+        return SlidePageRoute(
+            page: const SelectLocationScreen());
 
       default:
         return MaterialPageRoute(

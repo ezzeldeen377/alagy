@@ -73,7 +73,7 @@ class CustomeSignUpInputFields extends StatelessWidget {
           BlocBuilder<SignUpCubit, SignUpState>(
             builder: (context, state) {
               return CustomTextFormField(
-                validator: emptyValidator,
+                validator: passwordValidator,
                 hint: l10n.signUpPasswordHint,
                 obscureText: state.isVisiblePassword,
                 keyboardType: TextInputType.visiblePassword,
