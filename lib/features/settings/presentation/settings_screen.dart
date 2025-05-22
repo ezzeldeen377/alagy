@@ -1,3 +1,4 @@
+import 'package:alagy/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/app_settings_cubit.dart';
@@ -67,6 +68,17 @@ class SettingsScreen extends StatelessWidget {
                       ),
                     ),
                   );
+                },
+              ),
+              const Divider(), // Added a visual separator
+              ListTile(
+                leading: Icon(Icons.logout, color: Theme.of(context).colorScheme.error), // Added an icon
+                title: Text(
+                  context.l10n.logout,
+                  style: TextStyle(color: Theme.of(context).colorScheme.error), // Style to indicate an action
+                ),
+                onTap: () {
+                   context.read<AppUserCubit>().signOut();
                 },
               ),
             ],

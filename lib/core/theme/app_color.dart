@@ -17,6 +17,7 @@ class AppColor {
   static const Color errorLightColor = Color(0xFFFFEBEE);
   static const Color warningColor = Color(0xFFF57C00);
   static const Color teal = Color(0xff1A998E);
+  static const Color gold = Color(0xFFFFD700);
 
   // New color palette
   static const Color white = Color(0xFFFFFFFF);

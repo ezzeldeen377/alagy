@@ -37,6 +37,9 @@ final DoctorModel? doctor;
 final String? errorMessage;
 final File? selectedProfilePicture;
 final String? profilePictureUrl;
+final double? latitude;
+final double? longitude;
+
 
 
   const AddDoctorState({
@@ -45,6 +48,8 @@ final String? profilePictureUrl;
     this.errorMessage,
     this.selectedProfilePicture,
     this.profilePictureUrl,
+    this.latitude,
+    this.longitude,
   });
 
   AddDoctorState copyWith({
@@ -53,6 +58,8 @@ final String? profilePictureUrl;
     String? errorMessage,
     File? selectedProfilePicture,
     String? profilePictureUrl,
+    double? latitude,
+    double? longitude,
   }) {
     return AddDoctorState(
       status: status ?? this.status,
@@ -60,6 +67,8 @@ final String? profilePictureUrl;
       errorMessage: errorMessage ?? this.errorMessage,
       selectedProfilePicture: selectedProfilePicture ?? this.selectedProfilePicture,
       profilePictureUrl: profilePictureUrl ?? this.profilePictureUrl,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
     );
   }
 
@@ -67,6 +76,6 @@ final String? profilePictureUrl;
 
   @override
   String toString() {
-    return 'AddDoctorState(status: $status, doctor: $doctor, errorMessage: $errorMessage, selectedProfilePicture: $selectedProfilePicture, profilePictureUrl: $profilePictureUrl)';
+    return 'AddDoctorState(status: $status, doctor: $doctor, errorMessage: $errorMessage, selectedProfilePicture: $selectedProfilePicture, profilePictureUrl: $profilePictureUrl, latitude: $latitude, longitude: $longitude)';
   }
 }

@@ -123,5 +123,11 @@
   "unavailable": "Unavailable",
   "seeAll":"See All",
   "featuredDoctors": "Featured Doctors",
-  "reviews": "Reviews"
+  "reviews": "Reviews",
+  "logout": "Logout",
+  "editDoctorLocation": "Location",
+  "editDoctorLatitude": "Latitude",
+  "editDoctorLongitude": "Longitude",
+  "editDoctorLocationNotSet": "Not set",
+  "editDoctorSelectLocation": "Select Location from Map"
 }

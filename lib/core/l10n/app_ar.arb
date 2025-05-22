@@ -109,6 +109,13 @@
   "unavailable": "غير متاح",
   "seeAll":"عرض الكل",
   "featuredDoctors": "أطباء مميزون",
-  "reviews": "تقيمات"
+  "reviews": "تقيمات",
+  "logout": "تسجيل خروج",
+  "editDoctorLocation": "الموقع",
+  "editDoctorLatitude": "خط العرض",
+  "editDoctorLongitude": "خط الطول",
+  "editDoctorLocationNotSet": "لم يتم التعيين",
+  "editDoctorSelectLocation": "اختر الموقع من الخريطة"
+  
 
 }

@@ -11,6 +11,8 @@ class DoctorModel extends UserModel {
   final String? address;
   final double? consultationFee;
   final String? bio;
+  final double? longitude;
+  final double? latitude;
 
   DoctorModel({
     required super.uid,
@@ -29,6 +31,8 @@ class DoctorModel extends UserModel {
     this.address,
     this.consultationFee,
     this.bio,
+    this.longitude,
+    this.latitude,
   }) ;
 
   factory DoctorModel.fromMap(Map<String, dynamic> json) {
@@ -49,6 +53,8 @@ class DoctorModel extends UserModel {
       address: json['address'],
       consultationFee: (json['consultationFee'] as num?)?.toDouble(),
       bio: json['bio'],
+      latitude: json['latitude'],
+      longitude: json['longitude'],
     );
   }
 
@@ -64,6 +70,8 @@ class DoctorModel extends UserModel {
       'address': address,
       'consultationFee': consultationFee,
       'bio': bio,
+      'latitude': latitude,
+      'longitude': longitude,
     });
     return map;
   }
@@ -89,6 +97,8 @@ class DoctorModel extends UserModel {
     String? address,
     double? consultationFee,
     String? bio,
+    double? longitude,
+    double? latitude,
   }) {
     return DoctorModel(
       uid: uid ?? this.uid,
@@ -107,6 +117,8 @@ class DoctorModel extends UserModel {
       address: address ?? this.address,
       consultationFee: consultationFee ?? this.consultationFee,
       bio: bio ?? this.bio,
+      longitude: longitude?? this.longitude,
+      latitude: latitude?? this.latitude,
     );
   }
 }

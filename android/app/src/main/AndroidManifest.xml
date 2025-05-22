@@ -41,4 +41,8 @@
             <data android:mimeType="text/plain"/>
         </intent>
     </queries>
+    <!-- Add this line inside the <application> tag -->
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyDfZ9Tane13TmbMuudVbqaV0DJvOxcxmq0"/>
 </manifest>

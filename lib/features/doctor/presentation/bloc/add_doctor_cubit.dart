@@ -70,7 +70,9 @@ class AddDoctorCubit extends Cubit<AddDoctorState> {
       emit(state.copyWith(status: AddDoctorStatus.success));
     });
   }
-
+void updateLocation({double? latitude, double? longitude}) {
+  emit(state.copyWith(latitude: latitude, longitude: longitude));
+}
   Future<void> pickPofilePicture() async {
     emit(state.copyWith(status: AddDoctorStatus.pickProfileImageLoading));
     final image = await pickImage();
@@ -127,7 +129,9 @@ class AddDoctorCubit extends Cubit<AddDoctorState> {
             : int.tryParse(yearsOfExperienceController.text),
         bio: bioController.text.isEmpty ? null : bioController.text,
         uid: doctor.uid,
-        type: doctor.type
+        type: doctor.type,
+        latitude: state.latitude,
+        longitude: state.longitude,
       );
   }
 

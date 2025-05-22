@@ -154,6 +154,68 @@ import 'package:alagy/core/helpers/extensions.dart';
                      ),
                    ),
                    verticalSpace(20),
+ 
+                   // Location Section
+                   CustomContainer(
+                     child: Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         SectionHeader(title: context.l10n.editDoctorLocation), // Add this to l10n
+                         verticalSpace(10),
+                         BlocBuilder<AddDoctorCubit, AddDoctorState>(
+                           buildWhen: (previous, current) =>
+                               previous.latitude != current.latitude ||
+                               previous.longitude != current.longitude,
+                           builder: (context, state) {
+                             return Column(
+                               crossAxisAlignment: CrossAxisAlignment.start,
+                               children: [
+                                 Text(
+                                   "${context.l10n.editDoctorLatitude}: ${state.latitude?.toStringAsFixed(6) ?? context.l10n.editDoctorLocationNotSet}", // Add these to l10n
+                                   style: context.theme.textTheme.bodyLarge,
+                                 ),
+                                 verticalSpace(5),
+                                 Text(
+                                   "${context.l10n.editDoctorLongitude}: ${state.longitude?.toStringAsFixed(6) ?? context.l10n.editDoctorLocationNotSet}", // Add these to l10n
+                                   style: context.theme.textTheme.bodyLarge,
+                                 ),
+                               ],
+                             );
+                           },
+                         ),
+                         verticalSpace(15),
+                         CustomButton( // Or ElevatedButton/TextButton as you prefer
+                           buttonContent: Text(
+                             context.l10n.editDoctorSelectLocation, // Add this to l10n
+                             style: context.theme.textTheme.titleMedium
+                                         ?.copyWith(color: AppColor.white), // Adjust style as needed
+                           ),
+                           onTapButton: () async {
+                             // TODO: Navigate to a map screen to select location
+                             // Example:
+                             // final LatLng? selectedLocation = await Navigator.push(
+                             //   context,
+                             //   MaterialPageRoute(builder: (context) => YourMapScreen()),
+                             // );
+                             // if (selectedLocation != null) {
+                             //   cubit.updateLocation(
+                             //     latitude: selectedLocation.latitude,
+                             //     longitude: selectedLocation.longitude,
+                             //   );
+                             // }
+ 
+                             // For demonstration, you can update with dummy values:
+                             // cubit.updateLocation(latitude: 30.0444, longitude: 31.2357);
+                             ScaffoldMessenger.of(context).showSnackBar(
+                               const SnackBar(content: Text("Map selection UI not implemented yet.")),
+                             );
+                           },
+                         ),
+                         verticalSpace(10),
+                       ],
+                     ),
+                   ),
+                   verticalSpace(20),
                    BlocBuilder<AddDoctorCubit, AddDoctorState>(
                      builder: (context, state) {
                        return CustomButton(
