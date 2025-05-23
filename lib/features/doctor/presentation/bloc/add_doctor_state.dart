@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+
 import 'package:alagy/core/common/enities/user_model.dart';
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 
@@ -15,6 +17,7 @@ enum AddDoctorStatus{
   uploadProfilePictureLoading,
   uploadProfilePictureError,
   uploadProfilePictureSuccess,
+  loaded
 
 }
 extension AddDoctorStateX on AddDoctorState {
@@ -39,7 +42,12 @@ final File? selectedProfilePicture;
 final String? profilePictureUrl;
 final double? latitude;
 final double? longitude;
-
+final bool? isCustomAvailability;
+final String? weeklyStartTime;
+  final String? weeklyEndTime;
+  final Map<String, Map<String, String?>>? dayAvailability;
+  final String? selectedDay;
+final Map<String, bool>? dayIsClosed;
 
 
   const AddDoctorState({
@@ -50,6 +58,12 @@ final double? longitude;
     this.profilePictureUrl,
     this.latitude,
     this.longitude,
+    this.isCustomAvailability=false,
+    this.weeklyStartTime,
+    this.weeklyEndTime,
+    this.dayAvailability,
+    this.selectedDay,
+    this.dayIsClosed,
   });
 
   AddDoctorState copyWith({
@@ -60,6 +74,12 @@ final double? longitude;
     String? profilePictureUrl,
     double? latitude,
     double? longitude,
+    bool? isCustomAvailability,
+    String? weeklyStartTime,
+    String? weeklyEndTime,
+    Map<String, Map<String, String?>>? dayAvailability,
+    String? selectedDay,
+    Map<String, bool>? dayIsClosed,
   }) {
     return AddDoctorState(
       status: status ?? this.status,
@@ -69,6 +89,12 @@ final double? longitude;
       profilePictureUrl: profilePictureUrl ?? this.profilePictureUrl,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
+      isCustomAvailability: isCustomAvailability ?? this.isCustomAvailability,
+      weeklyStartTime: weeklyStartTime ?? this.weeklyStartTime,
+      weeklyEndTime: weeklyEndTime ?? this.weeklyEndTime,
+      dayAvailability: dayAvailability ?? this.dayAvailability,
+      selectedDay: selectedDay ?? this.selectedDay,
+      dayIsClosed: dayIsClosed ?? this.dayIsClosed,
     );
   }
 
@@ -76,6 +102,8 @@ final double? longitude;
 
   @override
   String toString() {
-    return 'AddDoctorState(status: $status, doctor: $doctor, errorMessage: $errorMessage, selectedProfilePicture: $selectedProfilePicture, profilePictureUrl: $profilePictureUrl, latitude: $latitude, longitude: $longitude)';
+    return 'AddDoctorState(status: $status, doctor: $doctor, errorMessage: $errorMessage, selectedProfilePicture: $selectedProfilePicture, profilePictureUrl: $profilePictureUrl, latitude: $latitude, longitude: $longitude, isCustomAvailability: $isCustomAvailability, weeklyStartTime: $weeklyStartTime, weeklyEndTime: $weeklyEndTime, dayAvailability: $dayAvailability, selectedDay: $selectedDay, dayIsClosed: $dayIsClosed)';
   }
+
+  
 }

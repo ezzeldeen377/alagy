@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
@@ -8,7 +9,7 @@ class SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding:  EdgeInsets.symmetric(vertical: 10.h),
       child: Text(
         title,
         style: TextStyle(

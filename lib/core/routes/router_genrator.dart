@@ -74,3 +74,51 @@ class AlagyRouter {
     }
   }
 }
+class LoaderScreen extends StatefulWidget {
+  final Future<void> Function()? loadFunction;
+  final Widget child;
+  final Widget? loadingWidget;
+
+  const LoaderScreen({
+    super.key,
+    this.loadFunction,
+    required this.child,
+    this.loadingWidget,
+  });
+
+  @override
+  State<LoaderScreen> createState() => _LoaderScreenState();
+}
+
+class _LoaderScreenState extends State<LoaderScreen> {
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.loadFunction != null) {
+      widget.loadFunction!().then((_) {
+        if (mounted) {
+          setState(() {
+            isLoading = false;
+          });
+        }
+      });
+    } else {
+      isLoading = false;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (isLoading) {
+      return widget.loadingWidget ??
+          const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+    } else {
+      return widget.child;
+    }
+  }
+}

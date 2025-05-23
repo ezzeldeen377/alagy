@@ -15,7 +15,8 @@ class CustomTextField extends StatelessWidget {
   final MyValidator? validator;
   final Function(String)? onChanged;
   final List<TextInputFormatter>? inputFormatters;
-
+  final bool? readOnly;
+  final Function? onTap;
   const CustomTextField({
     super.key,
     required this.controller,
@@ -24,7 +25,7 @@ class CustomTextField extends StatelessWidget {
     this.isEnable = true,
     this.keyboardType,
     this.validator ,
-    this.onChanged, this.inputFormatters,
+    this.onChanged, this.inputFormatters, this.readOnly, this.onTap,
   });
 
   @override
@@ -32,7 +33,7 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: TextFormField(
-        enabled: isEnable,
+        enabled: isEnable,readOnly: readOnly ?? false,onTap: (){onTap?.call();},
         controller: controller,
         decoration: InputDecoration(
           labelText: label,

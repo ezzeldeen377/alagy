@@ -53,3 +53,26 @@ String? passwordValidator(String? value) {
   }
   return null;
  }
+ String? convertArabicTimeToEnglish(String arabicTime) {
+  // Trim any extra whitespace
+  final trimmedTime = arabicTime.trim();
+  if(trimmedTime.isEmpty) return null;
+  // Define Arabic AM/PM indicators
+  const arabicAM = 'ص';
+  const arabicPM = 'م';
+  
+  // Initialize the suffix
+  String suffix = '';
+  
+  // Check for AM/PM and extract the time part
+  if (trimmedTime.endsWith(arabicAM)) {
+    suffix = 'AM';
+    return '${trimmedTime.replaceAll(arabicAM, '').trim()} $suffix';
+  } else if (trimmedTime.endsWith(arabicPM)) {
+    suffix = 'PM';
+    return '${trimmedTime.replaceAll(arabicPM, '').trim()} $suffix';
+  }
+  
+  // Return original string if no AM/PM indicator is found
+  return trimmedTime;
+}

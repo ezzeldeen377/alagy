@@ -1,5 +1,6 @@
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/theme/app_color.dart';
+import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +18,8 @@ class DoctorCardSlider extends StatefulWidget {
 }
 
 class _DoctorCardSliderState extends State<DoctorCardSlider> {
-  final CarouselSliderController _carouselController = CarouselSliderController();
+  final CarouselSliderController _carouselController =
+      CarouselSliderController();
   int _currentPage = 0;
 
   final List<DoctorCardModel> _doctors = [
@@ -110,7 +112,14 @@ class _DoctorCardSliderState extends State<DoctorCardSlider> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => DoctorDetailPage(doctor: _doctors[index]),
+                    builder: (context) => DoctorDetailPage(
+                        doctor: DoctorModel(
+                            uid: '12345',
+                            name: "Dr. Sarah Johnson",
+                            email: "gfdgdfgdf",
+                            createdAt: DateTime.now(),
+                            profileImage:
+                                "https://images.unsplash.com/photo-1605107513004-368f8ebc7a74?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGZlbWFsZSUyMGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60")),
                   ),
                 );
               },
@@ -133,7 +142,10 @@ class _DoctorCardSliderState extends State<DoctorCardSlider> {
                   borderRadius: BorderRadius.circular(6.r),
                   gradient: index == _currentPage
                       ? LinearGradient(
-                          colors: [AppColor.tealNew, AppColor.tealNew.withOpacity(0.7)],
+                          colors: [
+                            AppColor.tealNew,
+                            AppColor.tealNew.withOpacity(0.7)
+                          ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         )
@@ -147,7 +159,8 @@ class _DoctorCardSliderState extends State<DoctorCardSlider> {
                         ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(index == _currentPage ? 0.15 : 0.05),
+                      color: Colors.black
+                          .withOpacity(index == _currentPage ? 0.15 : 0.05),
                       blurRadius: 6,
                       offset: const Offset(0, 3),
                     ),

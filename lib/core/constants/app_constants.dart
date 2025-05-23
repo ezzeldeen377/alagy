@@ -47,6 +47,15 @@ class AppConstants {
   "specialty_geriatrics",
   "specialty_neonatology"
 ];
+static  const List<String> daysOfWeek = [
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+  'Sunday',
+];
   // Cache configuration
   static const int cacheDuration = 7; // days
   
