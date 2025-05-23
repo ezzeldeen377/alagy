@@ -1,5 +1,8 @@
+import 'package:alagy/core/helpers/navigator.dart';
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
+import 'package:alagy/features/doctor/presentation/widgets/doctor_details/booking_tab.dart';
 import 'package:alagy/features/doctor/presentation/widgets/doctor_details/doctor_sliver_app_bar.dart';
+import 'package:alagy/features/doctor/presentation/widgets/doctor_details/review_tab.dart';
 import 'package:alagy/features/doctor/presentation/widgets/doctor_details/time_slot_chip.dart';
 import 'package:alagy/features/doctor/presentation/widgets/section_header.dart';
 import 'package:alagy/features/map/presentation/screens/show_location_screen.dart';
@@ -57,197 +60,184 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(24.r),
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Colors.white,
-                        AppColor.tealNew.withOpacity(0.05),
-                      ],
-                    ),
+                    borderRadius: BorderRadius.circular(20.r),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.08),
-                        blurRadius: 12.r,
+                        color: Colors.black12,
+                        blurRadius: 10,
                         offset: const Offset(0, 4),
-                        spreadRadius: 2,
                       ),
                     ],
                   ),
-                  padding: EdgeInsets.all(20.r),
+                  padding: EdgeInsets.all(16.r),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Doctor's Name
-                      Text(
-                        widget.doctor.name ?? 'Unknown Doctor',
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black87,
-                          letterSpacing: 0.5,
-                        ),
-                      ),
-                      SizedBox(height: 6.h),
-                      // Location
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(
-                            Icons.location_on_outlined,
-                            size: 18.sp,
-                            color: AppColor.tealNew.withOpacity(0.7),
-                          ),
-                          SizedBox(width: 6.w),
+                          // Doctor basic info - now without the image since it's in the SliverAppBar
                           Expanded(
-                            child: Text(
-                              widget.doctor.city ?? widget.doctor.address ?? 'Location not available',
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: Colors.grey[700],
-                                fontWeight: FontWeight.w500,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 12.h),
-                      // Rating and Years of Experience
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          // Rating
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
-                            decoration: BoxDecoration(
-                              color: AppColor.tealNew.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(10.r),
-                              border: Border.all(
-                                color: AppColor.tealNew.withOpacity(0.2),
-                                width: 1.5,
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Icon(
-                                  Icons.star_border_rounded,
-                                  color: Colors.amber[700],
-                                  size: 18.sp,
-                                ),
-                                SizedBox(width: 6.w),
                                 Text(
-                                  "4.7", // Replace with widget.doctor.rating?.toStringAsFixed(1) ?? 'N/A' if dynamic
-                                  style: TextStyle(
-                                    color: AppColor.tealNew,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14.sp,
+                                  widget.doctor.name,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black87,
+                                      ),
+                                ),
+                                SizedBox(height: 4.h),
+                                if (widget.doctor.specialization != null)
+                                  Text(
+                                    widget.doctor.specialization!,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(
+                                          color: Colors.black54,
+                                        ),
                                   ),
+                                SizedBox(height: 8.h),
+
+                                // Rating component
+                                Row(
+                                  children: [
+                                    // Star rating (using a placeholder value of 4.5 - you can replace with actual rating)
+                                    Row(
+                                      children: List.generate(5, (index) {
+                                        // Full stars for index < 4, half star for index = 4 (for 4.5 rating)
+                                        return Icon(
+                                          index < 4
+                                              ? Icons.star
+                                              : Icons.star_half,
+                                          color: Colors.amber,
+                                          size: 18.sp,
+                                        );
+                                      }),
+                                    ),
+                                    SizedBox(width: 4.w),
+                                    Text(
+                                      '4.5', // Placeholder rating - replace with actual rating
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    SizedBox(width: 4.w),
+                                    Text(
+                                      '(120)', // Placeholder review count - replace with actual count
+                                      style: TextStyle(
+                                        fontSize: 12.sp,
+                                        color: Colors.black54,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
-                          // Years of Experience
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
-                            decoration: BoxDecoration(
-                              color: AppColor.tealNew.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(10.r),
-                              border: Border.all(
-                                color: AppColor.tealNew.withOpacity(0.2),
-                                width: 1.5,
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.workspace_premium_outlined,
-                                  color: AppColor.tealNew,
-                                  size: 18.sp,
-                                ),
-                                SizedBox(width: 6.w),
-                                RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: '${widget.doctor.yearsOfExperience}+ ',
-                                        style: TextStyle(
+                                SizedBox(height: 12.h),
+
+                                // Enhanced experience badge
+                                if (widget.doctor.yearsOfExperience != null)
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 12.w, vertical: 6.h),
+                                    decoration: BoxDecoration(
+                                      color: AppColor.tealNew.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(12.r),
+                                      border: Border.all(
+                                        color:
+                                            AppColor.tealNew.withOpacity(0.3),
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          Icons.workspace_premium,
                                           color: AppColor.tealNew,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14.sp,
+                                          size: 16.sp,
                                         ),
-                                      ),
-                                      TextSpan(
-                                        text: context.l10n.yearsExp ?? 'Years Exp',
-                                        style: TextStyle(
-                                          color: AppColor.tealNew.withOpacity(0.8),
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 13.sp,
+                                        SizedBox(width: 6.w),
+                                        RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text:
+                                                    '${widget.doctor.yearsOfExperience}+ ',
+                                                style: TextStyle(
+                                                  color: AppColor.tealNew,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 13.sp,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: context.l10n.yearsExp,
+                                                style: TextStyle(
+                                                  color: AppColor.tealNew,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 12.sp,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
                               ],
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 20.h),
-                      // Quick Action Buttons (Chat, View in Map)
+                      SizedBox(height: 16.h),
+                      // Quick action buttons
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          // Chat Button
-                          ModernActionButton(
-                            icon: Icons.chat_bubble_outline,
-                            label:'Chat',
+                          // Call button
+                          if (widget.doctor.phoneNumber != null)
+                            ActionButton(
+                              icon: Icons.chat,
+                              label: context.l10n.chatWithDoctor,
+                              color: Colors.green,
+                              onTap: () async {
+                                
+                              },
+                            ),
+                          // Email button
+                           
+                          // Book appointment button
+                          ActionButton(
+                            icon: Icons.calendar_today,
+                            label: context.l10n.book,
                             color: AppColor.tealNew,
                             onTap: () {
+                              // Implement booking functionality
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text('Chat feature coming soon'),
+                                  content: Text(
+                                      context.l10n.bookingFeatureComingSoon),
                                   backgroundColor: AppColor.tealNew,
-                                  behavior: SnackBarBehavior.floating,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.r),
-                                  ),
                                 ),
                               );
                             },
                           ),
-                          // View in Map Button
-                          ModernActionButton(
-                            icon: Icons.map_outlined,
-                            label: 'View in Map',
-                            color: AppColor.tealNew,
-                            onTap: () {
-                              if (widget.doctor.latitude != null && widget.doctor.longitude != null) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ShowLocationScreen(
-                                      lat: widget.doctor.latitude!,
-                                      lng: widget.doctor.longitude!,
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('Location not available'),
-                                    backgroundColor: Colors.red,
-                                    behavior: SnackBarBehavior.floating,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.r),
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
-                          ),
+                           ActionButton(
+                              icon: Icons.route,
+                              label: "View on Map",
+                              color: Colors.blue,
+                              onTap: () async {
+                              context.push(ShowLocationScreen(
+                                lat: widget.doctor.latitude??30.0444,
+                                lng: widget.doctor.longitude??31.2357,
+                              ));
+                              },
+                            ),
                         ],
                       ),
                     ],
@@ -325,15 +315,15 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
           ),
           // TabBar
           SliverToBoxAdapter(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 16.w),
+            child:Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(12.r),
+                borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.05),
-                    blurRadius: 8.r,
+                    blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
                 ],
@@ -342,25 +332,18 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                 controller: _tabController,
                 labelColor: AppColor.tealNew,
                 unselectedLabelColor: Colors.grey[500],
-                labelStyle: TextStyle(
-                  fontSize: 14.sp,
+                labelStyle: const TextStyle(
+                  fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
-                unselectedLabelStyle: TextStyle(
-                  fontSize: 14.sp,
+                unselectedLabelStyle: const TextStyle(
+                  fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
-                indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.r),
-                  color: AppColor.tealNew.withOpacity(0.1),
-                  border: Border.all(
-                    color: AppColor.tealNew.withOpacity(0.3),
-                    width: 1.5,
-                  ),
-                ),
-                indicatorPadding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 6.w),
+               
+                indicatorPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
                 tabs: [
-                  Tab(text: "Appointment"),
+                  Tab(text: context.l10n.appointment ?? 'Appointment'),
                   Tab(text: context.l10n.reviews ?? 'Reviews'),
                 ],
               ),
@@ -371,8 +354,8 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
             child: TabBarView(
               controller: _tabController,
               children: [
-                _buildAppointmentTab(context),
-                _buildReviewsTab(context),
+               BookingTab(),
+                ReviewTab(),
               ],
             ),
           ),
@@ -380,117 +363,85 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
       ),
     );
   }
-
-// Appointment Booking Tab Content
- Widget _buildAppointmentTab(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Book an Appointment',
-            style: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w600,
-              color: Colors.black87,
-            ),
-          ),
-          SizedBox(height: 12.h),
-          Container(
-            padding: EdgeInsets.all(16.r),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16.r),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 8.r,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Column(
-              children: [
-                Text(
-                  'Select a date and time for your appointment.',
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: Colors.grey[600],
-                  ),
-                ),
-                SizedBox(height: 12.h),
-                ElevatedButton(
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Booking feature coming soon'),
-                        backgroundColor: AppColor.tealNew,
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColor.tealNew,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.r),
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
-                  ),
-                  child: Text(
-                    'Book Now',
-                    style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+Widget _buildInfoBadge({
+  required IconData icon,
+  required Color? iconColor,
+  required String value,
+  required String label,
+}) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+    decoration: BoxDecoration(
+      color: Colors.grey[50],
+      borderRadius: BorderRadius.circular(12.r),
+      border: Border.all(
+        color: Colors.grey[200]!,
+        width: 1.2,
       ),
-    );
-  }
-
-  Widget _buildReviewsTab(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Patient Reviews',
-            style: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w600,
-              color: Colors.black87,
-            ),
-          ),
-          SizedBox(height: 12.h),
-          Container(
-            padding: EdgeInsets.all(16.r),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16.r),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 8.r,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Text(
-              'No reviews available yet.',
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 18.sp, color: iconColor),
+        SizedBox(width: 8.w),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              value,
               style: TextStyle(
-                fontSize: 14.sp,
-                color: Colors.grey[600],
+                fontSize: 15.sp,
+                fontWeight: FontWeight.w700,
+                color: Colors.grey[800],
               ),
             ),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 12.sp,
+                color: Colors.grey[600],
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildActionButton({
+  required IconData icon,
+  required String label,
+  required VoidCallback onTap,
+}) {
+  return InkWell(
+    onTap: onTap,
+    borderRadius: BorderRadius.circular(12.r),
+    child: Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: Colors.grey[300]!, width: 1.2),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 20.sp, color: AppColor.tealNew),
+          SizedBox(width: 8.w),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 15.sp,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey[800],
+            ),
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 }
   // Review Item Widget
   Widget _buildReviewItem({
@@ -626,7 +577,53 @@ class DetailRow extends StatelessWidget {
     );
   }
 }
+class ActionButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Color color;
+  final VoidCallback onTap;
 
+  const ActionButton({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.color,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12.r),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: EdgeInsets.all(8.r),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: color, size: 20.sp),
+            ),
+            SizedBox(height: 4.h),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w500,
+                color: Colors.black87,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 class ModernActionButton extends StatelessWidget {
   final IconData icon;
   final String label;

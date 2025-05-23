@@ -23,12 +23,15 @@ import 'package:alagy/features/settings/cubit/app_settings_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+    timeago.setLocaleMessages('ar', timeago.ArMessages());
+
   await Supabase.initialize(
     url: 'https://tceseqtplmomxlregppm.supabase.co',
     anonKey:

@@ -214,5 +214,18 @@
   "directions": "Directions",
   "yearsExp": "years experience",
   "availabilitySchedule": "Availability Schedule",
-  "availableTimeSlots": "Available Time Slots"
+  "availableTimeSlots": "Available Time Slots",
+    "reviewsCount": "{count} reviews",
+  "ratingPercentage": "{percentage}%",
+  "writeAReview": "Write a Review",
+  "shareYourExperience": "Share your experience",
+  "submitReview": "Submit Review",
+  "featureNotImplemented": "Review submission not implemented",
+  "noReviewsYet": "No reviews yet",
+  "selectDate": "Select Date",
+  "selectTime": "Select Time",
+  "closedOnThisDay": "Closed on this day",
+  "pm":"PM",
+  "am":"AM",
+  "appointment": "Appointment"
 }

@@ -1,6 +1,7 @@
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
+import 'package:alagy/features/doctor/presentation/pages/doctor_detail_page.dart';
 import 'package:alagy/features/home_screen/presentation/models/doctor_card_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,8 +29,28 @@ class TopDoctorCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          // Navigate to doctor details
-          // Example: Navigator.push(context, MaterialPageRoute(builder: (context) => DoctorDetailPage(doctor: doctor)));
+  Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DoctorDetailPage(
+                        doctor: DoctorModel(
+                            uid: '12345',
+                            name: "Dr. Sarah Johnson",
+                            email: "gfdgdfgdf",
+                            phoneNumber: "0123456789",address: "gfdgdfgdf",
+                            specialization: "Cardiologist",
+                            yearsOfExperience: 10,
+                            city: "gfdgdfgdf",
+                            consultationFee: 100,
+                            qualification: "gfdgdfgdf",
+                            hospitalName: "gfdgdfgdf",
+
+                            bio: " gfdgdfgdf fsdfsfd asdfasdasf dafsd fsdffsdfs s fdsdfdsf s dffsdfsq er fweewtw sdfsdfs xcsdfsdfsdfs asdlmkl;fnw wdfkdf ",
+                            createdAt: DateTime.now(),
+                            profileImage:doctor.imageUrl
+                                ,)),
+                  ),
+                );
         },
         borderRadius: BorderRadius.circular(16.r),
         splashColor: Colors.teal.withOpacity(0.2),

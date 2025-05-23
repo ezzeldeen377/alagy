@@ -20,7 +20,7 @@ class DoctorSliverAppBar extends StatelessWidget {
     return SliverAppBar(
       expandedHeight: 300.h,
       pinned: true,
-      floating: true,
+      floating: false,
       backgroundColor: AppColor.tealNew,
       leading: Padding(
         padding: EdgeInsets.all(8.r),
@@ -78,6 +78,7 @@ class DoctorSliverAppBar extends StatelessWidget {
         ),
         SizedBox(width: 8.w),
       ],
+      
       flexibleSpace: FlexibleSpaceBar(
         background: Stack(
           fit: StackFit.expand,

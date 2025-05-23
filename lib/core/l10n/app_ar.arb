@@ -189,12 +189,23 @@
   "call": "اتصال",
   "book": "حجز موعد",
   "bookingFeatureComingSoon": "ميزة الحجز ستتوفر قريبًا",
-
   "address": "العنوان",
-  
   "mapViewComingSoon": "عرض الخريطة سيتوفر قريبًا",
   "directions": "الاتجاهات",
   "yearsExp": "سنوات الخبرة",
-   "availabilitySchedule": "جدول التوفر",
-  "availableTimeSlots": "الفترات الزمنية المتاحة"
+  "availabilitySchedule": "جدول التوفر",
+  "availableTimeSlots": "الفترات الزمنية المتاحة",
+  "reviewsCount": "{count} مراجعة",
+  "ratingPercentage": "%{percentage}",
+  "writeAReview": "اكتب مراجعة",
+  "shareYourExperience": "شارك تجربتك",
+  "submitReview": "إرسال المراجعة",
+  "featureNotImplemented": "ميزة إرسال المراجعة غير متوفرة",
+  "noReviewsYet": "لا توجد مراجعات حتى الآن",
+  "selectDate": "اختر التاريخ",
+  "selectTime": "اختر الوقت",
+  "closedOnThisDay": "مغلق في هذا اليوم",
+  "pm":"م",
+  "am":"ص",
+  "appointment": "موعد"
 }

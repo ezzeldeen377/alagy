@@ -41,6 +41,7 @@ dependencies:
   google_maps_flutter: ^2.12.2
   geolocator: ^14.0.0
   easy_date_timeline: ^2.0.9
+  timeago: ^3.7.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
