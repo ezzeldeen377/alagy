@@ -7,7 +7,7 @@ class AppSettingsCubit extends Cubit<AppSettingsState> {
   AppSettingsCubit()
       : super( AppSettingsState(
         status: AppSettingsStatus.initail,
-          themeMode: ThemeMode.dark,
+          themeMode: ThemeMode.light,
           locale: const Locale('ar'),
         ));
 

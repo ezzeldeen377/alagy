@@ -200,5 +200,19 @@
   "hospitalOrClinic": "Hospital or Clinic",
   "coordinates": "Coordinates",
   "closed": "Closed",
-  "bookNow": "Book Now"
+  "bookNow": "Book Now",
+  "addedToFavorites": "Added to favorites",
+  "removedFromFavorites": "Removed from favorites",
+  "doctorProfileShared": "Doctor profile shared",
+  "call": "Call",
+  "book": "Book Appointment",
+  "bookingFeatureComingSoon": "Booking feature coming soon",
+  
+  "address": "Address",
+
+  "mapViewComingSoon": "Map view coming soon",
+  "directions": "Directions",
+  "yearsExp": "years experience",
+  "availabilitySchedule": "Availability Schedule",
+  "availableTimeSlots": "Available Time Slots"
 }

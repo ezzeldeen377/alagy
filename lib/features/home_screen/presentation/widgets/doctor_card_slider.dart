@@ -117,9 +117,19 @@ class _DoctorCardSliderState extends State<DoctorCardSlider> {
                             uid: '12345',
                             name: "Dr. Sarah Johnson",
                             email: "gfdgdfgdf",
+                            phoneNumber: "0123456789",address: "gfdgdfgdf",
+                            specialization: "Cardiologist",
+                            yearsOfExperience: 10,
+                            city: "gfdgdfgdf",
+                            consultationFee: 100,
+                            qualification: "gfdgdfgdf",
+                            hospitalName: "gfdgdfgdf",
+
+                            bio: " gfdgdfgdf fsdfsfd asdfasdasf dafsd fsdffsdfs s fdsdfdsf s dffsdfsq er fweewtw sdfsdfs xcsdfsdfsdfs asdlmkl;fnw wdfkdf ",
                             createdAt: DateTime.now(),
                             profileImage:
-                                "https://images.unsplash.com/photo-1605107513004-368f8ebc7a74?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGZlbWFsZSUyMGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60")),
+                              null
+                                ,)),
                   ),
                 );
               },

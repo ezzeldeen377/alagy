@@ -182,5 +182,19 @@
   "consultationFee": "Consultation Fee",
   "hospitalOrClinic": "Hospital or Clinic",
   "coordinates": "Coordinates",
-  "closed": "Closed"
+  "closed": "Closed",
+  "addedToFavorites": "تمت الإضافة إلى المفضلة",
+  "removedFromFavorites": "تمت الإزالة من المفضلة",
+  "doctorProfileShared": "تم مشاركة ملف الطبيب",
+  "call": "اتصال",
+  "book": "حجز موعد",
+  "bookingFeatureComingSoon": "ميزة الحجز ستتوفر قريبًا",
+
+  "address": "العنوان",
+  
+  "mapViewComingSoon": "عرض الخريطة سيتوفر قريبًا",
+  "directions": "الاتجاهات",
+  "yearsExp": "سنوات الخبرة",
+   "availabilitySchedule": "جدول التوفر",
+  "availableTimeSlots": "الفترات الزمنية المتاحة"
 }
