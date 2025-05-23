@@ -47,7 +47,7 @@ class TopRatedDoctors extends StatelessWidget {
         specialty: "Orthopedic Surgeon",
         rating: 4.9,
         reviewCount: 142,
-        imageUrl: "https://images.unsplash.com/photo-1605107513004-368f8ebc7a74?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGZlbWFsZSUyMGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60", // Replaced
+        imageUrl: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60", // Replaced
       ),
     ];
 

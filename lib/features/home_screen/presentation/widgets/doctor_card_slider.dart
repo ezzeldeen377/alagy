@@ -128,7 +128,7 @@ class _DoctorCardSliderState extends State<DoctorCardSlider> {
                             bio: " gfdgdfgdf fsdfsfd asdfasdasf dafsd fsdffsdfs s fdsdfdsf s dffsdfsq er fweewtw sdfsdfs xcsdfsdfsdfs asdlmkl;fnw wdfkdf ",
                             createdAt: DateTime.now(),
                             profileImage:
-                              null
+                              "https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
                                 ,)),
                   ),
                 );

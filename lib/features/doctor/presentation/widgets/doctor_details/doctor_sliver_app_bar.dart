@@ -95,7 +95,7 @@ class DoctorSliverAppBar extends StatelessWidget {
                         child: SizedBox(
                           width: 100.w,
                           height: 150.h,
-                          child: doctor.profileImage!=null
+                          child: doctor.profileImage!=null&&doctor.profileImage!.startsWith("https")
                               ? CachedNetworkImage(
                                   imageUrl: doctor.profileImage??'',
                                   fit: BoxFit.cover,
