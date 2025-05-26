@@ -195,13 +195,15 @@ class _InitialScreenState extends State<InitialScreen> {
           context.read<AppUserCubit>().clearUserData();
         }
       },
-      child: Scaffold(
-        
-        extendBody: true,
-        body: _getScreenForIndex(),
-        bottomNavigationBar: FloatingBottomNavBar(
-          currentIndex: _currentIndex,
-          onTap: _onTabSelected,
+      child: SafeArea(
+        child: Scaffold(
+          
+          extendBody: true,
+          body: _getScreenForIndex(),
+          bottomNavigationBar: FloatingBottomNavBar(
+            currentIndex: _currentIndex,
+            onTap: _onTabSelected,
+          ),
         ),
       ),
     );

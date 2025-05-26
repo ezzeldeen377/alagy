@@ -1,6 +1,6 @@
 import 'package:alagy/core/helpers/extensions.dart';
+import 'package:alagy/core/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GlobalL10n {
   static late AppLocalizations l10n;

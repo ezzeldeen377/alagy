@@ -188,7 +188,7 @@
   "doctorDetailProfessionalInfo": "Professional Information",
   "doctorDetailHospital": "Hospital/Clinic",
   "doctorDetailLocation": "Location",
-  "doctorDetailBio": "About",
+  "doctorDetailBio": "About Doctor",
   "doctorDetailAvailability": "Availability",
   "phoneNumber": "Phone Number",
   "email": "Email",
@@ -227,5 +227,9 @@
   "closedOnThisDay": "Closed on this day",
   "pm":"PM",
   "am":"AM",
-  "appointment": "Appointment"
+  "appointment": "Appointment",
+  "searchPlaceholder": "Search doctors, medicines etc...",
+  "howAreYou": "how are you today?",
+  "greeting": "Hi, {name}!",
+  "viewOnMap": "View on Map"
 }

@@ -76,11 +76,9 @@ class _DoctorCardSliderState extends State<DoctorCardSlider> {
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
           child: Text(
             context.l10n.featuredDoctors,
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w800,
-                  color: AppColor.tealNew,
-                  letterSpacing: 0.5,
-                ),
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
             semanticsLabel: context.l10n.featuredDoctors,
           ),
         ),

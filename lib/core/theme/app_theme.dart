@@ -24,7 +24,19 @@ class AppTheme {
       ),
       scaffoldBackgroundColor: AppColor.white,
       applyElevationOverlayColor: true,
-      
+      tabBarTheme: TabBarThemeData(
+         labelColor: AppColor.tealNew,
+                unselectedLabelColor: Colors.grey[500],
+                labelStyle: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+                unselectedLabelStyle: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+               dividerColor: Colors.transparent,indicatorColor:  AppColor.tealNew,
+      ),
       drawerTheme: DrawerThemeData(
         backgroundColor: AppColor.white,
         scrimColor: AppColor.beige,
@@ -33,7 +45,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(15),
         ),
       ),
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: AppColor.white,
         elevation: 8,
         shape: RoundedRectangleBorder(
@@ -126,7 +138,7 @@ class AppTheme {
               fontFamily: "CircularSpotify",
               fontSize: 18,
               fontWeight: FontWeight.w600,
-              color: AppColor.ofWhiteColor),
+              color: AppColor.darkGray),
           titleSmall: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 14,
@@ -182,6 +194,19 @@ class AppTheme {
         background: AppColor.textFieldFill,
         onBackground: AppColor.offWhite
       ),
+        tabBarTheme: const TabBarThemeData(
+         labelColor: AppColor.tealNew,
+                unselectedLabelColor: Colors.white,
+                labelStyle: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+                unselectedLabelStyle: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+               dividerColor:  Colors.transparent,indicatorColor:  AppColor.tealNew,
+      ),
       scaffoldBackgroundColor: AppColor.darkGray,
       applyElevationOverlayColor: true,
       drawerTheme: DrawerThemeData(
@@ -192,7 +217,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(15),
         ),
       ),
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: AppColor.darkGray,
         elevation: 8,
         shape: RoundedRectangleBorder(
@@ -276,7 +301,7 @@ class AppTheme {
               fontFamily: "CircularSpotify",
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: AppColor.ofWhiteColor),
+              color: AppColor.tealNew),
           titleLarge: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 22,
@@ -286,7 +311,7 @@ class AppTheme {
               fontFamily: "CircularSpotify",
               fontSize: 18,
               fontWeight: FontWeight.w600,
-              color: AppColor.ofWhiteColor),
+              color: AppColor.whiteColor),
           titleSmall: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 14,

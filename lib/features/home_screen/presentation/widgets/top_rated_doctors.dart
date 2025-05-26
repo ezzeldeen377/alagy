@@ -52,7 +52,7 @@ class TopRatedDoctors extends StatelessWidget {
     ];
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w), // This padding is for the whole section
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -79,14 +79,18 @@ class TopRatedDoctors extends StatelessWidget {
               ),
             ],
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: doctors.length,
-            itemBuilder: (context, index) {
-              // TopDoctorCard now handles its own internal padding and margins for the Card itself
-              return TopDoctorCard(doctor: doctors[index]);
-            },
+          SizedBox(height: 16.h),
+          SizedBox(
+            height: 220.h,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              itemCount: doctors.length,
+              itemBuilder: (context, index) {
+                final doctor = doctors[index];
+                return TopDoctorCard(doctor: doctor,);
+              },
+            ),
           ),
         ],
       ),

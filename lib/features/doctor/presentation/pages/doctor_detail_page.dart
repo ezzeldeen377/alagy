@@ -1,5 +1,6 @@
 import 'package:alagy/core/helpers/navigator.dart';
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
+import 'package:alagy/features/doctor/presentation/widgets/doctor_details/actionButton.dart';
 import 'package:alagy/features/doctor/presentation/widgets/doctor_details/booking_tab.dart';
 import 'package:alagy/features/doctor/presentation/widgets/doctor_details/doctor_sliver_app_bar.dart';
 import 'package:alagy/features/doctor/presentation/widgets/doctor_details/review_tab.dart';
@@ -59,12 +60,12 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                 // Profile Card with enhanced design
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: context.theme.scaffoldBackgroundColor,
                     borderRadius: BorderRadius.circular(20.r),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 10,
+                        color:context.isDark?Colors.black12.withAlpha(100): Colors.black12,
+                        blurRadius: 5,
                         offset: const Offset(0, 4),
                       ),
                     ],
@@ -87,7 +88,6 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                                       .headlineSmall
                                       ?.copyWith(
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.black87,
                                       ),
                                 ),
                                 SizedBox(height: 4.h),
@@ -97,9 +97,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium
-                                        ?.copyWith(
-                                          color: Colors.black54,
-                                        ),
+                                        
                                   ),
                                 SizedBox(height: 8.h),
 
@@ -122,19 +120,13 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                                     SizedBox(width: 4.w),
                                     Text(
                                       '4.5', // Placeholder rating - replace with actual rating
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black87,
-                                      ),
+                                      style:context.theme.textTheme.bodyMedium
                                     ),
                                     SizedBox(width: 4.w),
                                     Text(
                                       '(120)', // Placeholder review count - replace with actual count
-                                      style: TextStyle(
-                                        fontSize: 12.sp,
-                                        color: Colors.black54,
-                                      ),
+                                                                          style:context.theme.textTheme.bodyMedium
+
                                     ),
                                   ],
                                 ),
@@ -197,20 +189,10 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                       SizedBox(height: 16.h),
                       // Quick action buttons
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // Call button
-                          if (widget.doctor.phoneNumber != null)
-                            ActionButton(
-                              icon: Icons.chat,
-                              label: context.l10n.chatWithDoctor,
-                              color: Colors.green,
-                              onTap: () async {
-                                
-                              },
-                            ),
-                          // Email button
-                           
+                   
                           // Book appointment button
                           ActionButton(
                             icon: Icons.calendar_today,
@@ -229,7 +211,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                           ),
                            ActionButton(
                               icon: Icons.route,
-                              label: "View on Map",
+                              label: context.l10n.viewOnMap,
                               color: Colors.blue,
                               onTap: () async {
                               context.push(ShowLocationScreen(
@@ -262,12 +244,9 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              context.l10n.consultationFee ?? 'Consultation Fee',
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black54,
-                              ),
+                              context.l10n.consultationFee ,
+                                                                  style:context.theme.textTheme.bodyMedium
+
                             ),
                             Text(
                               '\$${widget.doctor.consultationFee!.toStringAsFixed(2)}',
@@ -286,21 +265,21 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                 ],
                 // About Section
                 if (widget.doctor.bio != null) ...[
-                  SectionHeader(title: context.l10n.doctorDetailBio ?? 'About'),
+                  SectionHeader(title: context.l10n.doctorDetailBio ),
                   Divider(),
                   Container(
                     padding: EdgeInsets.all(12.r),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12.r),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
-                          blurRadius: 5,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
+                       decoration: BoxDecoration(
+                    color: context.theme.scaffoldBackgroundColor,
+                    borderRadius: BorderRadius.circular(20.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color:context.isDark?Colors.black12.withAlpha(100): Colors.black12,
+                        blurRadius: 5,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
                     child: Text(
                       widget.doctor.bio!,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -318,33 +297,21 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
             child:Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
+                borderRadius: BorderRadius.circular(25.r),
+
+               border: Border.all(
+                color:AppColor.teal,
+                width: .5
+                
+               )
               ),
               child: TabBar(
                 controller: _tabController,
-                labelColor: AppColor.tealNew,
-                unselectedLabelColor: Colors.grey[500],
-                labelStyle: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-                unselectedLabelStyle: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
                
                 indicatorPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
                 tabs: [
-                  Tab(text: context.l10n.appointment ?? 'Appointment'),
-                  Tab(text: context.l10n.reviews ?? 'Reviews'),
+                  Tab(text: context.l10n.appointment ),
+                  Tab(text: context.l10n.reviews ),
                 ],
               ),
             ),
@@ -353,7 +320,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
           SliverFillRemaining(
             child: TabBarView(
               controller: _tabController,
-              children: [
+              children: const[
                BookingTab(),
                 ReviewTab(),
               ],
@@ -363,157 +330,10 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
       ),
     );
   }
-Widget _buildInfoBadge({
-  required IconData icon,
-  required Color? iconColor,
-  required String value,
-  required String label,
-}) {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-    decoration: BoxDecoration(
-      color: Colors.grey[50],
-      borderRadius: BorderRadius.circular(12.r),
-      border: Border.all(
-        color: Colors.grey[200]!,
-        width: 1.2,
-      ),
-    ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, size: 18.sp, color: iconColor),
-        SizedBox(width: 8.w),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              value,
-              style: TextStyle(
-                fontSize: 15.sp,
-                fontWeight: FontWeight.w700,
-                color: Colors.grey[800],
-              ),
-            ),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 12.sp,
-                color: Colors.grey[600],
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
 
-Widget _buildActionButton({
-  required IconData icon,
-  required String label,
-  required VoidCallback onTap,
-}) {
-  return InkWell(
-    onTap: onTap,
-    borderRadius: BorderRadius.circular(12.r),
-    child: Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: Colors.grey[300]!, width: 1.2),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 20.sp, color: AppColor.tealNew),
-          SizedBox(width: 8.w),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 15.sp,
-              fontWeight: FontWeight.w600,
-              color: Colors.grey[800],
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
 }
   // Review Item Widget
-  Widget _buildReviewItem({
-    required String name,
-    required String date,
-    required int rating,
-    required String comment,
-    required String avatarUrl,
-  }) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 12.h),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CircleAvatar(
-            radius: 24.r,
-            backgroundImage: CachedNetworkImageProvider(avatarUrl),
-          ),
-          SizedBox(width: 12.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      name,
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    Text(
-                      date,
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        color: Colors.black54,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 4.h),
-                Row(
-                  children: List.generate(
-                    5,
-                    (index) => Icon(
-                      index < rating ? Icons.star : Icons.star_border,
-                      color: Colors.amber,
-                      size: 16.sp,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 8.h),
-                Text(
-                  comment,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: Colors.black87,
-                    height: 1.4,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-
+ 
 // New SliverAppBar widget for the doctor detail page
 
 // Keep the existing DetailRow and ActionButton widgets
@@ -571,113 +391,6 @@ class DetailRow extends StatelessWidget {
             if (isActionable)
               Icon(Icons.arrow_forward_ios,
                   size: 14.sp, color: AppColor.tealNew),
-          ],
-        ),
-      ),
-    );
-  }
-}
-class ActionButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final Color color;
-  final VoidCallback onTap;
-
-  const ActionButton({
-    super.key,
-    required this.icon,
-    required this.label,
-    required this.color,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12.r),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              padding: EdgeInsets.all(8.r),
-              decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(icon, color: color, size: 20.sp),
-            ),
-            SizedBox(height: 4.h),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w500,
-                color: Colors.black87,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-class ModernActionButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final Color color;
-  final VoidCallback onTap;
-
-  const ModernActionButton({
-    Key? key,
-    required this.icon,
-    required this.label,
-    required this.color,
-    required this.onTap,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeInOut,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Material(
-              elevation: 4,
-              shape: CircleBorder(),
-              child: Container(
-                padding: EdgeInsets.all(12.r),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: color.withOpacity(0.1),
-                  border: Border.all(
-                    color: color.withOpacity(0.3),
-                    width: 1.5,
-                  ),
-                ),
-                child: Icon(
-                  icon,
-                  color: color,
-                  size: 22.sp,
-                ),
-              ),
-            ),
-            SizedBox(height: 6.h),
-            Text(
-              label,
-              style: TextStyle(
-                color: color,
-                fontSize: 13.sp,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.3,
-              ),
-            ),
           ],
         ),
       ),

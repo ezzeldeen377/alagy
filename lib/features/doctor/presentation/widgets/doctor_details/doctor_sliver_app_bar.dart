@@ -21,7 +21,7 @@ class DoctorSliverAppBar extends StatelessWidget {
       expandedHeight: 300.h,
       pinned: true,
       floating: false,
-      backgroundColor: AppColor.tealNew,
+      backgroundColor:AppColor.teal,
       leading: Padding(
         padding: EdgeInsets.all(8.r),
         child: CircleAvatar(
@@ -92,7 +92,6 @@ class DoctorSliverAppBar extends StatelessWidget {
               child:Hero(
                       tag: 'doctor_image_${doctor.name}',
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16.r),
                         child: SizedBox(
                           width: 100.w,
                           height: 150.h,

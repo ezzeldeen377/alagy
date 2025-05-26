@@ -1,7 +1,10 @@
+import 'package:alagy/features/settings/cubit/app_settings_cubit.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/helpers/extensions.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WorkingHours {
   final TimeOfDay? openTime;
@@ -94,11 +97,11 @@ class BookingTab extends StatelessWidget {
               children: [
                 // Title
                 Text(
-                  context.l10n.bookAppointment ?? 'Book an Appointment',
-                  style: const TextStyle(
+                  context.l10n.bookAppointment,
+                  style: TextStyle(
                     fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF424242), // Colors.grey[800]
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal.shade700,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -106,29 +109,22 @@ class BookingTab extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
+                    color: context.theme.scaffoldBackgroundColor,
+                    borderRadius: BorderRadius.circular(20.r),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
-                        blurRadius: 10,
-                        offset: const Offset(0, 5),
+                        color: context.isDark
+                            ? Colors.black12.withAlpha(100)
+                            : Colors.black12,
+                        blurRadius: 5,
+                        offset: const Offset(0, 4),
                       ),
                     ],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        context.l10n.selectDate ?? 'Select Date',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF424242), // Colors.grey[800]
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      EasyDateTimeLinePicker(
+                      EasyDateTimeLinePicker(locale:context.read<AppSettingsCubit>().state.locale,
                         focusedDate: DateTime.now(),
                         firstDate: DateTime(2024, 3, 18),
                         lastDate: DateTime(2030, 3, 18),
@@ -144,37 +140,32 @@ class BookingTab extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
+                    color: context.theme.scaffoldBackgroundColor,
+                    borderRadius: BorderRadius.circular(20.r),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
-                        blurRadius: 10,
-                        offset: const Offset(0, 5),
+                        color: context.isDark
+                            ? Colors.black12.withAlpha(100)
+                            : Colors.black12,
+                        blurRadius: 5,
+                        offset: const Offset(0, 4),
                       ),
                     ],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        context.l10n.selectTime ?? 'Select Time',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF424242), // Colors.grey[800]
-                        ),
-                      ),
+                      Text(context.l10n.selectDate,
+                          style: context.theme.textTheme.titleMedium),
                       const SizedBox(height: 12),
                       timeSlots.isEmpty
                           ? Center(
                               child: Text(
-                                context.l10n.closedOnThisDay ??
-                                    'Closed on this day',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Color(0xFF757575), // Colors.grey[600]
-                                  fontStyle: FontStyle.italic,
+                                context.l10n.closedOnThisDay,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.teal.shade700,
                                 ),
                               ),
                             )
@@ -198,23 +189,15 @@ class BookingTab extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       color: isSelected
                                           ? AppColor.tealNew
-                                          : Colors.grey[50],
+                                          : context
+                                              .theme.scaffoldBackgroundColor,
                                       borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                        color: isSelected
-                                            ? AppColor.tealNew
-                                            : Colors.grey[200]!,
-                                      ),
+                                      border:
+                                          Border.all(color: AppColor.tealNew),
                                     ),
-                                    child: Text(
-                                      time,
-                                      style: TextStyle(
-                                        color: isSelected
-                                            ? Colors.white
-                                            : Colors.grey[800],
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
+                                    child: Text(time,
+                                        style:
+                                            context.theme.textTheme.labelLarge),
                                   ),
                                 );
                               }).toList(),
@@ -232,8 +215,8 @@ class BookingTab extends StatelessWidget {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  context.l10n.featureNotImplemented ??
-                                      'Booking not implemented',
+                                  context.l10n.featureNotImplemented 
+                                  
                                 ),
                                 backgroundColor: AppColor.tealNew,
                               ),
@@ -247,7 +230,7 @@ class BookingTab extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      disabledBackgroundColor: Colors.grey[300],
+                      disabledBackgroundColor: AppColor.grayColor,
                     ),
                     child: Text(
                       context.l10n.bookAppointment ?? 'Book Appointment',

@@ -1,11 +1,11 @@
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/helpers/spacer.dart';
+import 'package:alagy/core/l10n/app_localizations.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/utils/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../core/helpers/validators.dart';
 import '../../cubits/sign_up_cubit/sign_up_cubit.dart';

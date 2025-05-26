@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/helpers/extensions.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class Review {
@@ -87,28 +88,25 @@ class ReviewTab extends StatelessWidget {
             // Rating Summary
             Container(
               padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 10,
-                    offset: const Offset(0, 5),
+               decoration: BoxDecoration(
+                    color: context.theme.scaffoldBackgroundColor,
+                    borderRadius: BorderRadius.circular(20.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color:context.isDark?Colors.black12.withAlpha(100): Colors.black12,
+                        blurRadius: 5,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
-                ],
-              ),
               child: Row(
                 children: [
                   Column(
                     children: [
                       Text(
                         avgRating.toStringAsFixed(1),
-                        style: const TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF424242), // Colors.grey[800]
-                        ),
+                                                             style:context.theme.textTheme.headlineLarge
+
                       ),
                       Row(
                         children: List.generate(5, (index) {
@@ -128,10 +126,7 @@ class ReviewTab extends StatelessWidget {
                       const SizedBox(height: 4),
                       Text(
                         context.l10n.reviewsCount?.call(reviews.length) ?? '${reviews.length} reviews',
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFF757575), // Colors.grey[600]
-                        ),
+                       style: context.theme.textTheme.labelMedium,
                       ),
                     ],
                   ),
@@ -181,26 +176,25 @@ class ReviewTab extends StatelessWidget {
             // Review Form (Display Only)
             Container(
               padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 10,
-                    offset: const Offset(0, 5),
+               decoration: BoxDecoration(
+                    color: context.theme.scaffoldBackgroundColor,
+                    borderRadius: BorderRadius.circular(20.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color:context.isDark?Colors.black12.withAlpha(100): Colors.black12,
+                        blurRadius: 5,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
-                ],
-              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    context.l10n.writeAReview ?? 'Write a Review',
+                    context.l10n.writeAReview,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF424242), // Colors.grey[800]
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -220,7 +214,7 @@ class ReviewTab extends StatelessWidget {
                     enabled: false, // Disable input for static display
                     maxLines: 3,
                     decoration: InputDecoration(
-                      hintText: context.l10n.shareYourExperience ?? 'Share your experience',
+                      hintText: context.l10n.shareYourExperience ,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -283,7 +277,7 @@ class ReviewTab extends StatelessWidget {
                       return Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color:context.theme.scaffoldBackgroundColor,
                           borderRadius: BorderRadius.circular(12),
                           boxShadow: [
                             BoxShadow(
