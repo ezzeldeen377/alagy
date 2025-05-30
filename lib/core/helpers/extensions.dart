@@ -12,6 +12,9 @@ extension BuildContextX on BuildContext {
   String getSpecialty(String specialtyKey) {
     final l10n = AppLocalizations.of(this)!;
     switch (specialtyKey) {
+      case "":
+        return l10n.specialty_empty;
+
       case 'specialty_internal_medicine':
         return l10n.specialty_internal_medicine;
       case 'specialty_general_surgery':

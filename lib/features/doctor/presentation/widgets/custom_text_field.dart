@@ -1,5 +1,3 @@
-import 'package:alagy/core/helpers/extensions.dart';
-import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/utils/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

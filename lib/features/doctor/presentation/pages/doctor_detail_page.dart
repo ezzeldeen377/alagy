@@ -4,18 +4,12 @@ import 'package:alagy/features/doctor/presentation/widgets/doctor_details/action
 import 'package:alagy/features/doctor/presentation/widgets/doctor_details/booking_tab.dart';
 import 'package:alagy/features/doctor/presentation/widgets/doctor_details/doctor_sliver_app_bar.dart';
 import 'package:alagy/features/doctor/presentation/widgets/doctor_details/review_tab.dart';
-import 'package:alagy/features/doctor/presentation/widgets/doctor_details/time_slot_chip.dart';
 import 'package:alagy/features/doctor/presentation/widgets/section_header.dart';
 import 'package:alagy/features/map/presentation/screens/show_location_screen.dart';
-import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/helpers/extensions.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class DoctorDetailPage extends StatefulWidget {
   final DoctorModel doctor;
@@ -124,7 +118,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                                     ),
                                     SizedBox(width: 4.w),
                                     Text(
-                                      '(120)', // Placeholder review count - replace with actual count
+                                      '(${widget.doctor.reviews.length})', // Placeholder review count - replace with actual count
                                                                           style:context.theme.textTheme.bodyMedium
 
                                     ),
@@ -209,6 +203,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                               );
                             },
                           ),
+                          if(widget.doctor.latitude!=null&&widget.doctor.longitude!=null)
                            ActionButton(
                               icon: Icons.route,
                               label: context.l10n.viewOnMap,
@@ -266,7 +261,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                 // About Section
                 if (widget.doctor.bio != null) ...[
                   SectionHeader(title: context.l10n.doctorDetailBio ),
-                  Divider(),
+                  const Divider(),
                   Container(
                     padding: EdgeInsets.all(12.r),
                        decoration: BoxDecoration(
@@ -320,9 +315,9 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
           SliverFillRemaining(
             child: TabBarView(
               controller: _tabController,
-              children: const[
-               BookingTab(),
-                ReviewTab(),
+              children: [
+               BookingTab(doctor: widget.doctor,),
+                ReviewTab(doctor:widget.doctor),
               ],
             ),
           ),

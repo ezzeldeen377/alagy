@@ -16,6 +16,7 @@ enum AppUserStates {
   failureSaveData,
   clearUserData,
   loading,
+  getFavouriteDoctors,
   updated
 }
 
@@ -40,12 +41,14 @@ class AppUserState {
   final UserModel? user;
   final String? userIntialRoute;
   final String? userId;
+  List<String>? favouriteIds;
   final String? errorMessage;
   AppUserState({
     required this.state,
     this.user,
     this.userIntialRoute,
     this.userId,
+    this.favouriteIds=const[],
     this.errorMessage,
   });
 
@@ -54,6 +57,7 @@ class AppUserState {
     UserModel? user,
     String? userIntialRoute,
     String? userId,
+    List<String>? favouriteIds,
     String? errorMessage,
   }) {
     return AppUserState(
@@ -61,24 +65,15 @@ class AppUserState {
       user: user ?? this.user,
       userIntialRoute: userIntialRoute ?? this.userIntialRoute,
       userId: userId ?? this.userId,
+      favouriteIds: favouriteIds ?? this.favouriteIds,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
   @override
   String toString() {
-    return 'AppUserState(state: $state, user: $user, userIntialRoute: $userIntialRoute, userId: $userId, errorMessage: $errorMessage)';
+    return 'AppUserState(state: $state, user: $user, userIntialRoute: $userIntialRoute, userId: $userId, favouriteIds: $favouriteIds, errorMessage: $errorMessage)';
   }
 
-  @override
-  bool operator ==(covariant AppUserState other) {
-    if (identical(this, other)) return true;
-
-    return other.state == state &&
-        other.user == user &&
-        other.errorMessage == errorMessage;
-  }
-
-  @override
-  int get hashCode => state.hashCode ^ user.hashCode ^ errorMessage.hashCode;
+  
 }

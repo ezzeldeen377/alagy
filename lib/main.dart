@@ -137,6 +137,7 @@ class MyApp extends StatelessWidget {
                 );
               },
             ),
+        
             onGenerateRoute: AlagyRouter.generateRoute,
           );
         },

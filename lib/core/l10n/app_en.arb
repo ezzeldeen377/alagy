@@ -231,5 +231,6 @@
   "searchPlaceholder": "Search doctors, medicines etc...",
   "howAreYou": "how are you today?",
   "greeting": "Hi, {name}!",
-  "viewOnMap": "View on Map"
+  "viewOnMap": "View on Map",
+  "specialty_empty":"No specialty"
 }

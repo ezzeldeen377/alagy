@@ -1,13 +1,13 @@
+import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/helpers/extensions.dart';
-import '../models/doctor_card_model.dart';
 
 class DoctorCard extends StatelessWidget {
-  final DoctorCardModel doctor;
+  final DoctorModel doctor;
   final bool isActive;
   final VoidCallback onTap;
 
@@ -72,9 +72,9 @@ class DoctorCard extends StatelessWidget {
                         child: SizedBox(
                           width: 100.w,
                           height: 150.h,
-                          child: doctor.imageUrl.startsWith('http')
+                          child: doctor.profileImage!=null
                               ? CachedNetworkImage(
-                                  imageUrl: doctor.imageUrl,
+                                  imageUrl: doctor.profileImage!,
                                   fit: BoxFit.cover,
                                   memCacheHeight: (100.h *
                                           MediaQuery.of(context)
@@ -91,13 +91,9 @@ class DoctorCard extends StatelessWidget {
                                   errorWidget: (context, url, error) =>
                                       _buildFallbackImage(),
                                 )
-                              : Image.asset(
-                                  doctor.imageUrl,
-                                  width: 150.w,
-                                  height: 100.h,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) =>
-                                      _buildFallbackImage(),
+                              : SizedBox(
+                                  width: 100.w,
+                                  height: 150.h,
                                 ),
                         ),
                       ),
@@ -126,7 +122,7 @@ class DoctorCard extends StatelessWidget {
                           ),
                           SizedBox(height: 6.h),
                           Text(
-                            doctor.specialty,
+                          context.getSpecialty(doctor.specialization??'')  ,
                             style:
                                 Theme.of(context).textTheme.bodyLarge?.copyWith(
                                       color: Colors.black54,
@@ -134,7 +130,6 @@ class DoctorCard extends StatelessWidget {
                                     ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            semanticsLabel: doctor.specialty,
                           ),
                           SizedBox(height: 10.h),
                           Row(
@@ -147,7 +142,7 @@ class DoctorCard extends StatelessWidget {
                               ),
                               SizedBox(width: 4.w),
                               Text(
-                                doctor.rating.toStringAsFixed(1),
+                                doctor.rating?.toStringAsFixed(1)??'0',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium
@@ -159,7 +154,7 @@ class DoctorCard extends StatelessWidget {
                               ),
                               SizedBox(width: 4.w),
                               Text(
-                                "(${doctor.reviewCount} reviews)",
+                                "(${doctor.reviews.length} reviews)",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall

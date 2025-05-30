@@ -1,6 +1,7 @@
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
+import 'package:alagy/features/home_screen/presentation/widgets/favourite_icon.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,7 +28,7 @@ class DoctorSliverAppBar extends StatelessWidget {
         child: CircleAvatar(
           backgroundColor: Colors.black.withOpacity(0.3),
           child: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color:  AppColor.teal),
             onPressed: () => Navigator.pop(context),
           ),
         ),
@@ -38,23 +39,7 @@ class DoctorSliverAppBar extends StatelessWidget {
           padding: EdgeInsets.all(8.r),
           child: CircleAvatar(
             backgroundColor: Colors.black.withOpacity(0.3),
-            child: IconButton(
-              icon: Icon(
-                doctor.isSaved == true ? Icons.favorite : Icons.favorite_border,
-                color: doctor.isSaved == true ? Colors.red : Colors.white,
-              ),
-              onPressed: () {
-                // Implement save/favorite functionality
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(doctor.isSaved == true
-                        ? context.l10n.removedFromFavorites
-                        : context.l10n.addedToFavorites),
-                    backgroundColor: AppColor.tealNew,
-                  ),
-                );
-              },
-            ),
+            child:FavoriteIcon(doctor: doctor,fromDetailsScreen: true,),
           ),
         ),
         // Share button
@@ -63,7 +48,7 @@ class DoctorSliverAppBar extends StatelessWidget {
           child: CircleAvatar(
             backgroundColor: Colors.black.withOpacity(0.3),
             child: IconButton(
-              icon: const Icon(Icons.share, color: Colors.white),
+              icon: const Icon(Icons.share, color: AppColor.teal),
               onPressed: () {
                 // Implement share functionality
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -112,7 +97,7 @@ class DoctorSliverAppBar extends StatelessWidget {
                                     ),
                                   ),
                                   errorWidget: (context, url, error) =>
-                                      SizedBox.shrink(),
+                                      const SizedBox.shrink(),
                                 )
                               : Image.asset(
                                   doctor.profileImage??'',
@@ -120,7 +105,7 @@ class DoctorSliverAppBar extends StatelessWidget {
                                   height: 100.h,
                                   fit: BoxFit.cover,
                                   errorBuilder: (context, error, stackTrace) =>
-                                    SizedBox.shrink(),
+                                    const SizedBox.shrink(),
                                 ),
                         ),
                       ),

@@ -1,4 +1,3 @@
-import 'package:alagy/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 
 class BioTextField extends StatelessWidget {

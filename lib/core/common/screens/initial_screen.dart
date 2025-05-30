@@ -1,17 +1,18 @@
 import 'package:alagy/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:alagy/core/common/cubit/app_user/app_user_state.dart';
+import 'package:alagy/core/di/di.dart';
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/helpers/navigator.dart';
 import 'package:alagy/core/routes/routes.dart';
 import 'package:alagy/core/widgets/floating_bottom_nav_bar.dart';
-import 'package:alagy/features/authentication/presentation/cubits/sign_in_cubit/sign_in_cubit.dart';
+import 'package:alagy/features/home_screen/presentation/bloc/home_screen_cubit.dart';
 import 'package:alagy/features/home_screen/presentation/pages/home_creen.dart';
 import 'package:alagy/features/settings/presentation/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InitialScreen extends StatefulWidget {
-  const InitialScreen({Key? key}) : super(key: key);
+  const InitialScreen({super.key});
 
   @override
   State<InitialScreen> createState() => _InitialScreenState();
@@ -19,7 +20,11 @@ class InitialScreen extends StatefulWidget {
 
 class _InitialScreenState extends State<InitialScreen> {
   int _currentIndex = 0;
-
+  @override
+  void initState() {
+    super.initState();
+    context.read<AppUserCubit>().getAllFavouriteDoctors(context.read<AppUserCubit>().state.userId!);
+  }
   void _handleLogout(BuildContext context) {
     context.read<AppUserCubit>().onSignOut();
   }
@@ -35,7 +40,10 @@ class _InitialScreenState extends State<InitialScreen> {
   Widget _getScreenForIndex() {
     switch (_currentIndex) {
       case 0:
-        return const HomeScreen();
+        return BlocProvider(
+          create: (context) => getIt<HomeScreenCubit>()..getVipDoctors()..getTopRatedDoctors(),
+          child: const HomeScreen(),
+        );
       case 1:
         return _buildBookmarksScreen();
       case 2:
@@ -63,7 +71,7 @@ class _InitialScreenState extends State<InitialScreen> {
               children: [
                 CircleAvatar(
                   radius: 56,
-                  backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+                  backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                   backgroundImage: cubit.state.user?.profileImage != null
                       ? NetworkImage(cubit.state.user!.profileImage!)
                       : const AssetImage('assets/images/default_profile.png') as ImageProvider,
@@ -195,15 +203,13 @@ class _InitialScreenState extends State<InitialScreen> {
           context.read<AppUserCubit>().clearUserData();
         }
       },
-      child: SafeArea(
-        child: Scaffold(
-          
-          extendBody: true,
-          body: _getScreenForIndex(),
-          bottomNavigationBar: FloatingBottomNavBar(
-            currentIndex: _currentIndex,
-            onTap: _onTabSelected,
-          ),
+      child: Scaffold(
+        
+        extendBody: true,
+        body: _getScreenForIndex(),
+        bottomNavigationBar: FloatingBottomNavBar(
+          currentIndex: _currentIndex,
+          onTap: _onTabSelected,
         ),
       ),
     );

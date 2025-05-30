@@ -9,42 +9,42 @@ class SpecializationsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<SpecializationModel> specializations = [
-      SpecializationModel(
+      const SpecializationModel(
         title: 'Cardiology',
         iconPath: 'assets/icons/cardiologist.svg',
         color: Colors.red,
       ),
-      SpecializationModel(
+      const SpecializationModel(
         title: 'Dental Care',
         iconPath: 'assets/icons/dentail.svg',
         color: Colors.blue,
       ),
-      SpecializationModel(
+      const SpecializationModel(
         title: 'General Medicine',
         iconPath: 'assets/icons/general.svg',
         color: Colors.teal,
       ),
-      SpecializationModel(
+      const SpecializationModel(
         title: 'Laboratory',
         iconPath: 'assets/icons/lab.svg',
         color: Colors.purple,
       ),
-      SpecializationModel(
+      const SpecializationModel(
         title: 'Neurology',
         iconPath: 'assets/icons/neurology.svg',
         color: Colors.indigo,
       ),
-      SpecializationModel(
+      const SpecializationModel(
         title: 'Pharmacy',
         iconPath: 'assets/icons/pharmacy.svg',
         color: Colors.green,
       ),
-      SpecializationModel(
+      const SpecializationModel(
         title: 'Pulmonology',
         iconPath: 'assets/icons/pulmon.svg',
         color: Colors.blue,
       ),
-      SpecializationModel(
+      const SpecializationModel(
         title: 'Gastroenterology',
         iconPath: 'assets/icons/stomach.svg',
         color: Colors.orange,
@@ -74,9 +74,9 @@ class SpecializationCard extends StatelessWidget {
   final SpecializationModel specialization;
 
   const SpecializationCard({
-    Key? key,
+    super.key,
     required this.specialization,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -211,5 +211,6 @@
   "searchPlaceholder": "ابحث عن الأطباء والأدوية وغيرها...",
   "howAreYou": "كيف حالك اليوم؟",
   "greeting": "مرحباً، {name}!",
-  "viewOnMap": "عرض على الخريطة"
+  "viewOnMap": "عرض على الخريطة",
+  "specialty_empty": "لا يوجد تخصص  "
 }

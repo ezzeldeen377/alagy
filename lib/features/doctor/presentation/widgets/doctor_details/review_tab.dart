@@ -1,65 +1,22 @@
+import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 import 'package:flutter/material.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class Review {
-  final String userId;
-  final String userName;
-  final String comment;
-  final double rating;
-  final DateTime createdAt;
-  final String userImageUrl;
 
-  Review({
-    required this.userId,
-    required this.userName,
-    required this.comment,
-    required this.rating,
-    required this.createdAt,
-    required this.userImageUrl,
-  });
-}
 
-final List<Review> fakeReviews = [
-  Review(
-    userId: 'user1',
-    userName: 'John Doe',
-    comment: 'Excellent doctor, very professional and caring!',
-    rating: 5.0,
-    createdAt: DateTime(2025, 5, 21),
-    userImageUrl: 'https://ui-avatars.com/api/?name=John+Doe',
-  ),
-  Review(
-    userId: 'user2',
-    userName: 'Jane Smith',
-    comment: 'Good experience, but the wait time was a bit long.',
-    rating: 4.0,
-    createdAt: DateTime(2025, 5, 18),
-    userImageUrl: 'https://ui-avatars.com/api/?name=Jane+Smith',
-  ),
-  Review(
-    userId: 'user3',
-    userName: 'Alex Johnson',
-    comment: 'Highly recommend, great communication.',
-    rating: 4.5,
-    createdAt: DateTime(2025, 5, 13),
-    userImageUrl: 'https://ui-avatars.com/api/?name=Alex+Johnson',
-  ),
-];
-
-const double fakeAverageRating = 4.3;
 
 class ReviewTab extends StatelessWidget {
-  const ReviewTab({super.key});
-
+  final DoctorModel doctor;
+  const ReviewTab({super.key, required this.doctor});
 
 
   @override
   Widget build(BuildContext context) {
-    final reviews = fakeReviews;
-    final avgRating = fakeAverageRating;
+    final reviews = doctor.reviews;
+    final avgRating = doctor.rating;
 
     final Map<double, int> ratingCounts = {5: 0, 4: 0, 3: 0, 2: 0, 1: 0};
     for (final review in reviews) {
@@ -104,14 +61,13 @@ class ReviewTab extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        avgRating.toStringAsFixed(1),
+                        avgRating?.toStringAsFixed(1)??'0',
                                                              style:context.theme.textTheme.headlineLarge
 
                       ),
                       Row(
                         children: List.generate(5, (index) {
-                          final starValue = index + 1;
-                          final displayValue = avgRating - index;
+                          final displayValue = avgRating !- index;
                           return Icon(
                             displayValue >= 1
                                 ? Icons.star
@@ -125,7 +81,7 @@ class ReviewTab extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        context.l10n.reviewsCount?.call(reviews.length) ?? '${reviews.length} reviews',
+                        context.l10n.reviewsCount.call(reviews.length),
                        style: context.theme.textTheme.labelMedium,
                       ),
                     ],
@@ -159,8 +115,7 @@ class ReviewTab extends StatelessWidget {
                               ),
                               const SizedBox(width: 8),
                               Text(
-                                context.l10n.ratingPercentage?.call((percentage * 100).toInt()) ??
-                                    '${(percentage * 100).toInt()}%',
+                                context.l10n.ratingPercentage.call((percentage * 100).toInt()),
                                 style: const TextStyle(fontSize: 12),
                               ),
                             ],
@@ -229,7 +184,7 @@ class ReviewTab extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                              context.l10n.featureNotImplemented ?? 'Review submission not implemented',
+                              context.l10n.featureNotImplemented,
                             ),
                             backgroundColor: AppColor.tealNew,
                           ),
@@ -244,7 +199,7 @@ class ReviewTab extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        context.l10n.submitReview ?? 'Submit Review',
+                        context.l10n.submitReview,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -260,7 +215,7 @@ class ReviewTab extends StatelessWidget {
             reviews.isEmpty
                 ? Center(
                     child: Text(
-                      context.l10n.noReviewsYet ?? 'No reviews yet',
+                      context.l10n.noReviewsYet ,
                       style: const TextStyle(
                         color: Color(0xFF757575), // Colors.grey[600]
                         fontSize: 16,
@@ -293,7 +248,7 @@ class ReviewTab extends StatelessWidget {
                             Row(
                               children: [
                                 CircleAvatar(
-                                  backgroundImage: NetworkImage(review.userImageUrl),
+                                  backgroundImage: NetworkImage(review.userImageUrl??''),
                                   radius: 20,
                                 ),
                                 const SizedBox(width: 12),

@@ -4,16 +4,18 @@ import 'package:alagy/core/common/cubit/app_user/app_user_state.dart';
 import 'package:alagy/core/common/enities/user_model.dart';
 import 'package:alagy/core/helpers/secure_storage_helper.dart';
 import 'package:alagy/features/authentication/data/repositories/auth_repository.dart';
+import 'package:alagy/features/home_screen/data/repositories/home_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 class AppUserCubit extends Cubit<AppUserState> {
-  AuthRepository authRepository;
+  final AuthRepository authRepository;
+  final HomeRepository homeScreenRepository;
   late final StreamSubscription<User?> _authStateSubscription;
 
-  AppUserCubit({required this.authRepository})
+  AppUserCubit({required this.authRepository,required this.homeScreenRepository})
       : super(AppUserState(state: AppUserStates.initial));
 
   void init() {
@@ -178,6 +180,29 @@ class AppUserCubit extends Cubit<AppUserState> {
     });
   }
 
+  void getAllFavouriteDoctors(String userId) {
+  homeScreenRepository.getAllFavouriteDoctorId(userId).listen(
+    (response) {
+      response.fold(
+        (l) {
+          emit(state.copyWith(
+            errorMessage: l.message,
+          ));
+        },
+        (r) {
+          emit(state.copyWith(
+            favouriteIds: r,
+          ));
+        },
+      );
+    },
+    onError: (error) {
+      emit(state.copyWith(
+        errorMessage: error.toString(),
+      ));
+    },
+  );
+}
   @override
   Future<void> close() {
     print("cubit closssssssssssssssssssssssssssssssssed!!!!!!!!!!!!!!!");

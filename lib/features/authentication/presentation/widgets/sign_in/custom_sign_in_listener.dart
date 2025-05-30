@@ -33,8 +33,7 @@ class CustomSignInListener extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appUserCubit = context.read<AppUserCubit>();
-    final signInCubit = context.read<SignInCubit>();
+
 
     return BlocListener<SignInCubit, SignInState>(
       listener: (context, state) {

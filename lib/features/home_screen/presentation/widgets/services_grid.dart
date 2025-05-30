@@ -1,5 +1,4 @@
 import 'package:alagy/core/helpers/extensions.dart';
-import 'package:alagy/core/theme/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -58,9 +57,9 @@ class ServiceCard extends StatelessWidget {
   final ServiceModel service;
 
   const ServiceCard({
-    Key? key,
+    super.key,
     required this.service,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1447,6 +1447,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View on Map'**
   String get viewOnMap;
+
+  /// No description provided for @specialty_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No specialty'**
+  String get specialty_empty;
 }
 
 class _AppLocalizationsDelegate

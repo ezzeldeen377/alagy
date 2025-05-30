@@ -7,8 +7,7 @@ class ShowLocationScreen extends StatefulWidget {
   final double lat;
   final double lng;
 
-  const ShowLocationScreen({Key? key, required this.lat, required this.lng})
-      : super(key: key);
+  const ShowLocationScreen({super.key, required this.lat, required this.lng});
 
   @override
   _MapScreenState createState() => _MapScreenState();
@@ -24,7 +23,7 @@ class _MapScreenState extends State<ShowLocationScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Doctor Location'),
+        title: const Text('Doctor Location'),
         backgroundColor: AppColor.tealNew,
       ),
       body: GoogleMap(
@@ -34,9 +33,9 @@ class _MapScreenState extends State<ShowLocationScreen> {
         ),
         markers: {
           Marker(
-            markerId: MarkerId('doctor_location'),
+            markerId: const MarkerId('doctor_location'),
             position: doctorLocation,
-            infoWindow: InfoWindow(title: 'Doctor Location'),
+            infoWindow: const InfoWindow(title: 'Doctor Location'),
           ),
         },
         onMapCreated: (GoogleMapController controller) {

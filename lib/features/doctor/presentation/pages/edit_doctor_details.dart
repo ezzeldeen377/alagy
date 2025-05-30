@@ -201,7 +201,7 @@ class EditProfileScreen extends StatelessWidget {
                                   color: isLocationSelected
                                       ? AppColor.tealNew
                                       : Colors.red),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Expanded(
                                 child: Text(
                                   isLocationSelected
@@ -219,7 +219,7 @@ class EditProfileScreen extends StatelessWidget {
                               ),
                               ElevatedButton.icon(
                                 icon:
-                                    Icon(Icons.route, color: AppColor.tealNew),
+                                    const Icon(Icons.route, color: AppColor.tealNew),
                                 label: Text(
                                   context.l10n.editDoctorSelectLocation,
                                   style: context.theme.textTheme.titleSmall
@@ -432,7 +432,7 @@ class EditProfileScreen extends StatelessWidget {
                                         mainAxisSize: MainAxisSize
                                             .min, // Make row only as wide as needed
                                         children: [
-                                          Icon(Icons.do_not_disturb,
+                                          const Icon(Icons.do_not_disturb,
                                               color: Colors.red,
                                               size: 16), // Smaller icon
                                           SizedBox(width: 4.w), // Reduced width

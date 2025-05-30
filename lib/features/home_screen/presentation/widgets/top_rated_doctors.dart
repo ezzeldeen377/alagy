@@ -1,7 +1,10 @@
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/theme/app_color.dart';
+import 'package:alagy/features/doctor/data/models/doctor_model.dart';
+import 'package:alagy/features/home_screen/presentation/bloc/home_screen_cubit.dart';
 import 'package:alagy/features/home_screen/presentation/models/doctor_card_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // Removed CachedNetworkImage import as it's now in top_doctor_card.dart
 
@@ -13,44 +16,7 @@ class TopRatedDoctors extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     List<DoctorCardModel> doctors = [
-      DoctorCardModel(
-        name: "Dr. Sarah Johnson",
-        specialty: "Cardiologist",
-        rating: 4.9,
-        reviewCount: 124,
-        imageUrl: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZG9jdG9yfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60", // Replaced
-      ),
-      DoctorCardModel(
-        name: "Dr. Michael Chen",
-        specialty: "Neurologist",
-        rating: 4.8,
-        reviewCount: 98,
-        imageUrl: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZG9jdG9yfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60", // Replaced
-      ),
-      DoctorCardModel(
-        name: "Dr. Aisha Rahman",
-        specialty: "Pediatrician",
-        rating: 4.7,
-        reviewCount: 156,
-        imageUrl: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60", // Replaced
-      ),
-      DoctorCardModel(
-        name: "Dr. James Wilson",
-        specialty: "Dermatologist",
-        rating: 4.6,
-        reviewCount: 87,
-        imageUrl: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8ZG9jdG9yfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60", // Replaced
-      ),
-      DoctorCardModel(
-        name: "Dr. Maria Garcia",
-        specialty: "Orthopedic Surgeon",
-        rating: 4.9,
-        reviewCount: 142,
-        imageUrl: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60", // Replaced
-      ),
-    ];
-
+     List<DoctorModel> doctors =context.read<HomeScreenCubit>().state.topRateddoctors??[];
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(

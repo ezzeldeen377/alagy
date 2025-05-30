@@ -1,4 +1,3 @@
-import 'package:alagy/core/common/enities/user_model.dart';
 import 'package:alagy/core/constants/app_constants.dart';
 import 'package:alagy/core/helpers/validators.dart';
 import 'package:alagy/core/utils/image_picker.dart';

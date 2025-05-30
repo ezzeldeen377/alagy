@@ -11,14 +11,14 @@ class CustomDropdownField<T> extends StatelessWidget {
   final String? Function(T?)? validator;
 
   const CustomDropdownField({
-    Key? key,
+    super.key,
     required this.value,
     required this.items,
     required this.label,
     required this.icon,
     required this.onChanged,
     this.validator,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class CustomDropdownField<T> extends StatelessWidget {
           labelText: label,
           prefixIcon: Icon(icon, color: AppColor.tealNew),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-          contentPadding: EdgeInsets.symmetric(vertical: 16, ),
+          contentPadding: const EdgeInsets.symmetric(vertical: 16, ),
         ),
         dropdownColor: Theme.of(context).cardColor,
         iconEnabledColor: AppColor.tealNew,

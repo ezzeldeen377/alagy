@@ -713,4 +713,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get viewOnMap => 'عرض على الخريطة';
+
+  @override
+  String get specialty_empty => 'لا يوجد تخصص  ';
 }

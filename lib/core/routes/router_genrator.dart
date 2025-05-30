@@ -1,8 +1,6 @@
-import 'package:alagy/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:alagy/core/common/enities/user_model.dart';
 import 'package:alagy/core/common/screens/initial_screen.dart';
 import 'package:alagy/core/di/di.dart';
-import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/routes/routes.dart';
 import 'package:alagy/core/utils/slide_page_route.dart';
 import 'package:alagy/features/authentication/presentation/cubits/forget_password_cubit/forget_password_cubit.dart';
@@ -12,7 +10,6 @@ import 'package:alagy/features/authentication/presentation/screens/forget_passwo
 import 'package:alagy/features/authentication/presentation/screens/on_boarding_screen.dart';
 import 'package:alagy/features/authentication/presentation/screens/sign_in_screen.dart';
 import 'package:alagy/features/authentication/presentation/screens/sign_up_screen.dart';
-import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 import 'package:alagy/features/doctor/presentation/bloc/add_doctor_cubit.dart';
 import 'package:alagy/features/doctor/presentation/pages/edit_doctor_details.dart';
 import 'package:alagy/features/map/presentation/screens/select_location_screen.dart';

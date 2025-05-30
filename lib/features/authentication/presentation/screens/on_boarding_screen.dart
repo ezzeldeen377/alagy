@@ -1,6 +1,5 @@
 import 'package:alagy/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:alagy/core/helpers/extensions.dart';
-import 'package:alagy/core/helpers/global_l10n.dart';
 import 'package:alagy/core/helpers/spacer.dart';
 import 'package:alagy/core/routes/routes.dart';
 import 'package:alagy/core/theme/app_color.dart';

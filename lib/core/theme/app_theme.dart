@@ -18,9 +18,7 @@ class AppTheme {
         onSecondary: AppColor.white,
         secondaryContainer: AppColor.teal,
         surface: AppColor.white,
-        onSurface: AppColor.darkGray,
-        background: AppColor.lightGray,
-        onBackground: AppColor.darkGray
+        onSurface: AppColor.darkGray
       ),
       scaffoldBackgroundColor: AppColor.white,
       applyElevationOverlayColor: true,
@@ -52,7 +50,6 @@ class AppTheme {
           borderRadius: BorderRadius.circular(15),
         ),
       ),
-      dialogBackgroundColor: AppColor.white,
       progressIndicatorTheme:
           const ProgressIndicatorThemeData(color: AppColor.white),
       iconTheme: const IconThemeData(color: AppColor.darkTeal),
@@ -190,9 +187,7 @@ class AppTheme {
         onSecondary: AppColor.darkGray,
         secondaryContainer: AppColor.tealNew,
         surface: AppColor.darkGray,
-        onSurface: AppColor.offWhite,
-        background: AppColor.textFieldFill,
-        onBackground: AppColor.offWhite
+        onSurface: AppColor.offWhite
       ),
         tabBarTheme: const TabBarThemeData(
          labelColor: AppColor.tealNew,
@@ -224,7 +219,6 @@ class AppTheme {
           borderRadius: BorderRadius.circular(15),
         ),
       ),
-      dialogBackgroundColor: AppColor.darkGray,
       progressIndicatorTheme:
           const ProgressIndicatorThemeData(color: AppColor.white),
       snackBarTheme:  SnackBarThemeData(

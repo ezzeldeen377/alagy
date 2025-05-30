@@ -18,11 +18,13 @@ abstract class DoctorRemoteDataSource {
 class DoctorRemoteDataSourceImpl extends DoctorRemoteDataSource {
   final supabase = Supabase.instance.client;
   final firestore = FirebaseFirestore.instance;
-  CollectionReference get doctorCollection => firestore.collection(FirebaseCollections.usersCollection);
+  CollectionReference get doctorCollection => firestore.collection(FirebaseCollections.doctorsCollection);
+  CollectionReference get userCollection => firestore.collection(FirebaseCollections.usersCollection);
+
   @override
   Future<Unit> addDoctor(DoctorModel doctor) {
     return executeTryAndCatchForDataLayer(() async {
-      final docRef = doctorCollection.doc(doctor.uid);
+      final docRef = userCollection.doc(doctor.uid);
       final docSnapshot = await docRef.get();
       if (docSnapshot.exists) {
         await docRef.set(doctor.toMap());
@@ -52,7 +54,7 @@ class DoctorRemoteDataSourceImpl extends DoctorRemoteDataSource {
   @override
   Future<Map<String, dynamic>> getDoctor(String uid) async {
     return executeTryAndCatchForDataLayer(() async {
-      final doctorDoc = await doctorCollection.doc(uid).get();
+      final doctorDoc = await userCollection.doc(uid).get();
 
     return doctorDoc.data() as Map<String, dynamic>;
     });

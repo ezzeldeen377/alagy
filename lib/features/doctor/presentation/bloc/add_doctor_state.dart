@@ -1,9 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 
-import 'package:alagy/core/common/enities/user_model.dart';
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 
 enum AddDoctorStatus{

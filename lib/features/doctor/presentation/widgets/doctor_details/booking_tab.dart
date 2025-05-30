@@ -1,3 +1,4 @@
+import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 import 'package:alagy/features/settings/cubit/app_settings_cubit.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
@@ -5,54 +6,35 @@ import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-class WorkingHours {
-  final TimeOfDay? openTime;
-  final TimeOfDay? closeTime;
-
-  WorkingHours({this.openTime, this.closeTime});
-}
-
-class DoctorSchedule {
-  final WorkingHours regularHours;
-  final WorkingHours fridayHours;
-
-  DoctorSchedule({required this.regularHours, required this.fridayHours});
-}
-
-final DoctorSchedule fakeSchedule = DoctorSchedule(
-  regularHours: WorkingHours(
-    openTime: const TimeOfDay(hour: 9, minute: 0), // 9:00 AM
-    closeTime: const TimeOfDay(hour: 17, minute: 0), // 5:00 PM
-  ),
-  fridayHours: WorkingHours(
-    openTime: const TimeOfDay(hour: 10, minute: 0), // 10:00 AM
-    closeTime: const TimeOfDay(hour: 14, minute: 0), // 2:00 PM
-  ),
-);
+import 'package:intl/intl.dart';
 
 class BookingTab extends StatelessWidget {
-  const BookingTab({super.key});
+  const BookingTab({super.key, required this.doctor});
+  final DoctorModel doctor;
 
   List<String> _generateTimeSlots(DateTime selectedDay, BuildContext context) {
     final List<String> timeSlots = [];
-    final dayOfWeek = selectedDay.weekday;
 
-    if (dayOfWeek == DateTime.sunday) {
-      return timeSlots; // Closed on Sundays
-    }
+  
+    final selectedDayName = DateFormat('EEEE').format(selectedDay);
 
-    TimeOfDay? openTime;
-    TimeOfDay? closeTime;
+final openDuration = doctor.openDurations?.firstWhere(
+  (element) => selectedDayName == element.day,
+  orElse: () => OpenDuration(day: selectedDayName, startTime: null, endTime: null),
+);
 
-    if (dayOfWeek == DateTime.friday) {
-      openTime = fakeSchedule.fridayHours.openTime;
-      closeTime = fakeSchedule.fridayHours.closeTime;
-    } else {
-      openTime = fakeSchedule.regularHours.openTime;
-      closeTime = fakeSchedule.regularHours.closeTime;
-    }
+TimeOfDay? openTime;
+TimeOfDay? closeTime;
 
+if (openDuration?.startTime != null && openDuration!.startTime!.isNotEmpty) {
+  final startDate = DateFormat.jm().parse(openDuration.startTime!);
+  openTime = TimeOfDay(hour: startDate.hour, minute: startDate.minute);
+}
+
+if (openDuration?.endTime != null && openDuration!.endTime!.isNotEmpty) {
+  final endDate = DateFormat.jm().parse(openDuration.endTime!);
+  closeTime = TimeOfDay(hour: endDate.hour, minute: endDate.minute);
+}
     if (openTime == null || closeTime == null) {
       return timeSlots;
     }
@@ -69,8 +51,7 @@ class BookingTab extends StatelessWidget {
       final hour = minutes ~/ 60;
       final minute = minutes % 60;
 
-      final period =
-          hour >= 12 ? context.l10n.pm ?? 'PM' : context.l10n.am ?? 'AM';
+      final period = hour >= 12 ? context.l10n.pm : context.l10n.am;
       final displayHour = hour % 12 == 0 ? 12 : hour % 12;
       final formattedTime =
           '$displayHour:${minute.toString().padLeft(2, '0')} $period';
@@ -83,7 +64,7 @@ class BookingTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Use May 23, 2025, as the initial date (current date)
-    DateTime selectedDay = DateTime(2025, 5, 23);
+    DateTime selectedDay = DateTime.now();
     List<String> timeSlots = _generateTimeSlots(selectedDay, context);
     String? selectedTimeSlot;
 
@@ -124,13 +105,20 @@ class BookingTab extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      EasyDateTimeLinePicker(locale:context.read<AppSettingsCubit>().state.locale,
-                        focusedDate: DateTime.now(),
+                      EasyDateTimeLinePicker(
+                        locale: context.read<AppSettingsCubit>().state.locale,
+                        focusedDate: selectedDay,
                         firstDate: DateTime(2024, 3, 18),
                         lastDate: DateTime(2030, 3, 18),
                         onDateChange: (date) {
                           // Handle the selected date.
+                          selectedDay=date;
+                          setState(() {
+                            timeSlots = _generateTimeSlots(selectedDay, context);
+                            selectedTimeSlot = null;
+                          });
                         },
+                        
                       )
                     ],
                   ),
@@ -197,7 +185,7 @@ class BookingTab extends StatelessWidget {
                                     ),
                                     child: Text(time,
                                         style:
-                                            context.theme.textTheme.labelLarge),
+                                            context.theme.textTheme.labelLarge?.copyWith(color:isSelected?Colors.white:null )),
                                   ),
                                 );
                               }).toList(),
@@ -214,10 +202,8 @@ class BookingTab extends StatelessWidget {
                         ? () {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(
-                                  context.l10n.featureNotImplemented 
-                                  
-                                ),
+                                content:
+                                    Text(context.l10n.featureNotImplemented),
                                 backgroundColor: AppColor.tealNew,
                               ),
                             );
@@ -233,7 +219,7 @@ class BookingTab extends StatelessWidget {
                       disabledBackgroundColor: AppColor.grayColor,
                     ),
                     child: Text(
-                      context.l10n.bookAppointment ?? 'Book Appointment',
+                      context.l10n.bookAppointment,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

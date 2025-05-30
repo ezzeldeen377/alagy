@@ -716,4 +716,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get viewOnMap => 'View on Map';
+
+  @override
+  String get specialty_empty => 'No specialty';
 }
