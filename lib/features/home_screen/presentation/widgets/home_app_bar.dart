@@ -161,7 +161,7 @@ class SearchBarHeaderDelegate extends SliverPersistentHeaderDelegate {
               return Align(
                 alignment: Alignment.topCenter,
                 child: Material(
-                  color: AppColor.white,
+                  color: context.theme.scaffoldBackgroundColor,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                       side: const BorderSide(

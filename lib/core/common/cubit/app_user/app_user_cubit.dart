@@ -4,6 +4,7 @@ import 'package:alagy/core/common/cubit/app_user/app_user_state.dart';
 import 'package:alagy/core/common/enities/user_model.dart';
 import 'package:alagy/core/helpers/secure_storage_helper.dart';
 import 'package:alagy/features/authentication/data/repositories/auth_repository.dart';
+import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 import 'package:alagy/features/home_screen/data/repositories/home_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -203,6 +204,14 @@ class AppUserCubit extends Cubit<AppUserState> {
     },
   );
 }
+Future<void> addDoctorToFavourite(DoctorModel doctor, String userId) async {
+    await homeScreenRepository.addDoctorToFavourite(doctor, userId);
+      }
+
+  Future<void> removeDoctorFromFavourite(DoctorModel doctor, String userId) async {
+   await homeScreenRepository.removeDoctorFromFavourite(doctor, userId);
+ 
+  }
   @override
   Future<void> close() {
     print("cubit closssssssssssssssssssssssssssssssssed!!!!!!!!!!!!!!!");

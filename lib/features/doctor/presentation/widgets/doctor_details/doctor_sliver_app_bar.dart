@@ -9,7 +9,6 @@ import 'package:shimmer/shimmer.dart';
 
 class DoctorSliverAppBar extends StatelessWidget {
   final DoctorModel doctor;
-  
 
   const DoctorSliverAppBar({
     super.key,
@@ -22,13 +21,13 @@ class DoctorSliverAppBar extends StatelessWidget {
       expandedHeight: 300.h,
       pinned: true,
       floating: false,
-      backgroundColor:AppColor.teal,
+      backgroundColor: AppColor.teal,
       leading: Padding(
         padding: EdgeInsets.all(8.r),
         child: CircleAvatar(
           backgroundColor: Colors.black.withOpacity(0.3),
           child: IconButton(
-            icon: const Icon(Icons.arrow_back, color:  AppColor.teal),
+            icon: const Icon(Icons.arrow_back, color: AppColor.teal),
             onPressed: () => Navigator.pop(context),
           ),
         ),
@@ -39,7 +38,10 @@ class DoctorSliverAppBar extends StatelessWidget {
           padding: EdgeInsets.all(8.r),
           child: CircleAvatar(
             backgroundColor: Colors.black.withOpacity(0.3),
-            child:FavoriteIcon(doctor: doctor,fromDetailsScreen: true,),
+            child: FavoriteIcon(
+              doctor: doctor,
+              fromDetailsScreen: true,
+            ),
           ),
         ),
         // Share button
@@ -65,6 +67,14 @@ class DoctorSliverAppBar extends StatelessWidget {
       ],
       
       flexibleSpace: FlexibleSpaceBar(
+        title: Text(
+        doctor.name,
+        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: AppColor.white,
+              fontSize: 18.h
+            ),
+      ),
         background: Stack(
           fit: StackFit.expand,
           children: [
@@ -74,42 +84,41 @@ class DoctorSliverAppBar extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColor.tealNew.withOpacity(0.1),
               ),
-              child:Hero(
-                      tag: 'doctor_image_${doctor.name}',
-                      child: ClipRRect(
-                        child: SizedBox(
-                          width: 100.w,
-                          height: 150.h,
-                          child: doctor.profileImage!=null&&doctor.profileImage!.startsWith("https")
-                              ? CachedNetworkImage(
-                                  imageUrl: doctor.profileImage??'',
-                                  fit: BoxFit.cover,
-                                  memCacheHeight: (100.h *
-                                          MediaQuery.of(context)
-                                              .devicePixelRatio)
-                                      .round(),
-                                  placeholder: (context, url) =>
-                                      Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Container(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  errorWidget: (context, url, error) =>
-                                      const SizedBox.shrink(),
-                                )
-                              : Image.asset(
-                                  doctor.profileImage??'',
-                                  width: 150.w,
-                                  height: 100.h,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) =>
-                                    const SizedBox.shrink(),
-                                ),
-                        ),
-                      ),
-                    ),
+              child: Hero(
+                tag: 'doctor_image_${doctor.name}',
+                child: ClipRRect(
+                  child: SizedBox(
+                    width: 100.w,
+                    height: 150.h,
+                    child: doctor.profileImage != null &&
+                            doctor.profileImage!.startsWith("https")
+                        ? CachedNetworkImage(
+                            imageUrl: doctor.profileImage ?? '',
+                            fit: BoxFit.cover,
+                            memCacheHeight: (100.h *
+                                    MediaQuery.of(context).devicePixelRatio)
+                                .round(),
+                            placeholder: (context, url) => Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: Container(
+                                color: Colors.white,
+                              ),
+                            ),
+                            errorWidget: (context, url, error) =>
+                                const SizedBox.shrink(),
+                          )
+                        : Image.asset(
+                            doctor.profileImage ?? '',
+                            width: 150.w,
+                            height: 100.h,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                const SizedBox.shrink(),
+                          ),
+                  ),
+                ),
+              ),
             ),
             // Gradient overlay
             Container(

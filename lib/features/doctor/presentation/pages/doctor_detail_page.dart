@@ -75,16 +75,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  widget.doctor.name,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall
-                                      ?.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                                SizedBox(height: 4.h),
+                            
                                 if (widget.doctor.specialization != null)
                                   Text(
                                     widget.doctor.specialization!,

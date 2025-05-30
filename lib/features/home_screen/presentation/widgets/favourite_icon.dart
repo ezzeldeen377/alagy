@@ -30,10 +30,10 @@ class FavoriteIcon extends StatelessWidget {
       ),
       onPressed: () {
         if (isFavorite) {
-          context.read<HomeScreenCubit>().removeDoctorFromFavourite(doctor,context.read<AppUserCubit>().state.userId!);
+          context.read<AppUserCubit>().removeDoctorFromFavourite(doctor,context.read<AppUserCubit>().state.userId!);
         } else {
           print("add");
-          context.read<HomeScreenCubit>().addDoctorToFavourite(doctor,context.read<AppUserCubit>().state.userId!);
+          context.read<AppUserCubit>().addDoctorToFavourite(doctor,context.read<AppUserCubit>().state.userId!);
         }
       },
       padding: EdgeInsets.all(4.r),

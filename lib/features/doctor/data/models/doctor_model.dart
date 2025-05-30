@@ -622,9 +622,8 @@ class DoctorFakeData {
     DoctorModel(
       uid: '8',
       rating: 4.8,
-     nameLower: 'Dr. Yasser Al Sulaiman'.toLowerCase(),
+      nameLower: 'Dr. Yasser Al Sulaiman'.toLowerCase(),
       cityLower: 'Khobar'.toLowerCase(),
- 
       reviews: [
         Review(
           userId: 'u1',
@@ -676,8 +675,8 @@ class DoctorFakeData {
     ),
     DoctorModel(
       uid: '9',
-     nameLower:'Dr. Mona Al Qahtani'.toLowerCase() ,
-      cityLower: 'Najran'.toLowerCase(),    
+      nameLower: 'Dr. Mona Al Qahtani'.toLowerCase(),
+      cityLower: 'Najran'.toLowerCase(),
       reviews: [
         Review(
           userId: 'u1',
@@ -731,9 +730,8 @@ class DoctorFakeData {
     DoctorModel(
       uid: '10',
       rating: 4.7,
-  nameLower: 'Dr. Faisal Al Nasser'.toLowerCase(),
+      nameLower: 'Dr. Faisal Al Nasser'.toLowerCase(),
       cityLower: 'Hail'.toLowerCase(),
-      
       reviews: [
         Review(
           userId: 'u1',
@@ -897,7 +895,7 @@ class Review {
       userId: map['userId'] as String,
       userName: map['userName'] as String,
       comment: map['comment'] as String,
-      rating: map['rating'] as double,
+      rating: (map['rating'] as num).toDouble(),
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
       doctorId: map['doctorId'] != null ? map['doctorId'] as String : null,
       userImageUrl:

@@ -71,24 +71,5 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
           status: HomeScreenStatus.successSearch, searchDoctors: doctors));
     });
   }
-  Future<void> addDoctorToFavourite(DoctorModel doctor, String userId) async {
-     final response =await homeRepository.addDoctorToFavourite(doctor, userId);
-    response.fold((error) {
-      emit(state.copyWith(
-          status: HomeScreenStatus.error, errorMessage: error.message));
-    }, (doctors) {
-      emit(state.copyWith(
-          status: HomeScreenStatus.success));
-    });  }
-
-  Future<void> removeDoctorFromFavourite(DoctorModel doctor, String userId) async {
-     final response =await homeRepository.removeDoctorFromFavourite(doctor, userId);
-    response.fold((error) {
-      emit(state.copyWith(
-          status: HomeScreenStatus.error, errorMessage: error.message));
-    }, (doctors) {
-      emit(state.copyWith(
-          status: HomeScreenStatus.success));
-    });
-  }
+  
 }
