@@ -1453,6 +1453,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No specialty'**
   String get specialty_empty;
+
+  /// No description provided for @pleaseRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Please make sure a rate and write a review first'**
+  String get pleaseRate;
+
+  /// No description provided for @good.
+  ///
+  /// In en, this message translates to:
+  /// **' good 😊'**
+  String get good;
+
+  /// No description provided for @bad.
+  ///
+  /// In en, this message translates to:
+  /// **'😞  bad'**
+  String get bad;
 }
 
 class _AppLocalizationsDelegate

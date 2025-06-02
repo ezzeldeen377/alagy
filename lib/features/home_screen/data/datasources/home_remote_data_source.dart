@@ -133,4 +133,6 @@ Stream<List<String>> getAllFavouriteDoctorId(String userId) {
       .snapshots()
       .map((snapshot) => snapshot.docs.map((e) => e.id).toList());
 }
-}
+
+
+  }

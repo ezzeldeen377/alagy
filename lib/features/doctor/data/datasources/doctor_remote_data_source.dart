@@ -10,16 +10,19 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class DoctorRemoteDataSource {
   Future<Unit> addDoctor(DoctorModel doctor);
-  Future<Map<String,dynamic>> getDoctor(String uid );
+  Future<Map<String, dynamic>> getDoctor(String uid);
   Future<String> uploadProfilePicture(File image);
+  Future<Map<String, dynamic>> addReview(Review review, double avgRate);
 }
 
 @Injectable(as: DoctorRemoteDataSource)
 class DoctorRemoteDataSourceImpl extends DoctorRemoteDataSource {
   final supabase = Supabase.instance.client;
   final firestore = FirebaseFirestore.instance;
-  CollectionReference get doctorCollection => firestore.collection(FirebaseCollections.doctorsCollection);
-  CollectionReference get userCollection => firestore.collection(FirebaseCollections.usersCollection);
+  CollectionReference get doctorCollection =>
+      firestore.collection(FirebaseCollections.doctorsCollection);
+  CollectionReference get userCollection =>
+      firestore.collection(FirebaseCollections.usersCollection);
 
   @override
   Future<Unit> addDoctor(DoctorModel doctor) {
@@ -50,13 +53,27 @@ class DoctorRemoteDataSourceImpl extends DoctorRemoteDataSource {
       return supabase.storage.from('alagybucket').getPublicUrl(fileName);
     });
   }
-  
+
   @override
   Future<Map<String, dynamic>> getDoctor(String uid) async {
     return executeTryAndCatchForDataLayer(() async {
       final doctorDoc = await userCollection.doc(uid).get();
 
-    return doctorDoc.data() as Map<String, dynamic>;
+      return doctorDoc.data() as Map<String, dynamic>;
+    });
+  }
+
+  @override
+  Future<Map<String, dynamic>> addReview(Review review, double avgRate) {
+    return executeTryAndCatchForDataLayer(() async {
+      final avg = (avgRate + review.rating) / 2;
+      await userCollection.doc(review.doctorId).update({
+        'reviews': FieldValue.arrayUnion([review.toMap()]),
+        'rating': avg,
+      });
+
+      final doctor = await getDoctor(review.doctorId!);
+      return doctor;
     });
   }
 }

@@ -3,7 +3,7 @@ import 'package:alagy/core/helpers/validators.dart';
 import 'package:alagy/core/utils/image_picker.dart';
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 import 'package:alagy/features/doctor/data/repositories/doctor_repository.dart';
-import 'package:alagy/features/doctor/presentation/bloc/add_doctor_state.dart';
+import 'package:alagy/features/doctor/presentation/bloc/add_doctor_cubit/add_doctor_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';

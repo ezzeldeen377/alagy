@@ -1,7 +1,7 @@
 import 'package:alagy/core/helpers/navigator.dart';
 import 'package:alagy/core/routes/routes.dart';
-import 'package:alagy/features/doctor/presentation/bloc/add_doctor_cubit.dart';
-import 'package:alagy/features/doctor/presentation/bloc/add_doctor_state.dart';
+import 'package:alagy/features/doctor/presentation/bloc/add_doctor_cubit/add_doctor_cubit.dart';
+import 'package:alagy/features/doctor/presentation/bloc/add_doctor_cubit/add_doctor_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

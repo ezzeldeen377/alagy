@@ -10,7 +10,10 @@ import 'package:alagy/features/authentication/presentation/screens/forget_passwo
 import 'package:alagy/features/authentication/presentation/screens/on_boarding_screen.dart';
 import 'package:alagy/features/authentication/presentation/screens/sign_in_screen.dart';
 import 'package:alagy/features/authentication/presentation/screens/sign_up_screen.dart';
-import 'package:alagy/features/doctor/presentation/bloc/add_doctor_cubit.dart';
+import 'package:alagy/features/doctor/data/models/doctor_model.dart';
+import 'package:alagy/features/doctor/presentation/bloc/add_doctor_cubit/add_doctor_cubit.dart';
+import 'package:alagy/features/doctor/presentation/bloc/doctor_details/doctor_details_cubit.dart';
+import 'package:alagy/features/doctor/presentation/pages/doctor_detail_page.dart';
 import 'package:alagy/features/doctor/presentation/pages/edit_doctor_details.dart';
 import 'package:alagy/features/map/presentation/screens/select_location_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +21,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AlagyRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
+    final args = settings.arguments;
+
     switch (settings.name) {
       // Auth routes
       case RouteNames.onboarding:
@@ -58,8 +63,12 @@ class AlagyRouter {
           child: const ForgetPassword(),
         ));
       case RouteNames.selectLocationScreen:
-        return SlidePageRoute(
-            page: const SelectLocationScreen());
+        return SlidePageRoute(page: const SelectLocationScreen());
+      case RouteNames.doctorDetails:
+        return SlidePageRoute(page:  BlocProvider(
+          create: (context) => getIt<DoctorDetailsCubit>()..passDoctor(args as DoctorModel),
+          child: const DoctorDetailPage(),
+        ));
 
       default:
         return MaterialPageRoute(
@@ -71,6 +80,7 @@ class AlagyRouter {
     }
   }
 }
+
 class LoaderScreen extends StatefulWidget {
   final Future<void> Function()? loadFunction;
   final Widget child;

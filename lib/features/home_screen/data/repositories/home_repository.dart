@@ -78,4 +78,5 @@ Stream<Either<Failure, List<String>>> getAllFavouriteDoctorId(String userId) {
     (error) => Left(Failure(error.toString())),
   );
 }
+
 }

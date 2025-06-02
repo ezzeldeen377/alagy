@@ -57,41 +57,45 @@ class DoctorModel extends UserModel {
   });
 
   factory DoctorModel.fromMap(Map<String, dynamic> json) {
-    return DoctorModel(
-      uid: json['uid'],
-      rating: Review.calculateAverageRating(
-          List<Review>.from(json['reviews'].map((x) => Review.fromMap(x)))),
-      name: json['name'],
-      email: json['email'],
-      isVip: json['isVip'],
-      createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt']),
-      phoneNumber: json['phoneNumber'],
-      reviews: List<Review>.from(json['reviews'].map((x) => Review.fromMap(x))),
-      nameLower: json['nameLower'],
-      cityLower: json['cityLower'],
-      profileImage: json['profileImage'],
-      city: json['city'],
-      type: json['type'],
-      specialization: json['specialization'],
-      qualification: json['qualification'],
-      licenseNumber: json['licenseNumber'],
-      yearsOfExperience: json['yearsOfExperience'],
-      hospitalName: json['hospitalName'],
-      address: json['address'],
-      consultationFee: (json['consultationFee'] as num?)?.toDouble(),
-      bio: json['bio'],
-      latitude: json['latitude'],
-      longitude: json['longitude'],
-      isAccepted: json['isAccepted'],
-      commented: json['commented'],
-      isSaved: json['isSaved'],
-      openDurations: json['openDurations'] != null
-          ? List<OpenDuration>.from(
-              json['openDurations'].map((x) => OpenDuration.fromMap(x)))
-          : null,
-    );
-  }
-
+  return DoctorModel(
+    uid: json['uid'],
+    rating: Review.calculateAverageRating(
+      (json['reviews'] != null && json['reviews'] is List)
+          ? List<Review>.from(json['reviews'].map((x) => Review.fromMap(x)))
+          : [],
+    ),
+    name: json['name'],
+    email: json['email'],
+    isVip: json['isVip'] ?? false, // Add default value for null safety
+    createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt']),
+    phoneNumber: json['phoneNumber'],
+    reviews: (json['reviews'] != null && json['reviews'] is List)
+        ? List<Review>.from(json['reviews'].map((x) => Review.fromMap(x)))
+        : [], // Add null check for reviews
+    nameLower: json['nameLower'],
+    cityLower: json['cityLower'],
+    profileImage: json['profileImage'],
+    city: json['city'],
+    type: json['type'],
+    specialization: json['specialization'],
+    qualification: json['qualification'],
+    licenseNumber: json['licenseNumber'],
+    yearsOfExperience: json['yearsOfExperience'],
+    hospitalName: json['hospitalName'],
+    address: json['address'],
+    consultationFee: (json['consultationFee'] as num?)?.toDouble(),
+    bio: json['bio'],
+    latitude: json['latitude'],
+    longitude: json['longitude'],
+    isAccepted: json['isAccepted'],
+    commented: json['commented'],
+    isSaved: json['isSaved'],
+    openDurations: json['openDurations'] != null
+        ? List<OpenDuration>.from(
+            json['openDurations'].map((x) => OpenDuration.fromMap(x)))
+        : null,
+  );
+}
   @override
   Map<String, dynamic> toMap() {
     final map = super.toMap();

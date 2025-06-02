@@ -1,5 +1,7 @@
+import 'package:alagy/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/helpers/navigator.dart';
+import 'package:alagy/core/routes/routes.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 import 'package:alagy/features/doctor/presentation/pages/doctor_detail_page.dart';
@@ -25,10 +27,10 @@ class HomeAppBar extends StatelessWidget {
           shape: BoxShape.circle,
           border: Border.all(color: Colors.white, width: 1), // white border
         ),
-        child: const CircleAvatar(
+        child:  CircleAvatar(
           radius: 30, // adjust size as needed
-          backgroundImage: NetworkImage(
-            "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?...",
+          backgroundImage: NetworkImage(context.read<AppUserCubit>().state.user?.profileImage??''
+            ,
           ),
         ),
       ),
@@ -36,7 +38,7 @@ class HomeAppBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            context.l10n.greeting("ezzeldeen"),
+            context.l10n.greeting(context.read<AppUserCubit>().state.user?.name??''),
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -153,9 +155,8 @@ class SearchBarHeaderDelegate extends SliverPersistentHeaderDelegate {
               );
             },
             onSelected: (selection) {
-              context.push(DoctorDetailPage(
-                doctor: selection,
-              ));
+             context.pushNamed(RouteNames.doctorDetails,
+                  arguments:selection);
             },
             optionsViewBuilder: (context, onSelected, options) {
               return Align(

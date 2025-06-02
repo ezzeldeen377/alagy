@@ -716,4 +716,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get specialty_empty => 'لا يوجد تخصص  ';
+
+  @override
+  String get pleaseRate => 'يرجى التأكد من إعطاء تقييم وكتابة مراجعة أولاً';
+
+  @override
+  String get good => 'جيد  😊';
+
+  @override
+  String get bad => ' 😞سيئ ';
 }

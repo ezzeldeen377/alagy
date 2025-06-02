@@ -1,4 +1,6 @@
 import 'package:alagy/core/helpers/extensions.dart';
+import 'package:alagy/core/helpers/navigator.dart';
+import 'package:alagy/core/routes/routes.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 import 'package:alagy/features/doctor/presentation/pages/doctor_detail_page.dart';
@@ -22,13 +24,8 @@ class TopDoctorCard extends StatelessWidget {
                   margin: EdgeInsets.only(right: 16.w),
                   child: InkWell(
                         onTap: () {
-  Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DoctorDetailPage(
-                        doctor: doctor),
-                  ),
-                );
+  context.pushNamed(RouteNames.doctorDetails,
+                  arguments:doctor);
         },
                     child: Card(
                       elevation: 4,
@@ -81,7 +78,7 @@ class TopDoctorCard extends StatelessWidget {
                                         Icon(Icons.star, color: Colors.amber, size: 18.r), // Increased icon size
                                         SizedBox(width: 4.w),
                                         Text(
-                                          doctor.rating.toString(),
+                                          doctor.rating?.toStringAsFixed(1)??'0',
                                           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 12.sp, // Increased font size

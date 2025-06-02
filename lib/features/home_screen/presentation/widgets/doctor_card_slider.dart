@@ -1,4 +1,6 @@
 import 'package:alagy/core/helpers/extensions.dart';
+import 'package:alagy/core/helpers/navigator.dart';
+import 'package:alagy/core/routes/routes.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 import 'package:alagy/features/home_screen/presentation/bloc/home_screen_cubit.dart';
@@ -50,7 +52,7 @@ class _DoctorCardSliderState extends State<DoctorCardSlider> {
             enlargeCenterPage: true,
             enlargeFactor: 0.3,
             enableInfiniteScroll: true,
-            autoPlay: false,
+            autoPlay: true,
             autoPlayInterval: const Duration(seconds: 5),
             autoPlayAnimationDuration: const Duration(milliseconds: 1200),
             autoPlayCurve: Curves.easeInOutQuint,
@@ -65,14 +67,8 @@ class _DoctorCardSliderState extends State<DoctorCardSlider> {
               doctor: vipDoctors[index],
               isActive: index == _currentPage,
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DoctorDetailPage(
-                        doctor: vipDoctors[index]
-                        ),
-                  ),
-                );
+              context.pushNamed(RouteNames.doctorDetails,
+                  arguments: vipDoctors[index]);
               },
             );
           },

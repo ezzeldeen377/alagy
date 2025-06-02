@@ -719,4 +719,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get specialty_empty => 'No specialty';
+
+  @override
+  String get pleaseRate => 'Please make sure a rate and write a review first';
+
+  @override
+  String get good => ' good 😊';
+
+  @override
+  String get bad => '😞  bad';
 }

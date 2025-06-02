@@ -12,7 +12,7 @@ import 'package:alagy/core/utils/show_snack_bar.dart';
 import 'package:alagy/features/authentication/presentation/cubits/sign_in_cubit/sign_in_cubit.dart';
 import 'package:alagy/features/authentication/presentation/screens/on_boarding_screen.dart';
 import 'package:alagy/features/authentication/presentation/screens/sign_in_screen.dart';
-import 'package:alagy/features/doctor/presentation/bloc/add_doctor_cubit.dart';
+import 'package:alagy/features/doctor/presentation/bloc/add_doctor_cubit/add_doctor_cubit.dart';
 import 'package:alagy/features/doctor/presentation/pages/edit_doctor_details.dart';
 import 'package:alagy/features/settings/cubit/app_settings_state.dart';
 import 'package:alagy/firebase_options.dart';

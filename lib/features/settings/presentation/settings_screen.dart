@@ -78,7 +78,7 @@ class SettingsScreen extends StatelessWidget {
                   style: TextStyle(color: Theme.of(context).colorScheme.error), // Style to indicate an action
                 ),
                 onTap: () {
-                   context.read<AppUserCubit>().signOut();
+                   context.read<AppUserCubit>().onSignOut();
                 },
               ),
             ],

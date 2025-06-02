@@ -1,56 +1,42 @@
 import 'package:alagy/core/helpers/navigator.dart';
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
+import 'package:alagy/features/doctor/presentation/bloc/doctor_details/doctor_details_cubit.dart';
 import 'package:alagy/features/doctor/presentation/widgets/doctor_details/actionButton.dart';
 import 'package:alagy/features/doctor/presentation/widgets/doctor_details/booking_tab.dart';
 import 'package:alagy/features/doctor/presentation/widgets/doctor_details/doctor_sliver_app_bar.dart';
 import 'package:alagy/features/doctor/presentation/widgets/doctor_details/review_tab.dart';
+import 'package:alagy/features/doctor/presentation/widgets/doctor_details/tab_bar_section.dart';
 import 'package:alagy/features/doctor/presentation/widgets/section_header.dart';
 import 'package:alagy/features/map/presentation/screens/show_location_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/helpers/extensions.dart';
 
-class DoctorDetailPage extends StatefulWidget {
-  final DoctorModel doctor;
-
-  const DoctorDetailPage({super.key, required this.doctor});
-
-  @override
-  State<DoctorDetailPage> createState() => _DoctorDetailPageState();
-}
-
-class _DoctorDetailPageState extends State<DoctorDetailPage>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
+class DoctorDetailPage extends StatelessWidget {
+  const DoctorDetailPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final doctor = context.read<DoctorDetailsCubit>().state.selectedDoctor;
     return Scaffold(
-     body: CustomScrollView(
+      body: CustomScrollView(
+        controller: context.read<DoctorDetailsCubit>().scrollController,
         physics: const BouncingScrollPhysics(),
         slivers: [
           // SliverAppBar with image carousel
           DoctorSliverAppBar(
-            doctor: widget.doctor,
+            doctor: doctor!,
           ),
           // Content
           SliverPadding(
             padding: EdgeInsets.all(16.r),
             sliver: SliverList(
-              delegate: SliverChildListDelegate([
+              delegate: SliverChildListDelegate(
+                [
                 // Profile Card with enhanced design
                 Container(
                   decoration: BoxDecoration(
@@ -58,7 +44,9 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                     borderRadius: BorderRadius.circular(20.r),
                     boxShadow: [
                       BoxShadow(
-                        color:context.isDark?Colors.black12.withAlpha(100): Colors.black12,
+                        color: context.isDark
+                            ? Colors.black12.withAlpha(100)
+                            : Colors.black12,
                         blurRadius: 5,
                         offset: const Offset(0, 4),
                       ),
@@ -75,15 +63,11 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                            
-                                if (widget.doctor.specialization != null)
-                                  Text(
-                                    widget.doctor.specialization!,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium
-                                        
-                                  ),
+                                if (doctor.specialization != null)
+                                  Text(doctor.specialization!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium),
                                 SizedBox(height: 8.h),
 
                                 // Rating component
@@ -104,21 +88,20 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                                     ),
                                     SizedBox(width: 4.w),
                                     Text(
-                                      '4.5', // Placeholder rating - replace with actual rating
-                                      style:context.theme.textTheme.bodyMedium
-                                    ),
+                                        '4.5', // Placeholder rating - replace with actual rating
+                                        style:
+                                            context.theme.textTheme.bodyMedium),
                                     SizedBox(width: 4.w),
                                     Text(
-                                      '(${widget.doctor.reviews.length})', // Placeholder review count - replace with actual count
-                                                                          style:context.theme.textTheme.bodyMedium
-
-                                    ),
+                                        '(${doctor.reviews.length})', // Placeholder review count - replace with actual count
+                                        style:
+                                            context.theme.textTheme.bodyMedium),
                                   ],
                                 ),
                                 SizedBox(height: 12.h),
 
                                 // Enhanced experience badge
-                                if (widget.doctor.yearsOfExperience != null)
+                                if (doctor.yearsOfExperience != null)
                                   Container(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 12.w, vertical: 6.h),
@@ -145,7 +128,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                                             children: [
                                               TextSpan(
                                                 text:
-                                                    '${widget.doctor.yearsOfExperience}+ ',
+                                                    '${doctor.yearsOfExperience}+ ',
                                                 style: TextStyle(
                                                   color: AppColor.tealNew,
                                                   fontWeight: FontWeight.bold,
@@ -177,7 +160,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // Call button
-                   
+
                           // Book appointment button
                           ActionButton(
                             icon: Icons.calendar_today,
@@ -185,25 +168,27 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                             color: AppColor.tealNew,
                             onTap: () {
                               // Implement booking functionality
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                      context.l10n.bookingFeatureComingSoon),
-                                  backgroundColor: AppColor.tealNew,
-                                ),
-                              );
+                             if (context.read<DoctorDetailsCubit>().targetKey.currentContext != null) {
+      Scrollable.ensureVisible(
+        context.read<DoctorDetailsCubit>().targetKey.currentContext!,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+        alignment: 0.0, // 0.0 = top, 1.0 = bottom
+      );
+    }
                             },
                           ),
-                          if(widget.doctor.latitude!=null&&widget.doctor.longitude!=null)
-                           ActionButton(
+                          if (doctor.latitude != null &&
+                              doctor.longitude != null)
+                            ActionButton(
                               icon: Icons.route,
                               label: context.l10n.viewOnMap,
                               color: Colors.blue,
                               onTap: () async {
-                              context.push(ShowLocationScreen(
-                                lat: widget.doctor.latitude??30.0444,
-                                lng: widget.doctor.longitude??31.2357,
-                              ));
+                                context.push(ShowLocationScreen(
+                                  lat: doctor.latitude ?? 30.0444,
+                                  lng: doctor.longitude ?? 31.2357,
+                                ));
                               },
                             ),
                         ],
@@ -213,29 +198,29 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                 ),
                 SizedBox(height: 20.h),
                 // Consultation Fee
-                if (widget.doctor.consultationFee != null) ...[
+                if (doctor.consultationFee != null) ...[
                   Container(
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
                     decoration: BoxDecoration(
                       color: AppColor.tealNew.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(12.r),
-                      border: Border.all(color: AppColor.tealNew.withOpacity(0.3)),
+                      border:
+                          Border.all(color: AppColor.tealNew.withOpacity(0.3)),
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.payments_outlined, color: AppColor.tealNew, size: 24.sp),
+                        Icon(Icons.payments_outlined,
+                            color: AppColor.tealNew, size: 24.sp),
                         SizedBox(width: 12.w),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text(context.l10n.consultationFee,
+                                style: context.theme.textTheme.bodyMedium),
                             Text(
-                              context.l10n.consultationFee ,
-                                                                  style:context.theme.textTheme.bodyMedium
-
-                            ),
-                            Text(
-                              '\$${widget.doctor.consultationFee!.toStringAsFixed(2)}',
+                              '\$${doctor.consultationFee!.toStringAsFixed(2)}',
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.bold,
@@ -250,76 +235,51 @@ class _DoctorDetailPageState extends State<DoctorDetailPage>
                   SizedBox(height: 20.h),
                 ],
                 // About Section
-                if (widget.doctor.bio != null) ...[
-                  SectionHeader(title: context.l10n.doctorDetailBio ),
+                if (doctor.bio != null) ...[
+                  SectionHeader(title: context.l10n.doctorDetailBio),
                   const Divider(),
                   Container(
                     padding: EdgeInsets.all(12.r),
-                       decoration: BoxDecoration(
-                    color: context.theme.scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(20.r),
-                    boxShadow: [
-                      BoxShadow(
-                        color:context.isDark?Colors.black12.withAlpha(100): Colors.black12,
-                        blurRadius: 5,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
+                    decoration: BoxDecoration(
+                      color: context.theme.scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(20.r),
+                      boxShadow: [
+                        BoxShadow(
+                          color: context.isDark
+                              ? Colors.black12.withAlpha(100)
+                              : Colors.black12,
+                          blurRadius: 5,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
                     child: Text(
-                      widget.doctor.bio!,
+                      doctor.bio!,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             height: 1.5,
                           ),
                     ),
                   ),
                   SizedBox(height: 20.h),
+                  Padding(
+                    key: context.read<DoctorDetailsCubit>().targetKey,
+                    padding:  EdgeInsets.symmetric(horizontal: 10.w),
+                    child: const TabBarSection(),
+                  )
+                 
                 ],
               ]),
             ),
           ),
           // TabBar
-          SliverToBoxAdapter(
-            child:Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25.r),
-
-               border: Border.all(
-                color:AppColor.teal,
-                width: .5
-                
-               )
-              ),
-              child: TabBar(
-                controller: _tabController,
-               
-                indicatorPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
-                tabs: [
-                  Tab(text: context.l10n.appointment ),
-                  Tab(text: context.l10n.reviews ),
-                ],
-              ),
-            ),
-          ),
-          // TabBarView
-          SliverFillRemaining(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-               BookingTab(doctor: widget.doctor,),
-                ReviewTab(doctor:widget.doctor),
-              ],
-            ),
-          ),
         ],
       ),
     );
   }
-
 }
-  // Review Item Widget
- 
+
+// Review Item Widget
+
 // New SliverAppBar widget for the doctor detail page
 
 // Keep the existing DetailRow and ActionButton widgets

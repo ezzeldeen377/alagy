@@ -232,5 +232,8 @@
   "howAreYou": "how are you today?",
   "greeting": "Hi, {name}!",
   "viewOnMap": "View on Map",
-  "specialty_empty":"No specialty"
+  "specialty_empty":"No specialty",
+  "pleaseRate":"Please make sure a rate and write a review first",
+  "good": " good 😊",
+  "bad":"😞  bad"
 }

@@ -12,6 +12,7 @@ abstract class DoctorRepository {
   Future<Either<Failure, DoctorModel?>> getDoctor(String uid);
 
   Future<Either<Failure, String>> uploadProfilePicture(File image);
+  Future<Either<Failure,DoctorModel>> addReview( Review review,double avgRate) ;
 }
 
 @Injectable(as: DoctorRepository)
@@ -39,4 +40,12 @@ Future<Either<Failure, DoctorModel?>> getDoctor(String uid) {
     return DoctorModel.fromMap(data) ;
   });
 }
+
+  @override
+  Future<Either<Failure,DoctorModel >> addReview(Review review, double avgRate) {
+    return executeTryAndCatchForRepository(() async {
+      final response=await dataSource.addReview(review,avgRate);
+      return DoctorModel.fromMap(response);
+    });
+  }
 }

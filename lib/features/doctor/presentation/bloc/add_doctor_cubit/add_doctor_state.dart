@@ -1,10 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
-
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 
-enum AddDoctorStatus{
+enum AddDoctorStatus {
   initial,
   success,
   error,
@@ -16,37 +15,41 @@ enum AddDoctorStatus{
   uploadProfilePictureError,
   uploadProfilePictureSuccess,
   loaded
-
 }
+
 extension AddDoctorStateX on AddDoctorState {
   bool get isInitial => status == AddDoctorStatus.initial;
   bool get isSuccess => status == AddDoctorStatus.success;
   bool get isError => status == AddDoctorStatus.error;
   bool get isLoading => status == AddDoctorStatus.loading;
-  bool get isPickProfileImageLoading => status == AddDoctorStatus.pickProfileImageLoading;
-  bool get isPickProfileImageSuccess => status == AddDoctorStatus.pickProfileImageSuccess;
-  bool get isPickProfileImageError => status == AddDoctorStatus.pickProfileImageError;
-  bool get isUploadProfilePictureLoading => status == AddDoctorStatus.uploadProfilePictureLoading;
-  bool get isUploadProfilePictureSuccess => status == AddDoctorStatus.uploadProfilePictureSuccess;
-  bool get isUploadProfilePictureError => status == AddDoctorStatus.uploadProfilePictureError;
-
-
+  bool get isPickProfileImageLoading =>
+      status == AddDoctorStatus.pickProfileImageLoading;
+  bool get isPickProfileImageSuccess =>
+      status == AddDoctorStatus.pickProfileImageSuccess;
+  bool get isPickProfileImageError =>
+      status == AddDoctorStatus.pickProfileImageError;
+  bool get isUploadProfilePictureLoading =>
+      status == AddDoctorStatus.uploadProfilePictureLoading;
+  bool get isUploadProfilePictureSuccess =>
+      status == AddDoctorStatus.uploadProfilePictureSuccess;
+  bool get isUploadProfilePictureError =>
+      status == AddDoctorStatus.uploadProfilePictureError;
 }
+
 class AddDoctorState {
-final AddDoctorStatus status;
-final DoctorModel? doctor;
-final String? errorMessage;
-final File? selectedProfilePicture;
-final String? profilePictureUrl;
-final double? latitude;
-final double? longitude;
-final bool? isCustomAvailability;
-final String? weeklyStartTime;
+  final AddDoctorStatus status;
+  final DoctorModel? doctor;
+  final String? errorMessage;
+  final File? selectedProfilePicture;
+  final String? profilePictureUrl;
+  final double? latitude;
+  final double? longitude;
+  final bool? isCustomAvailability;
+  final String? weeklyStartTime;
   final String? weeklyEndTime;
   final Map<String, Map<String, String?>>? dayAvailability;
   final String? selectedDay;
-final Map<String, bool>? dayIsClosed;
-
+  final Map<String, bool>? dayIsClosed;
 
   const AddDoctorState({
     required this.status,
@@ -56,7 +59,7 @@ final Map<String, bool>? dayIsClosed;
     this.profilePictureUrl,
     this.latitude,
     this.longitude,
-    this.isCustomAvailability=false,
+    this.isCustomAvailability = false,
     this.weeklyStartTime,
     this.weeklyEndTime,
     this.dayAvailability,
@@ -83,7 +86,8 @@ final Map<String, bool>? dayIsClosed;
       status: status ?? this.status,
       doctor: doctor ?? this.doctor,
       errorMessage: errorMessage ?? this.errorMessage,
-      selectedProfilePicture: selectedProfilePicture ?? this.selectedProfilePicture,
+      selectedProfilePicture:
+          selectedProfilePicture ?? this.selectedProfilePicture,
       profilePictureUrl: profilePictureUrl ?? this.profilePictureUrl,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
@@ -96,12 +100,8 @@ final Map<String, bool>? dayIsClosed;
     );
   }
 
-  
-
   @override
   String toString() {
     return 'AddDoctorState(status: $status, doctor: $doctor, errorMessage: $errorMessage, selectedProfilePicture: $selectedProfilePicture, profilePictureUrl: $profilePictureUrl, latitude: $latitude, longitude: $longitude, isCustomAvailability: $isCustomAvailability, weeklyStartTime: $weeklyStartTime, weeklyEndTime: $weeklyEndTime, dayAvailability: $dayAvailability, selectedDay: $selectedDay, dayIsClosed: $dayIsClosed)';
   }
-
-  
 }
