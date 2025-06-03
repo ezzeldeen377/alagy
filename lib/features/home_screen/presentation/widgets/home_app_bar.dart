@@ -20,7 +20,7 @@ class HomeAppBar extends StatelessWidget {
       floating: true,
       pinned: true,
       elevation: 4,
-      backgroundColor: AppColor.teal,
+      backgroundColor: AppColor.primaryColor,
       leading: Container(
         margin: EdgeInsets.all(5.r),
         decoration: BoxDecoration(
@@ -42,7 +42,7 @@ class HomeAppBar extends StatelessWidget {
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
-                  color: AppColor.white,
+                  color: AppColor.whiteColor,
                 ),
           ),
           Text(
@@ -50,7 +50,7 @@ class HomeAppBar extends StatelessWidget {
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontSize: 14,
                   fontWeight: FontWeight.w300,
-                  color: AppColor.white,
+                  color: AppColor.whiteColor,
                 ),
           ),
         ],
@@ -58,7 +58,7 @@ class HomeAppBar extends StatelessWidget {
       actions: [
         IconButton(
           style: IconButton.styleFrom(
-            backgroundColor: AppColor.teal.withAlpha(100),
+            backgroundColor: AppColor.primaryColor.withAlpha(100),
             foregroundColor: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.r),
@@ -66,7 +66,6 @@ class HomeAppBar extends StatelessWidget {
           ),
           icon: Icon(
             Icons.notifications,
-            color: context.isDark ? AppColor.darkGray : AppColor.white,
           ),
           onPressed: () {},
         ),
@@ -99,9 +98,9 @@ class SearchBarHeaderDelegate extends SliverPersistentHeaderDelegate {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      decoration: BoxDecoration(
-        color: AppColor.teal,
-        borderRadius: const BorderRadius.only(
+      decoration: const BoxDecoration(
+        color: AppColor.primaryColor,
+        borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(40),
           bottomRight: Radius.circular(40),
         ),
@@ -122,36 +121,18 @@ class SearchBarHeaderDelegate extends SliverPersistentHeaderDelegate {
                 focusNode: focusNode,
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
-                    icon: const Icon(Icons.clear, color: AppColor.teal),
+                    icon: const Icon(Icons.clear, ),
                     onPressed: () {
                       controller.clear();
                       FocusScope.of(context).unfocus();
                     },
                   ),
                   hintText: "ابحث هنا",
-                  prefixIcon: const Icon(Icons.search, color: AppColor.teal),
+                  prefixIcon: const Icon(Icons.search, color: AppColor.primaryColor),
                   filled: true,
                   fillColor: Theme.of(context).scaffoldBackgroundColor,
                   contentPadding: const EdgeInsets.symmetric(vertical: 10),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: AppColor.darkTeal.withOpacity(.5),
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(30)),
-                  disabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color: AppColor.lgGreyColor,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(30)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: AppColor.darkTeal.withOpacity(.8),
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(30)),
-                ),
+                 )
               );
             },
             onSelected: (selection) {
@@ -166,7 +147,7 @@ class SearchBarHeaderDelegate extends SliverPersistentHeaderDelegate {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                       side: const BorderSide(
-                        color: AppColor.teal,
+                        color: AppColor.primaryColor,
                         width: 1,
                       )),
                   child: SizedBox(

@@ -119,38 +119,24 @@
   "selectLocationTitle": "اختر الموقع",
   "selectedLocationTitle": "الموقع المحدد",
   "saveLocation": "حفظ الموقع",
-  "specialty_internal_medicine": "الباطنة",
-  "specialty_general_surgery": "الجراحة العامة",
-  "specialty_pediatrics": "طب الأطفال",
-  "specialty_gynecology": "طب النساء",
-  "specialty_orthopedics": "العظام",
-  "specialty_urology": "المسالك البولية",
-  "specialty_ent": "الأنف والأذن والحنجرة",
-  "specialty_dermatology": "الأمراض الجلدية",
-  "specialty_ophthalmology": "طب العيون",
-  "specialty_dentistry": "طب الأسنان",
-  "specialty_emergency": "الطوارئ",
-  "specialty_laboratory": "المختبر",
-  "specialty_radiology": "الأشعة",
-  "specialty_cardiology": "أمراض القلب",
-  "specialty_cardiothoracic_surgery": "جراحة القلب والصدر",
-  "specialty_neurosurgery": "جراحة الأعصاب",
-  "specialty_oncology": "الأورام",
-  "specialty_nephrology": "أمراض الكلى",
-  "specialty_pulmonology": "أمراض الصدر",
-  "specialty_rheumatology": "أمراض الروماتيزم",
-  "specialty_rehabilitation": "التأهيل",
-  "specialty_psychiatry": "الطب النفسي",
-  "specialty_hematology": "أمراض الدم",
-  "specialty_infectious_diseases": "الأمراض المعدية",
-  "specialty_endocrinology": "أمراض الغدد الصماء",
-  "specialty_icu": "العناية المركزة",
-  "specialty_burns_plastic": "الحروق والجراحة التجميلية",
-  "specialty_laparoscopy": "المناظير",
-  "specialty_vascular_surgery": "جراحة الأوعية الدموية",
-  "specialty_geriatrics": "طب الشيخوخة",
-  "specialty_audiology": "السمعيات",
-  "specialty_neonatology": "حديثي الولادة",
+  "specialtyEmpty": "لم يتم اختيار التخصص",
+  "internalMedicine": "باطنه",
+  "vascularSurgery": "اوعيه دمويه",
+  "orthopedics": "عظام",
+  "specializations":"التخصصات",
+  "gynecologyAndObstetrics": "نساء و توليد",
+  "pediatricsAndNeonatology": "اطفال و حديثي الولاده",
+  "urology": "مسالك بوليه",
+  "dentistry": "اسنان",
+  "neurology": "مخ و اعصاب",
+  "cosmeticSurgery": "تجميل",
+  "ophthalmology": "عيون",
+  "ent": "انف ، اذن و حنجره",
+  "chestDiseases": "صدريه",
+  "dermatology": "جلديه",
+  "physiotherapy": "علاج طبيعي",
+  "ivf": "حقن مجهري",
+  "speechAndLanguageTherapy": "نطق و تخاطب",
   "editDoctorChangeLocation": "تغيير الموقع",
   "editDoctorLocationSelected": "تم تحديد الموقع",
   "editDoctorAvailability": "تعديل توفر الطبيب",
@@ -215,6 +201,8 @@
   "specialty_empty": "لا يوجد تخصص  ",
   "pleaseRate": "يرجى التأكد من إعطاء تقييم وكتابة مراجعة أولاً",
   "good": "جيد  😊",
-  "bad":" 😞سيئ "
+  "bad":" 😞سيئ ",
+  "validatorPasswordTooShort": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل."
+
 
 }

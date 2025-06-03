@@ -13,7 +13,9 @@ import 'package:alagy/features/authentication/presentation/screens/sign_up_scree
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 import 'package:alagy/features/doctor/presentation/bloc/add_doctor_cubit/add_doctor_cubit.dart';
 import 'package:alagy/features/doctor/presentation/bloc/doctor_details/doctor_details_cubit.dart';
+import 'package:alagy/features/doctor/presentation/bloc/doctors_cubit.dart';
 import 'package:alagy/features/doctor/presentation/pages/doctor_detail_page.dart';
+import 'package:alagy/features/doctor/presentation/pages/doctor_page.dart';
 import 'package:alagy/features/doctor/presentation/pages/edit_doctor_details.dart';
 import 'package:alagy/features/map/presentation/screens/select_location_screen.dart';
 import 'package:flutter/material.dart';
@@ -64,9 +66,17 @@ class AlagyRouter {
         ));
       case RouteNames.selectLocationScreen:
         return SlidePageRoute(page: const SelectLocationScreen());
+       case RouteNames.doctorPage:
+        return SlidePageRoute(
+            page: BlocProvider(
+          create: (context) => getIt<DoctorsCubit>()..getDoctors(args as String), // Change to DoctorsCubit
+          child: const DoctorsPage(),
+        ));
       case RouteNames.doctorDetails:
-        return SlidePageRoute(page:  BlocProvider(
-          create: (context) => getIt<DoctorDetailsCubit>()..passDoctor(args as DoctorModel),
+        return SlidePageRoute(
+            page: BlocProvider(
+          create: (context) =>
+              getIt<DoctorDetailsCubit>()..passDoctor(args as DoctorModel),
           child: const DoctorDetailPage(),
         ));
 

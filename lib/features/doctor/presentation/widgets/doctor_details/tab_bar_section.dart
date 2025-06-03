@@ -1,5 +1,6 @@
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/theme/app_color.dart';
+import 'package:alagy/core/theme/font_weight_helper.dart';
 import 'package:alagy/features/doctor/presentation/bloc/doctor_details/doctor_details_cubit.dart';
 import 'package:alagy/features/doctor/presentation/widgets/doctor_details/booking_tab.dart';
 import 'package:alagy/features/doctor/presentation/widgets/doctor_details/review_tab.dart';
@@ -36,13 +37,26 @@ class _TabBarSectionState extends State<TabBarSection>
     return Column(
       children: [
         Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25.r),
-              border: Border.all(color: AppColor.teal, width: .5)),
+         
           child: TabBar(
             controller: _tabController,
-            indicatorPadding:
-                const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+           indicatorSize: TabBarIndicatorSize.tab,
+                        dividerHeight: 0,
+                        indicator: BoxDecoration(
+                          color: AppColor.primaryColor,
+                          borderRadius: BorderRadius.circular(25.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColor.primaryColor.withOpacity(0.3),
+                              blurRadius: 4,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        labelColor: AppColor.whiteColor,
+                        unselectedLabelColor: AppColor.greyColor,
+                        labelStyle: context.theme.textTheme.bodyLarge
+                            ?.copyWith(fontWeight: FontWeightHelper.bold),
             tabs: [
               Tab(text: context.l10n.appointment),
               Tab(text: context.l10n.reviews),
@@ -54,7 +68,7 @@ class _TabBarSectionState extends State<TabBarSection>
           height: 500.h, // Adjust the height as needed
           child: TabBarView(
             controller: _tabController,
-            children: [
+            children:const  [
               BookingTab(),
               ReviewTab(),
             ],

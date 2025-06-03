@@ -14,18 +14,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
           title: Text(context.l10n.editDoctorTitle,
-              style: context.theme.textTheme.headlineSmall?.copyWith(color: AppColor.white)),
+              style: context.theme.textTheme.headlineSmall?.copyWith(color: AppColor.whiteColor)),
           centerTitle: true,
           flexibleSpace: Container(
             decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  AppColor.mintGreen,
-                  AppColor.tealNew,
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+              gradient: AppColor.appGradientBackground
             ),
           ),
           elevation: 4,
@@ -34,7 +27,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               icon: Text(
                 buttonText!,
                 style: const TextStyle(
-                  color: AppColor.grayColor,
+                  color: AppColor.blackColor,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.5,

@@ -54,7 +54,7 @@ class TextStyles {
   static const TextStyle fontCircularSpotify14DarkGreenMedium = TextStyle(
     fontFamily: 'CircularSpotify',
     fontSize: 14,
-    color: AppColor.tealNew,
+    color: AppColor.primaryColor,
     fontWeight: FontWeight.w500,
   );
 }

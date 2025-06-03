@@ -61,9 +61,8 @@ class SignInScreen extends StatelessWidget {
                                         : Text(
                                             context.l10n.signInButton,
                                             style: context
-                                                .theme.textTheme.titleLarge
-                                                ?.copyWith(
-                                                    color: AppColor.white),
+                                                .theme.textTheme.titleLarge?.copyWith(color: AppColor.whiteColor)
+                                               ,
                                           ),
                                     animationIndex: 3,
                                     onTapButton: state.isLoading ||
@@ -99,9 +98,7 @@ class SignInScreen extends StatelessWidget {
                                 child: Divider(
                                   indent: 20.w,
                                   thickness: 2,
-                                  color: context.isDark
-                                      ? AppColor.ofWhiteColor
-                                      : AppColor.grayColor,
+                                
                                 ),
                               ),
                               Padding(
@@ -116,9 +113,7 @@ class SignInScreen extends StatelessWidget {
                                 child: Divider(
                                   endIndent: 20.w,
                                   thickness: 2,
-                                  color: context.isDark
-                                      ? AppColor.ofWhiteColor
-                                      : AppColor.grayColor,
+                                
                                 ),
                               ),
                             ],

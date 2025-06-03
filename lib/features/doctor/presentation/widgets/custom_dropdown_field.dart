@@ -32,12 +32,11 @@ class CustomDropdownField<T> extends StatelessWidget {
         validator: validator,
         decoration: InputDecoration(
           labelText: label,
-          prefixIcon: Icon(icon, color: AppColor.tealNew),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           contentPadding: const EdgeInsets.symmetric(vertical: 16, ),
         ),
         dropdownColor: Theme.of(context).cardColor,
-        iconEnabledColor: AppColor.tealNew,
+        iconEnabledColor: AppColor.primaryColor,
         iconDisabledColor: Colors.grey,
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Theme.of(context).textTheme.bodyMedium?.color,

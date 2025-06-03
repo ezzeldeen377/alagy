@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.example.alagy"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = "27.0.12077973"
+    ndkVersion = "25.1.8937393"  // Try this stable version instead
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

@@ -90,16 +90,16 @@ class _DoctorCardSliderState extends State<DoctorCardSlider> {
                   gradient: index == _currentPage
                       ? LinearGradient(
                           colors: [
-                            AppColor.tealNew,
-                            AppColor.tealNew.withOpacity(0.7)
+                            AppColor.primaryColor,
+                            AppColor.primaryColor.withOpacity(0.7)
                           ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         )
                       : LinearGradient(
                           colors: [
-                            AppColor.tealNew.withOpacity(0.2),
-                            AppColor.tealNew.withOpacity(0.1),
+                            AppColor.primaryColor.withOpacity(0.2),
+                            AppColor.primaryColor.withOpacity(0.1),
                           ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,

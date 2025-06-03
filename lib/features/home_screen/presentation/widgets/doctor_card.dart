@@ -33,18 +33,11 @@ class DoctorCard extends StatelessWidget {
               vertical: isActive ? 0 : 8.h,
             ),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  context.isDark ? Colors.grey : Colors.white,
-                  AppColor.tealNew.withOpacity(0.05),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+              gradient:AppColor.sliderbackground,
               borderRadius: BorderRadius.circular(24.r),
               border: Border.all(
                 color: isActive
-                    ? AppColor.tealNew.withOpacity(0.4)
+                    ? AppColor.primaryColor.withOpacity(0.4)
                     : Colors.transparent,
                 width: 0.5,
               ),
@@ -112,7 +105,6 @@ class DoctorCard extends StatelessWidget {
                                 .titleLarge
                                 ?.copyWith(
                                   fontWeight: FontWeight.w800,
-                                  color: Colors.black87,
                                   fontSize: 16.sp,
                                   letterSpacing: 0.3,
                                 ),
@@ -125,7 +117,6 @@ class DoctorCard extends StatelessWidget {
                           context.getSpecialty(doctor.specialization??'')  ,
                             style:
                                 Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                      color: Colors.black54,
                                       fontSize: 14.sp,
                                     ),
                             maxLines: 1,
@@ -148,18 +139,16 @@ class DoctorCard extends StatelessWidget {
                                     .bodyMedium
                                     ?.copyWith(
                                       fontWeight: FontWeight.w700,
-                                      color: Colors.black87,
                                       fontSize: 12.sp,
                                     ),
                               ),
                               SizedBox(width: 4.w),
                               Text(
-                                "(${doctor.reviews.length} reviews)",
+                                "(${doctor.reviews.length} ${context.l10n.reviews})",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall
                                     ?.copyWith(
-                                      color: Colors.black45,
                                       fontSize: 12.sp,
                                     ),
                               ),
@@ -176,7 +165,7 @@ class DoctorCard extends StatelessWidget {
                               semanticsLabel: context.l10n.bookNow,
                             ),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColor.tealNew,
+                              backgroundColor: AppColor.primaryColor,
                               foregroundColor:
                                   Colors.white, // Affects both icon and text
                               padding: EdgeInsets.symmetric(
@@ -187,7 +176,7 @@ class DoctorCard extends StatelessWidget {
                                     8.r), // Softer corners
                               ),
                               elevation: 4, // Slightly increased elevation
-                              shadowColor: AppColor.tealNew.withOpacity(
+                              shadowColor: AppColor.primaryColor.withOpacity(
                                   0.35), // Slightly more defined shadow
                               textStyle: Theme.of(context)
                                   .textTheme
@@ -222,7 +211,7 @@ class DoctorCard extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color:
-                    AppColor.gold, // Assuming you have a gold color in AppColor
+                    AppColor.goldColor, // Assuming you have a gold color in AppColor
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(context.isRtl?0:16.r),
                     topRight: Radius.circular(context.isRtl?0:16.r),
@@ -254,15 +243,11 @@ class DoctorCard extends StatelessWidget {
 
   Widget _buildFallbackImage() {
     return Container(
-      decoration: BoxDecoration(
-        color: AppColor.tealNew.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(16.r),
-      ),
+     
       child: Center(
         child: Icon(
           Icons.person_rounded,
           size: 48.sp,
-          color: AppColor.tealNew.withOpacity(0.7),
           semanticLabel: 'Doctor placeholder',
         ),
       ),

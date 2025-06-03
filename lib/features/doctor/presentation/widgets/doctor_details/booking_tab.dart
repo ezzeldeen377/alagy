@@ -82,7 +82,7 @@ if (openDuration?.endTime != null && openDuration!.endTime!.isNotEmpty) {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.teal.shade700,
+                  color:AppColor.primaryColor
                 ),
               ),
               const SizedBox(height: 16),
@@ -90,7 +90,7 @@ if (openDuration?.endTime != null && openDuration!.endTime!.isNotEmpty) {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: context.theme.scaffoldBackgroundColor,
+                  color:context.theme.scaffoldBackgroundColor,
                   borderRadius: BorderRadius.circular(20.r),
                   boxShadow: [
                     BoxShadow(
@@ -105,20 +105,26 @@ if (openDuration?.endTime != null && openDuration!.endTime!.isNotEmpty) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    EasyDateTimeLinePicker(
-                      locale: context.read<AppSettingsCubit>().state.locale,
-                      focusedDate: selectedDay,
-                      firstDate: DateTime(2024, 3, 18),
-                      lastDate: DateTime(2030, 3, 18),
-                      onDateChange: (date) {
-                        // Handle the selected date.
-                        selectedDay=date;
-                        setState(() {
-                          timeSlots = _generateTimeSlots(selectedDay, context,doctor);
-                          selectedTimeSlot = null;
-                        });
-                      },
+                    Theme(
+                      data: context.theme
+                      ,
+                      child: EasyDateTimeLinePicker(
+                        locale: context.read<AppSettingsCubit>().state.locale,
+                        focusedDate: selectedDay,
+                        firstDate: DateTime(2024, 3, 18),
+                        lastDate: DateTime(2030, 3, 18),
+                       
                       
+                        onDateChange: (date) {
+                          // Handle the selected date.
+                          selectedDay=date;
+                          setState(() {
+                            timeSlots = _generateTimeSlots(selectedDay, context,doctor);
+                            selectedTimeSlot = null;
+                          });
+                        },
+                        
+                      ),
                     )
                   ],
                 ),
@@ -144,16 +150,16 @@ if (openDuration?.endTime != null && openDuration!.endTime!.isNotEmpty) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(context.l10n.selectDate,
-                        style: context.theme.textTheme.titleMedium),
+                        style: context.theme.textTheme.titleMedium?.copyWith(color:AppColor.primaryColor)),
                     const SizedBox(height: 12),
                     timeSlots.isEmpty
                         ? Center(
                             child: Text(
                               context.l10n.closedOnThisDay,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.teal.shade700,
+                                color:AppColor.thirdolor,
                               ),
                             ),
                           )
@@ -176,12 +182,11 @@ if (openDuration?.endTime != null && openDuration!.endTime!.isNotEmpty) {
                                   ),
                                   decoration: BoxDecoration(
                                     color: isSelected
-                                        ? AppColor.tealNew
-                                        : context
-                                            .theme.scaffoldBackgroundColor,
+                                        ? AppColor.primaryColor
+                                        : Colors.transparent,
                                     borderRadius: BorderRadius.circular(8),
                                     border:
-                                        Border.all(color: AppColor.tealNew),
+                                        Border.all(color: AppColor.primaryColor),
                                   ),
                                   child: Text(time,
                                       style:
@@ -204,13 +209,13 @@ if (openDuration?.endTime != null && openDuration!.endTime!.isNotEmpty) {
                         }
                       : null,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColor.tealNew,
+                    backgroundColor: AppColor.primaryColor,
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    disabledBackgroundColor: AppColor.grayColor,
+                    disabledBackgroundColor: AppColor.greyColor,
                   ),
                   child: Text(
                     context.l10n.bookAppointment,

@@ -30,6 +30,7 @@ import '../../features/doctor/presentation/bloc/add_doctor_cubit/add_doctor_cubi
     as _i708;
 import '../../features/doctor/presentation/bloc/doctor_details/doctor_details_cubit.dart'
     as _i54;
+import '../../features/doctor/presentation/bloc/doctors_cubit.dart' as _i810;
 import '../../features/home_screen/data/datasources/home_remote_data_source.dart'
     as _i5;
 import '../../features/home_screen/data/repositories/home_repository.dart'
@@ -62,6 +63,8 @@ extension GetItInjectableX on _i174.GetIt {
         authDataSource: gh<_i21.AuthRemoteDataSource>()));
     gh.factory<_i611.DoctorRepository>(() => _i611.DoctorRepositoryImpl(
         dataSource: gh<_i59.DoctorRemoteDataSource>()));
+    gh.factory<_i810.DoctorsCubit>(
+        () => _i810.DoctorsCubit(gh<_i444.HomeRepository>()));
     gh.factory<_i708.AddDoctorCubit>(
         () => _i708.AddDoctorCubit(repository: gh<_i611.DoctorRepository>()));
     gh.factory<_i158.ForgetPasswordCubit>(() =>

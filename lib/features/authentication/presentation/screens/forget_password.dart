@@ -1,6 +1,8 @@
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/helpers/spacer.dart';
 import 'package:alagy/core/helpers/validators.dart';
+import 'package:alagy/core/theme/app_color.dart';
+import 'package:alagy/core/utils/custom_button.dart';
 import 'package:alagy/core/utils/custom_text_form_field.dart';
 import 'package:alagy/core/utils/show_snack_bar.dart';
 import 'package:alagy/features/authentication/presentation/cubits/forget_password_cubit/forget_password_cubit.dart';
@@ -19,7 +21,7 @@ class ForgetPassword extends StatelessWidget {
     
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.l10n.forgotPassword),
+        title: Text(context.l10n.forgotPassword,style: theme.textTheme.headlineMedium?.copyWith(color: AppColor.whiteColor),),
         centerTitle: true,
       ),
       body: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
@@ -100,21 +102,12 @@ class ForgetPassword extends StatelessWidget {
                       SizedBox(height: 40.h),
                       
                       // Reset password button
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: state.status == ForgetPasswordStatus.loading 
+                      CustomButton(
+                          onTapButton: state.status == ForgetPasswordStatus.loading 
                               ? null 
                               : cubit.resetPassword,
-                          style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(vertical: 15.h),
-                            backgroundColor: theme.colorScheme.primary,
-                            foregroundColor: theme.colorScheme.onPrimary,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.r),
-                            ),
-                          ),
-                          child: state.status == ForgetPasswordStatus.loading
+                        
+                          buttonContent: state.status == ForgetPasswordStatus.loading
                               ? SizedBox(
                                   height: 20.h,
                                   width: 20.w,
@@ -126,11 +119,11 @@ class ForgetPassword extends StatelessWidget {
                               : Text(
                                   context.l10n.resetPassword,
                                   style: theme.textTheme.titleMedium?.copyWith(
-                                    color: theme.colorScheme.onPrimary,
+                                    color: AppColor.whiteColor
                                   ),
                                 ),
                         ),
-                      ),
+                      
                     ],
                   ),
                 ),

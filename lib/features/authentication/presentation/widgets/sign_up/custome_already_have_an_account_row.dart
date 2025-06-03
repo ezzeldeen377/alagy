@@ -22,7 +22,7 @@ class CustomeAlreadyHaveAnAccountRow extends StatelessWidget {
           },
           child: Text(
             context.l10n.signIn,
-            style: context.theme.textTheme.labelLarge?.copyWith(color: AppColor.tealNew),
+            style: context.theme.textTheme.labelLarge?.copyWith(color: AppColor.primaryColor),
           ),
         ),
       ],

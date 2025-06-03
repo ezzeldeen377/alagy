@@ -75,7 +75,7 @@ class CustomTextFormField extends StatelessWidget {
                     fontSize: 12,
                     color: currentLength == maxLength
                         ? AppColor.redColor
-                        : AppColor.blueColor),
+                        : AppColor.primaryColor),
               );
             }
           : null,

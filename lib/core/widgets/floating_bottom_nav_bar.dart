@@ -65,8 +65,8 @@ class FloatingBottomNavBar extends StatelessWidget {
               icon,
               size: 22.sp,
               color: isSelected 
-                  ? AppColor.tealNew
-                  : context.isDark ? AppColor.accentBlackColor2 : AppColor.darkGray.withOpacity(0.5),
+                  ? AppColor.primaryColor
+                  : AppColor.greyColor 
             ),
             if (isSelected) ...[
               SizedBox(height: 2.h),
@@ -75,7 +75,7 @@ class FloatingBottomNavBar extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w500,
-                  color: AppColor.tealNew,
+                  color: AppColor.primaryColor,
                 ),
               ),
             ],

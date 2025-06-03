@@ -139,7 +139,14 @@ class CustomeSignUpInputFields extends StatelessWidget {
               BlocBuilder<SignUpCubit, SignUpState>(
                 builder: (context, state) {
                   return Checkbox(
-                    activeColor: AppColor.tealNew,
+                    activeColor: AppColor.primaryColor,
+                    checkColor: AppColor.whiteColor,
+                    side: BorderSide(
+                      color: AppColor.primaryColor,
+                      width: 1.5,
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.r)),
                     value: state.isChecked,
                     onChanged: (value) {
                       context.read<SignUpCubit>().check(value!);
@@ -163,7 +170,7 @@ class CustomeSignUpInputFields extends StatelessWidget {
                       child: Text(
                         l10n.signUpTermsLink,
                         style: context.theme.textTheme.bodySmall?.copyWith(
-                            fontSize: 11.h, color: AppColor.blueColor),
+                            fontSize: 11.h, color: AppColor.primaryColor),
                       ),
                     ),
                   ],

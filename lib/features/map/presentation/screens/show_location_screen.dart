@@ -1,4 +1,5 @@
 import 'package:alagy/core/constants/app_constants.dart';
+import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -22,9 +23,8 @@ class _MapScreenState extends State<ShowLocationScreen> {
         final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Doctor Location'),
-        backgroundColor: AppColor.tealNew,
+      appBar: AppBar(centerTitle: true,
+        title:  Text('Doctor Location',style: context.theme.textTheme.titleLarge?.copyWith(color: AppColor.whiteColor),),
       ),
       body: GoogleMap(
         initialCameraPosition: CameraPosition(

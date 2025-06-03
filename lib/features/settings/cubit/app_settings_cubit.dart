@@ -8,7 +8,7 @@ class AppSettingsCubit extends Cubit<AppSettingsState> {
       : super( AppSettingsState(
         status: AppSettingsStatus.initail,
           themeMode: ThemeMode.light,
-          locale: const Locale('en'),
+          locale: const Locale('ar'),
         ));
 
   void toggleTheme() {

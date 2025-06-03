@@ -27,26 +27,41 @@ class AppConstants {
   ]
   ''';
   static List<String> specialtiesKeys = [
-  "specialty_internal_medicine",
-  "specialty_general_surgery",
-  "specialty_pediatrics",
-  "specialty_orthopedics",
-  "specialty_urology",
-  "specialty_ent",
-  "specialty_ophthalmology",
-  "specialty_dentistry",
-  "specialty_radiology",
-  "specialty_cardiothoracic_surgery",
-  "specialty_neurosurgery",
-  "specialty_oncology",
-  "specialty_nephrology",
-  "specialty_pulmonology",
-  "specialty_psychiatry",
-  "specialty_hematology",
-  "specialty_vascular_surgery",
-  "specialty_geriatrics",
-  "specialty_neonatology"
+   "internalMedicine",
+    "vascularSurgery",
+    "orthopedics",
+    "specializations",
+    "gynecologyAndObstetrics",
+    "pediatricsAndNeonatology",
+    "urology",
+    "dentistry",
+    "neurology",
+    "cosmeticSurgery",
+    "ophthalmology",
+    "ent",
+    "chestDiseases",
+    "dermatology",
+    "physiotherapy",
+    "ivf",
+    "speechAndLanguageTherapy",
 ];
+ static String get internalMedicine => "internalMedicine";
+ static String get vascularSurgery => "vascularSurgery";
+ static String get orthopedics => "orthopedics";
+ static String get specializations => "specializations";
+ static String get gynecologyAndObstetrics => "gynecologyAndObstetrics";
+ static String get pediatricsAndNeonatology => "pediatricsAndNeonatology";
+ static String get urology => "urology";
+ static String get dentistry => "dentistry";
+ static String get neurology => "neurology";
+static  String get cosmeticSurgery => "cosmeticSurgery";
+static  String get ophthalmology => "ophthalmology";
+static  String get ent => "ent";
+ static String get chestDiseases => "chestDiseases";
+static  String get dermatology => "dermatology";
+ static String get physiotherapy => "physiotherapy";
+ static String get ivf => "ivf";
+ static String get speechAndLanguageTherapy => "speechAndLanguageTherapy";
 static  const List<String> daysOfWeek = [
   'Monday',
   'Tuesday',

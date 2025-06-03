@@ -45,11 +45,12 @@ String? emailValidator(String? value) {
   }
   
 String? passwordValidator(String? value) {
-  if (value == null || value.isEmpty) {
+ if (value == null || value.isEmpty) {
     return GlobalL10n.instance.validatorEnterPassword;
   }
-  if (!RegExp(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$').hasMatch(value)) {
-    return GlobalL10n.instance.validatorInvalidPassword;
+
+  if (value.length < 8) {
+    return GlobalL10n.instance.validatorPasswordTooShort; // Add this string to your l10n file
   }
   return null;
  }

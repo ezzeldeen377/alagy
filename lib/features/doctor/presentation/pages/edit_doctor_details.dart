@@ -199,7 +199,7 @@ class EditProfileScreen extends StatelessWidget {
                             children: [
                               Icon(Icons.location_on,
                                   color: isLocationSelected
-                                      ? AppColor.tealNew
+                                      ? AppColor.primaryColor
                                       : Colors.red),
                               const SizedBox(width: 8),
                               Expanded(
@@ -212,19 +212,19 @@ class EditProfileScreen extends StatelessWidget {
                                   style: context.theme.textTheme.bodySmall
                                       ?.copyWith(
                                     color: isLocationSelected
-                                        ? AppColor.white
+                                        ? AppColor.whiteColor
                                         : Colors.red,
                                   ),
                                 ),
                               ),
                               ElevatedButton.icon(
                                 icon:
-                                    const Icon(Icons.route, color: AppColor.tealNew),
+                                    const Icon(Icons.route,),
                                 label: Text(
                                   context.l10n.editDoctorSelectLocation,
                                   style: context.theme.textTheme.titleSmall
                                       ?.copyWith(
-                                          color: AppColor.tealNew,
+                                          color: AppColor.primaryColor,
                                           fontSize: 10.sp),
                                 ),
                                 onPressed: () async {
@@ -274,7 +274,6 @@ class EditProfileScreen extends StatelessWidget {
                                     onChanged: (value) {
                                       cubit.toggleCustomAvailability(value);
                                     },
-                                    activeColor: AppColor.tealNew,
                                     materialTapTargetSize:
                                         MaterialTapTargetSize.shrinkWrap,
                                   ),
@@ -363,7 +362,7 @@ class EditProfileScreen extends StatelessWidget {
                                           cubit.toggleDayAvailability(
                                               state.selectedDay!, !value);
                                         },
-                                        activeColor: AppColor.tealNew,
+                                        activeColor: AppColor.primaryColor,
                                         materialTapTargetSize:
                                             MaterialTapTargetSize.shrinkWrap,
                                       ),
@@ -469,7 +468,7 @@ class EditProfileScreen extends StatelessWidget {
                               : Text(
                                   context.l10n.editDoctorSave,
                                   style: context.theme.textTheme.titleLarge
-                                      ?.copyWith(color: AppColor.white),
+                                      ?.copyWith(color: AppColor.whiteColor),
                                 ),
                       onTapButton: () {
                         if (cubit.formKey.currentState!.validate()) {

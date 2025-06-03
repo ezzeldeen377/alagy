@@ -105,21 +105,12 @@ class DoctorDetailPage extends StatelessWidget {
                                   Container(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 12.w, vertical: 6.h),
-                                    decoration: BoxDecoration(
-                                      color: AppColor.tealNew.withOpacity(0.1),
-                                      borderRadius: BorderRadius.circular(12.r),
-                                      border: Border.all(
-                                        color:
-                                            AppColor.tealNew.withOpacity(0.3),
-                                        width: 1,
-                                      ),
-                                    ),
+                                   
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Icon(
                                           Icons.workspace_premium,
-                                          color: AppColor.tealNew,
                                           size: 16.sp,
                                         ),
                                         SizedBox(width: 6.w),
@@ -130,7 +121,7 @@ class DoctorDetailPage extends StatelessWidget {
                                                 text:
                                                     '${doctor.yearsOfExperience}+ ',
                                                 style: TextStyle(
-                                                  color: AppColor.tealNew,
+                                                  color: AppColor.primaryColor,
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 13.sp,
                                                 ),
@@ -138,7 +129,7 @@ class DoctorDetailPage extends StatelessWidget {
                                               TextSpan(
                                                 text: context.l10n.yearsExp,
                                                 style: TextStyle(
-                                                  color: AppColor.tealNew,
+                                                  color: AppColor.primaryColor,
                                                   fontWeight: FontWeight.w500,
                                                   fontSize: 12.sp,
                                                 ),
@@ -165,7 +156,7 @@ class DoctorDetailPage extends StatelessWidget {
                           ActionButton(
                             icon: Icons.calendar_today,
                             label: context.l10n.book,
-                            color: AppColor.tealNew,
+                            color: AppColor.primaryColor,
                             onTap: () {
                               // Implement booking functionality
                              if (context.read<DoctorDetailsCubit>().targetKey.currentContext != null) {
@@ -203,16 +194,11 @@ class DoctorDetailPage extends StatelessWidget {
                     width: double.infinity,
                     padding:
                         EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
-                    decoration: BoxDecoration(
-                      color: AppColor.tealNew.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12.r),
-                      border:
-                          Border.all(color: AppColor.tealNew.withOpacity(0.3)),
-                    ),
+                    
                     child: Row(
                       children: [
                         Icon(Icons.payments_outlined,
-                            color: AppColor.tealNew, size: 24.sp),
+                          size: 24.sp),
                         SizedBox(width: 12.w),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -220,11 +206,11 @@ class DoctorDetailPage extends StatelessWidget {
                             Text(context.l10n.consultationFee,
                                 style: context.theme.textTheme.bodyMedium),
                             Text(
-                              '\$${doctor.consultationFee!.toStringAsFixed(2)}',
+                              'EGP ${doctor.consultationFee!.toStringAsFixed(2)}',
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.bold,
-                                color: AppColor.tealNew,
+                                color: AppColor.primaryColor,
                               ),
                             ),
                           ],
@@ -309,7 +295,7 @@ class DetailRow extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, color: AppColor.tealNew, size: 20.sp),
+            Icon(icon, size: 20.sp),
             SizedBox(width: 12.w),
             Expanded(
               child: Column(
@@ -326,7 +312,7 @@ class DetailRow extends StatelessWidget {
                   Text(
                     value,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: isActionable ? AppColor.tealNew : null,
+                          color: isActionable ? AppColor.primaryColor : null,
                           decoration:
                               isActionable ? TextDecoration.underline : null,
                         ),
@@ -336,7 +322,7 @@ class DetailRow extends StatelessWidget {
             ),
             if (isActionable)
               Icon(Icons.arrow_forward_ios,
-                  size: 14.sp, color: AppColor.tealNew),
+                  size: 14.sp,),
           ],
         ),
       ),

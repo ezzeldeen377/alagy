@@ -14,4 +14,6 @@ class RouteNames {
   static const editDoctor = '/editDoctor';
   static const alarm = '/alarm';
   static const selectLocationScreen = '/selectLocationScreen';
+    static const doctorPage = '/doctorPage';
+
 }

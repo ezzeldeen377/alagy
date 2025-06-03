@@ -3,6 +3,7 @@ import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/helpers/spacer.dart';
 import 'package:alagy/core/routes/routes.dart';
 import 'package:alagy/core/theme/app_color.dart';
+import 'package:alagy/core/utils/custom_button.dart';
 import 'package:alagy/features/settings/cubit/app_settings_cubit.dart';
 import 'package:alagy/features/settings/cubit/app_settings_state.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w),
                       child: Text(context.l10n.onboardingWelcome,
-                          style: theme.textTheme.headlineLarge)),
+                          style: theme.textTheme.headlineLarge?.copyWith(color: AppColor.primaryColor))),
                   SizedBox(height: 20.h),
                   Expanded(
                     child: Padding(
@@ -70,16 +71,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset(
-                            'assets/images/onboarding_1.jpg',
+                            'assets/images/onboarding_1.png',
                             width: double.infinity,
                             fit: BoxFit.fitWidth,
                             errorBuilder: (context, error, stackTrace) {
                               return Container(
                                 width: double.infinity,
                                 height: 200.h,
-                                color: settingsState.isDarkMode
-                                    ? AppColor.darkTeal
-                                    : AppColor.tealNew,
+                              
                                 child: Center(
                                   child: Icon(
                                     Icons.image_not_supported,
@@ -92,7 +91,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                           SizedBox(height: 30.h),
                           Text(l10n.onboardingTitle,
                               textAlign: TextAlign.center,
-                              style: theme.textTheme.headlineMedium?.copyWith(color: AppColor.tealNew)),
+                              style: theme.textTheme.headlineMedium?.copyWith(color: AppColor.primaryColor)),
                           SizedBox(height: 10.h),
                           Text(l10n.onboardingDescription,
                               textAlign: TextAlign.center,
@@ -103,45 +102,22 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: GestureDetector(
-                      onTap: () {
+                    child: CustomButton(
+                      buttonContent: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(l10n.onboardingGetStarted,
+                              style: theme.textTheme.headlineSmall?.copyWith(color: AppColor.whiteColor)),
+                          horizontalSpace(5),
+                          Icon(Icons.arrow_forward,
+                              size: 20.sp, color: AppColor.whiteColor),
+                        ],
+                      ),
+                      onTapButton:(){
                         context.read<AppUserCubit>().saveInstallationFlag();
                         Navigator.pushReplacementNamed(
                             context, RouteNames.signIn);
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.symmetric(vertical: 15.h),
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [
-                              AppColor.mintGreen,
-                              AppColor.tealNew,
-                            ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColor.darkTeal.withOpacity(0.3),
-                              spreadRadius: 2,
-                              blurRadius: 8,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(l10n.onboardingGetStarted,
-                                textAlign: TextAlign.center,
-                                style: theme.textTheme.titleMedium),
-                            horizontalSpace(10),
-                            const Icon(Icons.arrow_forward, color: AppColor.offWhite)
-                          ],
-                        ),
-                      ),
+                      } ,
                     ),
                   ),
                   SizedBox(height: 20.h),

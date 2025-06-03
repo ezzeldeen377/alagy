@@ -135,7 +135,7 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
               onPressed: () {
                 Navigator.of(context).pop(_selectedLatLng);
               },
-              backgroundColor: AppColor.darkTeal,
+              backgroundColor: AppColor.primaryColor,
               label: Text(context.l10n.saveLocation),
               icon: const Icon(Icons.check),
             )

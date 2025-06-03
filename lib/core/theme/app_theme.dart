@@ -9,21 +9,28 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
-      primaryColor: AppColor.tealNew,
+      primaryColor: AppColor.primaryColor,
       colorScheme: const ColorScheme.light(
-        primary: AppColor.tealNew,
-        onPrimary: AppColor.white,
-        primaryContainer: AppColor.mintGreen,
-        secondary: AppColor.darkTeal,
-        onSecondary: AppColor.white,
-        secondaryContainer: AppColor.teal,
-        surface: AppColor.white,
-        onSurface: AppColor.darkGray
+        primary: AppColor.primaryColor,
+        onPrimary: AppColor.whiteColor,
+        primaryContainer: AppColor.secondryColor,
+        secondary: AppColor.secondryColor,
+        onSecondary: AppColor.whiteColor,
+        secondaryContainer: AppColor.primaryColor,
+        surface: AppColor.whiteColor,
+        onSurface: AppColor.blackColor,
       ),
-      scaffoldBackgroundColor: AppColor.white,
+      scaffoldBackgroundColor: AppColor.whiteColor,
       applyElevationOverlayColor: true,
+      appBarTheme: const AppBarTheme(
+        backgroundColor: AppColor.primaryColor,
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: AppColor.whiteColor,
+        ),
+      ),
       tabBarTheme: TabBarThemeData(
-         labelColor: AppColor.tealNew,
+         labelColor: AppColor.primaryColor,
                 unselectedLabelColor: Colors.grey[500],
                 labelStyle: const TextStyle(
                   fontSize: 14,
@@ -33,28 +40,29 @@ class AppTheme {
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
-               dividerColor: Colors.transparent,indicatorColor:  AppColor.tealNew,
+               dividerColor: Colors.transparent,indicatorColor:  AppColor.primaryColor,
       ),
       drawerTheme: DrawerThemeData(
-        backgroundColor: AppColor.white,
-        scrimColor: AppColor.beige,
+        backgroundColor: AppColor.whiteColor,
+        scrimColor: AppColor.fifthColor,
         elevation: 16,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
       ),
       dialogTheme: DialogThemeData(
-        backgroundColor: AppColor.white,
+        backgroundColor: AppColor.whiteColor,
         elevation: 8,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
       ),
       progressIndicatorTheme:
-          const ProgressIndicatorThemeData(color: AppColor.white),
-      iconTheme: const IconThemeData(color: AppColor.darkTeal),
+          const ProgressIndicatorThemeData(color: AppColor.primaryColor),
+          
+      iconTheme: const IconThemeData(color: AppColor.blackColor),
       snackBarTheme:  SnackBarThemeData(
-          backgroundColor: AppColor.darkTeal,
+          backgroundColor: AppColor.primaryColor,
           contentTextStyle: TextStyles.fontCircularSpotify14BlackMedium.copyWith(color: AppColor.whiteColor) ),
       inputDecorationTheme: InputDecorationTheme(
         errorMaxLines: 2,
@@ -63,7 +71,7 @@ class AppTheme {
             .copyWith(fontWeight: FontWeightHelper.regular),
         labelStyle: TextStyles.fontCircularSpotify14BlackMedium,
         filled: true,
-        fillColor: AppColor.white,
+        fillColor: AppColor.whiteColor,
         errorBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: AppColor.redColor.withOpacity(.5),
@@ -78,19 +86,19 @@ class AppTheme {
             borderRadius: BorderRadius.circular(15)),
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: AppColor.darkTeal.withOpacity(.5),
+              color: AppColor.primaryColor.withOpacity(.5),
               width: 2,
             ),
             borderRadius: BorderRadius.circular(15)),
         disabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(
-              color: AppColor.lgGreyColor,
+              color: AppColor.greyColor,
               width: 2,
             ),
             borderRadius: BorderRadius.circular(15)),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: AppColor.darkTeal.withOpacity(.8),
+              color: AppColor.primaryColor.withOpacity(.8),
               width: 2,
             ),
             borderRadius: BorderRadius.circular(15)),
@@ -100,77 +108,77 @@ class AppTheme {
               fontFamily: "CircularSpotify",
               fontSize: 57,
               fontWeight: FontWeight.normal,
-              color: AppColor.tealNew),
+              color: AppColor.primaryColor),
           displayMedium: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 45,
               fontWeight: FontWeight.normal,
-              color: AppColor.tealNew),
+              color: AppColor.primaryColor),
           displaySmall: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 36,
               fontWeight: FontWeight.normal,
-              color: AppColor.tealNew),
+              color: AppColor.primaryColor),
           headlineLarge: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 32,
               fontWeight: FontWeight.bold,
-              color: AppColor.tealNew),
+              color: AppColor.primaryColor),
           headlineMedium: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 28,
               fontWeight: FontWeight.bold,
-              color: AppColor.tealNew),
+              color: AppColor.primaryColor),
           headlineSmall: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: AppColor.tealNew),
+              color: AppColor.primaryColor),
           titleLarge: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 22,
               fontWeight: FontWeight.w600,
-              color: AppColor.darkGray),
+              color: AppColor.blackColor),
           titleMedium: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 18,
               fontWeight: FontWeight.w600,
-              color: AppColor.darkGray),
+              color: AppColor.blackColor),
           titleSmall: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: AppColor.darkGray),
+              color: AppColor.blackColor),
           bodyLarge: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 16,
               fontWeight: FontWeight.normal,
-              color: AppColor.darkGray),
+              color: AppColor.blackColor),
           bodyMedium: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 14,
               fontWeight: FontWeight.normal,
-              color: AppColor.darkGray),
+              color: AppColor.blackColor),
           bodySmall: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 12,
               fontWeight: FontWeight.normal,
-              color: AppColor.darkGray),
+              color: AppColor.blackColor),
           labelLarge: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              color: AppColor.darkGray),
+              color: AppColor.blackColor),
           labelMedium: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 12,
               fontWeight: FontWeight.w500,
-              color: AppColor.darkGray),
+              color: AppColor.blackColor),
           labelSmall: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 11,
               fontWeight: FontWeight.w500,
-              color: AppColor.darkGray)),
+              color: AppColor.blackColor)),
     );
   }
 
@@ -178,19 +186,19 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
-      primaryColor: AppColor.darkTeal,
+      primaryColor: AppColor.primaryColor,
       colorScheme: const ColorScheme.dark(
-        primary: AppColor.darkTeal,
-        onPrimary: AppColor.offWhite,
-        primaryContainer: AppColor.teal,
-        secondary: AppColor.mintGreen,
-        onSecondary: AppColor.darkGray,
-        secondaryContainer: AppColor.tealNew,
-        surface: AppColor.darkGray,
-        onSurface: AppColor.offWhite
+        primary: AppColor.primaryColor,
+        onPrimary: AppColor.blackColor,
+        primaryContainer: AppColor.primaryColor,
+        secondary: AppColor.secondryColor,
+        onSecondary: AppColor.blackColor,
+        secondaryContainer: AppColor.primaryColor,
+        surface: AppColor.blackColor,
+        onSurface: AppColor.whiteColor
       ),
         tabBarTheme: const TabBarThemeData(
-         labelColor: AppColor.tealNew,
+         labelColor: AppColor.primaryColor,
                 unselectedLabelColor: Colors.white,
                 labelStyle: TextStyle(
                   fontSize: 14,
@@ -200,12 +208,20 @@ class AppTheme {
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
-               dividerColor:  Colors.transparent,indicatorColor:  AppColor.tealNew,
+               dividerColor:  Colors.transparent,indicatorColor:  AppColor.primaryColor,
       ),
-      scaffoldBackgroundColor: AppColor.darkGray,
+      scaffoldBackgroundColor: AppColor.blackColor,
       applyElevationOverlayColor: true,
+       appBarTheme: const AppBarTheme(
+        backgroundColor: AppColor.primaryColor,
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: AppColor.whiteColor,
+        ),
+      ),
+      
       drawerTheme: DrawerThemeData(
-        backgroundColor: AppColor.darkGray,
+        backgroundColor: AppColor.blackColor,
         scrimColor: AppColor.blackColor.withOpacity(0.5),
         elevation: 16,
         shape: RoundedRectangleBorder(
@@ -213,18 +229,18 @@ class AppTheme {
         ),
       ),
       dialogTheme: DialogThemeData(
-        backgroundColor: AppColor.darkGray,
+        backgroundColor: AppColor.blackColor,
         elevation: 8,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
       ),
       progressIndicatorTheme:
-          const ProgressIndicatorThemeData(color: AppColor.white),
+          const ProgressIndicatorThemeData(color: AppColor.primaryColor),
       snackBarTheme:  SnackBarThemeData(
-          backgroundColor: AppColor.tealNew,
+          backgroundColor: AppColor.primaryColor,
           contentTextStyle: TextStyles.fontCircularSpotify14BlackMedium.copyWith(color: AppColor.whiteColor) ),
-      iconTheme: const IconThemeData(color: AppColor.white),
+      iconTheme: const IconThemeData(color: AppColor.whiteColor),
       inputDecorationTheme: InputDecorationTheme(
         isDense: true,
         errorMaxLines: 2,
@@ -233,7 +249,7 @@ class AppTheme {
             .copyWith(fontWeight: FontWeightHelper.regular),
         labelStyle: TextStyles.fontCircularSpotify14WhiteMedium,
         filled: true,
-        fillColor: AppColor.textFieldFill,
+        fillColor: AppColor.blackColor,
         errorBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: AppColor.redColor.withOpacity(.5),
@@ -248,19 +264,19 @@ class AppTheme {
             borderRadius: BorderRadius.circular(15)),
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: AppColor.textFieldBorder.withOpacity(.8),
+              color: AppColor.fourthColor.withOpacity(.8),
               width: 2,
             ),
             borderRadius: BorderRadius.circular(15)),
         disabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: AppColor.grayColor.withOpacity(.2),
+              color: AppColor.greyColor.withOpacity(.2),
               width: 2,
             ),
             borderRadius: BorderRadius.circular(15)),
         focusedBorder: OutlineInputBorder(
             borderSide: const BorderSide(
-              color: AppColor.textFieldBorder,
+              color: AppColor.fourthColor,
               width: 2,
             ),
             borderRadius: BorderRadius.circular(15)),
@@ -270,37 +286,37 @@ class AppTheme {
               fontFamily: "CircularSpotify",
               fontSize: 57,
               fontWeight: FontWeight.normal,
-              color: AppColor.ofWhiteColor),
+              color: AppColor.whiteColor),
           displayMedium: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 45,
               fontWeight: FontWeight.normal,
-              color: AppColor.ofWhiteColor),
+              color: AppColor.whiteColor),
           displaySmall: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 36,
               fontWeight: FontWeight.normal,
-              color: AppColor.ofWhiteColor),
+              color: AppColor.whiteColor),
           headlineLarge: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 32,
               fontWeight: FontWeight.bold,
-              color: AppColor.ofWhiteColor),
+              color: AppColor.whiteColor),
           headlineMedium: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 28,
               fontWeight: FontWeight.bold,
-              color: AppColor.ofWhiteColor),
+              color: AppColor.whiteColor),
           headlineSmall: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: AppColor.tealNew),
+              color: AppColor.primaryColor),
           titleLarge: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 22,
               fontWeight: FontWeight.w600,
-              color: AppColor.ofWhiteColor),
+              color: AppColor.whiteColor),
           titleMedium: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 18,
@@ -310,37 +326,37 @@ class AppTheme {
               fontFamily: "CircularSpotify",
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: AppColor.ofWhiteColor),
+              color: AppColor.whiteColor),
           bodyLarge: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 16,
               fontWeight: FontWeight.normal,
-              color: AppColor.ofWhiteColor),
+              color: AppColor.whiteColor),
           bodyMedium: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 14,
               fontWeight: FontWeight.normal,
-              color: AppColor.ofWhiteColor),
+              color: AppColor.whiteColor),
           bodySmall: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 12,
               fontWeight: FontWeight.normal,
-              color: AppColor.ofWhiteColor),
+              color: AppColor.whiteColor),
           labelLarge: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              color: AppColor.ofWhiteColor),
+              color: AppColor.whiteColor),
           labelMedium: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 12,
               fontWeight: FontWeight.w500,
-              color: AppColor.ofWhiteColor),
+              color: AppColor.whiteColor),
           labelSmall: TextStyle(
               fontFamily: "CircularSpotify",
               fontSize: 11,
               fontWeight: FontWeight.w500,
-              color: AppColor.ofWhiteColor)),
+              color: AppColor.whiteColor)),
     );
   }
 }

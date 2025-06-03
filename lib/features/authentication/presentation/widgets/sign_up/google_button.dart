@@ -18,18 +18,14 @@ class GoogleButton extends StatelessWidget {
         height: 45.h,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: context.isDark
-              ? AppColor.ofWhiteColor
-              : AppColor.mintGreen.withOpacity(.3),
+        
           borderRadius: BorderRadius.circular(30.r),
         ),
         child: isLoading
             ? Padding(
                 padding: EdgeInsets.symmetric(vertical: 3.h),
-                child: Center(
+                child: const Center(
                   child: CircularProgressIndicator(
-                    color:
-                        context.isDark ? AppColor.darkGray : AppColor.tealNew,
                   ),
                 ),
               )
@@ -40,7 +36,7 @@ class GoogleButton extends StatelessWidget {
                   SizedBox(width: 5.w),
                   Text(context.l10n.connectWithGoogle,
                       style: context.theme.textTheme.bodyMedium
-                          ?.copyWith(color: AppColor.accentBlackColor2)),
+                          ),
                 ],
               ),
       ),

@@ -38,7 +38,7 @@ class TopRatedDoctors extends StatelessWidget {
                 child: Text(
                   context.l10n.seeAll,
                   style: const TextStyle(
-                    color: AppColor.tealNew,
+                    color: AppColor.primaryColor,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

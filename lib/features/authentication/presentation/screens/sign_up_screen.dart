@@ -75,7 +75,7 @@ class SignUpScreenState extends State<SignUpScreen>
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25.r),
                           border: Border.all(
-                              color: AppColor.lgGreyColor, width: .5)),
+                              color: AppColor.primaryColor, width: .5)),
                       child: TabBar(
                         controller: _tabController,
                         isScrollable: false,
@@ -84,13 +84,18 @@ class SignUpScreenState extends State<SignUpScreen>
                         indicatorSize: TabBarIndicatorSize.tab,
                         dividerHeight: 0,
                         indicator: BoxDecoration(
-                          color: AppColor.tealNew,
+                          color: AppColor.primaryColor,
                           borderRadius: BorderRadius.circular(25.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColor.primaryColor.withOpacity(0.3),
+                              blurRadius: 4,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
                         ),
-                        labelColor: AppColor.ofWhiteColor,
-                        unselectedLabelColor: context.isLight
-                            ? Colors.black
-                            : AppColor.ofWhiteColor,
+                        labelColor: AppColor.whiteColor,
+                        unselectedLabelColor: AppColor.primaryColor,
                         labelStyle: context.theme.textTheme.bodyLarge
                             ?.copyWith(fontWeight: FontWeightHelper.bold),
                         tabs: [
@@ -128,7 +133,7 @@ class SignUpScreenState extends State<SignUpScreen>
                                   : Text(
                                       context.l10n.signInButton,
                                       style: context.theme.textTheme.titleLarge
-                                          ?.copyWith(color: AppColor.white),
+                                          ?.copyWith(color: AppColor.whiteColor),
                                     ),
                               animationIndex: 3,
                               onTapButton: () {

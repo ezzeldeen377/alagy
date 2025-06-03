@@ -18,19 +18,13 @@ class TimeSlotChip extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-        decoration: BoxDecoration(
-          color: AppColor.tealNew.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(8.r),
-          border: Border.all(
-            color: AppColor.tealNew.withOpacity(0.3),
-          ),
-        ),
+      
         child: Text(
           time,
           style: TextStyle(
             fontSize: 14.sp,
             fontWeight: FontWeight.w500,
-            color: AppColor.tealNew,
+            color: AppColor.primaryColor,
           ),
         ),
       ),

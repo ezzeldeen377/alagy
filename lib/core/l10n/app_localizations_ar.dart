@@ -427,100 +427,58 @@ class AppLocalizationsAr extends AppLocalizations {
   String get saveLocation => 'حفظ الموقع';
 
   @override
-  String get specialty_internal_medicine => 'الباطنة';
+  String get orthopedics => 'عظام';
 
   @override
-  String get specialty_general_surgery => 'الجراحة العامة';
+  String get internalMedicine => 'باطنه';
 
   @override
-  String get specialty_pediatrics => 'طب الأطفال';
+  String get vascularSurgery => 'اوعيه دمويه';
 
   @override
-  String get specialty_gynecology => 'طب النساء';
+  String get gynecologyAndObstetrics => 'نساء و توليد';
 
   @override
-  String get specialty_orthopedics => 'العظام';
+  String get pediatricsAndNeonatology => 'اطفال و حديثي الولاده';
 
   @override
-  String get specialty_urology => 'المسالك البولية';
+  String get urology => 'مسالك بوليه';
 
   @override
-  String get specialty_ent => 'الأنف والأذن والحنجرة';
+  String get dentistry => 'اسنان';
 
   @override
-  String get specialty_dermatology => 'الأمراض الجلدية';
+  String get neurology => 'مخ و اعصاب';
 
   @override
-  String get specialty_ophthalmology => 'طب العيون';
+  String get cosmeticSurgery => 'تجميل';
 
   @override
-  String get specialty_dentistry => 'طب الأسنان';
+  String get ophthalmology => 'عيون';
 
   @override
-  String get specialty_emergency => 'الطوارئ';
+  String get ent => 'انف ، اذن و حنجره';
 
   @override
-  String get specialty_laboratory => 'المختبر';
+  String get chestDiseases => 'صدريه';
 
   @override
-  String get specialty_radiology => 'الأشعة';
+  String get dermatology => 'جلديه';
 
   @override
-  String get specialty_cardiology => 'أمراض القلب';
+  String get physiotherapy => 'علاج طبيعي';
 
   @override
-  String get specialty_cardiothoracic_surgery => 'جراحة القلب والصدر';
+  String get ivf => 'حقن مجهري';
 
   @override
-  String get specialty_neurosurgery => 'جراحة الأعصاب';
+  String get speechAndLanguageTherapy => 'نطق و تخاطب';
 
   @override
-  String get specialty_oncology => 'الأورام';
+  String get specialtyEmpty => 'لم يتم اختيار التخصص';
 
   @override
-  String get specialty_nephrology => 'أمراض الكلى';
-
-  @override
-  String get specialty_pulmonology => 'أمراض الصدر';
-
-  @override
-  String get specialty_rheumatology => 'أمراض الروماتيزم';
-
-  @override
-  String get specialty_rehabilitation => 'التأهيل';
-
-  @override
-  String get specialty_psychiatry => 'الطب النفسي';
-
-  @override
-  String get specialty_hematology => 'أمراض الدم';
-
-  @override
-  String get specialty_infectious_diseases => 'الأمراض المعدية';
-
-  @override
-  String get specialty_endocrinology => 'أمراض الغدد الصماء';
-
-  @override
-  String get specialty_icu => 'العناية المركزة';
-
-  @override
-  String get specialty_burns_plastic => 'الحروق والجراحة التجميلية';
-
-  @override
-  String get specialty_laparoscopy => 'المناظير';
-
-  @override
-  String get specialty_vascular_surgery => 'جراحة الأوعية الدموية';
-
-  @override
-  String get specialty_geriatrics => 'طب الشيخوخة';
-
-  @override
-  String get specialty_audiology => 'السمعيات';
-
-  @override
-  String get specialty_neonatology => 'حديثي الولادة';
+  String get specializations => 'التخصصات';
 
   @override
   String get editDoctorChangeLocation => 'تغيير الموقع';
@@ -725,4 +683,8 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get bad => ' 😞سيئ ';
+
+  @override
+  String get validatorPasswordTooShort =>
+      'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.';
 }

@@ -1,5 +1,9 @@
+import 'package:alagy/core/constants/app_constants.dart';
 import 'package:alagy/core/helpers/extensions.dart';
+import 'package:alagy/core/helpers/navigator.dart';
+import 'package:alagy/core/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -8,44 +12,45 @@ class SpecializationsGrid extends StatelessWidget {
  
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final List<SpecializationModel> specializations = [
-      const SpecializationModel(
-        title: 'Cardiology',
+       SpecializationModel(
+        title:AppConstants.vascularSurgery,
         iconPath: 'assets/icons/cardiologist.svg',
         color: Colors.red,
       ),
-      const SpecializationModel(
-        title: 'Dental Care',
+       SpecializationModel(
+        title: AppConstants.dentistry,
         iconPath: 'assets/icons/dentail.svg',
         color: Colors.blue,
       ),
-      const SpecializationModel(
-        title: 'General Medicine',
+       SpecializationModel(
+        title: AppConstants.internalMedicine,
         iconPath: 'assets/icons/general.svg',
         color: Colors.teal,
       ),
-      const SpecializationModel(
-        title: 'Laboratory',
+       SpecializationModel(
+        title: AppConstants.ophthalmology,
         iconPath: 'assets/icons/lab.svg',
         color: Colors.purple,
       ),
-      const SpecializationModel(
-        title: 'Neurology',
+       SpecializationModel(
+        title: AppConstants.neurology,
         iconPath: 'assets/icons/neurology.svg',
         color: Colors.indigo,
       ),
-      const SpecializationModel(
-        title: 'Pharmacy',
+       SpecializationModel(
+        title: AppConstants.ivf,
         iconPath: 'assets/icons/pharmacy.svg',
         color: Colors.green,
       ),
-      const SpecializationModel(
-        title: 'Pulmonology',
+       SpecializationModel(
+        title:  AppConstants.chestDiseases,
         iconPath: 'assets/icons/pulmon.svg',
         color: Colors.blue,
       ),
-      const SpecializationModel(
-        title: 'Gastroenterology',
+       SpecializationModel(
+        title: AppConstants.urology,
         iconPath: 'assets/icons/stomach.svg',
         color: Colors.orange,
       ),
@@ -82,7 +87,7 @@ class SpecializationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Handle specialization selection
+        context.pushNamed(RouteNames.doctorPage, arguments: specialization.title);
       },
       child: Card(
         elevation: 5,
@@ -112,7 +117,7 @@ class SpecializationCard extends StatelessWidget {
               ),
             ),
             Text(
-              specialization.title,
+              context.getSpecialty(specialization.title),
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     fontSize: 14.sp, // Increased font size

@@ -58,7 +58,6 @@ class _HomeScreenPage extends State<HomeScreen> {
             if(!state.isAllLoaded){
               return const Center(child: CircularProgressIndicator());
             }
-            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@${DateFormat('EEEE').format(DateTime.now())}");
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -68,7 +67,7 @@ class _HomeScreenPage extends State<HomeScreen> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.w),
                         child: Text(
-                          context.l10n.ourServices,
+                          context.l10n.specializations,
                           style:
                               Theme.of(context).textTheme.titleLarge?.copyWith(
                                     fontWeight: FontWeight.bold,

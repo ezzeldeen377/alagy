@@ -54,7 +54,7 @@ class CustomSignInListener extends StatelessWidget {
       child: BlocListener<AppUserCubit, AppUserState>(
         listener: (context, state) async {
           if (state.isLoggedIn()) {
-            context.read<AppUserCubit>().getUser(uid: state.userId ?? "");
+           await  context.read<AppUserCubit>().getUser(uid: state.userId ?? "");
           }
           if (state.isGettedData()) {
             _navigateToHome(context, state.user!);

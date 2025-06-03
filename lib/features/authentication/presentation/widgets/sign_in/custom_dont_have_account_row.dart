@@ -25,7 +25,7 @@ class CustomDontHaveAccountRow extends StatelessWidget {
           onTap: onTap,
           child:  Text(
             context.l10n.registerNow,
-            style: context.theme.textTheme.labelLarge?.copyWith(color: AppColor.tealNew),
+            style: context.theme.textTheme.labelLarge?.copyWith(color: AppColor.primaryColor),
           ),
         ),
       ],

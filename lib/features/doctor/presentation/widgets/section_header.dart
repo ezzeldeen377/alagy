@@ -1,3 +1,4 @@
+import 'package:alagy/core/theme/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,10 +13,10 @@ class SectionHeader extends StatelessWidget {
       padding:  EdgeInsets.symmetric(vertical: 10.h),
       child: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
-          color: Colors.teal.shade700,
+          color: AppColor.primaryColor,
         ),
       ),
     );

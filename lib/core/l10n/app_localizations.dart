@@ -884,197 +884,113 @@ abstract class AppLocalizations {
   /// **'Save Location'**
   String get saveLocation;
 
-  /// No description provided for @specialty_internal_medicine.
+  /// No description provided for @orthopedics.
+  ///
+  /// In en, this message translates to:
+  /// **'Orthopedics'**
+  String get orthopedics;
+
+  /// No description provided for @internalMedicine.
   ///
   /// In en, this message translates to:
   /// **'Internal Medicine'**
-  String get specialty_internal_medicine;
+  String get internalMedicine;
 
-  /// No description provided for @specialty_general_surgery.
-  ///
-  /// In en, this message translates to:
-  /// **'General Surgery'**
-  String get specialty_general_surgery;
-
-  /// No description provided for @specialty_pediatrics.
-  ///
-  /// In en, this message translates to:
-  /// **'Pediatrics'**
-  String get specialty_pediatrics;
-
-  /// No description provided for @specialty_gynecology.
-  ///
-  /// In en, this message translates to:
-  /// **'Gynecology and Obstetrics'**
-  String get specialty_gynecology;
-
-  /// No description provided for @specialty_orthopedics.
-  ///
-  /// In en, this message translates to:
-  /// **'Orthopedic Surgery'**
-  String get specialty_orthopedics;
-
-  /// No description provided for @specialty_urology.
-  ///
-  /// In en, this message translates to:
-  /// **'Urology'**
-  String get specialty_urology;
-
-  /// No description provided for @specialty_ent.
-  ///
-  /// In en, this message translates to:
-  /// **'Otorhinolaryngology (Ear, Nose, and Throat)'**
-  String get specialty_ent;
-
-  /// No description provided for @specialty_dermatology.
-  ///
-  /// In en, this message translates to:
-  /// **'Dermatology'**
-  String get specialty_dermatology;
-
-  /// No description provided for @specialty_ophthalmology.
-  ///
-  /// In en, this message translates to:
-  /// **'Ophthalmology'**
-  String get specialty_ophthalmology;
-
-  /// No description provided for @specialty_dentistry.
-  ///
-  /// In en, this message translates to:
-  /// **'Dental Medicine'**
-  String get specialty_dentistry;
-
-  /// No description provided for @specialty_emergency.
-  ///
-  /// In en, this message translates to:
-  /// **'Emergency Medicine'**
-  String get specialty_emergency;
-
-  /// No description provided for @specialty_laboratory.
-  ///
-  /// In en, this message translates to:
-  /// **'Medical Laboratory'**
-  String get specialty_laboratory;
-
-  /// No description provided for @specialty_radiology.
-  ///
-  /// In en, this message translates to:
-  /// **'Radiology and Medical Imaging'**
-  String get specialty_radiology;
-
-  /// No description provided for @specialty_cardiology.
-  ///
-  /// In en, this message translates to:
-  /// **'Cardiology'**
-  String get specialty_cardiology;
-
-  /// No description provided for @specialty_cardiothoracic_surgery.
-  ///
-  /// In en, this message translates to:
-  /// **'Cardiothoracic Surgery'**
-  String get specialty_cardiothoracic_surgery;
-
-  /// No description provided for @specialty_neurosurgery.
-  ///
-  /// In en, this message translates to:
-  /// **'Neurosurgery'**
-  String get specialty_neurosurgery;
-
-  /// No description provided for @specialty_oncology.
-  ///
-  /// In en, this message translates to:
-  /// **'Oncology'**
-  String get specialty_oncology;
-
-  /// No description provided for @specialty_nephrology.
-  ///
-  /// In en, this message translates to:
-  /// **'Nephrology'**
-  String get specialty_nephrology;
-
-  /// No description provided for @specialty_pulmonology.
-  ///
-  /// In en, this message translates to:
-  /// **'Pulmonology and Respiratory Medicine'**
-  String get specialty_pulmonology;
-
-  /// No description provided for @specialty_rheumatology.
-  ///
-  /// In en, this message translates to:
-  /// **'Rheumatology'**
-  String get specialty_rheumatology;
-
-  /// No description provided for @specialty_rehabilitation.
-  ///
-  /// In en, this message translates to:
-  /// **'Physical Medicine and Rehabilitation'**
-  String get specialty_rehabilitation;
-
-  /// No description provided for @specialty_psychiatry.
-  ///
-  /// In en, this message translates to:
-  /// **'Psychiatry'**
-  String get specialty_psychiatry;
-
-  /// No description provided for @specialty_hematology.
-  ///
-  /// In en, this message translates to:
-  /// **'Hematology'**
-  String get specialty_hematology;
-
-  /// No description provided for @specialty_infectious_diseases.
-  ///
-  /// In en, this message translates to:
-  /// **'Infectious Disease Medicine'**
-  String get specialty_infectious_diseases;
-
-  /// No description provided for @specialty_endocrinology.
-  ///
-  /// In en, this message translates to:
-  /// **'Endocrinology'**
-  String get specialty_endocrinology;
-
-  /// No description provided for @specialty_icu.
-  ///
-  /// In en, this message translates to:
-  /// **'Intensive Care Unit'**
-  String get specialty_icu;
-
-  /// No description provided for @specialty_burns_plastic.
-  ///
-  /// In en, this message translates to:
-  /// **'Burn and Plastic Surgery'**
-  String get specialty_burns_plastic;
-
-  /// No description provided for @specialty_laparoscopy.
-  ///
-  /// In en, this message translates to:
-  /// **'Laparoscopic Surgery'**
-  String get specialty_laparoscopy;
-
-  /// No description provided for @specialty_vascular_surgery.
+  /// No description provided for @vascularSurgery.
   ///
   /// In en, this message translates to:
   /// **'Vascular Surgery'**
-  String get specialty_vascular_surgery;
+  String get vascularSurgery;
 
-  /// No description provided for @specialty_geriatrics.
+  /// No description provided for @gynecologyAndObstetrics.
   ///
   /// In en, this message translates to:
-  /// **'Geriatric Medicine'**
-  String get specialty_geriatrics;
+  /// **'Gynecology & Obstetrics'**
+  String get gynecologyAndObstetrics;
 
-  /// No description provided for @specialty_audiology.
+  /// No description provided for @pediatricsAndNeonatology.
   ///
   /// In en, this message translates to:
-  /// **'Audiology'**
-  String get specialty_audiology;
+  /// **'Pediatrics & Neonatology'**
+  String get pediatricsAndNeonatology;
 
-  /// No description provided for @specialty_neonatology.
+  /// No description provided for @urology.
   ///
   /// In en, this message translates to:
-  /// **'Neonatology'**
-  String get specialty_neonatology;
+  /// **'Urology'**
+  String get urology;
+
+  /// No description provided for @dentistry.
+  ///
+  /// In en, this message translates to:
+  /// **'Dentistry'**
+  String get dentistry;
+
+  /// No description provided for @neurology.
+  ///
+  /// In en, this message translates to:
+  /// **'Neurology'**
+  String get neurology;
+
+  /// No description provided for @cosmeticSurgery.
+  ///
+  /// In en, this message translates to:
+  /// **'Cosmetic Surgery'**
+  String get cosmeticSurgery;
+
+  /// No description provided for @ophthalmology.
+  ///
+  /// In en, this message translates to:
+  /// **'Ophthalmology'**
+  String get ophthalmology;
+
+  /// No description provided for @ent.
+  ///
+  /// In en, this message translates to:
+  /// **'ENT (Ear, Nose, and Throat)'**
+  String get ent;
+
+  /// No description provided for @chestDiseases.
+  ///
+  /// In en, this message translates to:
+  /// **'Chest Diseases'**
+  String get chestDiseases;
+
+  /// No description provided for @dermatology.
+  ///
+  /// In en, this message translates to:
+  /// **'Dermatology'**
+  String get dermatology;
+
+  /// No description provided for @physiotherapy.
+  ///
+  /// In en, this message translates to:
+  /// **'Physiotherapy'**
+  String get physiotherapy;
+
+  /// No description provided for @ivf.
+  ///
+  /// In en, this message translates to:
+  /// **'IVF (In Vitro Fertilization)'**
+  String get ivf;
+
+  /// No description provided for @speechAndLanguageTherapy.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech and Language Therapy'**
+  String get speechAndLanguageTherapy;
+
+  /// No description provided for @specialtyEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'no specialty selected'**
+  String get specialtyEmpty;
+
+  /// No description provided for @specializations.
+  ///
+  /// In en, this message translates to:
+  /// **'Specialization'**
+  String get specializations;
 
   /// No description provided for @editDoctorChangeLocation.
   ///
@@ -1471,6 +1387,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'😞  bad'**
   String get bad;
+
+  /// No description provided for @validatorPasswordTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters long.'**
+  String get validatorPasswordTooShort;
 }
 
 class _AppLocalizationsDelegate

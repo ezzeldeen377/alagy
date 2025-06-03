@@ -93,10 +93,9 @@ class MyApp extends StatelessWidget {
                 if (state.isLoading()) {
                   return Container(
                     color: Theme.of(context).scaffoldBackgroundColor,
-                    child: Center(
+                    child: const Center(
                         child: CircularProgressIndicator(
-                      color:
-                          context.isDark ? AppColor.white : AppColor.darkTeal,
+                      
                     )),
                   );
                 }
@@ -130,9 +129,9 @@ class MyApp extends StatelessWidget {
 
                 return Container(
                   color: Theme.of(context).scaffoldBackgroundColor,
-                  child: Center(
+                  child: const Center(
                       child: CircularProgressIndicator(
-                    color: context.isDark ? AppColor.white : AppColor.darkTeal,
+                    
                   )),
                 );
               },

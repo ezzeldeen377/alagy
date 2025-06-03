@@ -21,13 +21,13 @@ class DoctorSliverAppBar extends StatelessWidget {
       expandedHeight: 300.h,
       pinned: true,
       floating: false,
-      backgroundColor: AppColor.teal,
+      backgroundColor: AppColor.primaryColor,
       leading: Padding(
         padding: EdgeInsets.all(8.r),
         child: CircleAvatar(
           backgroundColor: Colors.black.withOpacity(0.3),
           child: IconButton(
-            icon: const Icon(Icons.arrow_back, color: AppColor.teal),
+            icon: const Icon(Icons.arrow_back, color: AppColor.primaryColor,),
             onPressed: () => Navigator.pop(context),
           ),
         ),
@@ -50,13 +50,12 @@ class DoctorSliverAppBar extends StatelessWidget {
           child: CircleAvatar(
             backgroundColor: Colors.black.withOpacity(0.3),
             child: IconButton(
-              icon: const Icon(Icons.share, color: AppColor.teal),
+              icon: const Icon(Icons.share, color: AppColor.primaryColor),
               onPressed: () {
                 // Implement share functionality
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(context.l10n.doctorProfileShared),
-                    backgroundColor: AppColor.tealNew,
                   ),
                 );
               },
@@ -71,7 +70,7 @@ class DoctorSliverAppBar extends StatelessWidget {
         doctor.name,
         style: Theme.of(context).textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.bold,
-              color: AppColor.white,
+              color: AppColor.whiteColor,
               fontSize: 18.h
             ),
       ),
@@ -81,9 +80,7 @@ class DoctorSliverAppBar extends StatelessWidget {
             // Single image instead of carousel
             Container(
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: AppColor.tealNew.withOpacity(0.1),
-              ),
+          
               child: Hero(
                 tag: 'doctor_image_${doctor.name}',
                 child: ClipRRect(

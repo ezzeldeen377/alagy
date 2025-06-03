@@ -13,9 +13,9 @@ class CustomContainer extends StatelessWidget {
       padding: EdgeInsets.symmetric( horizontal: 10.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: AppColor.mintGreen.withOpacity(.2),
+        color: AppColor.fourthColor.withOpacity(.2),
         border: Border.all(
-          color: AppColor.textFieldBorder,
+          color: AppColor.thirdolor,
           width: .5,
         ),
       ),

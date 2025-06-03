@@ -27,7 +27,7 @@ class ActionButton extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.r),
           border: Border.all(
-            color: AppColor.tealNew.withOpacity(0.3),
+            color: AppColor.primaryColor.withOpacity(0.3),
             width: 1,
           ),
         ),

@@ -430,100 +430,58 @@ class AppLocalizationsEn extends AppLocalizations {
   String get saveLocation => 'Save Location';
 
   @override
-  String get specialty_internal_medicine => 'Internal Medicine';
+  String get orthopedics => 'Orthopedics';
 
   @override
-  String get specialty_general_surgery => 'General Surgery';
+  String get internalMedicine => 'Internal Medicine';
 
   @override
-  String get specialty_pediatrics => 'Pediatrics';
+  String get vascularSurgery => 'Vascular Surgery';
 
   @override
-  String get specialty_gynecology => 'Gynecology and Obstetrics';
+  String get gynecologyAndObstetrics => 'Gynecology & Obstetrics';
 
   @override
-  String get specialty_orthopedics => 'Orthopedic Surgery';
+  String get pediatricsAndNeonatology => 'Pediatrics & Neonatology';
 
   @override
-  String get specialty_urology => 'Urology';
+  String get urology => 'Urology';
 
   @override
-  String get specialty_ent => 'Otorhinolaryngology (Ear, Nose, and Throat)';
+  String get dentistry => 'Dentistry';
 
   @override
-  String get specialty_dermatology => 'Dermatology';
+  String get neurology => 'Neurology';
 
   @override
-  String get specialty_ophthalmology => 'Ophthalmology';
+  String get cosmeticSurgery => 'Cosmetic Surgery';
 
   @override
-  String get specialty_dentistry => 'Dental Medicine';
+  String get ophthalmology => 'Ophthalmology';
 
   @override
-  String get specialty_emergency => 'Emergency Medicine';
+  String get ent => 'ENT (Ear, Nose, and Throat)';
 
   @override
-  String get specialty_laboratory => 'Medical Laboratory';
+  String get chestDiseases => 'Chest Diseases';
 
   @override
-  String get specialty_radiology => 'Radiology and Medical Imaging';
+  String get dermatology => 'Dermatology';
 
   @override
-  String get specialty_cardiology => 'Cardiology';
+  String get physiotherapy => 'Physiotherapy';
 
   @override
-  String get specialty_cardiothoracic_surgery => 'Cardiothoracic Surgery';
+  String get ivf => 'IVF (In Vitro Fertilization)';
 
   @override
-  String get specialty_neurosurgery => 'Neurosurgery';
+  String get speechAndLanguageTherapy => 'Speech and Language Therapy';
 
   @override
-  String get specialty_oncology => 'Oncology';
+  String get specialtyEmpty => 'no specialty selected';
 
   @override
-  String get specialty_nephrology => 'Nephrology';
-
-  @override
-  String get specialty_pulmonology => 'Pulmonology and Respiratory Medicine';
-
-  @override
-  String get specialty_rheumatology => 'Rheumatology';
-
-  @override
-  String get specialty_rehabilitation => 'Physical Medicine and Rehabilitation';
-
-  @override
-  String get specialty_psychiatry => 'Psychiatry';
-
-  @override
-  String get specialty_hematology => 'Hematology';
-
-  @override
-  String get specialty_infectious_diseases => 'Infectious Disease Medicine';
-
-  @override
-  String get specialty_endocrinology => 'Endocrinology';
-
-  @override
-  String get specialty_icu => 'Intensive Care Unit';
-
-  @override
-  String get specialty_burns_plastic => 'Burn and Plastic Surgery';
-
-  @override
-  String get specialty_laparoscopy => 'Laparoscopic Surgery';
-
-  @override
-  String get specialty_vascular_surgery => 'Vascular Surgery';
-
-  @override
-  String get specialty_geriatrics => 'Geriatric Medicine';
-
-  @override
-  String get specialty_audiology => 'Audiology';
-
-  @override
-  String get specialty_neonatology => 'Neonatology';
+  String get specializations => 'Specialization';
 
   @override
   String get editDoctorChangeLocation => 'Change Location';
@@ -728,4 +686,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get bad => '😞  bad';
+
+  @override
+  String get validatorPasswordTooShort =>
+      'Password must be at least 8 characters long.';
 }
