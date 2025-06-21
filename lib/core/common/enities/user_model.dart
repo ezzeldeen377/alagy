@@ -11,6 +11,7 @@ class UserModel {
   final String? profileImage;
   final String? phoneNumber;
   final bool? isSaved;
+  final String? notificationToken;
   UserModel({
     required this.uid,
     required this.email,
@@ -20,6 +21,7 @@ class UserModel {
     this.city,
     this.profileImage,
     this.phoneNumber,
+    this.notificationToken,
     this.isSaved,
   });
   // Add any other fields you need
@@ -33,6 +35,7 @@ class UserModel {
     String? city,
     String? profileImage,
     String? phoneNumber,
+    String? notificationToken,
     bool? isSaved,
   }) {
     return UserModel(
@@ -45,6 +48,7 @@ class UserModel {
       profileImage: profileImage ?? this.profileImage,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       isSaved: isSaved ?? this.isSaved,
+      notificationToken: notificationToken?? this.notificationToken,
     );
   }
 
@@ -57,6 +61,7 @@ class UserModel {
       'type': type,
       'city': city,
       'profileImage': profileImage,
+      "notificationToken": notificationToken,
       'phoneNumber': phoneNumber,
       'isSaved': isSaved,
     };
@@ -70,6 +75,7 @@ class UserModel {
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
       type: map['type'] != null ? map['type'] as String : null,
       city: map['city'] != null ? map['city'] as String : null,
+      notificationToken: map['notificationToken']!= null? map['notificationToken'] as String : null,
       profileImage: map['profileImage'] != null ? map['profileImage'] as String : null,
       phoneNumber: map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
       isSaved: map['isSaved'] != null ? map['isSaved'] as bool : null,
@@ -82,7 +88,7 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(uid: $uid, email: $email, name: $name, createdAt: $createdAt, type: $type, city: $city, profileImage: $profileImage, phoneNumber: $phoneNumber, isSaved: $isSaved)';
+    return 'UserModel(uid: $uid, email: $email,notificationToken :$notificationToken, name: $name, createdAt: $createdAt, type: $type, city: $city, profileImage: $profileImage, phoneNumber: $phoneNumber, isSaved: $isSaved)';
   }
 
   @override
@@ -95,6 +101,7 @@ class UserModel {
       other.name == name &&
       other.createdAt == createdAt &&
       other.type == type &&
+      other.notificationToken==notificationToken &&
       other.city == city &&
       other.profileImage == profileImage &&
       other.phoneNumber == phoneNumber &&
@@ -107,6 +114,7 @@ class UserModel {
       email.hashCode ^
       name.hashCode ^
       createdAt.hashCode ^
+      notificationToken.hashCode ^
       type.hashCode ^
       city.hashCode ^
       profileImage.hashCode ^

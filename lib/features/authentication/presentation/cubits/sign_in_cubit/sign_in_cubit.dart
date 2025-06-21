@@ -28,7 +28,9 @@ class SignInCubit extends Cubit<SignInState> {
         state: SignInStatus.failure,
         erorrMessage: l.message,
       ));
-    }, (r) {});
+    }, (r) {
+      emit(state.copyWith(state: SignInStatus.successSignIn,uid: r));
+    });
   }
 
   Future<void> getUser({required String uid}) async {
@@ -73,6 +75,9 @@ class SignInCubit extends Cubit<SignInState> {
           state: SignInStatus.googleAuthFailure,
           erorrMessage: state.erorrMessage));
     }, (userData)  {
+      emit(state.copyWith(
+          state: SignInStatus.googleAuthSuccess,
+          userModel: userData));
     });
   }
 

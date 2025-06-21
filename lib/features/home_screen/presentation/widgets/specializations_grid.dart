@@ -12,7 +12,6 @@ class SpecializationsGrid extends StatelessWidget {
  
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
     final List<SpecializationModel> specializations = [
        SpecializationModel(
         title:AppConstants.vascularSurgery,

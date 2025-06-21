@@ -5,6 +5,7 @@ import 'package:alagy/core/common/screens/initial_screen.dart';
 import 'package:alagy/core/di/di.dart';
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/helpers/global_l10n.dart';
+import 'package:alagy/core/helpers/notification_service.dart';
 import 'package:alagy/core/l10n/app_localizations.dart';
 import 'package:alagy/core/routes/router_genrator.dart';
 import 'package:alagy/core/theme/app_color.dart';
@@ -16,13 +17,13 @@ import 'package:alagy/features/doctor/presentation/bloc/add_doctor_cubit/add_doc
 import 'package:alagy/features/doctor/presentation/pages/edit_doctor_details.dart';
 import 'package:alagy/features/settings/cubit/app_settings_state.dart';
 import 'package:alagy/firebase_options.dart';
+import 'package:alagy/test.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:alagy/core/theme/app_theme.dart';
 import 'package:alagy/features/settings/cubit/app_settings_cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 Future<void> main() async {
@@ -30,13 +31,10 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-    timeago.setLocaleMessages('ar', timeago.ArMessages());
+  timeago.setLocaleMessages('ar', timeago.ArMessages());
+  NotificationService.instance.initialize();
+  NotificationService.instance.setupFlutterNotifications();
 
-  await Supabase.initialize(
-    url: 'https://tceseqtplmomxlregppm.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRjZXNlcXRwbG1vbXhscmVncHBtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDIwMDY0NDgsImV4cCI6MjA1NzU4MjQ0OH0.5FvnbDL0YBVo4y1W9qlWKINO526-4cDcA7mLFE2j3eA',
-  );
   Bloc.observer = SimpleBlocObserver();
   configureDependencies();
   runApp(MultiBlocProvider(
@@ -76,50 +74,56 @@ class MyApp extends StatelessWidget {
               return child ?? const SizedBox();
             },
             home: BlocConsumer<AppUserCubit, AppUserState>(
-              listener: (context, state) {
-                if (state.isLoggedIn()) {
-                  print("uid:${state.user?.uid}     ${state.userId}");
-                  context.read<AppUserCubit>().getUser(uid: state.userId ?? "");
-                  // context.read<AppUserCubit>().onSignOut();
+              listener: (context, state) async {
+                if (state.isLoggedIn) {
+                  await context
+                      .read<AppUserCubit>()
+                      .getUser(uid: state.userId!);
+                  if (context.read<AppUserCubit>().authStateSubscription !=
+                      null) {
+                    context.read<AppUserCubit>().cancelAuthListener();
+                  }
                 }
-                if (state.isInstalled()) {
+                if (state.isInstalled) {
                   context.read<AppUserCubit>().init();
                 }
-                if (state.isClearUserData()) {
+                if (state.isClearUserData) {
                   showSnackBar(context, "signout");
                 }
               },
               builder: (context, state) {
-                if (state.isLoading()) {
-                  return Container(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    child: const Center(
-                        child: CircularProgressIndicator(
-                      
-                    )),
-                  );
+                if (state.isLoading) {
+                  return const Center(child: CircularProgressIndicator());
                 }
-                if (state.isNotInstalled()) {
+                if (state.isNotInstalled) {
                   return const OnboardingScreen();
                 }
-
-                if (state.isSignOut() ||
-                    state.isNotLoggedIn() ||
-                    state.isClearUserData()) {
+                if (state.isNotLoggedIn) {
+                    if (context.read<AppUserCubit>().authStateSubscription !=
+                      null) {
+                    context.read<AppUserCubit>().cancelAuthListener();
+                  }
+                  return const InitialScreen();
+                }
+                if (state.isSignOut || state.isClearUserData) {
+                  if (context.read<AppUserCubit>().authStateSubscription !=
+                      null) {
+                    context.read<AppUserCubit>().cancelAuthListener();
+                  }
                   return BlocProvider(
                     create: (context) => getIt<SignInCubit>(),
                     child: const SignInScreen(),
                   );
                 }
 
-                if (state.isGettedData()) {
+                if (state.isGettedData) {
                   if (state.user?.type == "doctor") {
                     if (state.user?.isSaved ?? false) {
                       return const InitialScreen();
                     } else {
                       return BlocProvider(
                         create: (context) => getIt<AddDoctorCubit>()
-                          ..getDoctorDetails(state.userId!),
+                          ..getDoctorDetails(state.user?.uid ?? ""),
                         child: const EditProfileScreen(),
                       );
                     }
@@ -129,14 +133,10 @@ class MyApp extends StatelessWidget {
 
                 return Container(
                   color: Theme.of(context).scaffoldBackgroundColor,
-                  child: const Center(
-                      child: CircularProgressIndicator(
-                    
-                  )),
+                  child: const Center(child: CircularProgressIndicator()),
                 );
               },
             ),
-        
             onGenerateRoute: AlagyRouter.generateRoute,
           );
         },

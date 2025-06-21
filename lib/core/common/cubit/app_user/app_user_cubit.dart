@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:alagy/core/common/cubit/app_user/app_user_state.dart';
 import 'package:alagy/core/common/enities/user_model.dart';
 import 'package:alagy/core/helpers/secure_storage_helper.dart';
@@ -14,19 +13,25 @@ import 'package:injectable/injectable.dart';
 class AppUserCubit extends Cubit<AppUserState> {
   final AuthRepository authRepository;
   final HomeRepository homeScreenRepository;
-  late final StreamSubscription<User?> _authStateSubscription;
+  late StreamSubscription<User?>? authStateSubscription;
+  bool _isInitialized = false; // Track if init has been called
 
-  AppUserCubit({required this.authRepository,required this.homeScreenRepository})
+  AppUserCubit(
+      {required this.authRepository, required this.homeScreenRepository})
       : super(AppUserState(state: AppUserStates.initial));
 
   void init() {
-    _authStateSubscription = authRepository.authStateChanges.listen((user) async {
-
+    if (_isInitialized) {
+      print('AppUserCubit already initialized, skipping init');
+      return;
+    }
+    authStateSubscription =
+        authRepository.authStateChanges.listen((user) async {
       if (user != null) {
         print("sign in success!!");
-        emit(state.copyWith(state: AppUserStates.loggedIn,userId: user.uid));
+        emit(state.copyWith(state: AppUserStates.loggedIn, userId: user.uid));
       } else {
-                print("sign out success??????");
+        print("sign out success??????");
 
         emit(state.copyWith(
           state: AppUserStates.notLoggedIn,
@@ -34,8 +39,39 @@ class AppUserCubit extends Cubit<AppUserState> {
         ));
       }
     });
+    _isInitialized = true;
   }
 
+  void cancelAuthListener() {
+    authStateSubscription?.cancel();
+    authStateSubscription = null;
+    _isInitialized = false;
+  }
+  void setUserId(String userId) {
+    emit(state.copyWith(
+      userId: userId,
+    ));
+  }
+Future<void> updateNotificationToken(UserModel user, String? token) async {
+  emit(state.copyWith(
+    state: AppUserStates.loading,
+  ));
+  if(user.notificationToken == token&&token==null) return;
+  final res = await authRepository.updateUser(
+    user.uid,
+    {'notificationToken': token},
+  );
+
+  res.fold(
+    (failure) => emit(state.copyWith(
+      state: AppUserStates.failure,
+      errorMessage: failure.message,
+    )),
+    (success) => emit(state.copyWith(
+      state: AppUserStates.updated,
+    )),
+  );
+}
   Future<void> saveUserData(
     UserModel? user,
   ) async {
@@ -50,6 +86,7 @@ class AppUserCubit extends Cubit<AppUserState> {
         emit(state.copyWith(
           state: AppUserStates.success,
           user: user,
+          userId: user.uid,
         ));
       });
     }
@@ -123,14 +160,13 @@ class AppUserCubit extends Cubit<AppUserState> {
         (l) => emit(state.copyWith(
               state: AppUserStates.failure,
               errorMessage: l,
-            )),
-        (r) {
-          if (r==null) {
-            emit(state.copyWith(state: AppUserStates.notInstalled));
-          } else {
-            emit(state.copyWith(state: AppUserStates.installed));
-          }
-        });
+            )), (r) {
+      if (r == null) {
+        emit(state.copyWith(state: AppUserStates.notInstalled));
+      } else {
+        emit(state.copyWith(state: AppUserStates.installed));
+      }
+    });
   }
 
   void saveInstallationFlag() async {
@@ -182,40 +218,42 @@ class AppUserCubit extends Cubit<AppUserState> {
   }
 
   void getAllFavouriteDoctors(String userId) {
-  homeScreenRepository.getAllFavouriteDoctorId(userId).listen(
-    (response) {
-      response.fold(
-        (l) {
-          emit(state.copyWith(
-            errorMessage: l.message,
-          ));
-        },
-        (r) {
-          emit(state.copyWith(
-            favouriteIds: r,
-          ));
-        },
-      );
-    },
-    onError: (error) {
-      emit(state.copyWith(
-        errorMessage: error.toString(),
-      ));
-    },
-  );
-}
-Future<void> addDoctorToFavourite(DoctorModel doctor, String userId) async {
-    await homeScreenRepository.addDoctorToFavourite(doctor, userId);
-      }
-
-  Future<void> removeDoctorFromFavourite(DoctorModel doctor, String userId) async {
-   await homeScreenRepository.removeDoctorFromFavourite(doctor, userId);
- 
+    homeScreenRepository.getAllFavouriteDoctorId(userId).listen(
+      (response) {
+        response.fold(
+          (l) {
+            emit(state.copyWith(
+              errorMessage: l.message,
+            ));
+          },
+          (r) {
+            emit(state.copyWith(
+              favouriteIds: r,
+            ));
+          },
+        );
+      },
+      onError: (error) {
+        emit(state.copyWith(
+          errorMessage: error.toString(),
+        ));
+      },
+    );
   }
+
+  Future<void> addDoctorToFavourite(DoctorModel doctor, String userId) async {
+    await homeScreenRepository.addDoctorToFavourite(doctor, userId);
+  }
+
+  Future<void> removeDoctorFromFavourite(
+      DoctorModel doctor, String userId) async {
+    await homeScreenRepository.removeDoctorFromFavourite(doctor, userId);
+  }
+
   @override
   Future<void> close() {
     print("cubit closssssssssssssssssssssssssssssssssed!!!!!!!!!!!!!!!");
-    _authStateSubscription.cancel();
+    authStateSubscription?.cancel();
     return super.close();
   }
 }

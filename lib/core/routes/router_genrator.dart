@@ -1,6 +1,7 @@
 import 'package:alagy/core/common/enities/user_model.dart';
 import 'package:alagy/core/common/screens/initial_screen.dart';
 import 'package:alagy/core/di/di.dart';
+import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/routes/routes.dart';
 import 'package:alagy/core/utils/slide_page_route.dart';
 import 'package:alagy/features/authentication/presentation/cubits/forget_password_cubit/forget_password_cubit.dart';
@@ -76,7 +77,7 @@ class AlagyRouter {
         return SlidePageRoute(
             page: BlocProvider(
           create: (context) =>
-              getIt<DoctorDetailsCubit>()..passDoctor(args as DoctorModel),
+              getIt<DoctorDetailsCubit>()..passDoctor(args as DoctorModel)..changeDate(DateTime.now()),
           child: const DoctorDetailPage(),
         ));
 

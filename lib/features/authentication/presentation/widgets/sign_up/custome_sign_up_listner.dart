@@ -16,11 +16,11 @@ class CustomeSignUpListner extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<SignUpCubit>();
     return BlocListener<SignUpCubit, SignUpState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state.isFailure) {
           showSnackBar(context, state.erorrMessage ?? "");
         } else if (state.isSuccess) {
-          cubit.setData(userModel: state.userModel!);
+         await  cubit.setData(userModel: state.userModel!);
         } else if (state.isFailureSaveData) {
           state.erorrMessage;
           cubit.deleteUser(uid: state.userModel?.uid ?? "");

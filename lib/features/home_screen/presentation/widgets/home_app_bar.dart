@@ -4,9 +4,9 @@ import 'package:alagy/core/helpers/navigator.dart';
 import 'package:alagy/core/routes/routes.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
-import 'package:alagy/features/doctor/presentation/pages/doctor_detail_page.dart';
 import 'package:alagy/features/home_screen/presentation/bloc/home_screen_cubit.dart';
 import 'package:alagy/features/home_screen/presentation/bloc/home_screen_state.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +16,7 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.read<AppUserCubit>().state.user;
     return SliverAppBar(
       floating: true,
       pinned: true,
@@ -27,10 +28,11 @@ class HomeAppBar extends StatelessWidget {
           shape: BoxShape.circle,
           border: Border.all(color: Colors.white, width: 1), // white border
         ),
-        child:  CircleAvatar(
+        child: CircleAvatar(
           radius: 30, // adjust size as needed
-          backgroundImage: NetworkImage(context.read<AppUserCubit>().state.user?.profileImage??''
-            ,
+          backgroundImage: CachedNetworkImageProvider(
+            user?.profileImage ??
+                'https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg',
           ),
         ),
       ),
@@ -38,7 +40,7 @@ class HomeAppBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            context.l10n.greeting(context.read<AppUserCubit>().state.user?.name??''),
+            context.l10n.greeting(user?.name ?? ''),
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -64,7 +66,7 @@ class HomeAppBar extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.r),
             ),
           ),
-          icon: Icon(
+          icon: const Icon(
             Icons.notifications,
           ),
           onPressed: () {},
@@ -117,27 +119,28 @@ class SearchBarHeaderDelegate extends SliverPersistentHeaderDelegate {
             },
             fieldViewBuilder: (context, controller, focusNode, onSubmitted) {
               return TextField(
-                controller: controller,
-                focusNode: focusNode,
-                decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.clear, ),
-                    onPressed: () {
-                      controller.clear();
-                      FocusScope.of(context).unfocus();
-                    },
-                  ),
-                  hintText: "ابحث هنا",
-                  prefixIcon: const Icon(Icons.search, color: AppColor.primaryColor),
-                  filled: true,
-                  fillColor: Theme.of(context).scaffoldBackgroundColor,
-                  contentPadding: const EdgeInsets.symmetric(vertical: 10),
-                 )
-              );
+                  controller: controller,
+                  focusNode: focusNode,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: const Icon(
+                        Icons.clear,
+                      ),
+                      onPressed: () {
+                        controller.clear();
+                        FocusScope.of(context).unfocus();
+                      },
+                    ),
+                    hintText: "ابحث هنا",
+                    prefixIcon:
+                        const Icon(Icons.search, color: AppColor.primaryColor),
+                    filled: true,
+                    fillColor: Theme.of(context).scaffoldBackgroundColor,
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                  ));
             },
             onSelected: (selection) {
-             context.pushNamed(RouteNames.doctorDetails,
-                  arguments:selection);
+              context.pushNamed(RouteNames.doctorDetails, arguments: selection);
             },
             optionsViewBuilder: (context, onSelected, options) {
               return Align(
@@ -164,11 +167,16 @@ class SearchBarHeaderDelegate extends SliverPersistentHeaderDelegate {
                               leading: ClipRRect(
                                 borderRadius: BorderRadius.circular(
                                     12.r), // adjust as needed
-                                child: Image.network(
-                                  option.profileImage ??
+                                child: CachedNetworkImage(
+                                  imageUrl: option.profileImage ??
                                       'https://via.placeholder.com/150',
                                   height: 100,
                                   fit: BoxFit.cover,
+                                  placeholder: (context, url) => const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
                                 ),
                               ),
                               title: Text(

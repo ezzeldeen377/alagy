@@ -1,4 +1,5 @@
 import 'package:alagy/core/common/cubit/app_user/app_user_cubit.dart';
+import 'package:alagy/core/common/cubit/app_user/app_user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/app_settings_cubit.dart';
@@ -14,7 +15,6 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(context.l10n.settings),
       ),
-      
       body: BlocBuilder<AppSettingsCubit, AppSettingsState>(
         builder: (context, state) {
           return ListView(
@@ -72,13 +72,21 @@ class SettingsScreen extends StatelessWidget {
               ),
               const Divider(), // Added a visual separator
               ListTile(
-                leading: Icon(Icons.logout, color: Theme.of(context).colorScheme.error), // Added an icon
+                leading: Icon(Icons.logout,
+                    color:
+                        Theme.of(context).colorScheme.error), // Added an icon
                 title: Text(
                   context.l10n.logout,
-                  style: TextStyle(color: Theme.of(context).colorScheme.error), // Style to indicate an action
+                  style: TextStyle(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .error), // Style to indicate an action
                 ),
                 onTap: () {
-                   context.read<AppUserCubit>().onSignOut();
+                  if (context.read<AppUserCubit>().state.isNotLogin) {
+                    return;
+                  }
+                  context.read<AppUserCubit>().onSignOut();
                 },
               ),
             ],
@@ -86,4 +94,5 @@ class SettingsScreen extends StatelessWidget {
         },
       ),
     );
-  }}
+  }
+}

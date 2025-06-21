@@ -1,22 +1,22 @@
-import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 import 'package:alagy/features/doctor/presentation/bloc/doctor_state.dart';
 import 'package:alagy/features/doctor/presentation/bloc/doctors_cubit.dart';
 import 'package:alagy/features/doctor/presentation/widgets/category_doctor_card.dart';
+import 'package:alagy/features/home_screen/presentation/bloc/bookmark/cubit/bookmark_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DoctorsPage extends StatelessWidget {
-  const DoctorsPage({super.key});
+class BookmarkScreen extends StatelessWidget {
+  const BookmarkScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          context.getSpecialty(context.watch<DoctorsCubit>().state.category??""),
+          "Bookmark History",
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: AppColor.whiteColor,
@@ -31,7 +31,7 @@ class DoctorsPage extends StatelessWidget {
           ),
         ),
       ),
-      body: BlocBuilder<DoctorsCubit, DoctorsState>(
+      body: BlocBuilder<BookmarkCubit, BookmarkState>(
         builder: (context, state) {
           if (state.isLoading) {
             return const Center(
@@ -77,7 +77,7 @@ class DoctorsPage extends StatelessWidget {
                 ],
               ),
             );
-          } else if (state.doctors == null || state.doctors!.isEmpty) {
+          } else if ( state.bookmarkDoctors.isEmpty) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -98,7 +98,7 @@ class DoctorsPage extends StatelessWidget {
               ),
             );
           } else {
-            return _buildDoctorList(state.doctors!);
+            return _buildDoctorList(state.bookmarkDoctors);
           }
         },
       ),
@@ -117,4 +117,5 @@ class DoctorsPage extends StatelessWidget {
       },
     );
   }
+  
 }

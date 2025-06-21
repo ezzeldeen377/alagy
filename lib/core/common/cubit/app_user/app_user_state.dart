@@ -21,26 +21,28 @@ enum AppUserStates {
 }
 
 extension AppUserStateExtension on AppUserState {
-  bool isInitial() => state == AppUserStates.initial;
-  bool isLoggedIn() => state == AppUserStates.loggedIn;
-  bool isNotLoggedIn() => state == AppUserStates.notLoggedIn;
-  bool isFailure() => state == AppUserStates.failure;
-  bool isSignOut() => state == AppUserStates.signOut;
-  bool isInstalled() => state == AppUserStates.installed;
-  bool isNotInstalled() => state == AppUserStates.notInstalled;
-  bool isSuccess() => state == AppUserStates.success;
-  bool isGettedData() => state == AppUserStates.gettedData;
-  bool isFailureSaveData() => state == AppUserStates.failureSaveData;
-  bool isClearUserData() => state == AppUserStates.clearUserData;
-  bool isLoading() => state == AppUserStates.loading;
-  bool isUpdated() => state == AppUserStates.updated;
+  bool  get isInitial => state == AppUserStates.initial;
+  bool get isLoggedIn => state == AppUserStates.loggedIn;
+  bool get isNotLoggedIn => state == AppUserStates.notLoggedIn;
+  bool get isFailure => state == AppUserStates.failure;
+  bool get isSignOut => state == AppUserStates.signOut;
+  bool get isInstalled => state == AppUserStates.installed;
+  bool get isNotInstalled => state == AppUserStates.notInstalled;
+  bool get isSuccess => state == AppUserStates.success;
+  bool get isGettedData => state == AppUserStates.gettedData;
+  bool get isFailureSaveData => state == AppUserStates.failureSaveData;
+  bool get isClearUserData => state == AppUserStates.clearUserData;
+  bool get isLoading => state == AppUserStates.loading;
+  bool get isUpdated => state == AppUserStates.updated;
+
+  bool get isNotLogin => user == null;
 }
 
 class AppUserState {
   final AppUserStates state;
   final UserModel? user;
-  final String? userIntialRoute;
   final String? userId;
+  final String? userIntialRoute;
   List<String>? favouriteIds;
   final String? errorMessage;
   AppUserState({
@@ -63,8 +65,8 @@ class AppUserState {
     return AppUserState(
       state: state ?? this.state,
       user: user ?? this.user,
+      userId: userId?? this.userId,
       userIntialRoute: userIntialRoute ?? this.userIntialRoute,
-      userId: userId ?? this.userId,
       favouriteIds: favouriteIds ?? this.favouriteIds,
       errorMessage: errorMessage ?? this.errorMessage,
     );
@@ -72,7 +74,7 @@ class AppUserState {
 
   @override
   String toString() {
-    return 'AppUserState(state: $state, user: $user, userIntialRoute: $userIntialRoute, userId: $userId, favouriteIds: $favouriteIds, errorMessage: $errorMessage)';
+    return 'AppUserState(state: $state, user: $user, userIntialRoute: $userIntialRoute, favouriteIds: $favouriteIds, errorMessage: $errorMessage)';
   }
 
   

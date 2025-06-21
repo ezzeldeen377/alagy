@@ -12,30 +12,41 @@ class DoctorDetailsState {
   final DoctorModel? selectedDoctor;
   final int? userRate;
   final String? errorMessage;
+  final DateTime? selectedDate;
+  final List<String> timeSlots;
+  final String? selectedTime;
 
   const DoctorDetailsState({
     this.status = DoctorDetailsStatus.initial,
     this.selectedDoctor,
     this.userRate,
     this.errorMessage,
+    this.selectedDate ,
+    this.timeSlots = const [],
+    this.selectedTime,
   });
 
   DoctorDetailsState copyWith({
     DoctorDetailsStatus? status,
     DoctorModel? selectedDoctor,
     int? userRate,
+     DateTime? selectedDate,
+   List<String>? timeSlots,
+   String? selectedTime,
     String? errorMessage,
   }) {
     return DoctorDetailsState(
       status: status ?? this.status,
       selectedDoctor: selectedDoctor ?? this.selectedDoctor,
       userRate: userRate ?? this.userRate,
+      selectedDate: selectedDate?? this.selectedDate,
+      timeSlots: timeSlots?? this.timeSlots,
+      selectedTime: selectedTime?? this.selectedTime,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
   
-  List<Object?> get props => [status, errorMessage];
 
   @override
   String toString() {

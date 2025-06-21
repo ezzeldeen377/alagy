@@ -27,7 +27,7 @@ class DoctorSliverAppBar extends StatelessWidget {
         child: CircleAvatar(
           backgroundColor: Colors.black.withOpacity(0.3),
           child: IconButton(
-            icon: const Icon(Icons.arrow_back, color: AppColor.primaryColor,),
+            icon: const Icon(Icons.arrow_back, color: AppColor.whiteColor,),
             onPressed: () => Navigator.pop(context),
           ),
         ),
@@ -50,7 +50,7 @@ class DoctorSliverAppBar extends StatelessWidget {
           child: CircleAvatar(
             backgroundColor: Colors.black.withOpacity(0.3),
             child: IconButton(
-              icon: const Icon(Icons.share, color: AppColor.primaryColor),
+              icon: const Icon(Icons.share, color: AppColor.whiteColor),
               onPressed: () {
                 // Implement share functionality
                 ScaffoldMessenger.of(context).showSnackBar(

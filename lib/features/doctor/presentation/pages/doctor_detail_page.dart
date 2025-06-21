@@ -88,7 +88,7 @@ class DoctorDetailPage extends StatelessWidget {
                                     ),
                                     SizedBox(width: 4.w),
                                     Text(
-                                        '4.5', // Placeholder rating - replace with actual rating
+                                      doctor.rating?.toStringAsFixed(1)??"0"  , // Placeholder rating - replace with actual rating
                                         style:
                                             context.theme.textTheme.bodyMedium),
                                     SizedBox(width: 4.w),

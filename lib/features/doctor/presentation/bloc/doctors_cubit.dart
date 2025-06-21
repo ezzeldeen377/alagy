@@ -1,7 +1,5 @@
-import 'package:alagy/features/doctor/data/repositories/doctor_repository.dart';
 import 'package:alagy/features/home_screen/data/repositories/home_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 import 'package:injectable/injectable.dart';
 import 'doctor_state.dart';
 

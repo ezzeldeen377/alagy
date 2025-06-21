@@ -54,14 +54,12 @@ class AuthRepositoryImpl implements AuthRepository {
 
       final userModel = UserModel(
           uid: userCredential.user!.uid,
-          profileImage: userCredential.user?.photoURL ??
-              'https://t3.ftcdn.net/jpg/05/87/76/66/360_F_587766653_PkBNyGx7mQh9l1XXPtCAq1lBgOsLl6xH.jpg',
-          phoneNumber: userCredential.user?.phoneNumber,
+          profileImage: userCredential.user?.photoURL ??"https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg",          phoneNumber: userCredential.user?.phoneNumber,
           email: email,
           name: name,
           createdAt: DateTime.now(),
           type: type,);
-
+    
       return userModel;
     });
   }

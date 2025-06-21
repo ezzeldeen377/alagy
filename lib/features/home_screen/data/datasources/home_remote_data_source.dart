@@ -16,6 +16,7 @@ abstract class HomeRemoteDataSource {
   Future<void> addDoctorToFavourite(DoctorModel doctor, String userId);
   Future<void> removeDoctorFromFavourite(DoctorModel doctor, String userId);
   Stream<List<String>> getAllFavouriteDoctorId( String userId);
+  Stream<List<Map<String,dynamic>>> getAllFavouriteDoctors( String userId);
 
 }
 
@@ -127,12 +128,29 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   
 @override
 Stream<List<String>> getAllFavouriteDoctorId(String userId) {
+  try {
   return userCollection
       .doc(userId)
       .collection(FirebaseCollections.favouriteCollection)
       .snapshots()
       .map((snapshot) => snapshot.docs.map((e) => e.id).toList());
+} catch (e) {
+  rethrow;
 }
+}
+
+  @override
+  Stream<List<Map<String,dynamic>>> getAllFavouriteDoctors(String userId) {
+    try {
+  return userCollection
+      .doc(userId)
+      .collection(FirebaseCollections.favouriteCollection)
+      .snapshots()
+      .map((snapshot) => snapshot.docs.map((e) => e.data()).toList());
+} catch (e) {
+  rethrow;
+}
+  }
 
 
   }

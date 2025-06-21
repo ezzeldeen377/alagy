@@ -116,7 +116,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                       onTapButton:(){
                         context.read<AppUserCubit>().saveInstallationFlag();
                         Navigator.pushReplacementNamed(
-                            context, RouteNames.signIn);
+                            context, RouteNames.initial);
                       } ,
                     ),
                   ),

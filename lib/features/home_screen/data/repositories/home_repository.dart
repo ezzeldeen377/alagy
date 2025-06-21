@@ -16,6 +16,7 @@ abstract class HomeRepository {
   Future<Either<Failure,void>> addDoctorToFavourite(DoctorModel doctor, String userId);
   Future<Either<Failure,void>> removeDoctorFromFavourite(DoctorModel doctor, String userId);
   Stream<Either<Failure, List<String>>> getAllFavouriteDoctorId(String userId);
+  Stream<Either<Failure, List<DoctorModel>>> getAllFavouriteDoctors(String userId);
 }
 @Injectable(as: HomeRepository)
 class HomeRepositoryImpl implements HomeRepository {
@@ -78,5 +79,14 @@ Stream<Either<Failure, List<String>>> getAllFavouriteDoctorId(String userId) {
     (error) => Left(Failure(error.toString())),
   );
 }
+
+  @override
+  Stream<Either<Failure, List<DoctorModel>>> getAllFavouriteDoctors(String userId) {
+     return dataSource.getAllFavouriteDoctors(userId).map<Either<Failure, List<DoctorModel>>>(
+    (list) => Right(list.map((data) => DoctorModel.fromMap(data)).toList()),
+  ).handleError(
+    (error) => Left(Failure(error.toString())),
+  );
+  }
 
 }

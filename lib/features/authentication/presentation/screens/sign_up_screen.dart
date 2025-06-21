@@ -131,7 +131,7 @@ class SignUpScreenState extends State<SignUpScreen>
                               buttonContent: state.isLoading
                                   ? const CircularProgressIndicator()
                                   : Text(
-                                      context.l10n.signInButton,
+                                      context.l10n.signUpButton,
                                       style: context.theme.textTheme.titleLarge
                                           ?.copyWith(color: AppColor.whiteColor),
                                     ),

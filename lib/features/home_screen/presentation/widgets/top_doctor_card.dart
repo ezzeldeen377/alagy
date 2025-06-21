@@ -1,10 +1,7 @@
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/helpers/navigator.dart';
 import 'package:alagy/core/routes/routes.dart';
-import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
-import 'package:alagy/features/doctor/presentation/pages/doctor_detail_page.dart';
-import 'package:alagy/features/home_screen/presentation/models/doctor_card_model.dart';
 import 'package:alagy/features/home_screen/presentation/widgets/favourite_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

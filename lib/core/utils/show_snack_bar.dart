@@ -1,4 +1,6 @@
 import 'package:alagy/core/helpers/extensions.dart';
+import 'package:alagy/core/helpers/navigator.dart';
+import 'package:alagy/core/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -42,19 +44,80 @@ showCustomSnackBar({
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-       
       ),
     );
 }
 
-showToast(String content){
+void showLoginDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible: true, // Allows dismissing by tapping outside
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text(
+          'Login Required',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+        content: const Text(
+          'You can\'t use this feature until you log in.',
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.black54,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the dialog
+            },
+            child: const Text(
+              'Later',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the dialog
+              context.pushNamed(RouteNames.signIn);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            child: const Text(
+              'Login',
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
+        ],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 8,
+      );
+    },
+  );
+}
+
+showToast(String content) {
   Fluttertoast.showToast(
-  msg: content,
-  toastLength: Toast.LENGTH_SHORT, // or Toast.LENGTH_LONG
-  gravity: ToastGravity.BOTTOM, // Position (TOP, CENTER, BOTTOM)
-  timeInSecForIosWeb: 1,
-  backgroundColor: Colors.black,
-  textColor: Colors.white,
-  fontSize: 16.0,
-);
+    msg: content,
+    toastLength: Toast.LENGTH_SHORT, // or Toast.LENGTH_LONG
+    gravity: ToastGravity.BOTTOM, // Position (TOP, CENTER, BOTTOM)
+    timeInSecForIosWeb: 1,
+    backgroundColor: Colors.black,
+    textColor: Colors.white,
+    fontSize: 16.0,
+  );
 }

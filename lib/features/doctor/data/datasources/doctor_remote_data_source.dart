@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:alagy/core/constants/firebase_collections.dart';
@@ -5,8 +6,9 @@ import 'package:alagy/core/utils/try_and_catch.dart';
 import 'package:alagy/features/doctor/data/models/doctor_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_cloud_firestore/firebase_cloud_firestore.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class DoctorRemoteDataSource {
   Future<Unit> addDoctor(DoctorModel doctor);
@@ -17,7 +19,6 @@ abstract class DoctorRemoteDataSource {
 
 @Injectable(as: DoctorRemoteDataSource)
 class DoctorRemoteDataSourceImpl extends DoctorRemoteDataSource {
-  final supabase = Supabase.instance.client;
   final firestore = FirebaseFirestore.instance;
   CollectionReference get doctorCollection =>
       firestore.collection(FirebaseCollections.doctorsCollection);
@@ -40,20 +41,45 @@ class DoctorRemoteDataSourceImpl extends DoctorRemoteDataSource {
     });
   }
 
-  @override
-  Future<String> uploadProfilePicture(File image) async {
-    return executeTryAndCatchForDataLayer(() async {
-      final String fileName =
-          'profile_pictures/${DateTime.now().millisecondsSinceEpoch}.jpg';
+ Future<String> uploadProfilePicture(File image) async {
+  return executeTryAndCatchForDataLayer(() async {
+    // Load API key from .env
+    const String apiKey = "97f289ace0e894cab662370ed9f08f63";
+    if (apiKey.isEmpty) {
+      throw Exception('ImgBB API key not found in .env');
+    }
 
-      // Upload the file
-      await supabase.storage.from('alagybucket').upload(fileName, image);
+    const String imgbbUrl = 'https://api.imgbb.com/1/upload';
 
-      // Get the public URL of the uploaded file
-      return supabase.storage.from('alagybucket').getPublicUrl(fileName);
-    });
-  }
+    // Validate file size (ImgBB free tier limit: 32MB)
+    if (image.lengthSync() > 32 * 1024 * 1024) {
+      throw Exception('Image size exceeds 32MB limit');
+    }
 
+    // Create a multipart request
+    final request = http.MultipartRequest('POST', Uri.parse(imgbbUrl))
+      ..fields['key'] = apiKey
+      ..files.add(await http.MultipartFile.fromPath('image', image.path));
+
+    // Send the request
+    final response = await request.send();
+    final responseBody = await response.stream.bytesToString();
+
+    // Check the response status
+    if (response.statusCode == 200) {
+      final jsonResponse = jsonDecode(responseBody);
+      if (jsonResponse['success'] == true && jsonResponse['data'] != null) {
+        final imageUrl = jsonResponse['data']['url'] as String;
+        print('Image uploaded to ImgBB: $imageUrl');
+        return imageUrl;
+      } else {
+        throw Exception('ImgBB upload failed: ${jsonResponse['error']['message'] ?? 'Unknown error'}');
+      }
+    } else {
+      throw Exception('ImgBB upload failed with status ${response.statusCode}: $responseBody');
+    }
+  });
+}
   @override
   Future<Map<String, dynamic>> getDoctor(String uid) async {
     return executeTryAndCatchForDataLayer(() async {
