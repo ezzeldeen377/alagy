@@ -1,0 +1,29 @@
+class RouteNames {
+  static const onboarding = '/onboarding';
+  static const signIn = '/signIn';
+  static const signUp = '/signUp';
+  static const forgetPassword = '/forgetPassword';
+  static const home = '/home';
+  static const doctorsScreen = '/doctorsScreen';
+  static const doctorDetails = '/doctorDetails';
+  static const chatScreen = '/chatScreen';
+  static const userChats = '/userChats';
+  static const measurement = '/measurement';
+  static const initial = '/initial';
+  static const editDoctor = '/editDoctor';
+  static const doctorHome = '/doctorHome';
+  static const alarm = '/alarm';
+  static const selectLocationScreen = '/selectLocationScreen';
+  static const doctorPage = '/doctorPage';
+  static const selectPayment = '/selectPayment';
+  static const notifications = '/notifications';
+  static const admin = '/admin';
+  static const editProfile = '/editProfile';
+  static const profile = '/profile'; // Added profile route
+  static const termsOfUse = '/termsOfUse';
+  static const privacyPolicy = '/privacyPolicy';
+  static const categories = '/categories';
+  static const paymentHistory = '/paymentHistory';
+  static const changePassword = '/changePassword';
+  static const refundPolicy = '/refundPolicy';
+}
