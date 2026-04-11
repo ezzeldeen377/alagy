@@ -57,12 +57,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 50.h),
                   Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w),
                       child: Text(context.l10n.onboardingWelcome,
-                          style: theme.textTheme.headlineLarge?.copyWith(color: AppColor.primaryColor))),
-                  SizedBox(height: 20.h),
+                          style: theme.textTheme.headlineLarge
+                              ?.copyWith(color: AppColor.primaryColor))),
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -73,12 +72,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                           Image.asset(
                             'assets/images/onboarding_1.png',
                             width: double.infinity,
-                            fit: BoxFit.fitWidth,
+                            height: 300.h,
+                            fit: BoxFit.fitHeight,
                             errorBuilder: (context, error, stackTrace) {
                               return Container(
                                 width: double.infinity,
-                                height: 200.h,
-                              
+                                height: 300.h,
                                 child: Center(
                                   child: Icon(
                                     Icons.image_not_supported,
@@ -91,7 +90,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                           SizedBox(height: 30.h),
                           Text(l10n.onboardingTitle,
                               textAlign: TextAlign.center,
-                              style: theme.textTheme.headlineMedium?.copyWith(color: AppColor.primaryColor)),
+                              style: theme.textTheme.headlineMedium
+                                  ?.copyWith(color: AppColor.primaryColor)),
                           SizedBox(height: 10.h),
                           Text(l10n.onboardingDescription,
                               textAlign: TextAlign.center,
@@ -107,17 +107,18 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(l10n.onboardingGetStarted,
-                              style: theme.textTheme.headlineSmall?.copyWith(color: AppColor.whiteColor)),
+                              style: theme.textTheme.headlineSmall
+                                  ?.copyWith(color: AppColor.whiteColor)),
                           horizontalSpace(5),
                           Icon(Icons.arrow_forward,
                               size: 20.sp, color: AppColor.whiteColor),
                         ],
                       ),
-                      onTapButton:(){
+                      onTapButton: () {
                         context.read<AppUserCubit>().saveInstallationFlag();
                         Navigator.pushReplacementNamed(
                             context, RouteNames.initial);
-                      } ,
+                      },
                     ),
                   ),
                   SizedBox(height: 20.h),

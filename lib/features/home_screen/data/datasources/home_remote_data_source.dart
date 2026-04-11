@@ -16,10 +16,8 @@ abstract class HomeRemoteDataSource {
 
   Future<void> addDoctorToFavourite(DoctorModel doctor, String userId);
   Future<void> removeDoctorFromFavourite(DoctorModel doctor, String userId);
-  Stream<List<String>> getAllFavouriteDoctorId( String userId);
-  Stream<List<Map<String,dynamic>>> getAllFavouriteDoctors( String userId);
-
-
+  Stream<List<String>> getAllFavouriteDoctorId(String userId);
+  Stream<List<Map<String, dynamic>>> getAllFavouriteDoctors(String userId);
 }
 
 @Injectable(as: HomeRemoteDataSource)
@@ -34,7 +32,8 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   Future<List<Map<String, dynamic>>> getDoctorCategories(String category) {
     return executeTryAndCatchForDataLayer(() async {
       final snapshot = await userCollection
-          .where("specialization", isEqualTo: category).where("isAccepted", isEqualTo: true)
+          .where("specialization", isEqualTo: category)
+          .where("isAccepted", isEqualTo: true)
           .get();
       final data =
           snapshot.docs.map((e) => e.data() as Map<String, dynamic>).toList();
@@ -45,8 +44,10 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   @override
   Future<List<Map<String, dynamic>>> getTopRatedDoctors() {
     return executeTryAndCatchForDataLayer(() async {
-      final snapshot =
-          await userCollection.orderBy("rating", descending: true).where("isAccepted", isEqualTo: true).get();
+      final snapshot = await userCollection
+          .orderBy("rating", descending: true)
+          .where("isAccepted", isEqualTo: true)
+          .get();
       final data =
           snapshot.docs.map((e) => e.data() as Map<String, dynamic>).toList();
       return data;
@@ -121,49 +122,54 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   Future<void> removeDoctorFromFavourite(DoctorModel doctor, String userId) {
     return executeTryAndCatchForDataLayer(() async {
       await userCollection
-         .doc(userId)
-         .collection(FirebaseCollections.favouriteCollection)
-         .doc(doctor.uid)
-         .delete();
+          .doc(userId)
+          .collection(FirebaseCollections.favouriteCollection)
+          .doc(doctor.uid)
+          .delete();
     });
   }
-  
-@override
-Stream<List<String>> getAllFavouriteDoctorId(String userId) {
-  try {
-  return userCollection
-      .doc(userId)
-      .collection(FirebaseCollections.favouriteCollection)
-      .snapshots()
-      .map((snapshot) => snapshot.docs.map((e) => e.id).toList());
-} catch (e) {
-  rethrow;
-}
-}
 
   @override
-  Stream<List<Map<String,dynamic>>> getAllFavouriteDoctors(String userId) {
+  Stream<List<String>> getAllFavouriteDoctorId(String userId) {
     try {
-  return userCollection
-      .doc(userId)
-      .collection(FirebaseCollections.favouriteCollection)
-      .snapshots()
-      .map((snapshot) => snapshot.docs.map((e) => e.data()).toList());
-} catch (e) {
-  rethrow;
-}
+      return userCollection
+          .doc(userId)
+          .collection(FirebaseCollections.favouriteCollection)
+          .snapshots()
+          .map((snapshot) => snapshot.docs.map((e) => e.id).toList());
+    } catch (e) {
+      rethrow;
+    }
   }
-  
+
+  @override
+  Stream<List<Map<String, dynamic>>> getAllFavouriteDoctors(String userId) {
+    try {
+      return userCollection
+          .doc(userId)
+          .collection(FirebaseCollections.favouriteCollection)
+          .snapshots()
+          .map((snapshot) => snapshot.docs.map((e) => e.data()).toList());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   @override
   Future<List<Map<String, dynamic>>> getReservation(String userId) {
     return executeTryAndCatchForDataLayer(() async {
-      final snapshot =
-          await userCollection.doc(userId).collection(FirebaseCollections.appointmentsCollection).get();
-      final data =
-          snapshot.docs.map((e) => e.data()).toList();
+      final snapshot = await userCollection
+          .doc(userId)
+          .collection(FirebaseCollections.appointmentsCollection)
+          .get();
+      final data = snapshot.docs.map((e) {
+        final map = Map<String, dynamic>.from(e.data());
+        if (map['id'] == null) {
+          map['id'] = e.id;
+        }
+        return map;
+      }).toList();
       return data;
     });
   }
-
-
-  }
+}

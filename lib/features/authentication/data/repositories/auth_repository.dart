@@ -14,6 +14,7 @@ abstract interface class AuthRepository {
     required String password,
     required String name,
     required String type,
+    required String phoneNumber,
   });
   // Future<Either<Failure, void>> sendVerificationEmail();
   Future<Either<Failure, void>> setUser({required UserModel userModel});
@@ -47,6 +48,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
     required String name,
     required String type,
+    required String phoneNumber,
   }) async {
     return await executeTryAndCatchForRepository(() async {
       final userCredential = await _authDataSource.signUp(
@@ -59,7 +61,7 @@ class AuthRepositoryImpl implements AuthRepository {
         uid: userCredential.user!.uid,
         profileImage: userCredential.user?.photoURL ??
             "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg",
-        phoneNumber: userCredential.user?.phoneNumber,
+        phoneNumber: phoneNumber,
         email: email,
         name: name,
         createdAt: DateTime.now(),

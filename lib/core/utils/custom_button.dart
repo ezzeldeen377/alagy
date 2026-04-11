@@ -6,21 +6,30 @@ class CustomButton extends StatelessWidget {
   final Widget buttonContent;
   final void Function()? onTapButton;
   final int? animationIndex;
+  final double? width;
+  final double? height;
+  final EdgeInsetsGeometry? margin;
+  final BorderRadius? borderRadius;
 
-  const CustomButton(
-      {super.key,
-      required this.buttonContent,
-      required this.onTapButton,
-      this.animationIndex});
+  const CustomButton({
+    super.key,
+    required this.buttonContent,
+    required this.onTapButton,
+    this.animationIndex,
+    this.width,
+    this.height,
+    this.margin,
+    this.borderRadius,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: onTapButton,
         child: Container(
-            height: 60.h,
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
+            height: height ?? 60.h,
+            width: width ?? double.infinity,
+            margin: margin ?? EdgeInsets.symmetric(horizontal: 20.w),
             decoration: BoxDecoration(
               gradient: AppColor.appGradientBackground,
               boxShadow: [
@@ -31,7 +40,7 @@ class CustomButton extends StatelessWidget {
                   offset: const Offset(0, 4),
                 ),
               ],
-              borderRadius: BorderRadius.circular(20.r),
+              borderRadius: borderRadius ?? BorderRadius.circular(20.r),
             ),
             child: Center(
               child: buttonContent,

@@ -480,7 +480,7 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
               ),
               SizedBox(width: 4.w),
               Text(
-                appointment.isOnline == true ? context.l10n.online : context.l10n.inPerson,
+                appointment.appointmentType.name.tr(context),
                 style: TextStyle(
                   fontSize: 14.sp,
                   color: Colors.grey[600],
@@ -703,7 +703,8 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => BlocProvider(
-                                create: (context) => getIt<DoctorCalendarCubit>(),
+                                create: (context) =>
+                                    getIt<DoctorCalendarCubit>(),
                                 child: const DoctorCalendarScreen(),
                               )),
                     );

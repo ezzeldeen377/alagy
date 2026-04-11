@@ -4,6 +4,7 @@ import 'package:alagy/features/admin/data/models/admin_statistics.dart';
 import 'package:alagy/features/admin/data/models/date_filter.dart';
 import 'package:alagy/features/admin/data/repositories/admin_repository.dart';
 import 'package:alagy/features/doctor_details/data/models/doctor_model.dart';
+import 'package:alagy/features/wallet/data/models/withdraw_request_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
@@ -64,9 +65,11 @@ class AdminRepositoryImpl implements AdminRepository {
   }
 
   @override
-  Future<Either<Failure, AdminStatistics>> getStatistics([DateFilter? filter]) async {
+  Future<Either<Failure, AdminStatistics>> getStatistics(
+      [DateFilter? filter]) async {
     try {
-      final statistics = await _remoteDataSource.getStatistics(filter ?? DateFilter.allTime);
+      final statistics =
+          await _remoteDataSource.getStatistics(filter ?? DateFilter.allTime);
       return Right(statistics);
     } catch (e) {
       return Left(Failure(e.toString()));
@@ -74,7 +77,8 @@ class AdminRepositoryImpl implements AdminRepository {
   }
 
   @override
-  Future<Either<Failure, void>> updateDoctorStatus(String doctorId, bool isAccepted) async {
+  Future<Either<Failure, void>> updateDoctorStatus(
+      String doctorId, bool isAccepted) async {
     try {
       await _remoteDataSource.updateDoctorStatus(doctorId, isAccepted);
       return const Right(null);
@@ -84,9 +88,33 @@ class AdminRepositoryImpl implements AdminRepository {
   }
 
   @override
-  Future<Either<Failure, void>> updateDoctorVipStatus(String doctorId, bool isVip) async {
+  Future<Either<Failure, void>> updateDoctorVipStatus(
+      String doctorId, bool isVip) async {
     try {
       await _remoteDataSource.updateDoctorVipStatus(doctorId, isVip);
+      return const Right(null);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<WithdrawRequestModel>>>
+      getPendingWithdrawRequests() async {
+    try {
+      final requests = await _remoteDataSource.getPendingWithdrawRequests();
+      return Right(requests);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> reviewWithdrawRequest(String requestId,
+      bool approved, String? adminNote, String userId, double amount) async {
+    try {
+      await _remoteDataSource.reviewWithdrawRequest(
+          requestId, approved, adminNote, userId, amount);
       return const Right(null);
     } catch (e) {
       return Left(Failure(e.toString()));

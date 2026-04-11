@@ -49,6 +49,24 @@ class CustomeSignUpInputFields extends StatelessWidget {
           ),
           SizedBox(height: 15.h),
           Text(
+            l10n.phoneNumber,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          verticalSpace(10),
+          CustomTextFormField(
+            validator: phoneValidator,
+            hint: l10n.phoneNumber,
+            keyboardType: TextInputType.phone,
+            suffixIcon: const Icon(
+              Icons.phone,
+            ),
+            controller: cubit.phoneController,
+            animationIndex: 1,
+            textInputAction: TextInputAction.next,
+            autofillHints: const [AutofillHints.telephoneNumber],
+          ),
+          SizedBox(height: 15.h),
+          Text(
             l10n.signUpUsernameLabel,
             style: Theme.of(context).textTheme.titleSmall,
           ),
@@ -61,7 +79,7 @@ class CustomeSignUpInputFields extends StatelessWidget {
               Icons.person,
             ),
             controller: cubit.nameController,
-            animationIndex: 1,
+            animationIndex: 2,
             textInputAction: TextInputAction.next,
             autofillHints: const [AutofillHints.username],
           ),

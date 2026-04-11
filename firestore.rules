@@ -1,0 +1,38 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default fallback (adjust as per existing rules)
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+
+    match /users/{userId} {
+      // Wallet balance update
+      allow write: if request.auth != null && request.auth.uid == userId;
+      
+      // Transactions sub-collection
+      match /wallet_transactions/{transactionId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // Withdraw requests
+    match /withdraw_requests/{requestId} {
+      // Users can read their own, Admins can read all
+      allow read: if request.auth != null && (
+        resource.data.userId == request.auth.uid || 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin"
+      );
+      
+      // Users can create their own requests
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      
+      // Only admins can update the status
+      allow update: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
+        
+      allow delete: if false;
+    }
+  }
+}

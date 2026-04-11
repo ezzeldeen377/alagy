@@ -65,12 +65,14 @@ class DoctorDetailPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   if (doctor.specialization != null)
-                                    Text(context.getSpecialty(doctor.specialization!),
+                                    Text(
+                                        context.getSpecialty(
+                                            doctor.specialization!),
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleMedium),
                                   SizedBox(height: 8.h),
-      
+
                                   // Rating component
                                   Row(
                                     children: [
@@ -91,17 +93,17 @@ class DoctorDetailPage extends StatelessWidget {
                                       Text(
                                           doctor.rating?.toStringAsFixed(1) ??
                                               "0", // Placeholder rating - replace with actual rating
-                                          style:
-                                              context.theme.textTheme.bodyMedium),
+                                          style: context
+                                              .theme.textTheme.bodyMedium),
                                       SizedBox(width: 4.w),
                                       Text(
                                           '(${doctor.reviews.length})', // Placeholder review count - replace with actual count
-                                          style:
-                                              context.theme.textTheme.bodyMedium),
+                                          style: context
+                                              .theme.textTheme.bodyMedium),
                                     ],
                                   ),
                                   SizedBox(height: 12.h),
-      
+
                                   // Enhanced experience badge
                                   if (doctor.yearsOfExperience != null)
                                     Container(
@@ -122,7 +124,8 @@ class DoctorDetailPage extends StatelessWidget {
                                                   text:
                                                       '${doctor.yearsOfExperience}+ ',
                                                   style: TextStyle(
-                                                    color: AppColor.primaryColor,
+                                                    color:
+                                                        AppColor.primaryColor,
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 13.sp,
                                                   ),
@@ -130,7 +133,8 @@ class DoctorDetailPage extends StatelessWidget {
                                                 TextSpan(
                                                   text: context.l10n.yearsExp,
                                                   style: TextStyle(
-                                                    color: AppColor.primaryColor,
+                                                    color:
+                                                        AppColor.primaryColor,
                                                     fontWeight: FontWeight.w500,
                                                     fontSize: 12.sp,
                                                   ),
@@ -152,7 +156,7 @@ class DoctorDetailPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             // Call button
-      
+
                             // Book appointment button
                             ActionButton(
                               icon: Icons.calendar_today,
@@ -200,8 +204,8 @@ class DoctorDetailPage extends StatelessWidget {
                   if (doctor.consultationFee != null) ...[
                     Container(
                       width: double.infinity,
-                      padding:
-                          EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 12.h, horizontal: 16.w),
                       child: Row(
                         children: [
                           Icon(Icons.payments_outlined, size: 24.sp),
@@ -253,12 +257,12 @@ class DoctorDetailPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 20.h),
-                    Padding(
-                      key: context.read<DoctorDetailsCubit>().targetKey,
-                      padding: EdgeInsets.symmetric(horizontal: 10.w),
-                      child: const TabBarSection(),
-                    )
                   ],
+                  Padding(
+                    key: context.read<DoctorDetailsCubit>().targetKey,
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: const TabBarSection(),
+                  )
                 ]),
               ),
             ),

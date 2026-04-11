@@ -18,6 +18,8 @@ import '../../features/admin/data/repositories/admin_repository.dart' as _i370;
 import '../../features/admin/data/repositories/admin_repository_impl.dart'
     as _i335;
 import '../../features/admin/presentation/cubit/admin_cubit.dart' as _i684;
+import '../../features/admin/presentation/cubit/admin_withdraw_requests/admin_withdraw_cubit.dart'
+    as _i90;
 import '../../features/authentication/data/data_source/auth_remote_data_source.dart'
     as _i21;
 import '../../features/authentication/data/repositories/auth_repository.dart'
@@ -81,6 +83,11 @@ import '../../features/settings/data/datasources/notification_remote_data_source
     as _i194;
 import '../../features/settings/data/repositories/notification_repository.dart'
     as _i701;
+import '../../features/wallet/data/datasources/wallet_remote_data_source.dart'
+    as _i224;
+import '../../features/wallet/data/repositories/wallet_repository.dart'
+    as _i1038;
+import '../../features/wallet/presentation/cubit/wallet_cubit.dart' as _i101;
 import '../common/cubit/app_user/app_user_cubit.dart' as _i94;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -104,6 +111,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i191.DoctorDashboardRemoteDataSourceImpl());
     gh.factory<_i194.NotificationRemoteDataSource>(
         () => _i194.NotificationRemoteDataSourceImpl());
+    gh.factory<_i224.WalletRemoteDataSource>(
+        () => _i224.WalletRemoteDataSourceImpl());
     gh.factory<_i5.HomeRemoteDataSource>(() => _i5.HomeRemoteDataSourceImpl());
     gh.factory<_i846.PaymentRemoteDataSource>(
         () => _i846.PaymentRemoteDataSourceImpl());
@@ -113,6 +122,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i21.AuthRemoteDataSourceImpl());
     gh.factory<_i860.LegalCubit>(
         () => _i860.LegalCubit(gh<_i1052.LegalRepository>()));
+    gh.factory<_i1038.WalletRepository>(
+        () => _i1038.WalletRepositoryImpl(gh<_i224.WalletRemoteDataSource>()));
     gh.factory<_i486.DiscountCodeRemoteDataSource>(
         () => _i486.DiscountCodeRemoteDataSourceImpl());
     gh.factory<_i748.DoctorRepository>(() => _i748.DoctorRepositoryImpl(
@@ -144,6 +155,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1019.DiscountCodeRepository>(() =>
         _i1019.DiscountCodeRepositoryImpl(
             gh<_i486.DiscountCodeRemoteDataSource>()));
+    gh.factory<_i101.WalletCubit>(
+        () => _i101.WalletCubit(gh<_i1038.WalletRepository>()));
     gh.factory<_i935.AuthRepository>(() => _i935.AuthRepositoryImpl(
         authDataSource: gh<_i21.AuthRemoteDataSource>()));
     gh.factory<_i182.ChangePasswordCubit>(
@@ -155,10 +168,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i513.PaymentCubit>(() => _i513.PaymentCubit(
           gh<_i748.DoctorRepository>(),
           gh<_i701.NotificationRepository>(),
+          gh<_i1038.WalletRepository>(),
           paymentRepository: gh<_i75.PaymentRepository>(),
         ));
     gh.factory<_i684.AdminCubit>(
         () => _i684.AdminCubit(gh<_i370.AdminRepository>()));
+    gh.factory<_i90.AdminWithdrawCubit>(
+        () => _i90.AdminWithdrawCubit(gh<_i370.AdminRepository>()));
     gh.factory<_i742.DoctorCalendarCubit>(
         () => _i742.DoctorCalendarCubit(gh<_i748.DoctorRepository>()));
     gh.factory<_i798.DoctorDetailsCubit>(

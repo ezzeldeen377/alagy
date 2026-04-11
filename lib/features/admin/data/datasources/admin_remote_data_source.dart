@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:alagy/features/admin/data/models/admin_statistics.dart';
 import 'package:alagy/features/admin/data/models/date_filter.dart';
 import 'package:alagy/features/doctor_details/data/models/doctor_model.dart';
+import 'package:alagy/features/wallet/data/models/withdraw_request_model.dart';
+import 'package:alagy/core/constants/firebase_collections.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 
@@ -13,6 +15,9 @@ abstract interface class AdminRemoteDataSource {
   Future<void> updateDoctorStatus(String doctorId, bool isAccepted);
   Future<void> updateDoctorVipStatus(String doctorId, bool isVip);
   Future<AdminStatistics> getStatistics(DateFilter filter);
+  Future<List<WithdrawRequestModel>> getPendingWithdrawRequests();
+  Future<void> reviewWithdrawRequest(String requestId, bool approved,
+      String? adminNote, String userId, double amount);
 }
 
 @LazySingleton(as: AdminRemoteDataSource)
@@ -97,7 +102,10 @@ class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
   Future<AdminStatistics> getStatistics(DateFilter filter) async {
     try {
       // Get total doctors
-      final doctorsSnapshot = await _firestore.collection('users').where("type",isEqualTo: "doctor").get();
+      final doctorsSnapshot = await _firestore
+          .collection('users')
+          .where("type", isEqualTo: "doctor")
+          .get();
       final totalDoctors = doctorsSnapshot.docs.length;
 
       // Get pending doctors
@@ -130,13 +138,16 @@ class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
 
       // Get appointments with date filtering
       Query appointmentsQuery = _firestore.collectionGroup('appointments');
-      
+
       if (filter.startDate != null && filter.endDate != null) {
         appointmentsQuery = appointmentsQuery
-            .where('createdAt', isGreaterThanOrEqualTo: filter.startDate!.millisecondsSinceEpoch)
-            .where('createdAt', isLessThanOrEqualTo: filter.endDate!.millisecondsSinceEpoch);
+            .where('createdAt',
+                isGreaterThanOrEqualTo:
+                    filter.startDate!.millisecondsSinceEpoch)
+            .where('createdAt',
+                isLessThanOrEqualTo: filter.endDate!.millisecondsSinceEpoch);
       }
-      
+
       final appointmentsSnapshot = await appointmentsQuery.get();
       final totalAppointments = appointmentsSnapshot.docs.length;
 
@@ -158,6 +169,76 @@ class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
       );
     } catch (e) {
       throw Exception('Failed to get statistics: $e');
+    }
+  }
+
+  @override
+  Future<List<WithdrawRequestModel>> getPendingWithdrawRequests() async {
+    try {
+      final querySnapshot = await _firestore
+          .collection(FirebaseCollections.withdrawRequestsCollection)
+          .where('status', isEqualTo: WithdrawStatus.pending.name)
+          .orderBy('createdAt', descending: true)
+          .get();
+
+      return querySnapshot.docs
+          .map((doc) => WithdrawRequestModel.fromMap(doc.data(), doc.id))
+          .toList();
+    } catch (e) {
+      throw Exception('Failed to get pending withdraw requests: $e');
+    }
+  }
+
+  @override
+  Future<void> reviewWithdrawRequest(String requestId, bool approved,
+      String? adminNote, String userId, double amount) async {
+    try {
+      final status = approved
+          ? WithdrawStatus.approved.name
+          : WithdrawStatus.declined.name;
+
+      await _firestore.runTransaction((transaction) async {
+        final requestRef = _firestore
+            .collection(FirebaseCollections.withdrawRequestsCollection)
+            .doc(requestId);
+        final userRef = _firestore
+            .collection(FirebaseCollections.usersCollection)
+            .doc(userId);
+
+        // 1. PERFORM ALL READS FIRST
+        final requestDoc = await transaction.get(requestRef);
+        final userDoc = await transaction.get(userRef);
+
+        final transactionId = requestDoc.data()?['transactionId'] as String?;
+
+        // 2. PERFORM ALL WRITES SECOND
+        transaction.update(requestRef, {
+          'status': status,
+          'adminNote': adminNote,
+          'reviewedAt': FieldValue.serverTimestamp(),
+        });
+
+        // Update transaction status if transactionId exists
+        if (transactionId != null) {
+          final transactionRef = userRef
+              .collection(FirebaseCollections.walletTransactionsCollection)
+              .doc(transactionId);
+
+          transaction.update(transactionRef, {
+            'status': approved ? 'completed' : 'declined',
+          });
+        }
+
+        if (!approved) {
+          final currentBalance =
+              (userDoc.data()?['walletBalance'] as num?)?.toDouble() ?? 0.0;
+          transaction.update(userRef, {
+            'walletBalance': currentBalance + amount,
+          });
+        }
+      });
+    } catch (e) {
+      throw Exception('Failed to review withdraw request: $e');
     }
   }
 }

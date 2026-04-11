@@ -33,6 +33,11 @@ import '../../features/legal/presentation/legal_screen.dart';
 import 'package:alagy/features/categories/presentation/pages/categories_screen.dart';
 import 'package:alagy/features/payment/presentation/screens/payment_history_screen.dart';
 import 'package:alagy/features/settings/presentation/pages/change_password_screen.dart';
+import 'package:alagy/features/wallet/presentation/cubit/wallet_cubit.dart';
+import 'package:alagy/features/wallet/presentation/screens/wallet_screen.dart';
+import 'package:alagy/features/wallet/presentation/screens/withdraw_request_screen.dart';
+import 'package:alagy/features/admin/presentation/cubit/admin_withdraw_requests/admin_withdraw_cubit.dart';
+import 'package:alagy/features/admin/presentation/screens/admin_withdraw_requests/admin_withdraw_requests_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -71,7 +76,12 @@ class AlagyRouter {
         );
       // home screen routes
       case RouteNames.initial:
-        return SlidePageRoute(page: const InitialScreen());
+        return SlidePageRoute(
+          page: BlocProvider(
+            create: (context) => getIt<WalletCubit>(),
+            child: const InitialScreen(),
+          ),
+        );
 
       // doctors screen
       case RouteNames.editDoctor:
@@ -132,10 +142,14 @@ class AlagyRouter {
 
       case RouteNames.doctorHome:
         return SlidePageRoute(
-            page: BlocProvider(
-          create: (context) => getIt<DoctorDashboardCubit>(),
-          child: const DoctorHomeScreen(),
-        ));
+          page: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => getIt<DoctorDashboardCubit>()),
+              BlocProvider(create: (context) => getIt<WalletCubit>()),
+            ],
+            child: const DoctorHomeScreen(),
+          ),
+        );
       case RouteNames.profile:
         return SlidePageRoute(page: const ProfileScreen());
       case RouteNames.termsOfUse:
@@ -153,6 +167,24 @@ class AlagyRouter {
         return SlidePageRoute(page: const PaymentHistoryScreen());
       case RouteNames.changePassword:
         return SlidePageRoute(page: const ChangePasswordScreen());
+      case RouteNames.wallet:
+        return SlidePageRoute(
+            page: BlocProvider(
+          create: (context) => getIt<WalletCubit>(),
+          child: const WalletScreen(),
+        ));
+      case RouteNames.withdrawRequest:
+        return SlidePageRoute(
+            page: BlocProvider(
+          create: (context) => getIt<WalletCubit>(),
+          child: const WithdrawRequestScreen(),
+        ));
+      case RouteNames.adminWithdrawRequests:
+        return SlidePageRoute(
+            page: BlocProvider(
+          create: (context) => getIt<AdminWithdrawCubit>(),
+          child: const AdminWithdrawRequestsScreen(),
+        ));
       default:
         return MaterialPageRoute(
             builder: (context) => Scaffold(

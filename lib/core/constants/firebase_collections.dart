@@ -8,15 +8,19 @@ class FirebaseCollections {
   static const appointmentsCollection = 'appointments';
   static const discountCodesCollection = 'discount_codes';
   static const paymentsCollection = 'payments';
+  static const walletTransactionsCollection = 'wallet_transactions';
+  static const withdrawRequestsCollection = 'withdraw_requests';
 }
 
 class paymentKeys {
   static const String baseUrl = 'https://accept.paymob.com/v1/intention/';
 
   static const String publicKey =
-      "egy_pk_test_cM7cfDWrtVyJR1SDDRBE8VBuGvjjIqt6";
-  static String get clientSecret => dotenv.get('PAYMOB_CLIENT_SECRET', fallback: '');
-  static const String integrationId = "5165268";
+      "egy_pk_test_vbVYcClcXmUzXXuLYe3rGdT73w4wurlX";
+  static String get clientSecret =>
+      dotenv.get('PAYMOB_CLIENT_SECRET', fallback: '');
+  static const int cardIntegrationId = 5609595;
+  static const int mobileWalletIntegrationId = 5610266;
   static const String iFrame =
       "blob:https://accept.paymob.com/3e8d3292-0cb1-4728-9333-113a3cb88194";
 }

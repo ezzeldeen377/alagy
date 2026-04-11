@@ -35,12 +35,12 @@ class AppTheme {
       tabBarTheme: TabBarThemeData(
         labelColor: AppColor.primaryColor,
         unselectedLabelColor: Colors.grey[500],
-        labelStyle: const TextStyle(
-          fontSize: 14,
+        labelStyle: TextStyle(
+          fontSize: 14.sp,
           fontWeight: FontWeight.w600,
         ),
-        unselectedLabelStyle: const TextStyle(
-          fontSize: 14,
+        unselectedLabelStyle: TextStyle(
+          fontSize: 14.sp,
           fontWeight: FontWeight.w500,
         ),
         dividerColor: Colors.transparent,
@@ -107,80 +107,80 @@ class AppTheme {
             ),
             borderRadius: BorderRadius.circular(15)),
       ),
-      textTheme: const TextTheme(
+      textTheme: TextTheme(
           displayLarge: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 57,
+              fontSize: 57.sp,
               fontWeight: FontWeight.normal,
               color: AppColor.primaryColor),
           displayMedium: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 45,
+              fontSize: 45.sp,
               fontWeight: FontWeight.normal,
               color: AppColor.primaryColor),
           displaySmall: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 36,
+              fontSize: 36.sp,
               fontWeight: FontWeight.normal,
               color: AppColor.primaryColor),
           headlineLarge: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 32,
+              fontSize: 32.sp,
               fontWeight: FontWeight.bold,
               color: AppColor.primaryColor),
           headlineMedium: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 28,
+              fontSize: 28.sp,
               fontWeight: FontWeight.bold,
               color: AppColor.primaryColor),
           headlineSmall: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 24,
+              fontSize: 24.sp,
               fontWeight: FontWeight.bold,
               color: AppColor.primaryColor),
           titleLarge: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 22,
+              fontSize: 22.sp,
               fontWeight: FontWeight.w600,
               color: AppColor.blackColor),
           titleMedium: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 18,
+              fontSize: 18.sp,
               fontWeight: FontWeight.w600,
               color: AppColor.blackColor),
           titleSmall: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w600,
               color: AppColor.blackColor),
           bodyLarge: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.normal,
               color: AppColor.blackColor),
           bodyMedium: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.normal,
               color: AppColor.blackColor),
           bodySmall: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 12,
+              fontSize: 12.sp,
               fontWeight: FontWeight.normal,
               color: AppColor.blackColor),
           labelLarge: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500,
               color: AppColor.blackColor),
           labelMedium: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 12,
+              fontSize: 12.sp,
               fontWeight: FontWeight.w500,
               color: AppColor.blackColor),
           labelSmall: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 11,
+              fontSize: 11.sp,
               fontWeight: FontWeight.w500,
               color: AppColor.blackColor)),
     );
@@ -203,15 +203,15 @@ class AppTheme {
       bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: AppColor.blackColor,
       ),
-      tabBarTheme: const TabBarThemeData(
+      tabBarTheme: TabBarThemeData(
         labelColor: AppColor.primaryColor,
         unselectedLabelColor: Colors.white,
         labelStyle: TextStyle(
-          fontSize: 14,
+          fontSize: 14.sp,
           fontWeight: FontWeight.w600,
         ),
         unselectedLabelStyle: TextStyle(
-          fontSize: 14,
+          fontSize: 14.sp,
           fontWeight: FontWeight.w500,
         ),
         dividerColor: Colors.transparent,
@@ -288,80 +288,80 @@ class AppTheme {
             ),
             borderRadius: BorderRadius.circular(15)),
       ),
-      textTheme: const TextTheme(
+      textTheme: TextTheme(
           displayLarge: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 57,
+              fontSize: 57.sp,
               fontWeight: FontWeight.normal,
               color: AppColor.whiteColor),
           displayMedium: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 45,
+              fontSize: 45.sp,
               fontWeight: FontWeight.normal,
               color: AppColor.whiteColor),
           displaySmall: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 36,
+              fontSize: 36.sp,
               fontWeight: FontWeight.normal,
               color: AppColor.whiteColor),
           headlineLarge: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 32,
+              fontSize: 32.sp,
               fontWeight: FontWeight.bold,
               color: AppColor.whiteColor),
           headlineMedium: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 28,
+              fontSize: 28.sp,
               fontWeight: FontWeight.bold,
               color: AppColor.whiteColor),
           headlineSmall: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 24,
+              fontSize: 24.sp,
               fontWeight: FontWeight.bold,
               color: AppColor.primaryColor),
           titleLarge: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 22,
+              fontSize: 22.sp,
               fontWeight: FontWeight.w600,
               color: AppColor.whiteColor),
           titleMedium: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 18,
+              fontSize: 18.sp,
               fontWeight: FontWeight.w600,
               color: AppColor.whiteColor),
           titleSmall: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w600,
               color: AppColor.whiteColor),
           bodyLarge: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.normal,
               color: AppColor.whiteColor),
           bodyMedium: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.normal,
               color: AppColor.whiteColor),
           bodySmall: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 12,
+              fontSize: 12.sp,
               fontWeight: FontWeight.normal,
               color: AppColor.whiteColor),
           labelLarge: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500,
               color: AppColor.whiteColor),
           labelMedium: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 12,
+              fontSize: 12.sp,
               fontWeight: FontWeight.w500,
               color: AppColor.whiteColor),
           labelSmall: TextStyle(
               fontFamily: "CircularSpotify",
-              fontSize: 11,
+              fontSize: 11.sp,
               fontWeight: FontWeight.w500,
               color: AppColor.whiteColor)),
     );

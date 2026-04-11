@@ -201,47 +201,33 @@ class EditDoctorProfileScreen extends StatelessWidget {
                         builder: (context, state) {
                           final isLocationSelected =
                               state.latitude != null && state.longitude != null;
-                          return Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(Icons.location_on,
-                                  color: isLocationSelected
-                                      ? AppColor.primaryColor
-                                      : Colors.red),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  isLocationSelected
-                                      ? context.l10n
-                                          .editDoctorLocationSelected // e.g. "Select location done"
-                                      : context.l10n
-                                          .editDoctorLocationNotSet, // e.g. "No location selected"
-                                  style: context.theme.textTheme.bodySmall
-                                      ?.copyWith(
-                                    color: isLocationSelected
-                                        ? AppColor.whiteColor
-                                        : Colors.red,
-                                  ),
+                              CustomButton(
+                                width: 155.w,
+                                height: 40.h,
+                                margin: EdgeInsets.zero,
+                                buttonContent: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(Icons.route,
+                                        color: AppColor.whiteColor, size: 20),
+                                    horizontalSpace(5),
+                                    Text(
+                                      context.l10n.editDoctorSelectLocation,
+                                      style: context.theme.textTheme.titleSmall
+                                          ?.copyWith(
+                                              color: AppColor.whiteColor,
+                                              fontSize: 12.sp),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              ElevatedButton.icon(
-                                icon: const Icon(
-                                  Icons.route,
-                                ),
-                                label: Text(
-                                  context.l10n.editDoctorSelectLocation,
-                                  style: context.theme.textTheme.titleSmall
-                                      ?.copyWith(
-                                          color: AppColor.primaryColor,
-                                          fontSize: 10.sp),
-                                ),
-                                onPressed: () async {
-                                  // Navigate to the map screen and await the selected location
+                                onTapButton: () async {
                                   LatLng? selectedLocation =
                                       await Navigator.pushNamed(
                                     context,
-                                    RouteNames
-                                        .selectLocationScreen, // Make sure this route is defined
+                                    RouteNames.selectLocationScreen,
                                   ) as LatLng?;
                                   if (selectedLocation != null) {
                                     cubit.updateLocation(
@@ -250,6 +236,33 @@ class EditDoctorProfileScreen extends StatelessWidget {
                                     );
                                   }
                                 },
+                              ),
+                              verticalSpace(10),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.location_on,
+                                      color: isLocationSelected
+                                          ? AppColor.primaryColor
+                                          : Colors.red),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: Text(
+                                      isLocationSelected
+                                          ? (state.selectedAddress ??
+                                              context.l10n
+                                                  .editDoctorLocationSelected)
+                                          : context
+                                              .l10n.editDoctorLocationNotSet,
+                                      style: context.theme.textTheme.bodySmall
+                                          ?.copyWith(
+                                        color: isLocationSelected
+                                            ? null
+                                            : Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           );

@@ -26,4 +26,7 @@ class RouteNames {
   static const paymentHistory = '/paymentHistory';
   static const changePassword = '/changePassword';
   static const refundPolicy = '/refundPolicy';
+  static const wallet = '/wallet';
+  static const withdrawRequest = '/withdrawRequest';
+  static const adminWithdrawRequests = '/adminWithdrawRequests';
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:alagy/core/common/enities/view_status.dart';
 import '../../../../core/di/di.dart';
 import '../../../../core/helpers/extensions.dart';
 import '../cubit/legal_cubit.dart';

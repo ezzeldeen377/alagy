@@ -25,7 +25,8 @@ class _NotificationsScreenBody extends StatefulWidget {
   const _NotificationsScreenBody();
 
   @override
-  State<_NotificationsScreenBody> createState() => _NotificationsScreenBodyState();
+  State<_NotificationsScreenBody> createState() =>
+      _NotificationsScreenBodyState();
 }
 
 class _NotificationsScreenBodyState extends State<_NotificationsScreenBody> {
@@ -42,7 +43,10 @@ class _NotificationsScreenBodyState extends State<_NotificationsScreenBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.l10n.notifications),
+        title: Text(
+          context.l10n.notifications,
+          style: TextStyle(color: Colors.white),
+        ),
         actions: [
           BlocBuilder<NotificationCubit, NotificationState>(
             builder: (context, state) {
@@ -91,9 +95,12 @@ class _NotificationsScreenBodyState extends State<_NotificationsScreenBody> {
                     SizedBox(height: 16.h),
                     ElevatedButton(
                       onPressed: () {
-                        final userId = context.read<AppUserCubit>().state.userId;
+                        final userId =
+                            context.read<AppUserCubit>().state.userId;
                         if (userId != null) {
-                          context.read<NotificationCubit>().loadNotifications(userId);
+                          context
+                              .read<NotificationCubit>()
+                              .loadNotifications(userId);
                         }
                       },
                       child: Text(context.l10n.retry),
@@ -133,7 +140,9 @@ class _NotificationsScreenBodyState extends State<_NotificationsScreenBody> {
                 onRefresh: () async {
                   final userId = context.read<AppUserCubit>().state.userId;
                   if (userId != null) {
-                    await context.read<NotificationCubit>().loadNotifications(userId);
+                    await context
+                        .read<NotificationCubit>()
+                        .loadNotifications(userId);
                   }
                 },
                 child: ListView.builder(
@@ -144,15 +153,21 @@ class _NotificationsScreenBodyState extends State<_NotificationsScreenBody> {
                     return _NotificationCard(
                       notification: notification,
                       onTap: () {
-                        final userId = context.read<AppUserCubit>().state.userId;
+                        final userId =
+                            context.read<AppUserCubit>().state.userId;
                         if (userId != null && !notification.isRead) {
-                          context.read<NotificationCubit>().markAsRead(userId, notification.id);
+                          context
+                              .read<NotificationCubit>()
+                              .markAsRead(userId, notification.id);
                         }
                       },
                       onDelete: () {
-                        final userId = context.read<AppUserCubit>().state.userId;
+                        final userId =
+                            context.read<AppUserCubit>().state.userId;
                         if (userId != null) {
-                          context.read<NotificationCubit>().deleteNotification(userId, notification.id);
+                          context
+                              .read<NotificationCubit>()
+                              .deleteNotification(userId, notification.id);
                         }
                       },
                     );
@@ -197,7 +212,8 @@ class _NotificationCard extends StatelessWidget {
                 width: 40.w,
                 height: 40.w,
                 decoration: BoxDecoration(
-                  color: _getNotificationColor(notification.type).withOpacity(0.1),
+                  color:
+                      _getNotificationColor(notification.type).withOpacity(0.1),
                   borderRadius: BorderRadius.circular(20.r),
                 ),
                 child: Icon(
@@ -217,9 +233,14 @@ class _NotificationCard extends StatelessWidget {
                         Expanded(
                           child: Text(
                             notification.title,
-                            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                              fontWeight: notification.isRead ? FontWeight.normal : FontWeight.bold,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(
+                                  fontWeight: notification.isRead
+                                      ? FontWeight.normal
+                                      : FontWeight.bold,
+                                ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -239,8 +260,9 @@ class _NotificationCard extends StatelessWidget {
                     Text(
                       notification.body,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: notification.isRead ? Colors.grey[600] : null,
-                      ),
+                            color:
+                                notification.isRead ? Colors.grey[600] : null,
+                          ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -248,8 +270,8 @@ class _NotificationCard extends StatelessWidget {
                     Text(
                       timeago.format(notification.createdAt),
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.grey[500],
-                      ),
+                            color: Colors.grey[500],
+                          ),
                     ),
                   ],
                 ),

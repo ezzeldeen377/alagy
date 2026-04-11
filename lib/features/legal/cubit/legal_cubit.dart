@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:alagy/core/common/enities/view_status.dart';
 import '../data/legal_repository.dart';
 import 'legal_state.dart';
 

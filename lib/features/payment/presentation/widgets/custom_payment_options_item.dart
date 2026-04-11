@@ -37,8 +37,12 @@ class CustomPaymentOptionsItem extends StatelessWidget {
             context.read<PaymentCubit>().onSelectOption(paymentType);
           }, // Disable tap if inactive
           title: Text(
-            paymentType.paymentName,
-            style: TextStyles.fontCircularSpotify14BlackRegular
+            paymentType.key == "onlinePayment"
+                ? context.l10n.onlinePayment
+                : paymentType.key == "internalWallet"
+                    ? context.l10n.internalWallet
+                    : paymentType.paymentName,
+            style: TextStyles.fontCircularSpotify14BlackRegular,
           ),
           trailing: Container(
             padding: const EdgeInsets.all(3),

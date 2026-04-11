@@ -152,6 +152,7 @@ class SignUpScreenState extends State<SignUpScreen>
                                       email: cubit.emailController.text,
                                       password: cubit.passwordController.text,
                                       type: selectedRole,
+                                      phoneNumber: cubit.phoneController.text,
                                     );
                                   }
                                 } else {

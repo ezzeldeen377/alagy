@@ -1,12 +1,5 @@
+import 'package:alagy/core/common/enities/view_status.dart';
 import '../data/legal_model.dart';
-
-enum ViewStatus {
-  initial,
-  loading,
-  success,
-  empty,
-  failure,
-}
 
 class LegalState {
   final ViewStatus status;

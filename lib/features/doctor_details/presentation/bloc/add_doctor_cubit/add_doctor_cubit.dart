@@ -6,6 +6,7 @@ import 'package:alagy/features/doctor_details/data/repositories/doctor_repositor
 import 'package:alagy/features/doctor_details/presentation/bloc/add_doctor_cubit/add_doctor_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
@@ -81,8 +82,23 @@ class AddDoctorCubit extends Cubit<AddDoctorState> {
     });
   }
 
-  void updateLocation({double? latitude, double? longitude}) {
-    emit(state.copyWith(latitude: latitude, longitude: longitude));
+  Future<void> updateLocation({double? latitude, double? longitude}) async {
+    String? address;
+    if (latitude != null && longitude != null) {
+      try {
+        List<Placemark> placemarks =
+            await placemarkFromCoordinates(latitude, longitude);
+        if (placemarks.isNotEmpty) {
+          Placemark place = placemarks[0];
+          address =
+              "${place.street}, ${place.subLocality}, ${place.locality}, ${place.country}";
+        }
+      } catch (e) {
+        debugPrint("Error in geocoding: $e");
+      }
+    }
+    emit(state.copyWith(
+        latitude: latitude, longitude: longitude, selectedAddress: address));
   }
 
   Future<void> pickPofilePicture() async {

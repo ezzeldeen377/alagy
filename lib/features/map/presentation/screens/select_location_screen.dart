@@ -78,7 +78,14 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      appBar: AppBar(title: Text(context.l10n.selectLocationTitle)),
+      appBar: AppBar(
+        title: Text(
+          context.l10n.selectLocationTitle,
+          style: context.theme.textTheme.titleLarge?.copyWith(
+            color: Colors.white,
+          ),
+        ),
+      ),
       body: Stack(
         children: [
           GoogleMap(

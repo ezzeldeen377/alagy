@@ -37,6 +37,7 @@ class PaymentRemoteDataSourceImpl implements PaymentRemoteDataSource {
     );
 
     if (response.statusCode == 200 || response.statusCode == 201) {
+      print(response.body);
       return jsonDecode(response.body);
     } else {
       throw Exception('Failed to create intention: ${response.body}');

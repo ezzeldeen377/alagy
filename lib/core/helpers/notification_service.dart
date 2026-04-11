@@ -69,7 +69,7 @@ class NotificationService {
         ?.createNotificationChannel(channel);
 
     const initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings('@drawable/notif_icon');
 
     // ios setup
     // ignore: prefer_const_constructors
@@ -105,7 +105,7 @@ class NotificationService {
                 'This channel is used for important notifications.',
             importance: Importance.high,
             priority: Priority.high,
-            icon: '@mipmap/ic_launcher',
+            icon: 'notif_icon',
           ),
           iOS: DarwinNotificationDetails(
             presentAlert: true,
@@ -184,6 +184,7 @@ class NotificationService {
   static Future<void> sendNotification(
       String deviceToken, String title, String body) async {
     final String accessToken = await getAccessToken();
+    print("access token : $accessToken");
     String endpointFCM =
         'https://fcm.googleapis.com/v1/projects/alagy-92af4/messages:send';
     final Map<String, dynamic> message = {

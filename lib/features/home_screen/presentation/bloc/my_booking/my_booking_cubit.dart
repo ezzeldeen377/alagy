@@ -1,5 +1,5 @@
 import 'package:alagy/features/home_screen/data/repositories/home_repository.dart';
-import 'package:alagy/features/home_screen/presentation/bloc/my_booking/my_booking_state';
+import 'package:alagy/features/home_screen/presentation/bloc/my_booking/my_booking_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -10,6 +10,7 @@ class MyBookingCubit extends Cubit<MyBookingState> {
   Future<void> getMyBookings(String userId) async {
     emit(state.copyWith(status: MyBookingStatus.loading));
     final result = await repository.getReservations(userId);
+    if (isClosed) return;
     result.fold(
       (failure) => emit(state.copyWith(
           status: MyBookingStatus.error, errorMessage: failure.message)),

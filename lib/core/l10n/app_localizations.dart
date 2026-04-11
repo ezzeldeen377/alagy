@@ -98,6 +98,24 @@ abstract class AppLocalizations {
     Locale('en')
   ];
 
+  /// No description provided for @accept.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept'**
+  String get accept;
+
+  /// No description provided for @accountHolderName.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Holder Name'**
+  String get accountHolderName;
+
+  /// No description provided for @accountNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Number/Phone'**
+  String get accountNumber;
+
   /// No description provided for @activate.
   ///
   /// In en, this message translates to:
@@ -146,11 +164,23 @@ abstract class AppLocalizations {
   /// **'Admin Dashboard'**
   String get adminDashboard;
 
+  /// No description provided for @adminNoteOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin Note (Optional)'**
+  String get adminNoteOptional;
+
   /// No description provided for @adminTab.
   ///
   /// In en, this message translates to:
   /// **'Admin'**
   String get adminTab;
+
+  /// No description provided for @adminWithdrawRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdraw Requests'**
+  String get adminWithdrawRequests;
 
   /// No description provided for @advancedOptions.
   ///
@@ -175,6 +205,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'AM'**
   String get am;
+
+  /// No description provided for @amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amount;
+
+  /// No description provided for @amountToWithdraw.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount to withdraw'**
+  String get amountToWithdraw;
 
   /// No description provided for @anErrorOccurred.
   ///
@@ -206,11 +248,29 @@ abstract class AppLocalizations {
   /// **'Appointment added successfully'**
   String get appointmentAddedSuccessfully;
 
+  /// No description provided for @appointmentCancelledSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Appointment cancelled successfully'**
+  String get appointmentCancelledSuccessfully;
+
   /// No description provided for @appointmentCompleted.
   ///
   /// In en, this message translates to:
   /// **'Appointment Completed'**
   String get appointmentCompleted;
+
+  /// No description provided for @appointmentConfirmedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your appointment with Dr. {doctorName} is confirmed for {date} at {time}'**
+  String appointmentConfirmedBody(Object date, Object doctorName, Object time);
+
+  /// No description provided for @appointmentConfirmedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Appointment Confirmed'**
+  String get appointmentConfirmedTitle;
 
   /// No description provided for @appointmentHistoryWillAppearHere.
   ///
@@ -278,11 +338,23 @@ abstract class AppLocalizations {
   /// **'Approve or reject doctor applications'**
   String get approveOrRejectDoctorApplications;
 
+  /// No description provided for @approveWithdrawRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Approve Withdraw Request'**
+  String get approveWithdrawRequest;
+
   /// No description provided for @arabic.
   ///
   /// In en, this message translates to:
   /// **'Arabic'**
   String get arabic;
+
+  /// No description provided for @areYouSureDeleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete your account? This action cannot be undone.'**
+  String get areYouSureDeleteAccount;
 
   /// No description provided for @areYouSureDeleteCode.
   ///
@@ -338,6 +410,12 @@ abstract class AppLocalizations {
   /// **'Available'**
   String get available;
 
+  /// No description provided for @availableBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Available Balance'**
+  String get availableBalance;
+
   /// No description provided for @availableTimeSlots.
   ///
   /// In en, this message translates to:
@@ -355,6 +433,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'😞  bad'**
   String get bad;
+
+  /// No description provided for @bankAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Account'**
+  String get bankAccount;
+
+  /// No description provided for @bankName.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Name'**
+  String get bankName;
+
+  /// No description provided for @bankTransfer.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Transfer'**
+  String get bankTransfer;
 
   /// No description provided for @bio.
   ///
@@ -434,6 +530,30 @@ abstract class AppLocalizations {
   /// **'Cancel'**
   String get cancel;
 
+  /// No description provided for @cancelAppointmentConfirmationMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to cancel this appointment?'**
+  String get cancelAppointmentConfirmationMessage;
+
+  /// No description provided for @cancelAppointmentConfirmationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Appointment'**
+  String get cancelAppointmentConfirmationTitle;
+
+  /// No description provided for @cancellationReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancellation Reason'**
+  String get cancellationReason;
+
+  /// No description provided for @cancellationWarning3Hours.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancellation within 3 hours of the appointment will result in a 50% deduction from the refund amount.'**
+  String get cancellationWarning3Hours;
+
   /// No description provided for @cancelled.
   ///
   /// In en, this message translates to:
@@ -451,36 +571,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'تغيير كلمة المرور'**
   String get changePasswordArabic;
-
-  /// No description provided for @currentPassword.
-  ///
-  /// In en, this message translates to:
-  /// **'Current Password'**
-  String get currentPassword;
-
-  /// No description provided for @newPassword.
-  ///
-  /// In en, this message translates to:
-  /// **'New Password'**
-  String get newPassword;
-
-  /// No description provided for @confirmNewPassword.
-  ///
-  /// In en, this message translates to:
-  /// **'Confirm New Password'**
-  String get confirmNewPassword;
-
-  /// No description provided for @passwordChangedSuccessfully.
-  ///
-  /// In en, this message translates to:
-  /// **'Password changed successfully'**
-  String get passwordChangedSuccessfully;
-
-  /// No description provided for @passwordsDoNotMatch.
-  ///
-  /// In en, this message translates to:
-  /// **'Passwords do not match'**
-  String get passwordsDoNotMatch;
 
   /// No description provided for @chatWithDoctor.
   ///
@@ -596,6 +686,12 @@ abstract class AppLocalizations {
   /// **'Confirmed'**
   String get confirmed;
 
+  /// No description provided for @confirmNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm New Password'**
+  String get confirmNewPassword;
+
   /// No description provided for @connectWithGoogle.
   ///
   /// In en, this message translates to:
@@ -710,6 +806,12 @@ abstract class AppLocalizations {
   /// **'Current Language'**
   String get currentLanguage;
 
+  /// No description provided for @currentPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Password'**
+  String get currentPassword;
+
   /// No description provided for @darkMode.
   ///
   /// In en, this message translates to:
@@ -740,6 +842,18 @@ abstract class AppLocalizations {
   /// **'deactivated'**
   String get deactivated;
 
+  /// No description provided for @decline.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline'**
+  String get decline;
+
+  /// No description provided for @declineWithdrawRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline Withdraw Request'**
+  String get declineWithdrawRequest;
+
   /// No description provided for @delete.
   ///
   /// In en, this message translates to:
@@ -763,12 +877,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete account?'**
   String get deleteAccountConfirmation;
-
-  /// No description provided for @areYouSureDeleteAccount.
-  ///
-  /// In en, this message translates to:
-  /// **'Are you sure you want to delete your account? This action cannot be undone.'**
-  String get areYouSureDeleteAccount;
 
   /// No description provided for @deleteDataSuccessfully.
   ///
@@ -1226,6 +1334,12 @@ abstract class AppLocalizations {
   /// **'Edit Profile'**
   String get editProfile;
 
+  /// No description provided for @egp.
+  ///
+  /// In en, this message translates to:
+  /// **'EGP'**
+  String get egp;
+
   /// No description provided for @email.
   ///
   /// In en, this message translates to:
@@ -1328,6 +1442,12 @@ abstract class AppLocalizations {
   /// **'Expiry Date (Optional)'**
   String get expiryDateOptional;
 
+  /// No description provided for @featuredDoctors.
+  ///
+  /// In en, this message translates to:
+  /// **'Featured Doctors'**
+  String get featuredDoctors;
+
   /// No description provided for @featureLoginRequired.
   ///
   /// In en, this message translates to:
@@ -1339,12 +1459,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Review submission not implemented'**
   String get featureNotImplemented;
-
-  /// No description provided for @featuredDoctors.
-  ///
-  /// In en, this message translates to:
-  /// **'Featured Doctors'**
-  String get featuredDoctors;
 
   /// No description provided for @filterByDate.
   ///
@@ -1484,11 +1598,35 @@ abstract class AppLocalizations {
   /// **'In-person'**
   String get inPerson;
 
+  /// No description provided for @instaPay.
+  ///
+  /// In en, this message translates to:
+  /// **'InstaPay'**
+  String get instaPay;
+
+  /// No description provided for @instaPayHandle.
+  ///
+  /// In en, this message translates to:
+  /// **'InstaPay Handle'**
+  String get instaPayHandle;
+
+  /// No description provided for @insufficientBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Insufficient Balance'**
+  String get insufficientBalance;
+
   /// No description provided for @internalMedicine.
   ///
   /// In en, this message translates to:
   /// **'Internal Medicine'**
   String get internalMedicine;
+
+  /// No description provided for @invalidAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid amount'**
+  String get invalidAmount;
 
   /// No description provided for @ivf.
   ///
@@ -1598,6 +1736,12 @@ abstract class AppLocalizations {
   /// **'Maximum Discount Amount (Optional)'**
   String get maximumDiscountAmountOptional;
 
+  /// No description provided for @method.
+  ///
+  /// In en, this message translates to:
+  /// **'Method'**
+  String get method;
+
   /// No description provided for @minimumOrderAmountHint.
   ///
   /// In en, this message translates to:
@@ -1609,6 +1753,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Minimum Order Amount (Optional)'**
   String get minimumOrderAmountOptional;
+
+  /// No description provided for @mobileWallet.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile Wallet'**
+  String get mobileWallet;
 
   /// No description provided for @monday.
   ///
@@ -1663,6 +1813,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'New Booking'**
   String get newBooking;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPassword;
 
   /// No description provided for @noAppointmentsForThisDay.
   ///
@@ -1730,6 +1886,12 @@ abstract class AppLocalizations {
   /// **'No notifications yet'**
   String get noNotificationsYet;
 
+  /// No description provided for @noPaymentsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No payments found'**
+  String get noPaymentsFound;
+
   /// No description provided for @noPendingDoctors.
   ///
   /// In en, this message translates to:
@@ -1741,6 +1903,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No pending requests'**
   String get noPendingRequests;
+
+  /// No description provided for @noPendingWithdrawRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'No pending withdraw requests'**
+  String get noPendingWithdrawRequests;
 
   /// No description provided for @noRejectedDoctors.
   ///
@@ -1771,6 +1939,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Notifications'**
   String get notifications;
+
+  /// No description provided for @noTransactionsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No transactions found'**
+  String get noTransactionsFound;
 
   /// No description provided for @noUpcomingAppointments.
   ///
@@ -1820,6 +1994,18 @@ abstract class AppLocalizations {
   /// **'Online Consultation'**
   String get onlineConsultation;
 
+  /// No description provided for @onlinePayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Online Payment'**
+  String get onlinePayment;
+
+  /// No description provided for @internalWallet.
+  ///
+  /// In en, this message translates to:
+  /// **'Internal Wallet'**
+  String get internalWallet;
+
   /// No description provided for @ophthalmology.
   ///
   /// In en, this message translates to:
@@ -1862,11 +2048,23 @@ abstract class AppLocalizations {
   /// **'paided'**
   String get paided;
 
+  /// No description provided for @passwordChangedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Password changed successfully'**
+  String get passwordChangedSuccessfully;
+
   /// No description provided for @passwordResetEmailSent.
   ///
   /// In en, this message translates to:
   /// **'Password reset email sent. Please check your inbox.'**
   String get passwordResetEmailSent;
+
+  /// No description provided for @passwordsDoNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsDoNotMatch;
 
   /// No description provided for @patientBookedNewAppointment.
   ///
@@ -1892,6 +2090,12 @@ abstract class AppLocalizations {
   /// **'الدفع'**
   String get paymentArabic;
 
+  /// No description provided for @paymentDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment for appointment {id}'**
+  String paymentDescription(Object id);
+
   /// No description provided for @paymentError.
   ///
   /// In en, this message translates to:
@@ -1910,12 +2114,6 @@ abstract class AppLocalizations {
   /// **'Payment History'**
   String get paymentHistory;
 
-  /// No description provided for @noPaymentsFound.
-  ///
-  /// In en, this message translates to:
-  /// **'No payments found'**
-  String get noPaymentsFound;
-
   /// No description provided for @paymentStatus.
   ///
   /// In en, this message translates to:
@@ -1925,7 +2123,7 @@ abstract class AppLocalizations {
   /// No description provided for @paymentSuccess.
   ///
   /// In en, this message translates to:
-  /// **'Payment successful'**
+  /// **'Payment Successful'**
   String get paymentSuccess;
 
   /// No description provided for @pediatricsAndNeonatology.
@@ -2000,6 +2198,18 @@ abstract class AppLocalizations {
   /// **'Physiotherapy'**
   String get physiotherapy;
 
+  /// No description provided for @pleaseEnterAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter amount'**
+  String get pleaseEnterAmount;
+
+  /// No description provided for @pleaseEnterCancellationReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a reason for cancellation'**
+  String get pleaseEnterCancellationReason;
+
   /// No description provided for @pleaseEnterDiscountCode.
   ///
   /// In en, this message translates to:
@@ -2072,18 +2282,6 @@ abstract class AppLocalizations {
   /// **'سياسة الخصوصية'**
   String get privacyPolicyArabic;
 
-  /// No description provided for @refundPolicy.
-  ///
-  /// In en, this message translates to:
-  /// **'Refund and Policy'**
-  String get refundPolicy;
-
-  /// No description provided for @refundPolicyArabic.
-  ///
-  /// In en, this message translates to:
-  /// **'سياسة الاسترداد'**
-  String get refundPolicyArabic;
-
   /// No description provided for @processingPayment.
   ///
   /// In en, this message translates to:
@@ -2120,17 +2318,47 @@ abstract class AppLocalizations {
   /// **'{percentage}%'**
   String ratingPercentage(Object percentage);
 
+  /// No description provided for @reasonForDecline.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for Decline'**
+  String get reasonForDecline;
+
+  /// No description provided for @recentTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Transactions'**
+  String get recentTransactions;
+
   /// No description provided for @refreshData.
   ///
   /// In en, this message translates to:
   /// **'Refresh Data'**
   String get refreshData;
 
+  /// No description provided for @refundDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Refund for cancelled appointment'**
+  String get refundDescription;
+
   /// No description provided for @refunded.
   ///
   /// In en, this message translates to:
   /// **'Refunded'**
   String get refunded;
+
+  /// No description provided for @refundPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Refund and Policy'**
+  String get refundPolicy;
+
+  /// No description provided for @refundPolicyArabic.
+  ///
+  /// In en, this message translates to:
+  /// **'سياسة الاسترداد'**
+  String get refundPolicyArabic;
 
   /// No description provided for @registerNow.
   ///
@@ -2180,6 +2408,24 @@ abstract class AppLocalizations {
   /// **'Remove VIP'**
   String get removeVip;
 
+  /// No description provided for @requestSubmittedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Request submitted successfully'**
+  String get requestSubmittedSuccessfully;
+
+  /// No description provided for @requestWithdraw.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Withdraw'**
+  String get requestWithdraw;
+
+  /// No description provided for @requiredField.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get requiredField;
+
   /// No description provided for @resetPassword.
   ///
   /// In en, this message translates to:
@@ -2215,6 +2461,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Revenue'**
   String get revenue;
+
+  /// No description provided for @reviewAndManageUserWithdraws.
+  ///
+  /// In en, this message translates to:
+  /// **'Review & Manage User Withdrawals'**
+  String get reviewAndManageUserWithdraws;
 
   /// No description provided for @reviews.
   ///
@@ -2336,6 +2588,12 @@ abstract class AppLocalizations {
   /// **'Select Time'**
   String get selectTime;
 
+  /// No description provided for @selectWithdrawMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Select withdraw method'**
+  String get selectWithdrawMethod;
+
   /// No description provided for @settings.
   ///
   /// In en, this message translates to:
@@ -2390,18 +2648,6 @@ abstract class AppLocalizations {
   /// **'Password'**
   String get signInPasswordLabel;
 
-  /// No description provided for @signInTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign In'**
-  String get signInTitle;
-
-  /// No description provided for @signInWelcomeBack.
-  ///
-  /// In en, this message translates to:
-  /// **'Welcome back! please sign in to continue.'**
-  String get signInWelcomeBack;
-
   /// No description provided for @signInRequiredSubtitle.
   ///
   /// In en, this message translates to:
@@ -2413,6 +2659,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sign In Required'**
   String get signInRequiredTitle;
+
+  /// No description provided for @signInTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get signInTitle;
+
+  /// No description provided for @signInWelcomeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back! please sign in to continue.'**
+  String get signInWelcomeBack;
 
   /// No description provided for @signout.
   ///
@@ -2564,6 +2822,18 @@ abstract class AppLocalizations {
   /// **'Statistics'**
   String get statistics;
 
+  /// No description provided for @submitDecline.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Decline'**
+  String get submitDecline;
+
+  /// No description provided for @submitRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Request'**
+  String get submitRequest;
+
   /// No description provided for @submitReview.
   ///
   /// In en, this message translates to:
@@ -2636,6 +2906,12 @@ abstract class AppLocalizations {
   /// **'Total Appointments'**
   String get totalAppointments;
 
+  /// No description provided for @totalBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Balance'**
+  String get totalBalance;
+
   /// No description provided for @totalCodes.
   ///
   /// In en, this message translates to:
@@ -2659,6 +2935,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Total Revenue'**
   String get totalRevenue;
+
+  /// No description provided for @transactionId.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction ID'**
+  String get transactionId;
+
+  /// No description provided for @transactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Transactions'**
+  String get transactions;
 
   /// No description provided for @tryCatchAuthFailed.
   ///
@@ -2702,17 +2990,17 @@ abstract class AppLocalizations {
   /// **'This operation is not allowed. Please try again later.'**
   String get tryCatchOperationNotAllowed;
 
-  /// No description provided for @tryCatchRequiresRecentLogin.
-  ///
-  /// In en, this message translates to:
-  /// **'This operation is sensitive and requires recent authentication. Please log in again before retrying this request.'**
-  String get tryCatchRequiresRecentLogin;
-
   /// No description provided for @tryCatchRequestTimeout.
   ///
   /// In en, this message translates to:
   /// **'Request timed out. Please check your connection and try again.'**
   String get tryCatchRequestTimeout;
+
+  /// No description provided for @tryCatchRequiresRecentLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'This operation is sensitive and requires recent authentication. Please log in again before retrying this request.'**
+  String get tryCatchRequiresRecentLogin;
 
   /// No description provided for @tryCatchServiceUnavailable.
   ///
@@ -2840,6 +3128,12 @@ abstract class AppLocalizations {
   /// **'Used'**
   String get used;
 
+  /// No description provided for @user.
+  ///
+  /// In en, this message translates to:
+  /// **'User'**
+  String get user;
+
   /// No description provided for @userNotAuthenticated.
   ///
   /// In en, this message translates to:
@@ -2942,6 +3236,12 @@ abstract class AppLocalizations {
   /// **'View Profile'**
   String get viewProfile;
 
+  /// No description provided for @vodafoneCash.
+  ///
+  /// In en, this message translates to:
+  /// **'Vodafone Cash'**
+  String get vodafoneCash;
+
   /// No description provided for @voiceCall.
   ///
   /// In en, this message translates to:
@@ -2953,6 +3253,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Quick phone consultations for medical advice'**
   String get voiceCallDescription;
+
+  /// No description provided for @wallet.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet'**
+  String get wallet;
+
+  /// No description provided for @walletBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet Balance'**
+  String get walletBalance;
+
+  /// No description provided for @walletNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet Number'**
+  String get walletNumber;
+
+  /// No description provided for @walletProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet Provider'**
+  String get walletProvider;
 
   /// No description provided for @wednesday.
   ///
@@ -2977,6 +3301,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Welcome to your dashboard'**
   String get welcomeToYourDashboard;
+
+  /// No description provided for @withdraw.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdraw'**
+  String get withdraw;
+
+  /// No description provided for @withdrawAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdraw Amount'**
+  String get withdrawAmount;
+
+  /// No description provided for @withdrawDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdraw request to {method}'**
+  String withdrawDescription(Object method);
+
+  /// No description provided for @withdrawMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdraw Method'**
+  String get withdrawMethod;
+
+  /// No description provided for @withdrawRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdraw Request'**
+  String get withdrawRequest;
+
+  /// No description provided for @withdrawRequestsAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin Withdraw Requests'**
+  String get withdrawRequestsAdmin;
+
+  /// No description provided for @withdrawSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdrawal request submitted successfully'**
+  String get withdrawSuccess;
 
   /// No description provided for @writeAReview.
   ///

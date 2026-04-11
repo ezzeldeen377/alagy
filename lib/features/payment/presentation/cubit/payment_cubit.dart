@@ -1,4 +1,5 @@
 import 'package:alagy/core/common/enities/payment_type.dart';
+import 'package:alagy/core/constants/firebase_collections.dart';
 import 'package:alagy/features/doctor_details/data/models/doctor_appointment.dart';
 import 'package:alagy/features/doctor_details/data/repositories/doctor_repository.dart';
 import 'package:alagy/features/payment/data/repositories/payment_repository.dart';
@@ -6,8 +7,8 @@ import 'package:alagy/features/settings/data/models/notification_model.dart';
 import 'package:alagy/features/settings/data/repositories/notification_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:alagy/features/payment/data/models/payment_model.dart'; // Add
-import 'package:intl/intl.dart';
+import 'package:alagy/features/payment/data/models/payment_model.dart';
+import 'package:alagy/features/wallet/data/repositories/wallet_repository.dart'; // Add
 
 part 'payment_state.dart';
 
@@ -16,15 +17,18 @@ class PaymentCubit extends Cubit<PaymentState> {
   final PaymentRepository _paymentRepository;
   final DoctorRepository _doctorRepository;
   final NotificationRepository _notificationRepository;
+  final WalletRepository _walletRepository;
 
   PaymentCubit(this._doctorRepository, this._notificationRepository,
+      this._walletRepository,
       {required PaymentRepository paymentRepository})
       : _paymentRepository = paymentRepository,
         super(const PaymentState());
 
   void onSelectOption(PaymentType option) {
     if (state.selectedOption != option) {
-      emit(state.copyWith(selectedOption: option));
+      emit(state.copyWith(
+          status: PaymentStatus.initial, selectedOption: option));
     }
   }
 
@@ -45,17 +49,16 @@ class PaymentCubit extends Cubit<PaymentState> {
   /// Creates an appointment confirmation notification
   Future<void> createAppointmentNotification({
     required String userId,
+    required String title,
+    required String body,
     required String doctorName,
     required DateTime appointmentDate,
     required String appointmentTime,
   }) async {
-    final formattedDate = DateFormat('MMM dd, yyyy').format(appointmentDate);
-
     await createNotification(
       userId: userId,
-      title: 'Appointment Confirmed',
-      body:
-          'Your appointment with Dr. $doctorName is confirmed for $formattedDate at $appointmentTime',
+      title: title,
+      body: body,
       type: 'appointment_confirmation',
       data: {
         'doctorName': doctorName,
@@ -121,7 +124,11 @@ class PaymentCubit extends Cubit<PaymentState> {
       final payload = {
         'amount': amount * 100,
         'currency': 'EGP',
-        'payment_methods': ['card'],
+        'payment_methods': [
+          // paymentKeys.cardIntegrationId,
+          // paymentKeys.mobileWalletIntegrationId
+          "card"
+        ],
         'items': [
           {
             'name': 'Doctor Appointment',
@@ -146,7 +153,7 @@ class PaymentCubit extends Cubit<PaymentState> {
         'special_reference': orderId,
         'notification_url':
             'https://webhook.site/f60597f3-97b9-4992-90e1-6f98a63fc32d',
-        'redirection_url': 'https://www.google.com/'
+        'redirection_url': 'https://accept.paymob.com/api/acceptance/post_pay'
       };
 
       final intentionResult = await _paymentRepository.createIntention(
@@ -163,6 +170,39 @@ class PaymentCubit extends Cubit<PaymentState> {
         errorMessage: 'Payment processing failed',
       ));
     }
+  }
+
+  Future<void> processWalletPayment({
+    required String userId,
+    required double amount,
+    required double currentBalance,
+  }) async {
+    if (state.selectedOption == null) return;
+    emit(state.copyWith(status: PaymentStatus.loading));
+
+    final result = await _walletRepository.payWithWallet(
+      userId,
+      amount,
+      'Paid for doctor appointment',
+      currentBalance,
+    );
+
+    result.fold(
+      (failure) {
+        emit(state.copyWith(
+          status: PaymentStatus.error,
+          errorMessage: failure.message,
+        ));
+      },
+      (success) {
+        emit(state.copyWith(
+          status: PaymentStatus.success,
+          paymentKey: 'WALLET_PAYMENT',
+          appointment: state.appointment
+              ?.copyWith(paymentStatus: AppointmentPaymentStatus.paid),
+        ));
+      },
+    );
   }
 
   Future<void> savePayment(PaymentModel payment) async {

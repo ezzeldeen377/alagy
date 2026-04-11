@@ -86,7 +86,9 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
         body: BlocConsumer<AdminCubit, AdminState>(
           listener: (context, state) {
             if (state.isError) {
-              showSnackBar(context, state.errorMessage ?? context.l10n.anErrorOccurred,backgroundColor: Colors.red);
+              showSnackBar(
+                  context, state.errorMessage ?? context.l10n.anErrorOccurred,
+                  backgroundColor: Colors.red);
             }
           },
           builder: (context, state) {
@@ -251,7 +253,8 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                                     ),
                                     SizedBox(height: 4.h),
                                     Text(
-                                      context.l10n.approveOrRejectDoctorApplications,
+                                      context.l10n
+                                          .approveOrRejectDoctorApplications,
                                       style: context.theme.textTheme.bodySmall
                                           ?.copyWith(
                                         color: Colors.grey[600],
@@ -322,7 +325,8 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                                     ),
                                     SizedBox(height: 4.h),
                                     Text(
-                                      context.l10n.viewDetailedAnalyticsAndReports,
+                                      context
+                                          .l10n.viewDetailedAnalyticsAndReports,
                                       style: context.theme.textTheme.bodySmall
                                           ?.copyWith(
                                         color: Colors.grey[600],
@@ -392,6 +396,71 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                                     SizedBox(height: 4.h),
                                     Text(
                                       context.l10n.createAndManageDiscountCodes,
+                                      style: context.theme.textTheme.bodySmall
+                                          ?.copyWith(
+                                        color: Colors.grey[600],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                color: Colors.grey[400],
+                                size: 16.sp,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(height: 12.h),
+
+                    // Withdraw Requests Management Card
+                    Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      child: InkWell(
+                        onTap: () {
+                          // TODO: Navigate to AdminWithdrawRequestsScreen
+                          Navigator.pushNamed(
+                              context, RouteNames.adminWithdrawRequests);
+                        },
+                        borderRadius: BorderRadius.circular(12.r),
+                        child: Padding(
+                          padding: EdgeInsets.all(20.w),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(12.w),
+                                decoration: BoxDecoration(
+                                  color: Colors.orange.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(8.r),
+                                ),
+                                child: Icon(
+                                  Icons.account_balance_wallet,
+                                  color: Colors.orange,
+                                  size: 24.sp,
+                                ),
+                              ),
+                              SizedBox(width: 16.w),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      context.l10n.withdrawRequestsAdmin,
+                                      style: context.theme.textTheme.titleMedium
+                                          ?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(height: 4.h),
+                                    Text(
+                                      context.l10n.reviewAndManageUserWithdraws,
                                       style: context.theme.textTheme.bodySmall
                                           ?.copyWith(
                                         color: Colors.grey[600],

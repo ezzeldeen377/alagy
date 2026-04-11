@@ -29,13 +29,16 @@ class _DoctorCalendarScreenState extends State<DoctorCalendarScreen> {
 
   void _loadInitialData() {
     final userState = context.read<AppUserCubit>().state;
-    if (userState.user!=null) {
+    if (userState.user != null) {
       final doctorId = userState.user!.uid;
-      context.read<DoctorCalendarCubit>().loadAppointmentsForMonth(doctorId, _focusedDay);
+      context
+          .read<DoctorCalendarCubit>()
+          .loadAppointmentsForMonth(doctorId, _focusedDay);
     }
   }
 
-  List<DoctorAppointment> _getEventsForDay(DateTime day, Map<DateTime, List<DoctorAppointment>> events) {
+  List<DoctorAppointment> _getEventsForDay(
+      DateTime day, Map<DateTime, List<DoctorAppointment>> events) {
     final normalizedDay = DateTime(day.year, day.month, day.day);
     return events[normalizedDay] ?? [];
   }
@@ -46,11 +49,13 @@ class _DoctorCalendarScreenState extends State<DoctorCalendarScreen> {
         _selectedDay = selectedDay;
         _focusedDay = focusedDay;
       });
-      
+
       final userState = context.read<AppUserCubit>().state;
-      if (userState.user!=null) {
+      if (userState.user != null) {
         final doctorId = userState.user!.uid;
-        context.read<DoctorCalendarCubit>().loadAppointmentsForDate(doctorId, selectedDay);
+        context
+            .read<DoctorCalendarCubit>()
+            .loadAppointmentsForDate(doctorId, selectedDay);
       }
     }
   }
@@ -59,11 +64,13 @@ class _DoctorCalendarScreenState extends State<DoctorCalendarScreen> {
     setState(() {
       _focusedDay = focusedDay;
     });
-    
+
     final userState = context.read<AppUserCubit>().state;
-    if (userState.user!=null) {
+    if (userState.user != null) {
       final doctorId = userState.user!.uid;
-      context.read<DoctorCalendarCubit>().loadAppointmentsForMonth(doctorId, focusedDay);
+      context
+          .read<DoctorCalendarCubit>()
+          .loadAppointmentsForMonth(doctorId, focusedDay);
     }
   }
 
@@ -72,24 +79,17 @@ class _DoctorCalendarScreenState extends State<DoctorCalendarScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         title: Text(context.l10n.calendar),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
-        actions: [
-          IconButton(
-            onPressed: () {
-              // TODO: Add new appointment
-            },
-            icon: const Icon(Icons.add),
-          ),
-        ],
       ),
       body: BlocBuilder<DoctorCalendarCubit, DoctorCalendarState>(
         builder: (context, state) {
           if (state is DoctorCalendarLoading) {
             return const Center(child: CircularProgressIndicator());
           }
-          
+
           if (state is DoctorCalendarError) {
             return Center(
               child: Column(
@@ -118,10 +118,14 @@ class _DoctorCalendarScreenState extends State<DoctorCalendarScreen> {
               ),
             );
           }
-          
-          final events = state is DoctorCalendarLoaded ? state.events : <DateTime, List<DoctorAppointment>>{};
-          final selectedDayAppointments = state is DoctorCalendarLoaded ? state.selectedDayAppointments : <DoctorAppointment>[];
-          
+
+          final events = state is DoctorCalendarLoaded
+              ? state.events
+              : <DateTime, List<DoctorAppointment>>{};
+          final selectedDayAppointments = state is DoctorCalendarLoaded
+              ? state.selectedDayAppointments
+              : <DoctorAppointment>[];
+
           return Column(
             children: [
               Container(
@@ -197,7 +201,8 @@ class _DoctorCalendarScreenState extends State<DoctorCalendarScreen> {
                         style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
-                          color: Theme.of(context).textTheme.headlineLarge?.color,
+                          color:
+                              Theme.of(context).textTheme.headlineLarge?.color,
                         ),
                       ),
                       SizedBox(height: 12.h),
@@ -207,7 +212,8 @@ class _DoctorCalendarScreenState extends State<DoctorCalendarScreen> {
                             : ListView.builder(
                                 itemCount: selectedDayAppointments.length,
                                 itemBuilder: (context, index) {
-                                  return _buildAppointmentCard(selectedDayAppointments[index]);
+                                  return _buildAppointmentCard(
+                                      selectedDayAppointments[index]);
                                 },
                               ),
                       ),
@@ -291,7 +297,8 @@ class _DoctorCalendarScreenState extends State<DoctorCalendarScreen> {
                         vertical: 2.h,
                       ),
                       decoration: BoxDecoration(
-                        color: _getStatusColor(appointment.status).withOpacity(0.1),
+                        color: _getStatusColor(appointment.status)
+                            .withOpacity(0.1),
                         borderRadius: BorderRadius.circular(12.r),
                       ),
                       child: Text(
@@ -341,7 +348,6 @@ class _DoctorCalendarScreenState extends State<DoctorCalendarScreen> {
             ),
           ),
           SizedBox(height: 8.h),
-         
         ],
       ),
     );

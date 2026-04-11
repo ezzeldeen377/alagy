@@ -64,8 +64,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AppSettingsCubit, AppSettingsState>(
         builder: (context, state) {
+      print(MediaQuery.of(context).size);
       return ScreenUtilInit(
-        designSize: const Size(390, 844),
+        designSize:
+            (MediaQueryData.fromView(View.of(context)).size.width >= 600)
+                ? const Size(768, 1024) // Tablet/iPad design size
+                : const Size(375, 812),
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {

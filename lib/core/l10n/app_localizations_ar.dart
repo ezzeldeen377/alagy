@@ -9,6 +9,15 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
+  String get accept => 'قبول';
+
+  @override
+  String get accountHolderName => 'اسم صاحب الحساب';
+
+  @override
+  String get accountNumber => 'رقم الحساب/الهاتف';
+
+  @override
   String get activate => 'تفعيل';
 
   @override
@@ -33,7 +42,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get adminDashboard => 'لوحة تحكم المدير';
 
   @override
+  String get adminNoteOptional => 'ملاحظة الإدارة (اختياري)';
+
+  @override
   String get adminTab => 'مدير';
+
+  @override
+  String get adminWithdrawRequests => 'طلبات السحب';
 
   @override
   String get advancedOptions => 'خيارات متقدمة';
@@ -46,6 +61,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get am => 'ص';
+
+  @override
+  String get amount => 'المبلغ';
+
+  @override
+  String get amountToWithdraw => 'المبلغ المراد سحبه';
 
   @override
   String get anErrorOccurred => 'حدث خطأ';
@@ -63,7 +84,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appointmentAddedSuccessfully => 'تمت إضافة الموعد بنجاح';
 
   @override
+  String get appointmentCancelledSuccessfully => 'تم إلغاء الموعد بنجاح';
+
+  @override
   String get appointmentCompleted => 'تم إكمال الموعد';
+
+  @override
+  String appointmentConfirmedBody(Object date, Object doctorName, Object time) {
+    return 'تم تأكيد موعدك مع د. $doctorName بتاريخ $date الساعة $time';
+  }
+
+  @override
+  String get appointmentConfirmedTitle => 'تم تأكيد الموعد';
 
   @override
   String get appointmentHistoryWillAppearHere => 'سيظهر تاريخ مواعيدك هنا';
@@ -100,7 +132,14 @@ class AppLocalizationsAr extends AppLocalizations {
       'الموافقة على أو رفض طلبات الأطباء';
 
   @override
+  String get approveWithdrawRequest => 'قبول طلب السحب';
+
+  @override
   String get arabic => 'العربية';
+
+  @override
+  String get areYouSureDeleteAccount =>
+      'هل أنت متأكد أنك تريد حذف حسابك؟ لا يمكن التراجع عن هذا الإجراء.';
 
   @override
   String areYouSureDeleteCode(Object name) {
@@ -136,6 +175,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get available => 'متاح';
 
   @override
+  String get availableBalance => 'الرصيد المتاح';
+
+  @override
   String get availableTimeSlots => 'الفترات الزمنية المتاحة';
 
   @override
@@ -143,6 +185,15 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get bad => '😞 سيئ';
+
+  @override
+  String get bankAccount => 'حساب بنكي';
+
+  @override
+  String get bankName => 'اسم البنك';
+
+  @override
+  String get bankTransfer => 'تحويل بنكي';
 
   @override
   String get bio => 'السيرة الذاتية: ';
@@ -185,6 +236,20 @@ class AppLocalizationsAr extends AppLocalizations {
   String get cancel => 'إلغاء';
 
   @override
+  String get cancelAppointmentConfirmationMessage =>
+      'هل أنت متأكد من رغبتك في إلغاء هذا الموعد؟';
+
+  @override
+  String get cancelAppointmentConfirmationTitle => 'إلغاء الموعد';
+
+  @override
+  String get cancellationReason => 'سبب الإلغاء';
+
+  @override
+  String get cancellationWarning3Hours =>
+      'سيؤدي الإلغاء في غضون 3 ساعات من الموعد إلى خصم 50٪ من مبلغ الاسترداد.';
+
+  @override
   String get cancelled => 'ملغي';
 
   @override
@@ -192,21 +257,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get changePasswordArabic => 'تغيير كلمة المرور';
-
-  @override
-  String get currentPassword => 'كلمة المرور الحالية';
-
-  @override
-  String get newPassword => 'كلمة المرور الجديدة';
-
-  @override
-  String get confirmNewPassword => 'تأكيد كلمة المرور الجديدة';
-
-  @override
-  String get passwordChangedSuccessfully => 'تم تغيير كلمة المرور بنجاح';
-
-  @override
-  String get passwordsDoNotMatch => 'كلمات المرور غير متطابقة';
 
   @override
   String get chatWithDoctor => 'الدردشة مع الطبيب';
@@ -271,6 +321,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get confirmed => 'تم التأكيد';
 
   @override
+  String get confirmNewPassword => 'تأكيد كلمة المرور الجديدة';
+
+  @override
   String get connectWithGoogle => 'المتابعة باستخدام Google';
 
   @override
@@ -328,6 +381,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get currentLanguage => 'اللغة الحالية';
 
   @override
+  String get currentPassword => 'كلمة المرور الحالية';
+
+  @override
   String get darkMode => 'الوضع الداكن';
 
   @override
@@ -343,6 +399,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get deactivated => 'غير مفعل';
 
   @override
+  String get decline => 'رفض';
+
+  @override
+  String get declineWithdrawRequest => 'رفض طلب السحب';
+
+  @override
   String get delete => 'حذف';
 
   @override
@@ -353,10 +415,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get deleteAccountConfirmation => 'حذف الحساب؟';
-
-  @override
-  String get areYouSureDeleteAccount =>
-      'هل أنت متأكد أنك تريد حذف حسابك؟ لا يمكن التراجع عن هذا الإجراء.';
 
   @override
   String get deleteDataSuccessfully => 'تم حذف البيانات بنجاح.';
@@ -589,6 +647,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get editProfile => 'تعديل الملف الشخصي';
 
   @override
+  String get egp => 'ج.م';
+
+  @override
   String get email => 'البريد الإلكتروني';
 
   @override
@@ -640,14 +701,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get expiryDateOptional => 'تاريخ الانتهاء (اختياري)';
 
   @override
+  String get featuredDoctors => 'أطباء مميزون';
+
+  @override
   String get featureLoginRequired =>
       'لا يمكنك استخدام هذه الميزة حتى تقوم بتسجيل الدخول.';
 
   @override
   String get featureNotImplemented => 'ميزة إرسال المراجعة غير متوفرة';
-
-  @override
-  String get featuredDoctors => 'أطباء مميزون';
 
   @override
   String get filterByDate => 'تصفية حسب التاريخ';
@@ -722,7 +783,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get inPerson => 'حضوري';
 
   @override
+  String get instaPay => 'إنستاباي';
+
+  @override
+  String get instaPayHandle => 'عنوان إنستاباي';
+
+  @override
+  String get insufficientBalance => 'الرصيد غير كافٍ';
+
+  @override
   String get internalMedicine => 'طب باطني';
+
+  @override
+  String get invalidAmount => 'مبلغ غير صحيح';
 
   @override
   String get ivf => 'حقن مجهري';
@@ -784,13 +857,19 @@ class AppLocalizationsAr extends AppLocalizations {
       'الحد الأقصى لمبلغ الخصم (اختياري)';
 
   @override
+  String get method => 'الطريقة';
+
+  @override
   String get minimumOrderAmountHint => 'مثال: 100';
 
   @override
   String get minimumOrderAmountOptional => 'الحد الأدنى لمبلغ الطلب (اختياري)';
 
   @override
-  String get monday => 'الالإثنين';
+  String get mobileWallet => 'محفظة إلكترونية';
+
+  @override
+  String get monday => 'الاثنين';
 
   @override
   String get monthlyRevenue => 'الإيرادات الشهرية';
@@ -815,6 +894,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get newBooking => 'حجز جديد';
+
+  @override
+  String get newPassword => 'كلمة المرور الجديدة';
 
   @override
   String get noAppointmentsForThisDay => 'لا توجد مواعيد لهذا اليوم';
@@ -850,10 +932,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noNotificationsYet => 'لا توجد إشعارات بعد';
 
   @override
+  String get noPaymentsFound => 'لا توجد مدفوعات';
+
+  @override
   String get noPendingDoctors => 'لا يوجد أطباء قيد الانتظار';
 
   @override
   String get noPendingRequests => 'لا توجد طلبات معلقة';
+
+  @override
+  String get noPendingWithdrawRequests => 'لا توجد طلبات سحب معلقة';
 
   @override
   String get noRejectedDoctors => 'لا يوجد أطباء مرفوضين';
@@ -869,6 +957,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get notifications => 'الإشعارات';
+
+  @override
+  String get noTransactionsFound => 'لا توجد معاملات';
 
   @override
   String get noUpcomingAppointments => 'لا توجد مواعيد قادمة';
@@ -896,6 +987,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get onlineConsultation => 'استشارة عبر الإنترنت';
 
   @override
+  String get onlinePayment => 'الدفع أونلاين';
+
+  @override
+  String get internalWallet => 'المحفظة الداخلية';
+
+  @override
   String get ophthalmology => 'طب العيون';
 
   @override
@@ -917,8 +1014,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get paided => 'paided';
 
   @override
+  String get passwordChangedSuccessfully => 'تم تغيير كلمة المرور بنجاح';
+
+  @override
   String get passwordResetEmailSent =>
       'تم إرسال بريد لإعادة تعيين كلمة المرور.';
+
+  @override
+  String get passwordsDoNotMatch => 'كلمات المرور غير متطابقة';
 
   @override
   String get patientBookedNewAppointment =>
@@ -934,6 +1037,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get paymentArabic => 'الدفع';
 
   @override
+  String paymentDescription(Object id) {
+    return 'دفع للموعد $id';
+  }
+
+  @override
   String get paymentError => 'حدث خطأ في الدفع';
 
   @override
@@ -941,9 +1049,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get paymentHistory => 'سجل المدفوعات';
-
-  @override
-  String get noPaymentsFound => 'لا توجد مدفوعات';
 
   @override
   String get paymentStatus => 'حالة الدفع';
@@ -988,6 +1093,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get physiotherapy => 'علاج طبيعي';
 
   @override
+  String get pleaseEnterAmount => 'يرجى إدخال المبلغ';
+
+  @override
+  String get pleaseEnterCancellationReason => 'يرجى إدخال سبب لإلغاء الموعد';
+
+  @override
   String get pleaseEnterDiscountCode => 'يرجى إدخال رمز الخصم';
 
   @override
@@ -1025,12 +1136,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get privacyPolicyArabic => 'سياسة الخصوصية';
 
   @override
-  String get refundPolicy => 'سياسة الاسترداد';
-
-  @override
-  String get refundPolicyArabic => 'سياسة الاسترداد';
-
-  @override
   String get processingPayment => 'جاري معالجة الدفع...';
 
   @override
@@ -1051,10 +1156,25 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get reasonForDecline => 'سبب الرفض';
+
+  @override
+  String get recentTransactions => 'أحدث المعاملات';
+
+  @override
   String get refreshData => 'تحديث البيانات';
 
   @override
+  String get refundDescription => 'استرداد لموعد ملغي';
+
+  @override
   String get refunded => 'تم الاسترداد';
+
+  @override
+  String get refundPolicy => 'سياسة الاسترداد';
+
+  @override
+  String get refundPolicyArabic => 'سياسة الاسترداد';
 
   @override
   String get registerNow => 'سجل الآن';
@@ -1081,6 +1201,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get removeVip => 'إزالة VIP';
 
   @override
+  String get requestSubmittedSuccessfully => 'تم إرسال الطلب بنجاح';
+
+  @override
+  String get requestWithdraw => 'طلب سحب';
+
+  @override
+  String get requiredField => 'هذا الحقل مطلوب';
+
+  @override
   String get resetPassword => 'إعادة تعيين كلمة المرور';
 
   @override
@@ -1097,6 +1226,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get revenue => 'الإيرادات';
+
+  @override
+  String get reviewAndManageUserWithdraws => 'مراجعة وإدارة طلبات السحب';
 
   @override
   String get reviews => 'التقييمات';
@@ -1163,6 +1295,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get selectTime => 'اختر الوقت';
 
   @override
+  String get selectWithdrawMethod => 'اختر وسيلة السحب';
+
+  @override
   String get settings => 'الإعدادات';
 
   @override
@@ -1190,17 +1325,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String get signInPasswordLabel => 'كلمة المرور';
 
   @override
-  String get signInTitle => 'تسجيل الدخول';
-
-  @override
-  String get signInWelcomeBack => 'مرحبًا بعودتك! الرجاء تسجيل الدخول.';
-
-  @override
   String get signInRequiredSubtitle =>
       'يرجى تسجيل الدخول لعرض ملفك الشخصي والوصول إلى جميع الميزات';
 
   @override
   String get signInRequiredTitle => 'تسجيل الدخول مطلوب';
+
+  @override
+  String get signInTitle => 'تسجيل الدخول';
+
+  @override
+  String get signInWelcomeBack => 'مرحبًا بعودتك! الرجاء تسجيل الدخول.';
 
   @override
   String get signout => 'تسجيل خروج';
@@ -1280,6 +1415,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get statistics => 'الإحصائيات';
 
   @override
+  String get submitDecline => 'تأكيد الرفض';
+
+  @override
+  String get submitRequest => 'إرسال الطلب';
+
+  @override
   String get submitReview => 'إرسال المراجعة';
 
   @override
@@ -1316,6 +1457,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get totalAppointments => 'إجمالي المواعيد';
 
   @override
+  String get totalBalance => 'إجمالي الرصيد';
+
+  @override
   String get totalCodes => 'إجمالي الرموز';
 
   @override
@@ -1326,6 +1470,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get totalRevenue => 'إجمالي الإيرادات';
+
+  @override
+  String get transactionId => 'رقم المعاملة';
+
+  @override
+  String get transactions => 'المعاملات';
 
   @override
   String get tryCatchAuthFailed => 'فشل في المصادقة. يرجى المحاولة مرة أخرى.';
@@ -1349,12 +1499,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get tryCatchOperationNotAllowed => 'هذه العملية غير مسموح بها.';
 
   @override
-  String get tryCatchRequiresRecentLogin =>
-      'تتطلب هذه العملية مصادقة حديثة. يرجى تسجيل الدخول مرة أخرى قبل إعادة المحاولة.';
-
-  @override
   String get tryCatchRequestTimeout =>
       'انتهت مهلة الطلب. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get tryCatchRequiresRecentLogin =>
+      'تتطلب هذه العملية مصادقة حديثة. يرجى تسجيل الدخول مرة أخرى قبل إعادة المحاولة.';
 
   @override
   String get tryCatchServiceUnavailable =>
@@ -1422,6 +1572,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get used => 'مستخدم';
 
   @override
+  String get user => 'المستخدم';
+
+  @override
   String get userNotAuthenticated => 'المستخدم غير مصادق عليه';
 
   @override
@@ -1479,10 +1632,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get viewProfile => 'عرض الملف الشخصي';
 
   @override
+  String get vodafoneCash => 'فودافون كاش';
+
+  @override
   String get voiceCall => 'مكالمة صوتية';
 
   @override
   String get voiceCallDescription => 'استشارات هاتفية سريعة';
+
+  @override
+  String get wallet => 'المحفظة الداخلية';
+
+  @override
+  String get walletBalance => 'رصيد المحفظة';
+
+  @override
+  String get walletNumber => 'رقم المحفظة';
+
+  @override
+  String get walletProvider => 'مزود المحفظة';
 
   @override
   String get wednesday => 'الأربعاء';
@@ -1497,6 +1665,29 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get welcomeToYourDashboard => 'مرحباً بك في لوحة التحكم';
+
+  @override
+  String get withdraw => 'سحب';
+
+  @override
+  String get withdrawAmount => 'مبلغ السحب';
+
+  @override
+  String withdrawDescription(Object method) {
+    return 'طلب سحب إلى $method';
+  }
+
+  @override
+  String get withdrawMethod => 'طريقة السحب';
+
+  @override
+  String get withdrawRequest => 'طلب سحب';
+
+  @override
+  String get withdrawRequestsAdmin => 'إدارة طلبات السحب';
+
+  @override
+  String get withdrawSuccess => 'تم تقديم طلب السحب بنجاح';
 
   @override
   String get writeAReview => 'اكتب مراجعة';

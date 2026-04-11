@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-
 import 'package:alagy/core/common/enities/user_model.dart';
 
 class DoctorModel extends UserModel {
@@ -14,7 +13,7 @@ class DoctorModel extends UserModel {
   final String? nameLower;
   final String? addressLower;
   final double? consultationFee;
-  final double? returningFees;  // Add this line
+  final double? returningFees; // Add this line
   final String? bio;
   final double? longitude;
   final double? latitude;
@@ -41,6 +40,7 @@ class DoctorModel extends UserModel {
     super.profileImage,
     super.city,
     super.type,
+    super.walletBalance = 0.0,
     this.reviews = const [],
     this.specialization,
     this.qualification,
@@ -49,7 +49,7 @@ class DoctorModel extends UserModel {
     this.hospitalName,
     this.address,
     this.consultationFee,
-    this.returningFees,  // Add this line
+    this.returningFees, // Add this line
     this.bio,
     this.longitude,
     this.latitude,
@@ -62,7 +62,7 @@ class DoctorModel extends UserModel {
   factory DoctorModel.fromMap(Map<String, dynamic> json) {
     return DoctorModel(
       uid: json['uid'],
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(json['updatedAt']??DateTime.now().millisecondsSinceEpoch),
+      updatedAt: _parseDateTime(json['updatedAt']),
       rating: Review.calculateAverageRating(
         (json['reviews'] != null && json['reviews'] is List)
             ? List<Review>.from(json['reviews'].map((x) => Review.fromMap(x)))
@@ -70,12 +70,12 @@ class DoctorModel extends UserModel {
       ),
       name: json['name'],
       email: json['email'],
-      isVip: json['isVip'] ?? false, // Add default value for null safety
-      createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt']),
+      isVip: json['isVip'] ?? false,
+      createdAt: _parseDateTime(json['createdAt']),
       phoneNumber: json['phoneNumber'],
       reviews: (json['reviews'] != null && json['reviews'] is List)
           ? List<Review>.from(json['reviews'].map((x) => Review.fromMap(x)))
-          : [], // Add null check for reviews
+          : [],
       nameLower: json['nameLower'],
       addressLower: json['addressLower'],
       profileImage: json['profileImage'],
@@ -89,7 +89,7 @@ class DoctorModel extends UserModel {
       hospitalName: json['hospitalName'],
       address: json['address'],
       consultationFee: (json['consultationFee'] as num?)?.toDouble(),
-      returningFees: (json['returningFees'] as num?)?.toDouble(),  // Add this line
+      returningFees: (json['returningFees'] as num?)?.toDouble(),
       bio: json['bio'],
       latitude: json['latitude'],
       longitude: json['longitude'],
@@ -102,6 +102,25 @@ class DoctorModel extends UserModel {
           : null,
     );
   }
+
+  static DateTime _parseDateTime(dynamic value) {
+    if (value == null) return DateTime.now();
+    if (value is DateTime) return value;
+    if (value is int) return DateTime.fromMillisecondsSinceEpoch(value);
+    if (value is String) return DateTime.parse(value);
+    if (value.runtimeType.toString() == 'Timestamp' ||
+        value.toString().contains('Timestamp')) {
+      try {
+        return (value as dynamic).toDate();
+      } catch (_) {}
+    }
+    try {
+      return DateTime.parse(value.toString());
+    } catch (_) {
+      return DateTime.now();
+    }
+  }
+
   @override
   Map<String, dynamic> toMap() {
     final map = super.toMap();
@@ -119,7 +138,7 @@ class DoctorModel extends UserModel {
       'address': address,
       "notificationToken": notificationToken,
       'consultationFee': consultationFee,
-      'returningFees': returningFees,  // Add this line
+      'returningFees': returningFees, // Add this line
       'bio': bio,
       'latitude': latitude,
       'longitude': longitude,
@@ -155,7 +174,7 @@ class DoctorModel extends UserModel {
     String? hospitalName,
     String? address,
     double? consultationFee,
-    double? returningFees,  // Add this line
+    double? returningFees, // Add this line
     String? bio,
     double? longitude,
     double? latitude,
@@ -164,6 +183,7 @@ class DoctorModel extends UserModel {
     List<Review>? reviews,
     bool? isSaved,
     bool? isVip,
+    double? walletBalance,
     List<OpenDuration>? openDurations,
     DateTime? updatedAt,
   }) {
@@ -182,7 +202,8 @@ class DoctorModel extends UserModel {
       addressLower: addressLower ?? this.addressLower,
       nameLower: nameLower ?? this.nameLower,
       type: type ?? this.type,
-      returningFees: returningFees ?? this.returningFees,  // Add this line
+      walletBalance: walletBalance ?? this.walletBalance,
+      returningFees: returningFees ?? this.returningFees, // Add this line
       rating: rating ?? this.rating,
       specialization: specialization ?? this.specialization,
       qualification: qualification ?? this.qualification,
@@ -343,11 +364,29 @@ class Review {
       userName: map['userName'] as String,
       comment: map['comment'] as String,
       rating: (map['rating'] as num).toDouble(),
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
+      createdAt: _parseDateTime(map['createdAt']),
       doctorId: map['doctorId'] != null ? map['doctorId'] as String : null,
       userImageUrl:
           map['userImageUrl'] != null ? map['userImageUrl'] as String : null,
     );
+  }
+
+  static DateTime _parseDateTime(dynamic value) {
+    if (value == null) return DateTime.now();
+    if (value is DateTime) return value;
+    if (value is int) return DateTime.fromMillisecondsSinceEpoch(value);
+    if (value is String) return DateTime.parse(value);
+    if (value.runtimeType.toString() == 'Timestamp' ||
+        value.toString().contains('Timestamp')) {
+      try {
+        return (value as dynamic).toDate();
+      } catch (_) {}
+    }
+    try {
+      return DateTime.parse(value.toString());
+    } catch (_) {
+      return DateTime.now();
+    }
   }
 
   // Calculate average rating

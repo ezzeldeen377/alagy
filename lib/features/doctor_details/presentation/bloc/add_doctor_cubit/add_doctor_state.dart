@@ -50,6 +50,7 @@ class AddDoctorState {
   final Map<String, Map<String, String?>>? dayAvailability;
   final String? selectedDay;
   final Map<String, bool>? dayIsClosed;
+  final String? selectedAddress;
 
   const AddDoctorState({
     required this.status,
@@ -65,6 +66,7 @@ class AddDoctorState {
     this.dayAvailability,
     this.selectedDay,
     this.dayIsClosed,
+    this.selectedAddress,
   });
 
   AddDoctorState copyWith({
@@ -81,6 +83,7 @@ class AddDoctorState {
     Map<String, Map<String, String?>>? dayAvailability,
     String? selectedDay,
     Map<String, bool>? dayIsClosed,
+    String? selectedAddress,
   }) {
     return AddDoctorState(
       status: status ?? this.status,
@@ -97,11 +100,12 @@ class AddDoctorState {
       dayAvailability: dayAvailability ?? this.dayAvailability,
       selectedDay: selectedDay ?? this.selectedDay,
       dayIsClosed: dayIsClosed ?? this.dayIsClosed,
+      selectedAddress: selectedAddress ?? this.selectedAddress,
     );
   }
 
   @override
   String toString() {
-    return 'AddDoctorState(status: $status, doctor: $doctor, errorMessage: $errorMessage, selectedProfilePicture: $selectedProfilePicture, profilePictureUrl: $profilePictureUrl, latitude: $latitude, longitude: $longitude, isCustomAvailability: $isCustomAvailability, weeklyStartTime: $weeklyStartTime, weeklyEndTime: $weeklyEndTime, dayAvailability: $dayAvailability, selectedDay: $selectedDay, dayIsClosed: $dayIsClosed)';
+    return 'AddDoctorState(status: $status, doctor: $doctor, errorMessage: $errorMessage, selectedProfilePicture: $selectedProfilePicture, profilePictureUrl: $profilePictureUrl, latitude: $latitude, longitude: $longitude, isCustomAvailability: $isCustomAvailability, weeklyStartTime: $weeklyStartTime, weeklyEndTime: $weeklyEndTime, dayAvailability: $dayAvailability, selectedDay: $selectedDay, dayIsClosed: $dayIsClosed, selectedAddress: $selectedAddress)';
   }
 }

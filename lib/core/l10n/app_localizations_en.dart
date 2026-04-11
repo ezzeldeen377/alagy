@@ -9,6 +9,15 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get accept => 'Accept';
+
+  @override
+  String get accountHolderName => 'Account Holder Name';
+
+  @override
+  String get accountNumber => 'Account Number/Phone';
+
+  @override
   String get activate => 'Activate';
 
   @override
@@ -33,7 +42,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get adminDashboard => 'Admin Dashboard';
 
   @override
+  String get adminNoteOptional => 'Admin Note (Optional)';
+
+  @override
   String get adminTab => 'Admin';
+
+  @override
+  String get adminWithdrawRequests => 'Withdraw Requests';
 
   @override
   String get advancedOptions => 'Advanced Options';
@@ -46,6 +61,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get am => 'AM';
+
+  @override
+  String get amount => 'Amount';
+
+  @override
+  String get amountToWithdraw => 'Amount to withdraw';
 
   @override
   String get anErrorOccurred => 'An error occurred';
@@ -63,7 +84,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appointmentAddedSuccessfully => 'Appointment added successfully';
 
   @override
+  String get appointmentCancelledSuccessfully =>
+      'Appointment cancelled successfully';
+
+  @override
   String get appointmentCompleted => 'Appointment Completed';
+
+  @override
+  String appointmentConfirmedBody(Object date, Object doctorName, Object time) {
+    return 'Your appointment with Dr. $doctorName is confirmed for $date at $time';
+  }
+
+  @override
+  String get appointmentConfirmedTitle => 'Appointment Confirmed';
 
   @override
   String get appointmentHistoryWillAppearHere =>
@@ -101,7 +134,14 @@ class AppLocalizationsEn extends AppLocalizations {
       'Approve or reject doctor applications';
 
   @override
+  String get approveWithdrawRequest => 'Approve Withdraw Request';
+
+  @override
   String get arabic => 'Arabic';
+
+  @override
+  String get areYouSureDeleteAccount =>
+      'Are you sure you want to delete your account? This action cannot be undone.';
 
   @override
   String areYouSureDeleteCode(Object name) {
@@ -137,6 +177,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get available => 'Available';
 
   @override
+  String get availableBalance => 'Available Balance';
+
+  @override
   String get availableTimeSlots => 'Available Time Slots';
 
   @override
@@ -144,6 +187,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get bad => '😞  bad';
+
+  @override
+  String get bankAccount => 'Bank Account';
+
+  @override
+  String get bankName => 'Bank Name';
+
+  @override
+  String get bankTransfer => 'Bank Transfer';
 
   @override
   String get bio => 'Bio: ';
@@ -187,6 +239,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancel => 'Cancel';
 
   @override
+  String get cancelAppointmentConfirmationMessage =>
+      'Are you sure you want to cancel this appointment?';
+
+  @override
+  String get cancelAppointmentConfirmationTitle => 'Cancel Appointment';
+
+  @override
+  String get cancellationReason => 'Cancellation Reason';
+
+  @override
+  String get cancellationWarning3Hours =>
+      'Cancellation within 3 hours of the appointment will result in a 50% deduction from the refund amount.';
+
+  @override
   String get cancelled => 'Cancelled';
 
   @override
@@ -194,21 +260,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get changePasswordArabic => 'تغيير كلمة المرور';
-
-  @override
-  String get currentPassword => 'Current Password';
-
-  @override
-  String get newPassword => 'New Password';
-
-  @override
-  String get confirmNewPassword => 'Confirm New Password';
-
-  @override
-  String get passwordChangedSuccessfully => 'Password changed successfully';
-
-  @override
-  String get passwordsDoNotMatch => 'Passwords do not match';
 
   @override
   String get chatWithDoctor => 'Chat with Doctor';
@@ -273,6 +324,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get confirmed => 'Confirmed';
 
   @override
+  String get confirmNewPassword => 'Confirm New Password';
+
+  @override
   String get connectWithGoogle => 'Connect with Google';
 
   @override
@@ -332,6 +386,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get currentLanguage => 'Current Language';
 
   @override
+  String get currentPassword => 'Current Password';
+
+  @override
   String get darkMode => 'Dark Mode';
 
   @override
@@ -347,6 +404,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deactivated => 'deactivated';
 
   @override
+  String get decline => 'Decline';
+
+  @override
+  String get declineWithdrawRequest => 'Decline Withdraw Request';
+
+  @override
   String get delete => 'Delete';
 
   @override
@@ -357,10 +420,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteAccountConfirmation => 'Delete account?';
-
-  @override
-  String get areYouSureDeleteAccount =>
-      'Are you sure you want to delete your account? This action cannot be undone.';
 
   @override
   String get deleteDataSuccessfully => 'Data deleted successfully.';
@@ -594,6 +653,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get editProfile => 'Edit Profile';
 
   @override
+  String get egp => 'EGP';
+
+  @override
   String get email => 'Email';
 
   @override
@@ -645,14 +707,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get expiryDateOptional => 'Expiry Date (Optional)';
 
   @override
+  String get featuredDoctors => 'Featured Doctors';
+
+  @override
   String get featureLoginRequired =>
       'You can\'t use this feature until you log in.';
 
   @override
   String get featureNotImplemented => 'Review submission not implemented';
-
-  @override
-  String get featuredDoctors => 'Featured Doctors';
 
   @override
   String get filterByDate => 'Filter by Date';
@@ -727,7 +789,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get inPerson => 'In-person';
 
   @override
+  String get instaPay => 'InstaPay';
+
+  @override
+  String get instaPayHandle => 'InstaPay Handle';
+
+  @override
+  String get insufficientBalance => 'Insufficient Balance';
+
+  @override
   String get internalMedicine => 'Internal Medicine';
+
+  @override
+  String get invalidAmount => 'Invalid amount';
 
   @override
   String get ivf => 'IVF (In Vitro Fertilization)';
@@ -788,10 +862,16 @@ class AppLocalizationsEn extends AppLocalizations {
       'Maximum Discount Amount (Optional)';
 
   @override
+  String get method => 'Method';
+
+  @override
   String get minimumOrderAmountHint => 'e.g., 100';
 
   @override
   String get minimumOrderAmountOptional => 'Minimum Order Amount (Optional)';
+
+  @override
+  String get mobileWallet => 'Mobile Wallet';
 
   @override
   String get monday => 'Monday';
@@ -819,6 +899,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get newBooking => 'New Booking';
+
+  @override
+  String get newPassword => 'New Password';
 
   @override
   String get noAppointmentsForThisDay => 'لا توجد مواعيد لهذا اليوم';
@@ -854,10 +937,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noNotificationsYet => 'No notifications yet';
 
   @override
+  String get noPaymentsFound => 'No payments found';
+
+  @override
   String get noPendingDoctors => 'No pending doctors';
 
   @override
   String get noPendingRequests => 'No pending requests';
+
+  @override
+  String get noPendingWithdrawRequests => 'No pending withdraw requests';
 
   @override
   String get noRejectedDoctors => 'No rejected doctors';
@@ -873,6 +962,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notifications => 'Notifications';
+
+  @override
+  String get noTransactionsFound => 'No transactions found';
 
   @override
   String get noUpcomingAppointments => 'No upcoming appointments';
@@ -900,6 +992,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onlineConsultation => 'Online Consultation';
 
   @override
+  String get onlinePayment => 'Online Payment';
+
+  @override
+  String get internalWallet => 'Internal Wallet';
+
+  @override
   String get ophthalmology => 'Ophthalmology';
 
   @override
@@ -921,8 +1019,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get paided => 'paided';
 
   @override
+  String get passwordChangedSuccessfully => 'Password changed successfully';
+
+  @override
   String get passwordResetEmailSent =>
       'Password reset email sent. Please check your inbox.';
+
+  @override
+  String get passwordsDoNotMatch => 'Passwords do not match';
 
   @override
   String get patientBookedNewAppointment =>
@@ -938,6 +1042,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get paymentArabic => 'الدفع';
 
   @override
+  String paymentDescription(Object id) {
+    return 'Payment for appointment $id';
+  }
+
+  @override
   String get paymentError => 'Payment error occurred';
 
   @override
@@ -947,13 +1056,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get paymentHistory => 'Payment History';
 
   @override
-  String get noPaymentsFound => 'No payments found';
-
-  @override
   String get paymentStatus => 'Payment Status';
 
   @override
-  String get paymentSuccess => 'Payment successful';
+  String get paymentSuccess => 'Payment Successful';
 
   @override
   String get pediatricsAndNeonatology => 'Pediatrics & Neonatology';
@@ -990,6 +1096,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get physiotherapy => 'Physiotherapy';
+
+  @override
+  String get pleaseEnterAmount => 'Please enter amount';
+
+  @override
+  String get pleaseEnterCancellationReason =>
+      'Please enter a reason for cancellation';
 
   @override
   String get pleaseEnterDiscountCode => 'Please enter a discount code';
@@ -1030,12 +1143,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get privacyPolicyArabic => 'سياسة الخصوصية';
 
   @override
-  String get refundPolicy => 'Refund and Policy';
-
-  @override
-  String get refundPolicyArabic => 'سياسة الاسترداد';
-
-  @override
   String get processingPayment => 'Processing payment...';
 
   @override
@@ -1056,10 +1163,25 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get reasonForDecline => 'Reason for Decline';
+
+  @override
+  String get recentTransactions => 'Recent Transactions';
+
+  @override
   String get refreshData => 'Refresh Data';
 
   @override
+  String get refundDescription => 'Refund for cancelled appointment';
+
+  @override
   String get refunded => 'Refunded';
+
+  @override
+  String get refundPolicy => 'Refund and Policy';
+
+  @override
+  String get refundPolicyArabic => 'سياسة الاسترداد';
 
   @override
   String get registerNow => 'Register Now';
@@ -1086,6 +1208,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get removeVip => 'Remove VIP';
 
   @override
+  String get requestSubmittedSuccessfully => 'Request submitted successfully';
+
+  @override
+  String get requestWithdraw => 'Request Withdraw';
+
+  @override
+  String get requiredField => 'This field is required';
+
+  @override
   String get resetPassword => 'Reset Password';
 
   @override
@@ -1102,6 +1233,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get revenue => 'Revenue';
+
+  @override
+  String get reviewAndManageUserWithdraws => 'Review & Manage User Withdrawals';
 
   @override
   String get reviews => 'Reviews';
@@ -1168,6 +1302,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectTime => 'Select Time';
 
   @override
+  String get selectWithdrawMethod => 'Select withdraw method';
+
+  @override
   String get settings => 'Settings';
 
   @override
@@ -1195,17 +1332,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signInPasswordLabel => 'Password';
 
   @override
-  String get signInTitle => 'Sign In';
-
-  @override
-  String get signInWelcomeBack => 'Welcome back! please sign in to continue.';
-
-  @override
   String get signInRequiredSubtitle =>
       'Please sign in to view your profile and access all features.';
 
   @override
   String get signInRequiredTitle => 'Sign In Required';
+
+  @override
+  String get signInTitle => 'Sign In';
+
+  @override
+  String get signInWelcomeBack => 'Welcome back! please sign in to continue.';
 
   @override
   String get signout => 'signout';
@@ -1285,6 +1422,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get statistics => 'Statistics';
 
   @override
+  String get submitDecline => 'Submit Decline';
+
+  @override
+  String get submitRequest => 'Submit Request';
+
+  @override
   String get submitReview => 'Submit Review';
 
   @override
@@ -1321,6 +1464,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get totalAppointments => 'Total Appointments';
 
   @override
+  String get totalBalance => 'Total Balance';
+
+  @override
   String get totalCodes => 'Total Codes';
 
   @override
@@ -1331,6 +1477,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get totalRevenue => 'Total Revenue';
+
+  @override
+  String get transactionId => 'Transaction ID';
+
+  @override
+  String get transactions => 'Transactions';
 
   @override
   String get tryCatchAuthFailed => 'Authentication failed. Please try again.';
@@ -1357,12 +1509,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'This operation is not allowed. Please try again later.';
 
   @override
-  String get tryCatchRequiresRecentLogin =>
-      'This operation is sensitive and requires recent authentication. Please log in again before retrying this request.';
-
-  @override
   String get tryCatchRequestTimeout =>
       'Request timed out. Please check your connection and try again.';
+
+  @override
+  String get tryCatchRequiresRecentLogin =>
+      'This operation is sensitive and requires recent authentication. Please log in again before retrying this request.';
 
   @override
   String get tryCatchServiceUnavailable =>
@@ -1433,6 +1585,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get used => 'Used';
 
   @override
+  String get user => 'User';
+
+  @override
   String get userNotAuthenticated => 'User not authenticated';
 
   @override
@@ -1491,11 +1646,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get viewProfile => 'View Profile';
 
   @override
+  String get vodafoneCash => 'Vodafone Cash';
+
+  @override
   String get voiceCall => 'Voice Call';
 
   @override
   String get voiceCallDescription =>
       'Quick phone consultations for medical advice';
+
+  @override
+  String get wallet => 'Wallet';
+
+  @override
+  String get walletBalance => 'Wallet Balance';
+
+  @override
+  String get walletNumber => 'Wallet Number';
+
+  @override
+  String get walletProvider => 'Wallet Provider';
 
   @override
   String get wednesday => 'Wednesday';
@@ -1510,6 +1680,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get welcomeToYourDashboard => 'Welcome to your dashboard';
+
+  @override
+  String get withdraw => 'Withdraw';
+
+  @override
+  String get withdrawAmount => 'Withdraw Amount';
+
+  @override
+  String withdrawDescription(Object method) {
+    return 'Withdraw request to $method';
+  }
+
+  @override
+  String get withdrawMethod => 'Withdraw Method';
+
+  @override
+  String get withdrawRequest => 'Withdraw Request';
+
+  @override
+  String get withdrawRequestsAdmin => 'Admin Withdraw Requests';
+
+  @override
+  String get withdrawSuccess => 'Withdrawal request submitted successfully';
 
   @override
   String get writeAReview => 'Write a Review';

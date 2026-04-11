@@ -12,6 +12,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   String roleSelected='patient';
@@ -25,11 +26,12 @@ class SignUpCubit extends Cubit<SignUpState> {
     required String password,
     required String name,
     required String type,
+    required String phoneNumber,
   }) async {
     emit(state.copyWith(state: SignUpStatus.loading));
 
     final result = await authRepository.signUp(
-        email: email, password: password, name: name, type: type);
+        email: email, password: password, name: name, type: type, phoneNumber: phoneNumber);
 
     result.fold(
       (l) {

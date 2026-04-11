@@ -29,7 +29,6 @@ class BookingTab extends StatelessWidget {
     // Use May 23, 2025, as the initial date (current date)
     final doctor = context.read<DoctorDetailsCubit>().state.selectedDoctor;
 
-
     return BlocBuilder<DoctorDetailsCubit, DoctorDetailsState>(
       builder: (context, state) {
         final cubit = context.read<DoctorDetailsCubit>();
@@ -68,7 +67,7 @@ class BookingTab extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
                             color: !isAvailable
-                                ? Colors.red
+                                ? AppColor.greyColor.withOpacity(0.5)
                                 : AppColor.primaryColor,
                           ),
                         ),
@@ -76,7 +75,7 @@ class BookingTab extends StatelessWidget {
                           time.time,
                           style: context.theme.textTheme.labelLarge?.copyWith(
                             color: !isAvailable
-                                ? Colors.red
+                                ? AppColor.greyColor
                                 : (isSelected ? Colors.white : null),
                           ),
                         ),
@@ -93,7 +92,7 @@ class BookingTab extends StatelessWidget {
                             showLoginDialog(context);
                             return;
                           }
-                          
+
                           // Show appointment type selection bottom sheet
                           showModalBottomSheet(
                             context: context,
@@ -102,27 +101,34 @@ class BookingTab extends StatelessWidget {
                             builder: (context) => AppointmentTypeBottomSheet(
                               doctor: doctor!,
                               onTypeSelected: (appointmentType, price) {
-                                final user = context.read<AppUserCubit>().state.user;
-                                
+                                final user =
+                                    context.read<AppUserCubit>().state.user;
+
                                 final appointment = DoctorAppointment(
                                   doctorId: doctor.uid,
                                   doctorName: doctor.name,
                                   patientId: user?.uid ?? "not found",
                                   patientName: user?.name ?? "not found",
-                                  specialization: doctor.specialization ?? "not selected",
-                                  appointmentDate: state.selectedDate!.normalizeDateOnly,
+                                  specialization:
+                                      doctor.specialization ?? "not selected",
+                                  appointmentDate:
+                                      state.selectedDate!.normalizeDateOnly,
                                   startTime: state.selectedTime!,
                                   status: AppointmentStatus.pending,
                                   appointmentType: appointmentType,
                                   price: price,
-                                  paymentStatus: PaymentStatus.unpaid,
+                                  paymentStatus:
+                                      AppointmentPaymentStatus.unpaid,
                                   createdAt: DateTime.now(),
-                                  doctorNotificationToken: doctor.notificationToken,
-                                  patientNotificationToken: user?.notificationToken,
+                                  doctorNotificationToken:
+                                      doctor.notificationToken,
+                                  patientNotificationToken:
+                                      user?.notificationToken,
                                   updatedAt: DateTime.now(),
                                 );
-                                
-                                showConfirmationBottomSheet(context, appointment, () {});
+
+                                showConfirmationBottomSheet(
+                                    context, appointment, () {});
                               },
                             ),
                           );

@@ -48,8 +48,11 @@ class DoctorDetailsCubit extends Cubit<DoctorDetailsState> {
     await getDoctorAppointmentsAtDate(doctor.uid, date);
     final bookedAppointments = state.doctorAppointmentsAtDate ?? [];
     print("bookedAppointments: $bookedAppointments");
-    // Extract booked start times
-    final bookedTimes = bookedAppointments.map((e) => e.startTime.time).toSet();
+    // Extract booked start times (excluding cancelled appointments)
+    final bookedTimes = bookedAppointments
+        .where((e) => e.status != AppointmentStatus.cancelled)
+        .map((e) => e.startTime.time)
+        .toSet();
 
     // Generate all slots and mark unavailable if already booked
     final timeSlots = _generateTimeSlots(date, doctor).map((slot) {
@@ -118,9 +121,6 @@ class DoctorDetailsCubit extends Cubit<DoctorDetailsState> {
 
     return timeSlots;
   }
-
-
- 
 
   Future<void> getDoctorAppointmentsAtDate(
       String doctorId, DateTime date) async {

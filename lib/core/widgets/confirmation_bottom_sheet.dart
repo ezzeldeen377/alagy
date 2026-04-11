@@ -386,7 +386,7 @@ class _ConfirmationBottomSheetState extends State<ConfirmationBottomSheet> {
                               horizontal: 12.w, vertical: 6.h),
                           decoration: BoxDecoration(
                             color: widget.appointment.paymentStatus ==
-                                    PaymentStatus.paid
+                                    AppointmentPaymentStatus.paid
                                 ? Colors.green.withOpacity(0.1)
                                 : Colors.orange.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(20.r),
@@ -395,25 +395,25 @@ class _ConfirmationBottomSheetState extends State<ConfirmationBottomSheet> {
                             children: [
                               Icon(
                                 widget.appointment.paymentStatus ==
-                                        PaymentStatus.paid
+                                        AppointmentPaymentStatus.paid
                                     ? Icons.check_circle_outline_rounded
                                     : Icons.pending_outlined,
                                 size: 14.sp,
                                 color: widget.appointment.paymentStatus ==
-                                        PaymentStatus.paid
+                                        AppointmentPaymentStatus.paid
                                     ? Colors.green
                                     : Colors.orange,
                               ),
                               SizedBox(width: 4.w),
                               Text(
                                 widget.appointment.paymentStatus ==
-                                        PaymentStatus.paid
+                                        AppointmentPaymentStatus.paid
                                     ? context.l10n.paided
                                     : context.l10n.unpaid,
                                 style: context.theme.textTheme.labelSmall
                                     ?.copyWith(
                                   color: widget.appointment.paymentStatus ==
-                                          PaymentStatus.paid
+                                          AppointmentPaymentStatus.paid
                                       ? Colors.green
                                       : Colors.orange,
                                   fontWeight: FontWeight.bold,

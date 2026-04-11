@@ -135,24 +135,26 @@ class AppointmentCard extends StatelessWidget {
           ),
 
           // Payment status
-          if (appointment.paymentStatus != PaymentStatus.unpaid) ...[
+          if (appointment.paymentStatus != AppointmentPaymentStatus.unpaid) ...[
             SizedBox(height: 8.h),
             Row(
               children: [
                 Icon(
-                  appointment.paymentStatus == PaymentStatus.paid
+                  appointment.paymentStatus == AppointmentPaymentStatus.paid
                       ? Icons.check_circle
                       : Icons.cancel,
                   size: 16.sp,
-                  color: appointment.paymentStatus == PaymentStatus.paid
-                      ? Colors.green
-                      : Colors.orange,
+                  color:
+                      appointment.paymentStatus == AppointmentPaymentStatus.paid
+                          ? Colors.green
+                          : Colors.orange,
                 ),
                 SizedBox(width: 8.w),
                 Text(
                   _getPaymentStatusText(),
                   style: context.theme.textTheme.bodySmall?.copyWith(
-                    color: appointment.paymentStatus == PaymentStatus.paid
+                    color: appointment.paymentStatus ==
+                            AppointmentPaymentStatus.paid
                         ? Colors.green
                         : Colors.orange,
                     fontWeight: FontWeight.w500,
@@ -278,16 +280,19 @@ class AppointmentCard extends StatelessWidget {
 
   String _getPaymentStatusText() {
     switch (appointment.paymentStatus) {
-      case PaymentStatus.paid:
+      case AppointmentPaymentStatus.paid:
         return 'Paid';
-      case PaymentStatus.unpaid:
+      case AppointmentPaymentStatus.unpaid:
         return 'Unpaid';
-      case PaymentStatus.refunded:
+      case AppointmentPaymentStatus.refunded:
         return 'Refunded';
     }
   }
 
   bool _hasActions() {
-    return onAccept != null || onReject != null || onComplete != null || onCancel != null;
+    return onAccept != null ||
+        onReject != null ||
+        onComplete != null ||
+        onCancel != null;
   }
 }

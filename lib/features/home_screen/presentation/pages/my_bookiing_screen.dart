@@ -5,7 +5,11 @@ import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/widgets/sign_in_required_widget.dart';
 import 'package:alagy/features/doctor_details/data/models/doctor_appointment.dart';
 import 'package:alagy/features/home_screen/presentation/bloc/my_booking/my_booking_cubit.dart';
-import 'package:alagy/features/home_screen/presentation/bloc/my_booking/my_booking_state';
+import 'package:alagy/features/home_screen/presentation/bloc/my_booking/my_booking_state.dart';
+import 'package:alagy/features/wallet/presentation/cubit/wallet_cubit.dart';
+import 'package:alagy/features/wallet/presentation/cubit/wallet_state.dart';
+import 'package:alagy/core/common/enities/view_status.dart';
+import 'package:alagy/core/utils/show_snack_bar.dart';
 import 'package:alagy/features/home_screen/presentation/widgets/appointment_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,89 +48,114 @@ class _MyBookiingScreenState extends State<MyBookiingScreen>
       return Scaffold(body: SignInRequiredWidget());
     }
 
-    return Scaffold(
-      backgroundColor:
-          isDarkMode ? const Color(0xFF121212) : const Color(0xFFF5F5F5),
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: isDarkMode ? const Color(0xFF1E1E1E) : Colors.white,
-        elevation: 0,
-        title: Container(
-          margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-          decoration: BoxDecoration(
-            color: isDarkMode ? Colors.black26 : Colors.grey[200],
-            borderRadius: BorderRadius.circular(25.r),
-          ),
-          child: TabBar(
-            controller: _tabController,
-            indicatorSize: TabBarIndicatorSize.tab,
-            indicator: BoxDecoration(
-              color: AppColor.primaryColor,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<WalletCubit, WalletState>(
+          listener: (context, state) {
+            if (state.status == ViewStatus.success) {
+              final user = context.read<AppUserCubit>().state.user;
+              if (user != null) {
+                if (state.refundedAmount != null && state.refundedAmount! > 0) {
+                  final updatedUser = user.copyWith(
+                      walletBalance:
+                          user.walletBalance + state.refundedAmount!);
+                  context.read<AppUserCubit>().updateUser(updatedUser,
+                      {'walletBalance': updatedUser.walletBalance});
+                }
+                context.read<MyBookingCubit>().getMyBookings(user.uid);
+              }
+              showSnackBar(
+                  context, context.l10n.appointmentCancelledSuccessfully);
+            } else if (state.status == ViewStatus.failure) {
+              showSnackBar(context, state.errorMessage ?? "Error");
+            }
+          },
+        ),
+      ],
+      child: Scaffold(
+        backgroundColor:
+            isDarkMode ? const Color(0xFF121212) : const Color(0xFFF5F5F5),
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: isDarkMode ? const Color(0xFF1E1E1E) : Colors.white,
+          elevation: 0,
+          title: Container(
+            margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+            decoration: BoxDecoration(
+              color: isDarkMode ? Colors.black26 : Colors.grey[200],
               borderRadius: BorderRadius.circular(25.r),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColor.primaryColor.withOpacity(0.3),
-                  spreadRadius: 1,
-                  blurRadius: 10,
-                  offset: const Offset(0, 2),
-                ),
+            ),
+            child: TabBar(
+              controller: _tabController,
+              indicatorSize: TabBarIndicatorSize.tab,
+              indicator: BoxDecoration(
+                color: AppColor.primaryColor,
+                borderRadius: BorderRadius.circular(25.r),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColor.primaryColor.withOpacity(0.3),
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              labelColor: Colors.white,
+              unselectedLabelColor: Colors.grey[600],
+              labelStyle: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 14.sp,
+                fontFamily: 'Inter',
+              ),
+              tabs: [
+                Tab(text: context.l10n.upcoming),
+                Tab(text: context.l10n.completed),
+                Tab(text: context.l10n.cancelled),
               ],
             ),
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.grey[600],
-            labelStyle: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 14.sp,
-              fontFamily: 'Inter',
-            ),
-            tabs: [
-              Tab(text: context.l10n.upcoming),
-              Tab(text: context.l10n.completed),
-              Tab(text: context.l10n.cancelled),
-            ],
           ),
         ),
-      ),
-      body: BlocBuilder<MyBookingCubit, MyBookingState>(
-        builder: (context, state) {
-          if (state.isLoading) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: AppColor.primaryColor,
-              ),
+        body: BlocBuilder<MyBookingCubit, MyBookingState>(
+          builder: (context, state) {
+            if (state.isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: AppColor.primaryColor,
+                ),
+              );
+            } else if (state.isError) {
+              return _buildErrorView(context, user?.uid ?? '');
+            }
+
+            final allAppointments = state.bookings;
+
+            final upcomingAppointments = allAppointments
+                .where((a) =>
+                    a.status == AppointmentStatus.pending ||
+                    a.status == AppointmentStatus.confirmed)
+                .toList();
+
+            final completedAppointments = allAppointments
+                .where((a) => a.status == AppointmentStatus.completed)
+                .toList();
+
+            final cancelledAppointments = allAppointments
+                .where((a) => a.status == AppointmentStatus.cancelled)
+                .toList();
+
+            return TabBarView(
+              controller: _tabController,
+              children: [
+                _buildAppointmentList(
+                    context, upcomingAppointments, _EmptyStateType.upcoming),
+                _buildAppointmentList(
+                    context, completedAppointments, _EmptyStateType.completed),
+                _buildAppointmentList(
+                    context, cancelledAppointments, _EmptyStateType.cancelled),
+              ],
             );
-          } else if (state.isError) {
-            return _buildErrorView(context, user?.uid ?? '');
-          }
-
-          final allAppointments = state.bookings;
-
-          final upcomingAppointments = allAppointments
-              .where((a) =>
-                  a.status == AppointmentStatus.pending ||
-                  a.status == AppointmentStatus.confirmed)
-              .toList();
-
-          final completedAppointments = allAppointments
-              .where((a) => a.status == AppointmentStatus.completed)
-              .toList();
-
-          final cancelledAppointments = allAppointments
-              .where((a) => a.status == AppointmentStatus.cancelled)
-              .toList();
-
-          return TabBarView(
-            controller: _tabController,
-            children: [
-              _buildAppointmentList(
-                  context, upcomingAppointments, _EmptyStateType.upcoming),
-              _buildAppointmentList(
-                  context, completedAppointments, _EmptyStateType.completed),
-              _buildAppointmentList(
-                  context, cancelledAppointments, _EmptyStateType.cancelled),
-            ],
-          );
-        },
+          },
+        ),
       ),
     );
   }

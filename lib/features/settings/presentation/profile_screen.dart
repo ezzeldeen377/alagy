@@ -6,6 +6,7 @@ import 'package:alagy/core/constants/app_constants.dart';
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/routes/routes.dart';
 import 'package:alagy/core/theme/app_color.dart';
+import 'package:alagy/core/common/enities/user_model.dart';
 import 'package:alagy/core/widgets/language_selection_bottom_sheet.dart';
 import 'package:alagy/core/widgets/sign_in_required_widget.dart';
 import 'package:alagy/features/settings/cubit/app_settings_cubit.dart';
@@ -13,7 +14,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:googleapis/dfareporting/v4.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -265,28 +265,22 @@ class ProfileScreen extends StatelessWidget {
       ),
       child: Column(
         children: [
-          _buildMenuTile(
-            icon: Icons.person_outline,
-            title: context.l10n.personalData,
-            subtitle: context.l10n.personalDataArabic,
-            iconColor: const Color(0xFF64B5F6),
-            isDarkMode: isDarkMode,
-            onTap: () {
-              // Navigate to personal data
-            },
-          ),
-          _buildDivider(isDarkMode),
-          _buildMenuTile(
-            icon: Icons.account_balance_wallet_outlined,
-            title: context.l10n.payment,
-            subtitle: context.l10n.paymentArabic,
-            iconColor: const Color(0xFF81C784),
-            isDarkMode: isDarkMode,
-            onTap: () {
-              Navigator.pushNamed(context, RouteNames.paymentHistory);
-            },
-          ),
-          _buildDivider(isDarkMode),
+          if (context.watch<AppUserCubit>().state.user?.type !=
+                  Role.doctor.name &&
+              context.watch<AppUserCubit>().state.user?.type != "admin") ...[
+            _buildMenuTile(
+              icon: Icons.account_balance_wallet_outlined,
+              title: context.l10n.wallet,
+              subtitle:
+                  "${context.watch<AppUserCubit>().state.user?.walletBalance.toStringAsFixed(2)} EGP",
+              iconColor: const Color(0xFF81C784),
+              isDarkMode: isDarkMode,
+              onTap: () {
+                Navigator.pushNamed(context, RouteNames.wallet);
+              },
+            ),
+            _buildDivider(isDarkMode),
+          ],
           _buildMenuTile(
             icon: Icons.dark_mode_outlined,
             title: context.l10n.theme,
@@ -448,24 +442,6 @@ class ProfileScreen extends StatelessWidget {
       indent: 20.w,
       endIndent: 20.w,
     );
-  }
-
-  String _formatDate(DateTime date) {
-    final months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec'
-    ];
-    return '${months[date.month - 1]} ${date.year}';
   }
 
   void _showLogoutDialog(BuildContext context) {

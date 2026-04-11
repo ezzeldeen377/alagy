@@ -1,6 +1,6 @@
 enum AppointmentStatus { pending, confirmed, cancelled, completed }
 
-enum PaymentStatus { unpaid, paid, refunded }
+enum AppointmentPaymentStatus { unpaid, paid, refunded }
 
 enum AppointmentType { consultation, returning }
 
@@ -8,7 +8,7 @@ class DoctorAppointment {
   final String? id;
   final String doctorId;
   final String doctorName;
-  final String? doctorNotificationToken; 
+  final String? doctorNotificationToken;
   final String patientId;
   final String patientName;
   final String specialization;
@@ -20,11 +20,13 @@ class DoctorAppointment {
   final AppointmentStatus status;
   final AppointmentType appointmentType;
   final double price;
-  final PaymentStatus paymentStatus;
+  final AppointmentPaymentStatus paymentStatus;
   final String? notes;
   final DateTime createdAt;
   final String? patientNotificationToken;
   final DateTime updatedAt;
+  final String? cancellationReason;
+  final DateTime? cancelledAt;
 
   DoctorAppointment({
     this.id,
@@ -47,32 +49,55 @@ class DoctorAppointment {
     required this.updatedAt,
     this.doctorNotificationToken,
     this.patientNotificationToken,
+    this.cancellationReason,
+    this.cancelledAt,
   });
 
   factory DoctorAppointment.fromMap(Map<String, dynamic> map) {
     return DoctorAppointment(
-      id: map['id'] as String,
+      id: map['id'] as String?,
       doctorId: map['doctorId'] as String,
       doctorName: map['doctorName'] as String,
       patientId: map['patientId'] as String,
       patientName: map['patientName'] as String,
       specialization: map['specialization'] as String,
-      appointmentDate:
-          DateTime.parse(map['appointmentDate']).normalizeDateOnly,
-      startTime: TimeSlot.fromMap(map['startTime'] as Map<String, dynamic>) ,
+      appointmentDate: _parseDateTime(map['appointmentDate']).normalizeDateOnly,
+      startTime: TimeSlot.fromMap(map['startTime'] as Map<String, dynamic>),
       endTime: map['endTime'] as String?,
       location: map['location'] as String?,
       isOnline: map['isOnline'] as bool?,
       status: _statusFromString(map['status']),
-      appointmentType: _appointmentTypeFromString(map['appointmentType'] ?? 'consultation'),
+      appointmentType:
+          _appointmentTypeFromString(map['appointmentType'] ?? 'consultation'),
       price: (map['price'] as num).toDouble(),
       paymentStatus: _paymentStatusFromString(map['paymentStatus']),
       notes: map['notes'],
-      createdAt: DateTime.parse(map['createdAt']),
-      updatedAt: DateTime.parse(map['updatedAt']),
+      createdAt: _parseDateTime(map['createdAt']),
+      updatedAt: _parseDateTime(map['updatedAt']),
       doctorNotificationToken: map['doctorNotificationToken'] as String?,
       patientNotificationToken: map['patientNotificationToken'] as String?,
+      cancellationReason: map['cancellationReason'] as String?,
+      cancelledAt: map['cancelledAt'] != null
+          ? _parseDateTime(map['cancelledAt'])
+          : null,
     );
+  }
+
+  static DateTime _parseDateTime(dynamic value) {
+    if (value is DateTime) return value;
+    if (value is int) return DateTime.fromMillisecondsSinceEpoch(value);
+    if (value is String) return DateTime.parse(value);
+    if (value.runtimeType.toString() == 'Timestamp' ||
+        value.toString().contains('Timestamp')) {
+      try {
+        return (value as dynamic).toDate();
+      } catch (_) {}
+    }
+    try {
+      return DateTime.parse(value.toString());
+    } catch (_) {
+      return DateTime.now(); // Fallback
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -97,6 +122,8 @@ class DoctorAppointment {
       'updatedAt': updatedAt.toIso8601String(),
       'doctorNotificationToken': doctorNotificationToken,
       'patientNotificationToken': patientNotificationToken,
+      'cancellationReason': cancellationReason,
+      'cancelledAt': cancelledAt?.toIso8601String(),
     };
   }
 
@@ -115,10 +142,12 @@ class DoctorAppointment {
     AppointmentStatus? status,
     AppointmentType? appointmentType,
     double? price,
-    PaymentStatus? paymentStatus,
+    AppointmentPaymentStatus? paymentStatus,
     String? notes,
     DateTime? createdAt,
     DateTime? updatedAt,
+    String? cancellationReason,
+    DateTime? cancelledAt,
   }) {
     return DoctorAppointment(
       id: id ?? this.id,
@@ -139,6 +168,8 @@ class DoctorAppointment {
       notes: notes ?? this.notes,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      cancellationReason: cancellationReason ?? this.cancellationReason,
+      cancelledAt: cancelledAt ?? this.cancelledAt,
     );
   }
 
@@ -150,10 +181,10 @@ class DoctorAppointment {
     );
   }
 
-  static PaymentStatus _paymentStatusFromString(String status) {
-    return PaymentStatus.values.firstWhere(
+  static AppointmentPaymentStatus _paymentStatusFromString(String status) {
+    return AppointmentPaymentStatus.values.firstWhere(
       (e) => e.name == status,
-      orElse: () => PaymentStatus.unpaid,
+      orElse: () => AppointmentPaymentStatus.unpaid,
     );
   }
 
@@ -214,21 +245,22 @@ extension TimeSlotFormatting on TimeSlot {
     final timeParts = time.split(' ');
     final timeComponents = timeParts[0].split(':');
     final period = timeParts[1];
-    
+
     int hour = int.parse(timeComponents[0]);
     final minute = int.parse(timeComponents[1]);
-    
+
     // Convert to 24 hour format
-    if (period == 'PM' && hour != 12) {
+    final upperPeriod = period.toUpperCase();
+    if (upperPeriod == 'PM' && hour != 12) {
       hour += 12;
-    } else if (period == 'AM' && hour == 12) {
+    } else if (upperPeriod == 'AM' && hour == 12) {
       hour = 0;
     }
 
     final now = DateTime.now();
     return DateTime(
       now.year,
-      now.month, 
+      now.month,
       now.day,
       hour,
       minute,
@@ -238,7 +270,9 @@ extension TimeSlotFormatting on TimeSlot {
   /// Returns formatted time string (e.g., "9:00 AM", "2:30 PM")
   String formatTime() {
     final dateTime = toDateTime();
-    final hour = dateTime.hour == 0 ? 12 : (dateTime.hour > 12 ? dateTime.hour - 12 : dateTime.hour);
+    final hour = dateTime.hour == 0
+        ? 12
+        : (dateTime.hour > 12 ? dateTime.hour - 12 : dateTime.hour);
     final minute = dateTime.minute.toString().padLeft(2, '0');
     final period = dateTime.hour < 12 ? 'AM' : 'PM';
     return '$hour:$minute $period';
@@ -253,7 +287,9 @@ extension TimeSlotFormatting on TimeSlot {
   /// Returns time with seconds (e.g., "9:00:00 AM")
   String formatWithSeconds() {
     final dateTime = toDateTime();
-    final hour = dateTime.hour == 0 ? 12 : (dateTime.hour > 12 ? dateTime.hour - 12 : dateTime.hour);
+    final hour = dateTime.hour == 0
+        ? 12
+        : (dateTime.hour > 12 ? dateTime.hour - 12 : dateTime.hour);
     final minute = dateTime.minute.toString().padLeft(2, '0');
     final period = dateTime.hour < 12 ? 'AM' : 'PM';
     return '$hour:$minute:00 $period';

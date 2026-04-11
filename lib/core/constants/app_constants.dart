@@ -37,7 +37,6 @@ class AppConstants {
     "internalMedicine",
     "vascularSurgery",
     "orthopedics",
-    "specializations",
     "gynecologyAndObstetrics",
     "pediatricsAndNeonatology",
     "urology",
@@ -82,11 +81,13 @@ class AppConstants {
     PaymentType(
         paymentIcon: "assets/icons/bank.svg",
         isSelected: false,
-        paymentName: "بطاقة الائتمان"),
+        paymentName: "الدفع أونلاين",
+        key: "onlinePayment"),
     PaymentType(
-        paymentIcon: "assets/icons/credit.svg",
+        paymentIcon: "assets/icons/wallet.svg",
         isSelected: false,
-        paymentName: "المحفظة الإلكترونية")
+        paymentName: "المحفظة الداخلية",
+        key: "internalWallet")
   ];
   // Cache configuration
   static const int cacheDuration = 7; // days
@@ -106,39 +107,41 @@ enum SignInMethods {
 }
 
 enum Role { patient, doctor, admin }
+
 void showLogoutDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(context.l10n.logout),
-          content: Text(
-            // context.l10n.logoutConfirmation ?? 
-          context.l10n.areYouSureYouWantToLogout),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(context.l10n.cancel),
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(context.l10n.logout),
+        content: Text(
+            // context.l10n.logoutConfirmation ??
+            context.l10n.areYouSureYouWantToLogout),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(context.l10n.cancel),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              handleLogout(context);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                handleLogout(context);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                foregroundColor: Colors.white,
-              ),
-              child: Text(context.l10n.logout),
-            ),
-          ],
-        );
-      },
-    );
+            child: Text(context.l10n.logout),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+void handleLogout(BuildContext context) {
+  if (context.read<AppUserCubit>().state.isNotLogin) {
+    return;
   }
-   void handleLogout(BuildContext context) {
-    if (context.read<AppUserCubit>().state.isNotLogin) {
-      return;
-    }
-    context.read<AppUserCubit>().onSignOut();
-  }
+  context.read<AppUserCubit>().onSignOut();
+}

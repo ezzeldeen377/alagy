@@ -18,6 +18,7 @@ import 'package:alagy/features/home_screen/presentation/pages/my_bookiing_screen
 import 'package:alagy/features/home_screen/presentation/pages/search_screen.dart';
 import 'package:alagy/features/settings/presentation/profile_screen.dart';
 import 'package:alagy/features/settings/presentation/settings_screen.dart';
+import 'package:alagy/features/wallet/presentation/cubit/wallet_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -104,9 +105,15 @@ class _InitialScreenState extends State<InitialScreen> {
           child: const SearchScreen(),
         );
       case 3:
-        return BlocProvider(
-          create: (context) => getIt<MyBookingCubit>()
-            ..getMyBookings(context.read<AppUserCubit>().state.user?.uid ?? ''),
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => getIt<MyBookingCubit>()
+                ..getMyBookings(
+                    context.read<AppUserCubit>().state.user?.uid ?? ''),
+            ),
+            BlocProvider(create: (context) => getIt<WalletCubit>()),
+          ],
           child: const MyBookiingScreen(),
         );
       case 4:
@@ -203,7 +210,7 @@ class _InitialScreenState extends State<InitialScreen> {
               radius: 18.r,
               backgroundColor: Colors.grey[200],
               child: GestureDetector(
-                onTap: ()=>context.pushNamed(RouteNames.profile),
+                onTap: () => context.pushNamed(RouteNames.profile),
                 child: ClipOval(
                   child: CachedNetworkImage(
                     imageUrl: user?.profileImage ??
