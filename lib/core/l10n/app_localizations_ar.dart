@@ -9,6 +9,18 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
+  String get today => 'اليوم';
+
+  @override
+  String get thisWeek => 'هذا الأسبوع';
+
+  @override
+  String get thisMonth => 'هذا الشهر';
+
+  @override
+  String get allTime => 'كل الوقت';
+
+  @override
   String get accept => 'قبول';
 
   @override
@@ -304,6 +316,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get codeMinimumLength => 'يجب أن يكون الرمز 3 أحرف على الأقل';
+
+  @override
+  String get complete => 'إكمال';
 
   @override
   String get completed => 'مكتمل';
@@ -1703,4 +1718,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get youllSeeNotificationsHere => 'ستظهر الإشعارات هنا عند استلامها';
+
+  @override
+  String get goToGoogleMaps => 'الذهاب إلى خرائط جوجل';
+
+  @override
+  String get timeOver => 'انتهى الوقت';
+
+  @override
+  String get cancellationRefundMessage =>
+      'يمكنك استخدام هذا المبلغ لحجز موعد مع طبيب آخر أو طلب استرداد';
 }

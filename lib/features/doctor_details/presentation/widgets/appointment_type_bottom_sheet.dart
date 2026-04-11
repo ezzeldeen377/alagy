@@ -18,8 +18,8 @@ class AppointmentTypeBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(24),
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Column(
@@ -38,7 +38,7 @@ class AppointmentTypeBottomSheet extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          
+
           // Title
           Text(
             context.l10n.selectAppointmentType,
@@ -54,7 +54,7 @@ class AppointmentTypeBottomSheet extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24),
-          
+
           // Consultation Option
           _buildAppointmentOption(
             context,
@@ -64,12 +64,13 @@ class AppointmentTypeBottomSheet extends StatelessWidget {
             icon: Icons.medical_services_outlined,
             onTap: () {
               Navigator.pop(context);
-              onTypeSelected(AppointmentType.consultation, doctor.consultationFee ?? 0);
+              onTypeSelected(
+                  AppointmentType.consultation, doctor.consultationFee ?? 0);
             },
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // Returning Option
           if (doctor.returningFees != null)
             _buildAppointmentOption(
@@ -80,10 +81,11 @@ class AppointmentTypeBottomSheet extends StatelessWidget {
               icon: Icons.refresh_outlined,
               onTap: () {
                 Navigator.pop(context);
-                onTypeSelected(AppointmentType.returning, doctor.returningFees!);
+                onTypeSelected(
+                    AppointmentType.returning, doctor.returningFees!);
               },
             ),
-          
+
           const SizedBox(height: 24),
         ],
       ),

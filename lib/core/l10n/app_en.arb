@@ -1,5 +1,9 @@
 {
   "@@locale": "en",
+  "today": "Today",
+  "thisWeek": "This Week",
+  "thisMonth": "This Month",
+  "allTime": "All Time",
   "accept": "Accept",
   "accountHolderName": "Account Holder Name",
   "accountNumber": "Account Number/Phone",
@@ -93,6 +97,7 @@
   "codeCopiedToClipboard": "Code \"{code}\" copied to clipboard",
   "codeDeletedSuccessfully": "Code deleted successfully",
   "codeMinimumLength": "Code must be at least 3 characters",
+  "complete": "Complete",
   "completed": "Completed",
   "completedToday": "Completed Today",
   "confirm": "Confirm",
@@ -545,5 +550,8 @@
   "yearsExp": "years experience",
   "yearsExperience": "years experience",
   "yearsOfExperience": "Years of Experience",
-  "youllSeeNotificationsHere": "You'll see notifications here when you receive them"
+  "youllSeeNotificationsHere": "You'll see notifications here when you receive them",
+  "goToGoogleMaps": "Go to Google Maps",
+  "timeOver": "Time Over",
+  "cancellationRefundMessage": "You can use this money to reserve another doctor or request a refund"
 }

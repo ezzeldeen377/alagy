@@ -22,9 +22,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class EditDoctorProfileScreen extends StatelessWidget {
+class EditDoctorProfileScreen extends StatefulWidget {
   const EditDoctorProfileScreen({super.key});
 
+  @override
+  State<EditDoctorProfileScreen> createState() => _EditDoctorProfileScreenState();
+}
+
+class _EditDoctorProfileScreenState extends State<EditDoctorProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<AddDoctorCubit>();
@@ -34,12 +39,19 @@ class EditDoctorProfileScreen extends StatelessWidget {
           title: context.l10n.editDoctorTitle,
           buttonText: context.l10n.skip,
         ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.all(16.0.w),
-          child: Form(
-            key: cubit.formKey,
-            child: Column(
-              children: [
+        body: BlocBuilder<AddDoctorCubit, AddDoctorState>(
+          builder: (context, state) {
+            if (state.isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(color: AppColor.primaryColor),
+              );
+            }
+            return SingleChildScrollView(
+              padding: EdgeInsets.all(16.0.w),
+              child: Form(
+                key: cubit.formKey,
+                child: Column(
+                  children: [
                 // Profile Picture Upload
                 const CustomProfilePicture(),
 
@@ -512,13 +524,15 @@ class EditDoctorProfileScreen extends StatelessWidget {
                       context.l10n.editDoctorCompleteDataLater,
                       style: context.theme.textTheme.bodySmall,
                     ))
-              ],
+                ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
-    );
-  }
+    ),
+  );
+}
 
   Future<String?> pickTime(BuildContext context) async {
     TimeOfDay? time = await showTimePicker(

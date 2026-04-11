@@ -1,9 +1,6 @@
-import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/features/doctor_details/data/models/doctor_appointment.dart';
 import 'package:alagy/features/doctor_details/data/models/doctor_model.dart';
 import 'package:alagy/features/doctor_details/data/repositories/doctor_repository.dart';
-import 'package:alagy/features/settings/data/repositories/notification_repository.dart';
-import 'package:alagy/features/settings/data/models/notification_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -44,10 +41,19 @@ class DoctorDetailsCubit extends Cubit<DoctorDetailsState> {
     if (doctor == null) return;
     emit(state.copyWith(selectedTime: null));
 
+    final selectedDayName = DateFormat('EEEE').format(date);
+    final openDuration = doctor.openDurations?.firstWhere(
+      (element) => selectedDayName == element.day,
+      orElse: () =>
+          OpenDuration(day: selectedDayName, startTime: null, endTime: null),
+    );
+
+    final isDayClosed = openDuration?.isClosed ?? true;
+
     // Fetch booked appointments
     await getDoctorAppointmentsAtDate(doctor.uid, date);
     final bookedAppointments = state.doctorAppointmentsAtDate ?? [];
-    print("bookedAppointments: $bookedAppointments");
+
     // Extract booked start times (excluding cancelled appointments)
     final bookedTimes = bookedAppointments
         .where((e) => e.status != AppointmentStatus.cancelled)
@@ -55,18 +61,19 @@ class DoctorDetailsCubit extends Cubit<DoctorDetailsState> {
         .toSet();
 
     // Generate all slots and mark unavailable if already booked
-    final timeSlots = _generateTimeSlots(date, doctor).map((slot) {
-      print(bookedTimes);
-      print(slot);
-      return TimeSlot(
-        time: slot,
-        isAvailable: !bookedTimes.contains(slot),
-      );
-    }).toList();
+    final timeSlots = isDayClosed
+        ? <TimeSlot>[]
+        : _generateTimeSlots(date, doctor).map((slot) {
+            return TimeSlot(
+              time: slot,
+              isAvailable: !bookedTimes.contains(slot),
+            );
+          }).toList();
 
     emit(state.copyWith(
       selectedDate: date,
       timeSlots: timeSlots,
+      isDayClosed: isDayClosed,
     ));
   }
 
@@ -84,16 +91,19 @@ class DoctorDetailsCubit extends Cubit<DoctorDetailsState> {
           OpenDuration(day: selectedDayName, startTime: null, endTime: null),
     );
 
+    if (openDuration == null || (openDuration.isClosed ?? false)) {
+      return timeSlots;
+    }
+
     TimeOfDay? openTime;
     TimeOfDay? closeTime;
 
-    if (openDuration?.startTime != null &&
-        openDuration!.startTime!.isNotEmpty) {
+    if (openDuration.startTime != null && openDuration.startTime!.isNotEmpty) {
       final startDate = DateFormat.jm().parse(openDuration.startTime!);
       openTime = TimeOfDay(hour: startDate.hour, minute: startDate.minute);
     }
 
-    if (openDuration?.endTime != null && openDuration!.endTime!.isNotEmpty) {
+    if (openDuration.endTime != null && openDuration.endTime!.isNotEmpty) {
       final endDate = DateFormat.jm().parse(openDuration.endTime!);
       closeTime = TimeOfDay(hour: endDate.hour, minute: endDate.minute);
     }

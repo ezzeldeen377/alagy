@@ -1,69 +1,56 @@
 part of 'doctor_dashboard_cubit.dart';
 
-abstract class DoctorDashboardState  {
-  const DoctorDashboardState();
+enum DoctorDashboardStatus { initial, loading, success, error }
 
-  @override
-  List<Object> get props => [];
-}
-
-class DoctorDashboardInitial extends DoctorDashboardState {}
-
-class DoctorDashboardLoading extends DoctorDashboardState {}
-
-class DoctorDashboardLoaded extends DoctorDashboardState {
-  final Map<String, int> statistics;
+class DoctorDashboardState {
+  final DoctorDashboardStatus status;
+  final List<DoctorAppointment> appointments;
   final List<DoctorAppointment> todayAppointments;
   final List<DoctorAppointment> pendingRequests;
+  final Map<String, int> statistics;
+  final Map<String, dynamic> summary;
+  final StatisticsPeriod selectedPeriod;
+  final String? errorMessage;
+  final String? loadingAppointmentId;
 
-  DoctorDashboardLoaded({
-    required this.statistics,
-    required this.todayAppointments,
-    required this.pendingRequests,
+  const DoctorDashboardState({
+    this.status = DoctorDashboardStatus.initial,
+    this.appointments = const [],
+    this.todayAppointments = const [],
+    this.pendingRequests = const [],
+    this.statistics = const {},
+    this.summary = const {},
+    this.selectedPeriod = StatisticsPeriod.allTime,
+    this.errorMessage,
+    this.loadingAppointmentId,
   });
 
-  DoctorDashboardLoaded copyWith({
-    Map<String, int>? statistics,
+  DoctorDashboardState copyWith({
+    DoctorDashboardStatus? status,
+    List<DoctorAppointment>? appointments,
     List<DoctorAppointment>? todayAppointments,
     List<DoctorAppointment>? pendingRequests,
+    Map<String, int>? statistics,
+    Map<String, dynamic>? summary,
+    StatisticsPeriod? selectedPeriod,
+    String? errorMessage,
+    String? loadingAppointmentId,
   }) {
-    return DoctorDashboardLoaded(
-      statistics: statistics ?? this.statistics,
+    return DoctorDashboardState(
+      status: status ?? this.status,
+      appointments: appointments ?? this.appointments,
       todayAppointments: todayAppointments ?? this.todayAppointments,
       pendingRequests: pendingRequests ?? this.pendingRequests,
+      statistics: statistics ?? this.statistics,
+      summary: summary ?? this.summary,
+      selectedPeriod: selectedPeriod ?? this.selectedPeriod,
+      errorMessage: errorMessage ?? this.errorMessage,
+      loadingAppointmentId: loadingAppointmentId,
     );
   }
-}
 
-class DoctorDashboardAppointmentsLoaded extends DoctorDashboardState {
-  final List<DoctorAppointment> appointments;
-
-  const DoctorDashboardAppointmentsLoaded(this.appointments);
-
-  @override
-  List<Object> get props => [appointments];
-}
-
-class DoctorDashboardPendingAppointmentsLoaded extends DoctorDashboardState {
-  final List<DoctorAppointment> appointments;
-
-  const DoctorDashboardPendingAppointmentsLoaded(this.appointments);
-
-  @override
-  List<Object> get props => [appointments];
-}
-
-class DoctorDashboardCompletedAppointmentsLoaded extends DoctorDashboardState {
-  final List<DoctorAppointment> appointments;
-
-  const DoctorDashboardCompletedAppointmentsLoaded(this.appointments);
-
-  @override
-  List<Object> get props => [appointments];
-}
-
-class DoctorDashboardError extends DoctorDashboardState {
-  final String message;
-
-  DoctorDashboardError(this.message);
+  // Helper getters for UI
+  int get pendingCount => (summary['pendingCount'] as int?) ?? 0;
+  int get completedCount => (summary['completedCount'] as int?) ?? 0;
+  double get totalRevenue => (summary['totalRevenue'] as num?)?.toDouble() ?? 0.0;
 }

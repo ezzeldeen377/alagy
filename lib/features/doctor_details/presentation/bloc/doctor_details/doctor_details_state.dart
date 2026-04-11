@@ -18,48 +18,53 @@ class DoctorDetailsState {
   final DateTime? selectedDate;
   final List<TimeSlot>? timeSlots;
   final TimeSlot? selectedTime;
+  final bool isDayClosed;
   final List<DoctorAppointment>? doctorAppointmentsAtDate;
 
   const DoctorDetailsState({
     this.status = DoctorDetailsStatus.initial,
     this.selectedDoctor,
-    this.userRate,this.doctorAppointmentsAtDate,
+    this.userRate,
+    this.doctorAppointmentsAtDate,
     this.errorMessage,
-    this.selectedDate ,
+    this.selectedDate,
     this.timeSlots = const [],
     this.selectedTime,
+    this.isDayClosed = false,
   });
   static const _unset = Object();
 
-DoctorDetailsState copyWith({
-  DoctorDetailsStatus? status,
-  DoctorModel? selectedDoctor,
-  int? userRate,
-  DateTime? selectedDate,
-  Object? timeSlots = _unset,
-  Object? doctorAppointmentsAtDate = _unset,
-  Object? selectedTime = _unset,
-  String? errorMessage,
-}) {
-  return DoctorDetailsState(
-    status: status ?? this.status,
-    selectedDoctor: selectedDoctor ?? this.selectedDoctor,
-    userRate: userRate ?? this.userRate,
-    selectedDate: selectedDate ?? this.selectedDate,
-    timeSlots: timeSlots != _unset ? timeSlots as List<TimeSlot>? : this.timeSlots,
-    doctorAppointmentsAtDate: doctorAppointmentsAtDate != _unset
-        ? doctorAppointmentsAtDate as List<DoctorAppointment>?
-        : this.doctorAppointmentsAtDate,
-    selectedTime:
-        selectedTime != _unset ? selectedTime as TimeSlot? : this.selectedTime,
-    errorMessage: errorMessage ?? this.errorMessage,
-  );
-}
-  
+  DoctorDetailsState copyWith({
+    DoctorDetailsStatus? status,
+    DoctorModel? selectedDoctor,
+    int? userRate,
+    DateTime? selectedDate,
+    Object? timeSlots = _unset,
+    Object? doctorAppointmentsAtDate = _unset,
+    Object? selectedTime = _unset,
+    String? errorMessage,
+    bool? isDayClosed,
+  }) {
+    return DoctorDetailsState(
+      status: status ?? this.status,
+      selectedDoctor: selectedDoctor ?? this.selectedDoctor,
+      userRate: userRate ?? this.userRate,
+      selectedDate: selectedDate ?? this.selectedDate,
+      isDayClosed: isDayClosed ?? this.isDayClosed,
+      timeSlots:
+          timeSlots != _unset ? timeSlots as List<TimeSlot>? : this.timeSlots,
+      doctorAppointmentsAtDate: doctorAppointmentsAtDate != _unset
+          ? doctorAppointmentsAtDate as List<DoctorAppointment>?
+          : this.doctorAppointmentsAtDate,
+      selectedTime:
+          selectedTime != _unset ? selectedTime as TimeSlot? : this.selectedTime,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
 
   @override
   String toString() {
-    return 'DoctorDetailsState(status: $status, selectedDoctor: $selectedDoctor, userRate: $userRate, errorMessage: $errorMessage)';
+    return 'DoctorDetailsState(status: $status, selectedDoctor: $selectedDoctor, userRate: $userRate, errorMessage: $errorMessage, isDayClosed: $isDayClosed)';
   }
 }
 
@@ -69,5 +74,6 @@ extension DoctorDetailsStateX on DoctorDetailsState {
   bool get isSuccess => status == DoctorDetailsStatus.success;
   bool get isError => status == DoctorDetailsStatus.error;
   bool get isAppointmentAdded => status == DoctorDetailsStatus.appointmentAdded;
-  bool get isGetDoctorAppointmentsAtDate => status == DoctorDetailsStatus.getDoctorAppointmentsAtDate;
+  bool get isGetDoctorAppointmentsAtDate =>
+      status == DoctorDetailsStatus.getDoctorAppointmentsAtDate;
 }

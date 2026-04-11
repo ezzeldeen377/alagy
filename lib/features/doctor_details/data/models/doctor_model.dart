@@ -230,8 +230,8 @@ extension DoctorModelExtension on DoctorModel {
     for (final duration in openDurations!) {
       if (duration.day != null) {
         availability[duration.day!] = {
-          'startTime': duration.startTime,
-          'endTime': duration.endTime,
+          'start': duration.startTime,
+          'end': duration.endTime,
         };
       }
     }
@@ -249,6 +249,32 @@ extension DoctorModelExtension on DoctorModel {
     }
 
     return isClosedMap;
+  }
+
+  List<String> getSearchKeywords() {
+    final List<String> fields = [
+      name,
+      specialization ?? '',
+      address ?? '',
+      qualification ?? '',
+      hospitalName ?? '',
+    ];
+
+    final Set<String> keywords = {};
+
+    for (var field in fields) {
+      if (field.isEmpty) continue;
+
+      final words = field.toLowerCase().split(RegExp(r'\s+'));
+      for (var word in words) {
+        if (word.isEmpty) continue;
+        for (int i = 1; i <= word.length; i++) {
+          keywords.add(word.substring(0, i));
+        }
+      }
+    }
+
+    return keywords.toList();
   }
 }
 

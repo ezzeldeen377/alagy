@@ -49,19 +49,19 @@ class DoctorSliverAppBar extends StatelessWidget {
           ),
         ),
         // Share button
-        Padding(
-          padding: EdgeInsets.all(8.r),
-          child: CircleAvatar(
-            backgroundColor: Colors.black.withOpacity(0.3),
-            child: IconButton(
-              icon: const Icon(Icons.share, color: AppColor.whiteColor),
-              onPressed: () {
-                // Implement share functionality
-                showSnackBar(context, context.l10n.doctorProfileShared);
-              },
-            ),
-          ),
-        ),
+        // Padding(
+        //   padding: EdgeInsets.all(8.r),
+        //   child: CircleAvatar(
+        //     backgroundColor: Colors.black.withOpacity(0.3),
+        //     child: IconButton(
+        //       icon: const Icon(Icons.share, color: AppColor.whiteColor),
+        //       onPressed: () {
+        //         // Implement share functionality
+        //         showSnackBar(context, context.l10n.doctorProfileShared);
+        //       },
+        //     ),
+        //   ),
+        // ),
         SizedBox(width: 8.w),
       ],
       flexibleSpace: FlexibleSpaceBar(

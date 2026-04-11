@@ -1,13 +1,11 @@
 import 'package:alagy/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:alagy/core/common/cubit/app_user/app_user_state.dart';
-import 'package:alagy/core/constants/app_constants.dart';
-import 'package:alagy/core/di/di.dart';
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/helpers/navigator.dart';
 import 'package:alagy/core/helpers/notification_service.dart';
 import 'package:alagy/core/routes/routes.dart';
 import 'package:alagy/core/theme/app_color.dart';
-import 'package:alagy/features/doctor/presentation/cubit/doctor_calendar_cubit.dart';
+import 'package:alagy/features/doctor/data/datasources/doctor_dashboard_remote_data_source.dart';
 import 'package:alagy/features/doctor/presentation/cubit/doctor_dashboard_cubit.dart';
 import 'package:alagy/features/doctor_details/data/models/doctor_appointment.dart';
 import 'package:alagy/features/settings/presentation/profile_screen.dart';
@@ -17,6 +15,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:alagy/features/doctor/presentation/pages/doctor_calendar_screen.dart';
 import 'package:alagy/features/doctor/presentation/pages/doctor_appointments_screen.dart';
+import 'package:alagy/core/di/di.dart';
+import 'package:alagy/features/doctor/presentation/cubit/doctor_calendar_cubit.dart';
+import 'package:alagy/core/constants/app_constants.dart';
 
 class DoctorHomeScreen extends StatefulWidget {
   const DoctorHomeScreen({super.key});
@@ -27,7 +28,7 @@ class DoctorHomeScreen extends StatefulWidget {
 
 class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  int _currentIndex = 0; // For drawer navigation
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -71,7 +72,7 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
                   if (user != null) {
                     await context
                         .read<DoctorDashboardCubit>()
-                        .loadDashboardData(user.uid);
+                        .loadDashboardData(user.uid, period: state.selectedPeriod);
                   }
                 },
                 child: SingleChildScrollView(
@@ -80,11 +81,12 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      _buildHeaderWithFilter(state),
+                      SizedBox(height: 16.h),
                       _buildStatisticsCards(state),
                       SizedBox(height: 24.h),
                       _buildTodayAppointments(state),
                       SizedBox(height: 24.h),
-                      // _buildPendingRequests(state),
                     ],
                   ),
                 ),
@@ -96,51 +98,82 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
     );
   }
 
-  Widget _buildHeader() {
-    final user = context.read<AppUserCubit>().state.user;
+  Widget _buildHeaderWithFilter(DoctorDashboardState state) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${context.l10n.good} ${_getGreeting()}!',
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  color: Colors.grey[600],
-                ),
-              ),
-              SizedBox(height: 4.h),
-              Text(
-                '${context.l10n.doctor} ${user?.name ?? context.l10n.doctor}',
-                style: TextStyle(
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).textTheme.headlineLarge?.color,
-                ),
-              ),
-            ],
+        Text(
+          context.l10n.statistics,
+          style: TextStyle(
+            fontSize: 22.sp,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).textTheme.headlineLarge?.color,
           ),
         ),
         Container(
-          padding: EdgeInsets.all(8.w),
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
           decoration: BoxDecoration(
-            color: AppColor.primaryColor.withOpacity(0.1),
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(12.r),
+            border: Border.all(color: Colors.grey.withOpacity(0.1)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.02),
+                blurRadius: 5,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
-          child: Icon(
-            Icons.notifications_outlined,
-            color: AppColor.primaryColor,
-            size: 24.sp,
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<StatisticsPeriod>(
+              value: state.selectedPeriod,
+              icon: Icon(Icons.keyboard_arrow_down, size: 20.sp, color: AppColor.primaryColor),
+              onChanged: (StatisticsPeriod? newValue) {
+                if (newValue != null) {
+                  final user = context.read<AppUserCubit>().state.user;
+                  if (user != null) {
+                    context.read<DoctorDashboardCubit>().loadDashboardData(
+                          user.uid,
+                          period: newValue,
+                        );
+                  }
+                }
+              },
+              items: StatisticsPeriod.values.map((StatisticsPeriod period) {
+                return DropdownMenuItem<StatisticsPeriod>(
+                  value: period,
+                  child: Text(
+                    _getLocalizedPeriod(period),
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
           ),
         ),
       ],
     );
   }
 
+  String _getLocalizedPeriod(StatisticsPeriod period) {
+    switch (period) {
+      case StatisticsPeriod.today:
+        return context.l10n.today;
+      case StatisticsPeriod.thisWeek:
+        return context.l10n.thisWeek;
+      case StatisticsPeriod.thisMonth:
+        return context.l10n.thisMonth;
+      case StatisticsPeriod.allTime:
+        return context.l10n.allTime;
+    }
+  }
+
   Widget _buildStatisticsCards(DoctorDashboardState state) {
-    if (state is DoctorDashboardLoading) {
+    if (state.status == DoctorDashboardStatus.loading && state.statistics.isEmpty) {
       return SizedBox(
         height: 120.h,
         child: const Center(
@@ -149,7 +182,7 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
       );
     }
 
-    if (state is DoctorDashboardError) {
+    if (state.status == DoctorDashboardStatus.error && state.statistics.isEmpty) {
       return Container(
         height: 120.h,
         child: Center(
@@ -159,7 +192,7 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
               Icon(Icons.error_outline, color: Colors.red, size: 32.sp),
               SizedBox(height: 8.h),
               Text(
-                context.l10n.errorLoadingStatistics,
+                state.errorMessage ?? context.l10n.errorLoadingStatistics,
                 style: TextStyle(color: Colors.red, fontSize: 14.sp),
               ),
             ],
@@ -168,8 +201,8 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
       );
     }
 
-    final statistics =
-        state is DoctorDashboardLoaded ? state.statistics : <String, int>{};
+    final statistics = state.statistics;
+    final periodText = _getLocalizedPeriod(state.selectedPeriod);
 
     return Column(
       children: [
@@ -177,7 +210,7 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
           children: [
             Expanded(
               child: _buildStatCard(
-                context.l10n.totalPatients,
+                '${context.l10n.totalPatients} ($periodText)',
                 statistics['totalPatients']?.toString() ?? '0',
                 Icons.people_outline,
                 AppColor.primaryColor,
@@ -186,7 +219,9 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
             SizedBox(width: 12.w),
             Expanded(
               child: _buildStatCard(
-                context.l10n.todaysAppointments,
+                state.selectedPeriod == StatisticsPeriod.today 
+                  ? context.l10n.todaysAppointments 
+                  : '${context.l10n.upcoming} ($periodText)',
                 statistics['todayAppointments']?.toString() ?? '0',
                 Icons.calendar_today_outlined,
                 Colors.blue,
@@ -199,7 +234,7 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
           children: [
             Expanded(
               child: _buildStatCard(
-                context.l10n.pendingRequests,
+                '${context.l10n.pendingRequests} ($periodText)',
                 statistics['pendingRequests']?.toString() ?? '0',
                 Icons.pending_actions_outlined,
                 Colors.orange,
@@ -208,7 +243,9 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
             SizedBox(width: 12.w),
             Expanded(
               child: _buildStatCard(
-                context.l10n.completedToday,
+                state.selectedPeriod == StatisticsPeriod.today 
+                  ? context.l10n.completedToday 
+                  : '${context.l10n.completed} ($periodText)',
                 statistics['completedToday']?.toString() ?? '0',
                 Icons.check_circle_outline,
                 Colors.green,
@@ -277,9 +314,7 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
   }
 
   Widget _buildTodayAppointments(DoctorDashboardState state) {
-    final appointments = state is DoctorDashboardLoaded
-        ? state.todayAppointments
-        : <DoctorAppointment>[];
+    final appointments = state.todayAppointments;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -306,55 +341,6 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
                 itemCount: appointments.length,
                 itemBuilder: (context, index) {
                   return _buildAppointmentCard(appointments[index]);
-                },
-              ),
-      ],
-    );
-  }
-
-  Widget _buildPendingRequests(DoctorDashboardState state) {
-    final pendingRequests = state is DoctorDashboardLoaded
-        ? state.pendingRequests
-        : <DoctorAppointment>[];
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              context.l10n.pendingRequests,
-              style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).textTheme.headlineLarge?.color,
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                // TODO: Navigate to appointments screen with pending filter
-              },
-              child: Text(
-                context.l10n.viewAll,
-                style: TextStyle(
-                  color: AppColor.primaryColor,
-                  fontSize: 14.sp,
-                ),
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 12.h),
-        pendingRequests.isEmpty
-            ? _buildEmptyState(context.l10n.noPendingRequests)
-            : ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: pendingRequests.length,
-                itemBuilder: (context, index) {
-                  return _buildAppointmentCard(pendingRequests[index],
-                      isPending: true);
                 },
               ),
       ],
@@ -587,7 +573,6 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
       surfaceTintColor: Colors.transparent,
       child: Column(
         children: [
-          // Enhanced Drawer Header
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
@@ -616,7 +601,6 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Profile Avatar with enhanced styling
                     Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
@@ -654,7 +638,6 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
                       ),
                     ),
                     SizedBox(height: 16.h),
-                    // User Name with enhanced styling
                     Text(
                       'Dr. ${user?.name ?? 'Doctor'}',
                       style: TextStyle(
@@ -665,7 +648,6 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
                       ),
                     ),
                     SizedBox(height: 4.h),
-                    // User Email with enhanced styling
                     Text(
                       user?.email ?? 'doctor@example.com',
                       style: TextStyle(
@@ -679,7 +661,6 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
               ),
             ),
           ),
-          // Navigation Items
           Expanded(
             child: ListView(
               padding: EdgeInsets.zero,

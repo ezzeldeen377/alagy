@@ -14,6 +14,8 @@ import 'package:alagy/features/home_screen/presentation/widgets/appointment_card
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:alagy/core/helpers/navigator.dart';
+import 'package:alagy/core/routes/routes.dart';
 
 class MyBookiingScreen extends StatefulWidget {
   const MyBookiingScreen({super.key});
@@ -64,8 +66,8 @@ class _MyBookiingScreenState extends State<MyBookiingScreen>
                 }
                 context.read<MyBookingCubit>().getMyBookings(user.uid);
               }
-              showSnackBar(
-                  context, context.l10n.appointmentCancelledSuccessfully);
+              showSnackBar(context, context.l10n.cancellationRefundMessage);
+              context.pushNamed(RouteNames.wallet);
             } else if (state.status == ViewStatus.failure) {
               showSnackBar(context, state.errorMessage ?? "Error");
             }

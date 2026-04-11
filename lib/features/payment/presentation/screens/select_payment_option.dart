@@ -44,14 +44,16 @@ class _SelectPaymentOptionState extends State<SelectPaymentOption> {
     if (result.isSuccessful) {
       final cubit = context.read<PaymentCubit>();
       final user = context.read<AppUserCubit>().state.user;
-
       cubit.savePayment(PaymentModel(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         userId: user?.uid ?? '',
         amount: state.appointment?.price ?? 0.0,
         date: DateTime.now(),
-        status: 'success',
-        method: 'Card',
+        status: result.status.name,
+        method: paymentKeys.cardIntegrationId ==
+                result.transactionDetails?["integration_id"]
+            ? "card"
+            : "mobile_wallet",
         description: 'Appointment with ${state.appointment?.doctorName}',
         transactionId: DateTime.now().millisecondsSinceEpoch.toString(),
       ));

@@ -52,6 +52,7 @@ dependencies:
   paymob: ^1.1.2
   table_calendar: ^3.2.0
   geocoding: ^4.0.0
+  url_launcher: ^6.3.2
   
 dependency_overrides:
   intl: 0.20.2

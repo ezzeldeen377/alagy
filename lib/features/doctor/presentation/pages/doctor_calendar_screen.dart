@@ -79,7 +79,7 @@ class _DoctorCalendarScreenState extends State<DoctorCalendarScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: context.theme.iconTheme.color),
         title: Text(context.l10n.calendar),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,

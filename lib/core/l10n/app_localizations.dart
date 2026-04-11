@@ -98,6 +98,30 @@ abstract class AppLocalizations {
     Locale('en')
   ];
 
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @thisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This Week'**
+  String get thisWeek;
+
+  /// No description provided for @thisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'This Month'**
+  String get thisMonth;
+
+  /// No description provided for @allTime.
+  ///
+  /// In en, this message translates to:
+  /// **'All Time'**
+  String get allTime;
+
   /// No description provided for @accept.
   ///
   /// In en, this message translates to:
@@ -655,6 +679,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Code must be at least 3 characters'**
   String get codeMinimumLength;
+
+  /// No description provided for @complete.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete'**
+  String get complete;
 
   /// No description provided for @completed.
   ///
@@ -3373,6 +3403,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You\'ll see notifications here when you receive them'**
   String get youllSeeNotificationsHere;
+
+  /// No description provided for @goToGoogleMaps.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Google Maps'**
+  String get goToGoogleMaps;
+
+  /// No description provided for @timeOver.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Over'**
+  String get timeOver;
+
+  /// No description provided for @cancellationRefundMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You can use this money to reserve another doctor or request a refund'**
+  String get cancellationRefundMessage;
 }
 
 class _AppLocalizationsDelegate

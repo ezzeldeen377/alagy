@@ -152,49 +152,52 @@ class DoctorDetailPage extends StatelessWidget {
                         ),
                         SizedBox(height: 16.h),
                         // Quick action buttons
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // Call button
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Call button
 
-                            // Book appointment button
-                            ActionButton(
-                              icon: Icons.calendar_today,
-                              label: context.l10n.book,
-                              color: AppColor.primaryColor,
-                              onTap: () {
-                                // Implement booking functionality
-                                if (context
-                                        .read<DoctorDetailsCubit>()
-                                        .targetKey
-                                        .currentContext !=
-                                    null) {
-                                  Scrollable.ensureVisible(
-                                    context
-                                        .read<DoctorDetailsCubit>()
-                                        .targetKey
-                                        .currentContext!,
-                                    duration: Duration(milliseconds: 500),
-                                    curve: Curves.easeInOut,
-                                    alignment: 0.0, // 0.0 = top, 1.0 = bottom
-                                  );
-                                }
-                              },
-                            ),
-                            if (doctor.latitude != null &&
-                                doctor.longitude != null)
+                              // Book appointment button
                               ActionButton(
-                                icon: Icons.route,
-                                label: context.l10n.viewOnMap,
-                                color: Colors.blue,
-                                onTap: () async {
-                                  context.push(ShowLocationScreen(
-                                    lat: doctor.latitude ?? 30.0444,
-                                    lng: doctor.longitude ?? 31.2357,
-                                  ));
+                                icon: Icons.calendar_today,
+                                label: context.l10n.book,
+                                color: AppColor.primaryColor,
+                                onTap: () {
+                                  // Implement booking functionality
+                                  if (context
+                                          .read<DoctorDetailsCubit>()
+                                          .targetKey
+                                          .currentContext !=
+                                      null) {
+                                    Scrollable.ensureVisible(
+                                      context
+                                          .read<DoctorDetailsCubit>()
+                                          .targetKey
+                                          .currentContext!,
+                                      duration: Duration(milliseconds: 500),
+                                      curve: Curves.easeInOut,
+                                      alignment: 0.0, // 0.0 = top, 1.0 = bottom
+                                    );
+                                  }
                                 },
                               ),
-                          ],
+                              if (doctor.latitude != null &&
+                                  doctor.longitude != null)
+                                ActionButton(
+                                  icon: Icons.route,
+                                  label: context.l10n.viewOnMap,
+                                  color: Colors.blue,
+                                  onTap: () async {
+                                    context.push(ShowLocationScreen(
+                                      lat: doctor.latitude ?? 30.0444,
+                                      lng: doctor.longitude ?? 31.2357,
+                                    ));
+                                  },
+                                ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

@@ -329,7 +329,12 @@ class _ConfirmationBottomSheetState extends State<ConfirmationBottomSheet> {
                                 ),
                                 SizedBox(height: 6.h),
                                 Text(
-                                  widget.appointment.startTime.time,
+                                  widget.appointment.startTime.formatLocalized(
+                                      context
+                                          .read<AppSettingsCubit>()
+                                          .state
+                                          .locale
+                                          .languageCode),
                                   style: context.theme.textTheme.bodyMedium
                                       ?.copyWith(fontWeight: FontWeight.bold),
                                   maxLines: 1,
@@ -455,6 +460,7 @@ class _ConfirmationBottomSheetState extends State<ConfirmationBottomSheet> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           child: TextField(
@@ -628,12 +634,12 @@ class _ConfirmationBottomSheetState extends State<ConfirmationBottomSheet> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.r),
                       ),
-                      foregroundColor: AppColor.blackColor,
                     ),
                     child: Text(
                       context.l10n.cancel,
                       style: TextStyle(
                         fontSize: 16.sp,
+                        color: Theme.of(context).textTheme.bodyLarge?.color,
                         fontWeight: FontWeight.w600,
                       ),
                     ),

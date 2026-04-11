@@ -37,11 +37,15 @@ class DoctorRemoteDataSourceImpl extends DoctorRemoteDataSource {
     return executeTryAndCatchForDataLayer(() async {
       final docRef = userCollection.doc(doctor.uid);
       final docSnapshot = await docRef.get();
+      final data = doctor.toMap();
+      data['keyword'] = doctor.getSearchKeywords();
       if (docSnapshot.exists) {
-        await docRef.set(doctor.toMap());
+        await docRef.set(data);
       } else {
         doctor = doctor.copyWith(uid: docRef.id);
-        await docRef.set(doctor.toMap());
+        final newData = doctor.toMap();
+        newData['keyword'] = doctor.getSearchKeywords();
+        await docRef.set(newData);
       }
 
       return Future.value(unit);

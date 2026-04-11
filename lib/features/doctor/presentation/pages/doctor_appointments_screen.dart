@@ -3,7 +3,6 @@ import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/features/doctor/presentation/cubit/doctor_dashboard_cubit.dart';
 import 'package:alagy/features/doctor_details/data/models/doctor_appointment.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,13 +11,13 @@ class DoctorAppointmentsScreen extends StatefulWidget {
   const DoctorAppointmentsScreen({super.key});
 
   @override
-  State<DoctorAppointmentsScreen> createState() => _DoctorAppointmentsScreenState();
+  State<DoctorAppointmentsScreen> createState() =>
+      _DoctorAppointmentsScreenState();
 }
 
 class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  List<DoctorAppointment> _currentAppointments = [];
   String _selectedFilter = 'pending';
 
   @override
@@ -38,9 +37,13 @@ class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
     final user = context.read<AppUserCubit>().state.user;
     if (user != null) {
       if (status == 'pending') {
-        await context.read<DoctorDashboardCubit>().loadPendingAppointments(user.uid);
+        await context
+            .read<DoctorDashboardCubit>()
+            .loadPendingAppointments(user.uid);
       } else if (status == 'completed') {
-        await context.read<DoctorDashboardCubit>().loadCompletedAppointments(user.uid);
+        await context
+            .read<DoctorDashboardCubit>()
+            .loadCompletedAppointments(user.uid);
       }
     }
   }
@@ -59,6 +62,7 @@ class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: context.theme.iconTheme.color),
         title: Text(context.l10n.myAppointments),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
@@ -74,41 +78,47 @@ class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
           ],
         ),
       ),
-      body: BlocConsumer<DoctorDashboardCubit, DoctorDashboardState>(
-        listener: (context, state) {
-          if (state is DoctorDashboardPendingAppointmentsLoaded) {
-            setState(() {
-              _currentAppointments = state.appointments;
-            });
-          } else if (state is DoctorDashboardCompletedAppointmentsLoaded) {
-            setState(() {
-              _currentAppointments = state.appointments;
-            });
-          }
-        },
+      body: BlocBuilder<DoctorDashboardCubit, DoctorDashboardState>(
         builder: (context, state) {
+          final appointments = state.appointments;
           return Column(
             children: [
-              _buildStatistics(),
+              _buildStatistics(state),
               Expanded(
-                child: state is DoctorDashboardLoading
+                child: state.status == DoctorDashboardStatus.loading &&
+                        appointments.isEmpty
                     ? const Center(child: CircularProgressIndicator())
-                    : state is DoctorDashboardError
+                    : state.status == DoctorDashboardStatus.error &&
+                            appointments.isEmpty
                         ? Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('${context.l10n.error}${state.message}'),
+                                Text(
+                                    '${context.l10n.error}${state.errorMessage}'),
                                 ElevatedButton(
-                                  onPressed: () => _loadAppointmentsByStatus(_selectedFilter),
+                                  onPressed: () => _loadAppointmentsByStatus(
+                                      _selectedFilter),
                                   child: Text(context.l10n.retry),
                                 ),
                               ],
                             ),
                           )
-                        : _currentAppointments.isEmpty
+                        : appointments.isEmpty
                             ? _buildEmptyState()
-                            : _buildAppointmentsList(),
+                            : RefreshIndicator(
+                                onRefresh: () async =>
+                                    await _loadAppointmentsByStatus(
+                                        _selectedFilter),
+                                child: ListView.builder(
+                                  padding: EdgeInsets.all(16.w),
+                                  itemCount: appointments.length,
+                                  itemBuilder: (context, index) {
+                                    return _buildAppointmentCard(
+                                        appointments[index], state);
+                                  },
+                                ),
+                              ),
               ),
             ],
           );
@@ -117,14 +127,7 @@ class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
     );
   }
 
-  Widget _buildStatistics() {
-    final now = DateTime.now();
-    final upcomingCount = _selectedFilter == 'pending' ? _currentAppointments.length : 0;
-    final completedCount = _selectedFilter == 'completed' ? _currentAppointments.length : 0;
-    final totalRevenue = _selectedFilter == 'completed' 
-        ? _currentAppointments.fold(0.0, (sum, apt) => sum + apt.price)
-        : 0.0;
-
+  Widget _buildStatistics(DoctorDashboardState state) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w),
       padding: EdgeInsets.all(16.w),
@@ -142,13 +145,18 @@ class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
       child: Row(
         children: [
           Expanded(
-            child: _buildStatItem(context.l10n.upcoming, upcomingCount.toString(), Colors.blue),
+            child: _buildStatItem(context.l10n.upcoming,
+                state.pendingCount.toString(), Colors.blue),
           ),
           Expanded(
-            child: _buildStatItem(context.l10n.completed, completedCount.toString(), Colors.green),
+            child: _buildStatItem(context.l10n.completed,
+                state.completedCount.toString(), Colors.green),
           ),
           Expanded(
-            child: _buildStatItem(context.l10n.revenue, '\$${totalRevenue.toStringAsFixed(0)}', AppColor.primaryColor),
+            child: _buildStatItem(
+                context.l10n.revenue,
+                '\$${state.totalRevenue.toStringAsFixed(0)}',
+                AppColor.primaryColor),
           ),
         ],
       ),
@@ -178,20 +186,9 @@ class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
     );
   }
 
-  Widget _buildAppointmentsList() {
-    return RefreshIndicator(
-      onRefresh: () async => await _loadAppointmentsByStatus(_selectedFilter),
-      child: ListView.builder(
-        padding: EdgeInsets.all(16.w),
-        itemCount: _currentAppointments.length,
-        itemBuilder: (context, index) {
-          return _buildAppointmentCard(_currentAppointments[index]);
-        },
-      ),
-    );
-  }
-
-  Widget _buildAppointmentCard(DoctorAppointment appointment) {
+  Widget _buildAppointmentCard(
+      DoctorAppointment appointment, DoctorDashboardState state) {
+    final isLoading = state.loadingAppointmentId == appointment.id;
     return Container(
       margin: EdgeInsets.only(bottom: 16.h),
       decoration: BoxDecoration(
@@ -207,7 +204,6 @@ class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
       ),
       child: Column(
         children: [
-          // Header with patient info and status
           Container(
             padding: EdgeInsets.all(16.w),
             decoration: BoxDecoration(
@@ -241,12 +237,13 @@ class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
                         style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
-                          color: Theme.of(context).textTheme.headlineLarge?.color,
+                          color:
+                              Theme.of(context).textTheme.headlineLarge?.color,
                         ),
                       ),
                       SizedBox(height: 2.h),
                       Text(
-                        appointment.specialization,
+                        context.getSpecialty(appointment.specialization),
                         style: TextStyle(
                           fontSize: 12.sp,
                           color: Colors.grey[600],
@@ -256,13 +253,14 @@ class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                   decoration: BoxDecoration(
                     color: _getStatusColor(appointment.status),
                     borderRadius: BorderRadius.circular(20.r),
                   ),
                   child: Text(
-                    appointment.status.name.toUpperCase(),
+                    appointment.status.name.tr(context).toUpperCase(),
                     style: TextStyle(
                       fontSize: 10.sp,
                       fontWeight: FontWeight.w600,
@@ -273,40 +271,28 @@ class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
               ],
             ),
           ),
-          
-          // Appointment details
           Padding(
             padding: EdgeInsets.all(16.w),
             child: Column(
               children: [
                 Row(
                   children: [
-                    Icon(
-                      Icons.calendar_today,
-                      size: 16.sp,
-                      color: Colors.grey[600],
-                    ),
+                    Icon(Icons.calendar_today,
+                        size: 16.sp, color: Colors.grey[600]),
                     SizedBox(width: 8.w),
                     Text(
                       '${appointment.appointmentDate.day}/${appointment.appointmentDate.month}/${appointment.appointmentDate.year}',
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Colors.grey[600],
-                      ),
+                      style:
+                          TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
                     ),
                     SizedBox(width: 16.w),
-                    Icon(
-                      Icons.access_time,
-                      size: 16.sp,
-                      color: Colors.grey[600],
-                    ),
+                    Icon(Icons.access_time,
+                        size: 16.sp, color: Colors.grey[600]),
                     SizedBox(width: 8.w),
                     Text(
                       appointment.startTime.time,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Colors.grey[600],
-                      ),
+                      style:
+                          TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
                     ),
                   ],
                 ),
@@ -314,17 +300,19 @@ class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
                 Row(
                   children: [
                     Icon(
-                      appointment.isOnline == true ? Icons.videocam : Icons.location_on,
+                      appointment.isOnline == true
+                          ? Icons.videocam
+                          : Icons.location_on,
                       size: 16.sp,
                       color: Colors.grey[600],
                     ),
                     SizedBox(width: 8.w),
                     Text(
-                      appointment.isOnline == true ? context.l10n.onlineConsultation : appointment.location ?? context.l10n.inPerson,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Colors.grey[600],
-                      ),
+                      appointment.isOnline == true
+                          ? context.l10n.onlineConsultation
+                          : appointment.location ?? context.l10n.inPerson,
+                      style:
+                          TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
                     ),
                     const Spacer(),
                     Text(
@@ -337,7 +325,8 @@ class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
                     ),
                   ],
                 ),
-                if (appointment.notes != null && appointment.notes!.isNotEmpty) ...[
+                if (appointment.notes != null &&
+                    appointment.notes!.isNotEmpty) ...[
                   SizedBox(height: 8.h),
                   Container(
                     width: double.infinity,
@@ -357,9 +346,7 @@ class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
                   ),
                 ],
                 SizedBox(height: 12.h),
-                
-                // Read-only info based on status
-                _buildAppointmentInfo(appointment),
+                _buildAppointmentInfo(appointment, isLoading),
               ],
             ),
           ),
@@ -368,8 +355,51 @@ class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
     );
   }
 
-  Widget _buildAppointmentInfo(DoctorAppointment appointment) {
-    if (appointment.status == AppointmentStatus.confirmed) {
+  Widget _buildAppointmentInfo(DoctorAppointment appointment, bool isLoading) {
+    if (appointment.status == AppointmentStatus.confirmed ||
+        appointment.status == AppointmentStatus.pending) {
+      if (appointment.isPast) {
+        return SizedBox(
+          width: double.infinity,
+          child: isLoading
+              ? Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.h),
+                    child: SizedBox(
+                      height: 24.h,
+                      width: 24.w,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: AppColor.primaryColor,
+                      ),
+                    ),
+                  ),
+                )
+              : ElevatedButton(
+                  onPressed: () async {
+                    await context
+                        .read<DoctorDashboardCubit>()
+                        .completeAppointment(appointment.id!);
+                    _loadAppointmentsByStatus(_selectedFilter);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.primaryColor,
+                    foregroundColor: Colors.white,
+                    padding: EdgeInsets.symmetric(vertical: 12.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                  ),
+                  child: Text(
+                    context.l10n.complete,
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+        );
+      }
       return Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
@@ -380,11 +410,7 @@ class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
         ),
         child: Row(
           children: [
-            Icon(
-              Icons.schedule,
-              color: Colors.blue,
-              size: 16.sp,
-            ),
+            Icon(Icons.schedule, color: Colors.blue, size: 16.sp),
             SizedBox(width: 8.w),
             Text(
               context.l10n.scheduledAppointment,
@@ -408,11 +434,7 @@ class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
         ),
         child: Row(
           children: [
-            Icon(
-              Icons.check_circle,
-              color: Colors.green,
-              size: 16.sp,
-            ),
+            Icon(Icons.check_circle, color: Colors.green, size: 16.sp),
             SizedBox(width: 8.w),
             Text(
               context.l10n.appointmentCompleted,
@@ -434,29 +456,24 @@ class _DoctorAppointmentsScreenState extends State<DoctorAppointmentsScreen>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.calendar_today_outlined,
-            size: 64.sp,
-            color: Colors.grey[400],
-          ),
+          Icon(Icons.calendar_today_outlined,
+              size: 64.sp, color: Colors.grey[400]),
           SizedBox(height: 16.h),
           Text(
-            _selectedFilter == 'pending' ? context.l10n.noUpcomingAppointments : context.l10n.noCompletedAppointments,
+            _selectedFilter == 'pending'
+                ? context.l10n.noUpcomingAppointments
+                : context.l10n.noCompletedAppointments,
             style: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w600,
-              color: Colors.grey[600],
-            ),
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w600,
+                color: Colors.grey[600]),
           ),
           SizedBox(height: 8.h),
           Text(
-            _selectedFilter == 'pending' 
+            _selectedFilter == 'pending'
                 ? context.l10n.upcomingAppointmentsWillAppearHere
                 : context.l10n.appointmentHistoryWillAppearHere,
-            style: TextStyle(
-              fontSize: 14.sp,
-              color: Colors.grey[500],
-            ),
+            style: TextStyle(fontSize: 14.sp, color: Colors.grey[500]),
             textAlign: TextAlign.center,
           ),
         ],

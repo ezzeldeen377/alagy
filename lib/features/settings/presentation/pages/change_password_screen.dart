@@ -16,7 +16,10 @@ class ChangePasswordScreen extends StatelessWidget {
       create: (context) => getIt<ChangePasswordCubit>(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(context.l10n.changePassword),
+          title: Text(
+            context.l10n.changePassword,
+            style: TextStyle(color: Colors.white),
+          ),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () => Navigator.pop(context),
@@ -27,6 +30,8 @@ class ChangePasswordScreen extends StatelessWidget {
     );
   }
 }
+
+class AppColors {}
 
 class _ChangePasswordForm extends StatefulWidget {
   const _ChangePasswordForm();

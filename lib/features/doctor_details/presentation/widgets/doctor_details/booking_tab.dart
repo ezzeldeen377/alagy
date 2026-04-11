@@ -48,40 +48,90 @@ class BookingTab extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 16),
-              Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: state.timeSlots!.map((time) {
-                    final isSelected = state.selectedTime == time;
-                    final isAvailable = time.isAvailable;
-                    print("@@@@@@@@@@@@@@@@@@@@@@@@$isAvailable");
-                    return InkWell(
-                      onTap: isAvailable ? () => cubit.selectTime(time) : null,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 8),
-                        decoration: BoxDecoration(
-                          color: isSelected
-                              ? AppColor.primaryColor
-                              : Colors.transparent,
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: !isAvailable
-                                ? AppColor.greyColor.withOpacity(0.5)
-                                : AppColor.primaryColor,
+              state.isDayClosed
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 20.h),
+                        Icon(
+                          Icons.event_busy_outlined,
+                          size: 64.r,
+                          color: AppColor.greyColor.withOpacity(0.5),
+                        ),
+                        SizedBox(height: 16.h),
+                        Text(
+                          context.l10n.closedOnThisDay,
+                          style: context.theme.textTheme.titleMedium?.copyWith(
+                            color: AppColor.greyColor,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                        child: Text(
-                          time.time,
-                          style: context.theme.textTheme.labelLarge?.copyWith(
-                            color: !isAvailable
-                                ? AppColor.greyColor
-                                : (isSelected ? Colors.white : null),
-                          ),
+                        SizedBox(height: 20.h),
+                      ],
+                    )
+                  : (state.timeSlots?.isEmpty ?? true)
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(height: 20.h),
+                            Icon(
+                              Icons.history_toggle_off_outlined,
+                              size: 64.r,
+                              color: AppColor.greyColor.withOpacity(0.5),
+                            ),
+                            SizedBox(height: 16.h),
+                            Text(
+                              context.l10n.noAppointmentsForThisDay,
+                              style:
+                                  context.theme.textTheme.titleMedium?.copyWith(
+                                color: AppColor.greyColor,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(height: 20.h),
+                          ],
+                        )
+                      : Wrap(
+                          spacing: 8.w,
+                          runSpacing: 8.h,
+                          children: state.timeSlots!.map((time) {
+                            final isSelected = state.selectedTime == time;
+                            final isAvailable = time.isAvailable;
+                            return InkWell(
+                              onTap: isAvailable
+                                  ? () => cubit.selectTime(time)
+                                  : null,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16.w, vertical: 8.h),
+                                decoration: BoxDecoration(
+                                  color: isSelected
+                                      ? AppColor.primaryColor
+                                      : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  border: Border.all(
+                                    color: !isAvailable
+                                        ? AppColor.greyColor.withOpacity(0.5)
+                                        : AppColor.primaryColor,
+                                  ),
+                                ),
+                                child: Text(
+                                  time.formatLocalized(context
+                                      .read<AppSettingsCubit>()
+                                      .state
+                                      .locale
+                                      .languageCode),
+                                  style: context.theme.textTheme.labelLarge
+                                      ?.copyWith(
+                                    color: !isAvailable
+                                        ? AppColor.greyColor
+                                        : (isSelected ? Colors.white : null),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }).toList(),
                         ),
-                      ),
-                    );
-                  }).toList()),
               const SizedBox(height: 24),
               SizedBox(
                 width: double.infinity,

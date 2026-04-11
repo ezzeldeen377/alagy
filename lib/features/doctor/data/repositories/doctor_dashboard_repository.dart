@@ -6,12 +6,13 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class DoctorDashboardRepository {
-  Future<Either<Failure, Map<String, int>>> getDoctorStatistics(String doctorId);
+  Future<Either<Failure, Map<String, int>>> getDoctorStatistics(String doctorId, StatisticsPeriod period);
   Future<Either<Failure, List<DoctorAppointment>>> getTodayAppointments(String doctorId);
   Future<Either<Failure, List<DoctorAppointment>>> getPendingRequests(String doctorId);
   Future<Either<Failure, List<DoctorAppointment>>> getAllAppointments(String doctorId);
   Future<Either<Failure, List<DoctorAppointment>>> getPendingAppointments(String doctorId);
   Future<Either<Failure, List<DoctorAppointment>>> getCompletedAppointments(String doctorId);
+  Future<Either<Failure, Map<String, dynamic>>> getAppointmentSummary(String doctorId);
   Future<Either<Failure, void>> updateAppointmentStatus(String appointmentId, AppointmentStatus status);
 }
 
@@ -22,9 +23,16 @@ class DoctorDashboardRepositoryImpl implements DoctorDashboardRepository {
   DoctorDashboardRepositoryImpl(this._dataSource);
 
   @override
-  Future<Either<Failure, Map<String, int>>> getDoctorStatistics(String doctorId) {
+  Future<Either<Failure, Map<String, int>>> getDoctorStatistics(String doctorId, StatisticsPeriod period) {
     return executeTryAndCatchForRepository(() async {
-      return await _dataSource.getDoctorStatistics(doctorId);
+      return await _dataSource.getDoctorStatistics(doctorId, period);
+    });
+  }
+
+  @override
+  Future<Either<Failure, Map<String, dynamic>>> getAppointmentSummary(String doctorId) {
+    return executeTryAndCatchForRepository(() async {
+      return await _dataSource.getAppointmentSummary(doctorId);
     });
   }
 

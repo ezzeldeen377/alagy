@@ -72,38 +72,14 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
       if (query.isEmpty) {
         return [];
       }
-      final nameFuture = userCollection
+      final snapshot = await userCollection
           .where('type', isEqualTo: 'doctor')
-          .where('nameLower', isGreaterThanOrEqualTo: lowerQuery)
-          .where('nameLower', isLessThanOrEqualTo: '$lowerQuery\uf8ff')
+          .where('keyword', arrayContains: lowerQuery)
           .get();
 
-      final addressFuture = userCollection
-          .where('type', isEqualTo: 'doctor')
-          .where('addressLower', isGreaterThanOrEqualTo: lowerQuery)
-          .where('addressLower', isLessThanOrEqualTo: '$lowerQuery\uf8ff')
-          .get();
-
-      final categoryFuture = userCollection
-          .where('type', isEqualTo: 'doctor')
-          .where('specialization', isGreaterThanOrEqualTo: lowerQuery)
-          .where('specialization', isLessThanOrEqualTo: '$lowerQuery\uf8ff')
-          .get();
-
-      // Wait for all 3 queries in parallel
-      final results =
-          await Future.wait([nameFuture, addressFuture, categoryFuture]);
-
-      // Combine and deduplicate documents
-      final allDocs = results.expand((snapshot) => snapshot.docs).toList();
-      final uniqueDocsMap = <String, Map<String, dynamic>>{};
-
-      for (var doc in allDocs) {
-        uniqueDocsMap[doc.id] =
-            doc.data() as Map<String, dynamic>; // Each is Map<String, dynamic>
-      }
-      print(" length : ${uniqueDocsMap.length}");
-      return uniqueDocsMap.values.toList(); // List<Map<String, dynamic>>
+      return snapshot.docs
+          .map((doc) => doc.data() as Map<String, dynamic>)
+          .toList();
     });
   }
 
@@ -161,6 +137,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
       final snapshot = await userCollection
           .doc(userId)
           .collection(FirebaseCollections.appointmentsCollection)
+          .orderBy("appointmentDate", descending: true)
           .get();
       final data = snapshot.docs.map((e) {
         final map = Map<String, dynamic>.from(e.data());

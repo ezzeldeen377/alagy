@@ -3,13 +3,16 @@ import 'package:alagy/features/doctor_details/data/models/doctor_appointment.dar
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 
+enum StatisticsPeriod { today, thisWeek, thisMonth, allTime }
+
 abstract class DoctorDashboardRemoteDataSource {
-  Future<Map<String, int>> getDoctorStatistics(String doctorId);
+  Future<Map<String, int>> getDoctorStatistics(String doctorId, StatisticsPeriod period);
   Future<List<Map<String, dynamic>>> getTodayAppointments(String doctorId);
   Future<List<Map<String, dynamic>>> getPendingRequests(String doctorId);
   Future<List<Map<String, dynamic>>> getAllAppointments(String doctorId);
   Future<List<Map<String, dynamic>>> getPendingAppointments(String doctorId);
   Future<List<Map<String, dynamic>>> getCompletedAppointments(String doctorId);
+  Future<Map<String, dynamic>> getAppointmentSummary(String doctorId);
   Future<void> updateAppointmentStatus(String appointmentId, AppointmentStatus status);
 }
 
@@ -18,11 +21,28 @@ class DoctorDashboardRemoteDataSourceImpl implements DoctorDashboardRemoteDataSo
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
-  Future<Map<String, int>> getDoctorStatistics(String doctorId) async {
+  Future<Map<String, int>> getDoctorStatistics(String doctorId, StatisticsPeriod period) async {
     try {
       final now = DateTime.now();
       final today = DateTime(now.year, now.month, now.day);
       final tomorrow = today.add(const Duration(days: 1));
+
+      // Determine the start date based on the period
+      DateTime? startDate;
+      switch (period) {
+        case StatisticsPeriod.today:
+          startDate = today;
+          break;
+        case StatisticsPeriod.thisWeek:
+          startDate = today.subtract(Duration(days: today.weekday - 1));
+          break;
+        case StatisticsPeriod.thisMonth:
+          startDate = DateTime(now.year, now.month, 1);
+          break;
+        case StatisticsPeriod.allTime:
+          startDate = null;
+          break;
+      }
 
       // Get all appointments for this doctor
       final allAppointmentsQuery = await _firestore
@@ -30,15 +50,20 @@ class DoctorDashboardRemoteDataSourceImpl implements DoctorDashboardRemoteDataSo
           .where('doctorId', isEqualTo: doctorId)
           .get();
 
-      final allAppointments = allAppointmentsQuery.docs;
+      final allAppointmentsRaw = allAppointmentsQuery.docs;
 
-      // Get today's appointments
-      final todayAppointments = allAppointments.where((doc) {
-        final data = doc.data() as Map<String, dynamic>;
-        final appointmentDate = DateTime.parse(data['appointmentDate']);
-        return appointmentDate.isAfter(today.subtract(const Duration(days: 1))) &&
-               appointmentDate.isBefore(tomorrow);
-      }).toList();
+      // Filter appointments by date if startDate is not null
+      final allAppointments = startDate == null 
+        ? allAppointmentsRaw 
+        : allAppointmentsRaw.where((doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          final appointmentDate = DateTime.parse(data['appointmentDate']);
+          return appointmentDate.isAfter(startDate!.subtract(const Duration(seconds: 1)));
+        }).toList();
+
+      // Today's appointments (always keep today's context for that specific stat if needed, or filter it too)
+      // Actually, let's filter everything by period for consistency, except maybe 'todaysAppointments' if the user wants that specific card to stay today.
+      // But the request says "with each one get the statics", so all 4 cards should reflect the period.
 
       // Get pending requests
       final pendingRequests = allAppointments.where((doc) {
@@ -46,23 +71,37 @@ class DoctorDashboardRemoteDataSourceImpl implements DoctorDashboardRemoteDataSo
         return data['status'] == 'pending';
       }).toList();
 
-      // Get completed appointments today
-      final completedToday = todayAppointments.where((doc) {
+      // Get completed appointments
+      final completedInPeriod = allAppointments.where((doc) {
         final data = doc.data() as Map<String, dynamic>;
         return data['status'] == 'completed';
       }).toList();
 
       // Get unique patients count
       final uniquePatients = allAppointments
-          .map((doc) => (doc.data() as Map<String, dynamic>)['patientId'])
+          .map((doc) => (doc.data())['patientId'])
           .toSet()
           .length;
 
+      // For 'todayAppointments' card, if period is 'today', it's today. If 'allTime', it's total count? 
+      // Usually these dashboards show "Upcoming" for the period.
+      final upcomingInPeriod = allAppointments.where((doc) {
+        final data = doc.data();
+        return data['status'] == 'confirmed'; // Confirmed in this period
+      }).toList();
+
       return {
         'totalPatients': uniquePatients,
-        'todayAppointments': todayAppointments.length,
+        'todayAppointments': period == StatisticsPeriod.today 
+            ? allAppointments.where((doc) {
+                final data = doc.data();
+                final appointmentDate = DateTime.parse(data['appointmentDate']);
+                return appointmentDate.isAfter(today.subtract(const Duration(seconds: 1))) &&
+                       appointmentDate.isBefore(tomorrow);
+              }).length
+            : upcomingInPeriod.length,
         'pendingRequests': pendingRequests.length,
-        'completedToday': completedToday.length,
+        'completedToday': completedInPeriod.length,
       };
     } catch (e) {
       throw Exception('Failed to get doctor statistics: $e');
@@ -87,7 +126,7 @@ class DoctorDashboardRemoteDataSourceImpl implements DoctorDashboardRemoteDataSo
           .get();
 
       return querySnapshot.docs.map((doc) {
-        final data = doc.data() as Map<String, dynamic>;
+        final data = doc.data();
         data['id'] = doc.id;
         return data;
       }).toList();
@@ -108,7 +147,7 @@ class DoctorDashboardRemoteDataSourceImpl implements DoctorDashboardRemoteDataSo
           .get();
 
       return querySnapshot.docs.map((doc) {
-        final data = doc.data() as Map<String, dynamic>;
+        final data = doc.data();
         data['id'] = doc.id;
         return data;
       }).toList();
@@ -128,7 +167,7 @@ class DoctorDashboardRemoteDataSourceImpl implements DoctorDashboardRemoteDataSo
           .get();
 
       return querySnapshot.docs.map((doc) {
-        final data = doc.data() as Map<String, dynamic>;
+        final data = doc.data();
         data['id'] = doc.id;
         return data;
       }).toList();
@@ -149,7 +188,7 @@ class DoctorDashboardRemoteDataSourceImpl implements DoctorDashboardRemoteDataSo
           .get();
 
       return querySnapshot.docs.map((doc) {
-        final data = doc.data() as Map<String, dynamic>;
+        final data = doc.data();
         data['id'] = doc.id;
         return data;
       }).toList();
@@ -175,6 +214,41 @@ class DoctorDashboardRemoteDataSourceImpl implements DoctorDashboardRemoteDataSo
       }).toList();
     } catch (e) {
       throw Exception('Failed to get completed appointments: $e');
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> getAppointmentSummary(String doctorId) async {
+    try {
+      final querySnapshot = await _firestore
+          .collectionGroup(FirebaseCollections.appointmentsCollection)
+          .where('doctorId', isEqualTo: doctorId)
+          .get();
+
+      int pending = 0;
+      int completed = 0;
+      double revenue = 0;
+
+      for (var doc in querySnapshot.docs) {
+        final data = doc.data() as Map<String, dynamic>;
+        final status = data['status'];
+        final price = (data['price'] as num?)?.toDouble() ?? 0.0;
+
+        if (status == 'pending' || status == 'confirmed') {
+          pending++;
+        } else if (status == 'completed') {
+          completed++;
+          revenue += price;
+        }
+      }
+
+      return {
+        'pendingCount': pending,
+        'completedCount': completed,
+        'totalRevenue': revenue,
+      };
+    } catch (e) {
+      throw Exception('Failed to get appointment summary: $e');
     }
   }
 

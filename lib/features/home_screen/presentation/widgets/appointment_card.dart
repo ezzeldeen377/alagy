@@ -1,3 +1,4 @@
+import 'package:alagy/features/settings/cubit/app_settings_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -101,7 +102,13 @@ class AppointmentCard extends StatelessWidget {
                     Expanded(
                       child: _infoRow(
                         icon: Icons.calendar_today_outlined,
-                        label: DateFormat('MMM d, yyyy')
+                        label: DateFormat(
+                                'MMM d, yyyy',
+                                context
+                                    .read<AppSettingsCubit>()
+                                    .state
+                                    .locale
+                                    .toString())
                             .format(appointment.appointmentDate),
                         context: context,
                       ),
@@ -110,7 +117,11 @@ class AppointmentCard extends StatelessWidget {
                     Expanded(
                       child: _infoRow(
                         icon: Icons.access_time_outlined,
-                        label: appointment.startTime.time,
+                        label: appointment.startTime.formatLocalized(context
+                            .read<AppSettingsCubit>()
+                            .state
+                            .locale
+                            .toString()),
                         context: context,
                       ),
                     ),
@@ -168,24 +179,44 @@ class AppointmentCard extends StatelessWidget {
                 if (appointment.status == AppointmentStatus.pending ||
                     appointment.status == AppointmentStatus.confirmed) ...[
                   SizedBox(height: 16.h),
-                  OutlinedButton(
-                    onPressed: () => _showCancelBottomSheet(context),
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: Colors.red,
-                      side: const BorderSide(color: Colors.red),
-                      minimumSize: Size(double.infinity, 44.h),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                    ),
-                    child: Text(
-                      context.l10n.cancelAppointmentConfirmationTitle,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
+                  appointment.isPast
+                      ? OutlinedButton(
+                          onPressed: null,
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: Colors.grey,
+                            side: const BorderSide(color: Colors.grey),
+                            minimumSize: Size(double.infinity, 44.h),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.r),
+                            ),
+                          ),
+                          child: Text(
+                            context.l10n.timeOver,
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        )
+                      : OutlinedButton(
+                          onPressed: () => _showCancelBottomSheet(context),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: Colors.red,
+                            side: const BorderSide(color: Colors.red),
+                            minimumSize: Size(double.infinity, 44.h),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.r),
+                            ),
+                          ),
+                          child: Text(
+                            context.l10n.cancelAppointmentConfirmationTitle,
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
                 ],
               ],
             ),
@@ -201,13 +232,7 @@ class AppointmentCard extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
 
     // Calculate time difference
-    final appointmentDateTime = DateTime(
-      appointment.appointmentDate.year,
-      appointment.appointmentDate.month,
-      appointment.appointmentDate.day,
-      appointment.startTime.toDateTime().hour,
-      appointment.startTime.toDateTime().minute,
-    );
+    final appointmentDateTime = appointment.fullDateTime;
 
     final difference = appointmentDateTime.difference(DateTime.now());
     final hoursRemaining = difference.inHours;

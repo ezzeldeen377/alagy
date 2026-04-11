@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 enum AppointmentStatus { pending, confirmed, cancelled, completed }
 
 enum AppointmentPaymentStatus { unpaid, paid, refunded }
@@ -173,6 +175,19 @@ class DoctorAppointment {
     );
   }
 
+  DateTime get fullDateTime {
+    final time = startTime.toDateTime();
+    return DateTime(
+      appointmentDate.year,
+      appointmentDate.month,
+      appointmentDate.day,
+      time.hour,
+      time.minute,
+    );
+  }
+
+  bool get isPast => fullDateTime.isBefore(DateTime.now());
+
   // Helpers for enum mapping
   static AppointmentStatus _statusFromString(String status) {
     return AppointmentStatus.values.firstWhere(
@@ -282,6 +297,12 @@ extension TimeSlotFormatting on TimeSlot {
   String format24Hour() {
     final dateTime = toDateTime();
     return '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}';
+  }
+
+  /// Returns localized formatted time string
+  String formatLocalized(String locale) {
+    final dateTime = toDateTime();
+    return DateFormat.jm(locale).format(dateTime);
   }
 
   /// Returns time with seconds (e.g., "9:00:00 AM")

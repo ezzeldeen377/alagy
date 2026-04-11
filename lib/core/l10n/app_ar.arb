@@ -1,5 +1,9 @@
 {
   "@@locale": "ar",
+  "today": "اليوم",
+  "thisWeek": "هذا الأسبوع",
+  "thisMonth": "هذا الشهر",
+  "allTime": "كل الوقت",
   "accept": "قبول",
   "accountHolderName": "اسم صاحب الحساب",
   "accountNumber": "رقم الحساب/الهاتف",
@@ -93,6 +97,7 @@
   "codeCopiedToClipboard": "تم نسخ الرمز \"{code}\" إلى الحافظة",
   "codeDeletedSuccessfully": "Code deleted successfully",
   "codeMinimumLength": "يجب أن يكون الرمز 3 أحرف على الأقل",
+  "complete": "إكمال",
   "completed": "مكتمل",
   "completedToday": "المكتملة اليوم",
   "confirm": "تأكيد",
@@ -548,5 +553,8 @@
   "yearsExp": "سنوات خبرة",
   "yearsExperience": "سنوات خبرة",
   "yearsOfExperience": "سنوات الخبرة",
-  "youllSeeNotificationsHere": "ستظهر الإشعارات هنا عند استلامها"
+  "youllSeeNotificationsHere": "ستظهر الإشعارات هنا عند استلامها",
+  "goToGoogleMaps": "الذهاب إلى خرائط جوجل",
+  "timeOver": "انتهى الوقت",
+  "cancellationRefundMessage": "يمكنك استخدام هذا المبلغ لحجز موعد مع طبيب آخر أو طلب استرداد"
 }

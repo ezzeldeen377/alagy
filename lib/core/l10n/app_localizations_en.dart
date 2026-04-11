@@ -9,6 +9,18 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get today => 'Today';
+
+  @override
+  String get thisWeek => 'This Week';
+
+  @override
+  String get thisMonth => 'This Month';
+
+  @override
+  String get allTime => 'All Time';
+
+  @override
   String get accept => 'Accept';
 
   @override
@@ -307,6 +319,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get codeMinimumLength => 'Code must be at least 3 characters';
+
+  @override
+  String get complete => 'Complete';
 
   @override
   String get completed => 'Completed';
@@ -1719,4 +1734,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get youllSeeNotificationsHere =>
       'You\'ll see notifications here when you receive them';
+
+  @override
+  String get goToGoogleMaps => 'Go to Google Maps';
+
+  @override
+  String get timeOver => 'Time Over';
+
+  @override
+  String get cancellationRefundMessage =>
+      'You can use this money to reserve another doctor or request a refund';
 }

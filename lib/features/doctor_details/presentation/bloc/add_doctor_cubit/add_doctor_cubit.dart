@@ -284,37 +284,75 @@ class AddDoctorCubit extends Cubit<AddDoctorState> {
   }
 
   void initControllers() {
-    emit(state.copyWith(
-      latitude: state.doctor?.latitude,
-      longitude: state.doctor?.longitude,
-      profilePictureUrl: state.doctor?.profileImage,
-      dayAvailability: state.doctor!.mapToDayAvailability(),
-      dayIsClosed: state.doctor!.mapToDayIsClosed(),
-    ));
-    nameController.text = state.doctor?.name ?? '';
-    emailController.text = state.doctor?.email ?? '';
-    phoneNumberController.text = state.doctor?.phoneNumber ?? '';
-    addressController.text = state.doctor?.address ?? '';
-    specializationController.text = state.doctor?.specialization ?? '';
-    qualificationController.text = state.doctor?.qualification ?? '';
-    licenseNumberController.text = state.doctor?.licenseNumber ?? '';
-    hospitalOrClinicNameController.text = state.doctor?.hospitalName ?? '';
-    consultationFeeController.text = (state.doctor?.consultationFee != null
-        ? state.doctor!.consultationFee?.toStringAsFixed(0)
-        : '')!;
-    returningFeesController.text = (state.doctor?.returningFees != null
-        ? state.doctor!.returningFees?.toStringAsFixed(0)
-        : '')!;
-    yearsOfExperienceController.text = state.doctor?.yearsOfExperience != null
-        ? state.doctor!.yearsOfExperience.toString()
-        : '';
-    bioController.text = state.doctor?.bio ?? '';
+    final doctor = state.doctor;
+    if (doctor == null) return;
+
+    nameController.text = doctor.name;
+    emailController.text = doctor.email;
+    phoneNumberController.text = doctor.phoneNumber ?? '';
+    addressController.text = doctor.address ?? '';
+    specializationController.text = doctor.specialization ?? '';
+    qualificationController.text = doctor.qualification ?? '';
+    licenseNumberController.text = doctor.licenseNumber ?? '';
+    hospitalOrClinicNameController.text = doctor.hospitalName ?? '';
+    consultationFeeController.text =
+        doctor.consultationFee?.toStringAsFixed(0) ?? '';
+    returningFeesController.text =
+        doctor.returningFees?.toStringAsFixed(0) ?? '';
+    yearsOfExperienceController.text =
+        doctor.yearsOfExperience?.toString() ?? '';
+    bioController.text = doctor.bio ?? '';
+
+    final dayAvailability = doctor.mapToDayAvailability();
+    final dayIsClosed = doctor.mapToDayIsClosed();
+
+    // Check if availability is uniform across all days
+    bool isCustomAvailability = false;
+    String? commonStart;
+    String? commonEnd;
+
+    if (AppConstants.daysOfWeek.isNotEmpty) {
+      final firstDay = AppConstants.daysOfWeek.first;
+      commonStart = dayAvailability[firstDay]?['start'];
+      commonEnd = dayAvailability[firstDay]?['end'];
+      final commonClosed = dayIsClosed[firstDay];
+
+      for (var day in AppConstants.daysOfWeek) {
+        if (dayAvailability[day]?['start'] != commonStart ||
+            dayAvailability[day]?['end'] != commonEnd ||
+            dayIsClosed[day] != commonClosed) {
+          isCustomAvailability = true;
+          break;
+        }
+      }
+    }
+
+    if (!isCustomAvailability) {
+      weeklyStartTimeController.text = commonStart ?? '';
+      weeklyEndTimeController.text = commonEnd ?? '';
+    }
 
     dayEndTimeControllers.forEach((day, controller) {
-      controller.text = state.dayAvailability?[day]?['end'] ?? '';
+      controller.text = dayAvailability[day]?['end'] ?? '';
     });
     dayStartTimeControllers.forEach((day, controller) {
-      controller.text = state.dayAvailability?[day]?['start'] ?? '';
+      controller.text = dayAvailability[day]?['start'] ?? '';
     });
+
+    emit(state.copyWith(
+      latitude: doctor.latitude,
+      longitude: doctor.longitude,
+      profilePictureUrl: doctor.profileImage,
+      dayAvailability: dayAvailability,
+      dayIsClosed: dayIsClosed,
+      isCustomAvailability: isCustomAvailability,
+    ));
+
+    if (doctor.latitude != null && doctor.longitude != null) {
+      updateLocation(
+        latitude: doctor.latitude,
+        longitude: doctor.longitude,
+      );
+    }
   }
 }
