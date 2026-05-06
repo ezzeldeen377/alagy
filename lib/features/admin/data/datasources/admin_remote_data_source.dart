@@ -32,6 +32,7 @@ class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
       final querySnapshot = await _firestore
           .collection('users')
           .where('isAccepted', isNull: true)
+          .orderBy('createdAt', descending: true)
           .get();
 
       return querySnapshot.docs
@@ -48,6 +49,7 @@ class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
       final querySnapshot = await _firestore
           .collection('users')
           .where('isAccepted', isEqualTo: true)
+          .orderBy('createdAt', descending: true)
           .get();
 
       return querySnapshot.docs
@@ -64,6 +66,7 @@ class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
       final querySnapshot = await _firestore
           .collection('users')
           .where('isAccepted', isEqualTo: false)
+          .orderBy('createdAt', descending: true)
           .get();
 
       return querySnapshot.docs

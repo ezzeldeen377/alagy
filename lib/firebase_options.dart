@@ -56,13 +56,13 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDhpW2Cilvj5QbU7p-kn5WU6sSv2wCczW4',
-    appId: '1:81987773272:ios:c70a60190de19b02d37b2d',
+    appId: '1:81987773272:ios:6309e7a1bfde10efd37b2d',
     messagingSenderId: '81987773272',
     projectId: 'alagy-92af4',
     storageBucket: 'alagy-92af4.firebasestorage.app',
-    androidClientId: '81987773272-1hj1eq7bm1iktbj2j0qo5gquanf7o8pc.apps.googleusercontent.com',
-    iosClientId: '81987773272-i9q8r9hk9h0cvhgv7pok2q2rrivr0td4.apps.googleusercontent.com',
-    iosBundleId: 'com.example.alagy',
+    androidClientId: '81987773272-01qmn0av547u3dkild9sksk40tl1g765.apps.googleusercontent.com',
+    iosClientId: '81987773272-2ipgj3ot2mkounvnekomedsr15kv6gpt.apps.googleusercontent.com',
+    iosBundleId: 'com.alagy.app',
   );
 
   static const FirebaseOptions web = FirebaseOptions(

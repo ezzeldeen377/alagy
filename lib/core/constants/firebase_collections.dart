@@ -16,7 +16,7 @@ class paymentKeys {
   static const String baseUrl = 'https://accept.paymob.com/v1/intention/';
 
   static const String publicKey =
-      "egy_pk_test_vbVYcClcXmUzXXuLYe3rGdT73w4wurlX";
+      "egy_pk_live_ijQheupiUCQDjtgcOwk00hGtHEUiNB3G";
   static String get clientSecret =>
       dotenv.get('PAYMOB_CLIENT_SECRET', fallback: '');
   static const int cardIntegrationId = 5609595;

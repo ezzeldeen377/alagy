@@ -90,7 +90,8 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
       body: BlocConsumer<AdminCubit, AdminState>(
         listener: (context, state) {
           if (state.isError) {
-            showSnackBar(context, state.errorMessage ?? context.l10n.anErrorOccurred,
+            showSnackBar(
+                context, state.errorMessage ?? context.l10n.anErrorOccurred,
                 backgroundColor: Colors.red);
           }
         },
@@ -174,7 +175,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                     crossAxisCount: 2,
                     crossAxisSpacing: 16.w,
                     mainAxisSpacing: 16.h,
-                    childAspectRatio: 1.2,
+                    childAspectRatio: 1.1,
                     children: [
                       AdminCard(
                         title: context.l10n.totalDoctors,

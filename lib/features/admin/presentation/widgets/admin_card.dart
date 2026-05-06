@@ -63,11 +63,14 @@ class AdminCard extends StatelessWidget {
               ],
             ),
             SizedBox(height: 12.h),
-            Text(
-              value,
-              style: context.theme.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: color,
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                value,
+                style: context.theme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
               ),
             ),
             SizedBox(height: 4.h),

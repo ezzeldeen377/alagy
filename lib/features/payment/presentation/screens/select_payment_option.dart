@@ -12,6 +12,8 @@ import 'package:alagy/features/doctor_details/data/models/doctor_appointment.dar
 import 'package:alagy/features/payment/data/models/payment_model.dart';
 import 'package:alagy/features/payment/presentation/cubit/payment_cubit.dart';
 import 'package:alagy/features/payment/presentation/widgets/custom_payment_options_item.dart';
+import 'package:alagy/core/services/remote_config_service.dart';
+import 'package:alagy/core/di/di.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,6 +77,14 @@ class _SelectPaymentOptionState extends State<SelectPaymentOption> {
   @override
   Widget build(BuildContext context) {
     final user = context.read<AppUserCubit>().state.user;
+    final remoteConfig = getIt<RemoteConfigService>();
+    final availablePaymentMethods = AppConstants.paymentMethods.where((method) {
+      if (method.key == "onlinePayment") {
+        return remoteConfig.showOnlinePayment;
+      }
+      return true;
+    }).toList();
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -107,9 +117,9 @@ class _SelectPaymentOptionState extends State<SelectPaymentOption> {
                 separatorBuilder: (context, index) => SizedBox(
                   height: 10.h,
                 ),
-                itemCount: AppConstants.paymentMethods.length,
+                itemCount: availablePaymentMethods.length,
                 itemBuilder: (context, index) => CustomPaymentOptionsItem(
-                    paymentType: AppConstants.paymentMethods[index]),
+                    paymentType: availablePaymentMethods[index]),
               ),
             )
           ],

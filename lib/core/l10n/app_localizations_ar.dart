@@ -9,18 +9,6 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get today => 'اليوم';
-
-  @override
-  String get thisWeek => 'هذا الأسبوع';
-
-  @override
-  String get thisMonth => 'هذا الشهر';
-
-  @override
-  String get allTime => 'كل الوقت';
-
-  @override
   String get accept => 'قبول';
 
   @override
@@ -67,6 +55,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get afternoon => 'بعد الظهر';
+
+  @override
+  String get allTime => 'كل الوقت';
 
   @override
   String get alreadyHaveAccount => 'هل لديك حساب؟';
@@ -258,6 +249,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get cancellationReason => 'سبب الإلغاء';
 
   @override
+  String get cancellationRefundMessage =>
+      'يمكنك استخدام هذا المبلغ لحجز موعد مع طبيب آخر أو طلب استرداد';
+
+  @override
   String get cancellationWarning3Hours =>
       'سيؤدي الإلغاء في غضون 3 ساعات من الموعد إلى خصم 50٪ من مبلغ الاسترداد.';
 
@@ -337,6 +332,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get confirmNewPassword => 'تأكيد كلمة المرور الجديدة';
+
+  @override
+  String get connectWithApple => 'المتابعة باستخدام Apple';
 
   @override
   String get connectWithGoogle => 'المتابعة باستخدام Google';
@@ -772,6 +770,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get goodMorning => 'صباح الخير';
 
   @override
+  String get goToGoogleMaps => 'الذهاب إلى خرائط جوجل';
+
+  @override
   String greeting(Object name) {
     return 'مرحباً، $name!';
   }
@@ -808,6 +809,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get internalMedicine => 'طب باطني';
+
+  @override
+  String get internalWallet => 'المحفظة الداخلية';
 
   @override
   String get invalidAmount => 'مبلغ غير صحيح';
@@ -1005,9 +1009,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get onlinePayment => 'الدفع أونلاين';
 
   @override
-  String get internalWallet => 'المحفظة الداخلية';
-
-  @override
   String get ophthalmology => 'طب العيون';
 
   @override
@@ -1033,7 +1034,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get passwordResetEmailSent =>
-      'تم إرسال بريد لإعادة تعيين كلمة المرور.';
+      'تم إرسال بريد لإعادة تعيين كلمة المرور. يرجى التحقق من صندوق الوارد ومجلد البريد المزعج.';
 
   @override
   String get passwordsDoNotMatch => 'كلمات المرور غير متطابقة';
@@ -1451,10 +1452,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get themeArabic => 'تغيير المظهر';
 
   @override
+  String get thisMonth => 'هذا الشهر';
+
+  @override
+  String get thisWeek => 'هذا الأسبوع';
+
+  @override
   String get thursday => 'الخميس';
 
   @override
   String get time => 'الوقت';
+
+  @override
+  String get timeOver => 'انتهى الوقت';
+
+  @override
+  String get today => 'اليوم';
 
   @override
   String get todaysAppointments => 'مواعيد اليوم';
@@ -1718,14 +1731,4 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get youllSeeNotificationsHere => 'ستظهر الإشعارات هنا عند استلامها';
-
-  @override
-  String get goToGoogleMaps => 'الذهاب إلى خرائط جوجل';
-
-  @override
-  String get timeOver => 'انتهى الوقت';
-
-  @override
-  String get cancellationRefundMessage =>
-      'يمكنك استخدام هذا المبلغ لحجز موعد مع طبيب آخر أو طلب استرداد';
 }

@@ -24,6 +24,7 @@ abstract interface class AuthRepository {
   Future<Either<Failure, UserModel>> getUser({required String uid});
   Future<Either<Failure, void>> signOut();
   Future<Either<Failure, UserModel>> googleAuth();
+  Future<Either<Failure, UserModel>> appleAuth();
   Future<Either<Failure, bool>> checkUesrSignin();
   Future<Either<Failure, void>> updateUser(
       String uid, Map<String, dynamic> data);
@@ -166,6 +167,26 @@ class AuthRepositoryImpl implements AuthRepository {
     return executeTryAndCatchForRepository(() async {
       await _authDataSource.changePassword(
           currentPassword: currentPassword, newPassword: newPassword);
+    });
+  }
+
+  @override
+  Future<Either<Failure, UserModel>> appleAuth() async {
+    return await executeTryAndCatchForRepository(() async {
+      final userCredential = await _authDataSource.appleAuth();
+
+      final userModel = UserModel(
+        type: Role.patient.name,
+        profileImage: userCredential.user?.photoURL,
+        phoneNumber: userCredential.user?.phoneNumber,
+        uid: userCredential.user!.uid,
+        email: userCredential.user!.email ?? '',
+        name: userCredential.user!.displayName ?? 'Apple User',
+        updatedAt: DateTime.now(),
+        createdAt: DateTime.now(),
+      );
+      await _authDataSource.setUser(userModel: userModel);
+      return userModel;
     });
   }
 }

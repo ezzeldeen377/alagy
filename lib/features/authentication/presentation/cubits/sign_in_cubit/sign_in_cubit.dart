@@ -29,7 +29,7 @@ class SignInCubit extends Cubit<SignInState> {
         erorrMessage: l.message,
       ));
     }, (r) {
-      emit(state.copyWith(state: SignInStatus.successSignIn,uid: r));
+      emit(state.copyWith(state: SignInStatus.successSignIn, uid: r));
     });
   }
 
@@ -74,10 +74,24 @@ class SignInCubit extends Cubit<SignInState> {
       emit(state.copyWith(
           state: SignInStatus.googleAuthFailure,
           erorrMessage: state.erorrMessage));
-    }, (userData)  {
+    }, (userData) {
       emit(state.copyWith(
-          state: SignInStatus.googleAuthSuccess,
-          userModel: userData));
+          state: SignInStatus.googleAuthSuccess, userModel: userData));
+    });
+  }
+
+  Future<void> appleAuth() async {
+    emit(state.copyWith(
+      state: SignInStatus.appleAuthLoading,
+    ));
+    final result = await authRepository.appleAuth();
+    result.fold((error) {
+      emit(state.copyWith(
+          state: SignInStatus.appleAuthFailure,
+          erorrMessage: error.message));
+    }, (userData) {
+      emit(state.copyWith(
+          state: SignInStatus.appleAuthSuccess, userModel: userData));
     });
   }
 

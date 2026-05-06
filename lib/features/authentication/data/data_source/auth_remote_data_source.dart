@@ -1,10 +1,15 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:alagy/core/common/enities/user_model.dart';
 import 'package:alagy/core/constants/firebase_collections.dart';
 import 'package:alagy/core/utils/try_and_catch.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 abstract interface class AuthRemoteDataSource {
   Future<UserCredential> signUp(
@@ -17,6 +22,7 @@ abstract interface class AuthRemoteDataSource {
   Future<Map<String, dynamic>?> getUserData({required String uid});
   Future<void> signOut();
   Future<UserCredential> googleAuth();
+  Future<UserCredential> appleAuth();
   Future<bool> checkUesrSignin();
   Future<void> updateUser(String uid, Map<String, dynamic> data);
   Stream<User?> get authStateChanges;
@@ -189,5 +195,56 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       await user.reauthenticateWithCredential(cred);
       await user.updatePassword(newPassword);
     });
+  }
+
+  @override
+  Future<UserCredential> appleAuth() async {
+    return await executeTryAndCatchForDataLayer(() async {
+      final rawNonce = generateNonce();
+      final nonce = sha256ofString(rawNonce);
+
+      // 2. Get Apple credential
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        nonce: nonce, // hashed nonce sent to Apple
+      );
+
+      // Debug print (very useful)
+      print('identityToken present: ${appleCredential.identityToken != null}');
+      print(
+          'authorizationCode present: ${appleCredential.authorizationCode.isNotEmpty}');
+      print(
+          'authorizationCode length: ${appleCredential.authorizationCode.length}');
+
+      // 3. Create Firebase credential — THIS IS THE IMPORTANT PART
+      final oauthCredential = OAuthProvider("apple.com").credential(
+        idToken: appleCredential.identityToken,
+        accessToken: appleCredential.authorizationCode, // ← Must include this
+        rawNonce: rawNonce, // ← Original nonce (for iOS)
+      );
+
+      // 4. Sign in to Firebase
+      final userCredential =
+          await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+      return userCredential;
+    });
+  }
+
+  String generateNonce([int length = 32]) {
+    final charset =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    final random = Random.secure();
+    return List.generate(length, (_) => charset[random.nextInt(charset.length)])
+        .join();
+  }
+
+  /// Returns the sha256 hash of [input] in hex notation.
+  String sha256ofString(String input) {
+    final bytes = utf8.encode(input);
+    final digest = sha256.convert(bytes);
+    return digest.toString();
   }
 }

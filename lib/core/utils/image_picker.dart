@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 
-Future<File?> pickImage() async {
+Future<File?> pickImage([ImageSource source = ImageSource.gallery]) async {
   try {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final image = await ImagePicker().pickImage(source: source);
 
     if (image != null) {
       final compressedPickedImage = await compressImages(image);

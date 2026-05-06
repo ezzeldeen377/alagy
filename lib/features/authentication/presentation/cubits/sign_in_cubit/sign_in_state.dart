@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-
 import 'package:alagy/core/common/enities/user_model.dart';
 
 enum SignInStatus {
@@ -15,6 +14,9 @@ enum SignInStatus {
   googleAuthLoading,
   googleAuthSuccess,
   googleAuthFailure,
+  appleAuthLoading,
+  appleAuthSuccess,
+  appleAuthFailure,
   setUserDataSuccess,
   setUserDataLoading,
   setUserDataFailure,
@@ -36,6 +38,9 @@ extension SignInStateExtension on SignInState {
   bool get isGoogleAuthLoading => state == SignInStatus.googleAuthLoading;
   bool get isGoogleAuthSuccess => state == SignInStatus.googleAuthSuccess;
   bool get isGoogleAuthFailure => state == SignInStatus.googleAuthFailure;
+  bool get isAppleAuthLoading => state == SignInStatus.appleAuthLoading;
+  bool get isAppleAuthSuccess => state == SignInStatus.appleAuthSuccess;
+  bool get isAppleAuthFailure => state == SignInStatus.appleAuthFailure;
   bool get isSetUserDataLoading => state == SignInStatus.setUserDataLoading;
   bool get isSetUserDataSuccess => state == SignInStatus.setUserDataSuccess;
   bool get isSetUserDataFaliure => state == SignInStatus.setUserDataFailure;

@@ -125,9 +125,8 @@ class PaymentCubit extends Cubit<PaymentState> {
         'amount': amount * 100,
         'currency': 'EGP',
         'payment_methods': [
-          // paymentKeys.cardIntegrationId,
-          // paymentKeys.mobileWalletIntegrationId
-          "card"
+          paymentKeys.cardIntegrationId,
+          paymentKeys.mobileWalletIntegrationId
         ],
         'items': [
           {

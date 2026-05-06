@@ -68,7 +68,7 @@ class CustomSignInListener extends StatelessWidget {
         if (state.isSuccessSignIn) {
           getUserAndNavToHome(context, state.uid!);
         }
-        if (state.isGoogleAuthSuccess) {
+        if (state.isGoogleAuthSuccess || state.isAppleAuthSuccess) {
           getUserAndNavToHome(context, state.userModel!.uid);
         }
         if (state.isFailure) {
@@ -81,7 +81,7 @@ class CustomSignInListener extends StatelessWidget {
               backgroundColor: Colors.red);
           return;
         }
-        if (state.isGoogleAuthFailure) {
+        if (state.isGoogleAuthFailure || state.isAppleAuthFailure) {
           showSnackBar(
               context, state.erorrMessage ?? "Google authentication failed",
               backgroundColor: Colors.red);

@@ -89,6 +89,7 @@ import '../../features/wallet/data/repositories/wallet_repository.dart'
     as _i1038;
 import '../../features/wallet/presentation/cubit/wallet_cubit.dart' as _i101;
 import '../common/cubit/app_user/app_user_cubit.dart' as _i94;
+import '../services/remote_config_service.dart' as _i111;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -101,6 +102,7 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    gh.singleton<_i111.RemoteConfigService>(() => _i111.RemoteConfigService());
     gh.factory<_i50.AppSettingsCubit>(() => _i50.AppSettingsCubit());
     gh.lazySingleton<_i1052.LegalRepository>(() => _i1052.LegalRepository());
     gh.factory<_i559.DoctorRemoteDataSource>(

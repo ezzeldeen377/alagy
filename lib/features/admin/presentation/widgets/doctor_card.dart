@@ -3,6 +3,7 @@ import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/features/doctor_details/data/models/doctor_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 class DoctorCard extends StatelessWidget {
   final DoctorModel doctor;
@@ -10,8 +11,8 @@ class DoctorCard extends StatelessWidget {
   final VoidCallback? onApprove;
   final VoidCallback? onReject;
   final VoidCallback? onUpgradeToVip;
-  final VoidCallback? onMoveToRejected;  // New callback
-  final VoidCallback? onMoveToApproved;  // New callback
+  final VoidCallback? onMoveToRejected; // New callback
+  final VoidCallback? onMoveToApproved; // New callback
 
   const DoctorCard({
     super.key,
@@ -20,8 +21,8 @@ class DoctorCard extends StatelessWidget {
     this.onApprove,
     this.onReject,
     this.onUpgradeToVip,
-    this.onMoveToRejected,  // New parameter
-    this.onMoveToApproved,  // New parameter
+    this.onMoveToRejected, // New parameter
+    this.onMoveToApproved, // New parameter
   });
 
   @override
@@ -91,7 +92,7 @@ class DoctorCard extends StatelessWidget {
                 ),
               ],
             ),
-            
+
             if (doctor.bio != null && doctor.bio!.isNotEmpty) ...[
               SizedBox(height: 12.h),
               Text(
@@ -102,7 +103,7 @@ class DoctorCard extends StatelessWidget {
               ),
               SizedBox(height: 4.h),
               Text(
-                doctor.bio??"",
+                doctor.bio ?? "",
                 style: context.theme.textTheme.bodySmall?.copyWith(
                   color: Colors.grey[700],
                 ),
@@ -140,7 +141,27 @@ class DoctorCard extends StatelessWidget {
                   ),
                   SizedBox(width: 4.w),
                   Text(
-                    doctor.phoneNumber??"",
+                    doctor.phoneNumber ?? "",
+                    style: context.theme.textTheme.bodySmall?.copyWith(
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+            if (doctor.createdAt != null) ...[
+              SizedBox(height: 4.h),
+              Row(
+                children: [
+                  Icon(
+                    Icons.phone_outlined,
+                    size: 16.sp,
+                    color: Colors.grey[600],
+                  ),
+                  SizedBox(width: 4.w),
+                  Text(
+                    DateFormat("yyyy-MM-dd")
+                        .format(doctor.createdAt ?? DateTime.now()),
                     style: context.theme.textTheme.bodySmall?.copyWith(
                       color: Colors.grey[600],
                     ),
@@ -198,12 +219,17 @@ class DoctorCard extends StatelessWidget {
                 child: ElevatedButton.icon(
                   onPressed: onUpgradeToVip,
                   icon: Icon(
-                    doctor.isVip == true ? Icons.remove_circle : Icons.workspace_premium,
+                    doctor.isVip == true
+                        ? Icons.remove_circle
+                        : Icons.workspace_premium,
                     size: 18.sp,
                   ),
-                  label: Text(doctor.isVip == true ? context.l10n.removeVip : context.l10n.upgradeToVip),
+                  label: Text(doctor.isVip == true
+                      ? context.l10n.removeVip
+                      : context.l10n.upgradeToVip),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: doctor.isVip == true ? Colors.red : Colors.amber,
+                    backgroundColor:
+                        doctor.isVip == true ? Colors.red : Colors.amber,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.r),

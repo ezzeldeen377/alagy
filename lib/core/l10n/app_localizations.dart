@@ -98,30 +98,6 @@ abstract class AppLocalizations {
     Locale('en')
   ];
 
-  /// No description provided for @today.
-  ///
-  /// In en, this message translates to:
-  /// **'Today'**
-  String get today;
-
-  /// No description provided for @thisWeek.
-  ///
-  /// In en, this message translates to:
-  /// **'This Week'**
-  String get thisWeek;
-
-  /// No description provided for @thisMonth.
-  ///
-  /// In en, this message translates to:
-  /// **'This Month'**
-  String get thisMonth;
-
-  /// No description provided for @allTime.
-  ///
-  /// In en, this message translates to:
-  /// **'All Time'**
-  String get allTime;
-
   /// No description provided for @accept.
   ///
   /// In en, this message translates to:
@@ -217,6 +193,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Afternoon'**
   String get afternoon;
+
+  /// No description provided for @allTime.
+  ///
+  /// In en, this message translates to:
+  /// **'All Time'**
+  String get allTime;
 
   /// No description provided for @alreadyHaveAccount.
   ///
@@ -572,6 +554,12 @@ abstract class AppLocalizations {
   /// **'Cancellation Reason'**
   String get cancellationReason;
 
+  /// No description provided for @cancellationRefundMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You can use this money to reserve another doctor or request a refund'**
+  String get cancellationRefundMessage;
+
   /// No description provided for @cancellationWarning3Hours.
   ///
   /// In en, this message translates to:
@@ -721,6 +709,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Confirm New Password'**
   String get confirmNewPassword;
+
+  /// No description provided for @connectWithApple.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Apple'**
+  String get connectWithApple;
 
   /// No description provided for @connectWithGoogle.
   ///
@@ -1580,6 +1574,12 @@ abstract class AppLocalizations {
   /// **'Good Morning'**
   String get goodMorning;
 
+  /// No description provided for @goToGoogleMaps.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Google Maps'**
+  String get goToGoogleMaps;
+
   /// No description provided for @greeting.
   ///
   /// In en, this message translates to:
@@ -1651,6 +1651,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Internal Medicine'**
   String get internalMedicine;
+
+  /// No description provided for @internalWallet.
+  ///
+  /// In en, this message translates to:
+  /// **'Internal Wallet'**
+  String get internalWallet;
 
   /// No description provided for @invalidAmount.
   ///
@@ -2030,12 +2036,6 @@ abstract class AppLocalizations {
   /// **'Online Payment'**
   String get onlinePayment;
 
-  /// No description provided for @internalWallet.
-  ///
-  /// In en, this message translates to:
-  /// **'Internal Wallet'**
-  String get internalWallet;
-
   /// No description provided for @ophthalmology.
   ///
   /// In en, this message translates to:
@@ -2087,7 +2087,7 @@ abstract class AppLocalizations {
   /// No description provided for @passwordResetEmailSent.
   ///
   /// In en, this message translates to:
-  /// **'Password reset email sent. Please check your inbox.'**
+  /// **'Password reset email sent. Please check your inbox and spam folder.'**
   String get passwordResetEmailSent;
 
   /// No description provided for @passwordsDoNotMatch.
@@ -2894,6 +2894,18 @@ abstract class AppLocalizations {
   /// **'تغيير المظهر'**
   String get themeArabic;
 
+  /// No description provided for @thisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'This Month'**
+  String get thisMonth;
+
+  /// No description provided for @thisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This Week'**
+  String get thisWeek;
+
   /// No description provided for @thursday.
   ///
   /// In en, this message translates to:
@@ -2905,6 +2917,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Time'**
   String get time;
+
+  /// No description provided for @timeOver.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Over'**
+  String get timeOver;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
 
   /// No description provided for @todaysAppointments.
   ///
@@ -3403,24 +3427,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You\'ll see notifications here when you receive them'**
   String get youllSeeNotificationsHere;
-
-  /// No description provided for @goToGoogleMaps.
-  ///
-  /// In en, this message translates to:
-  /// **'Go to Google Maps'**
-  String get goToGoogleMaps;
-
-  /// No description provided for @timeOver.
-  ///
-  /// In en, this message translates to:
-  /// **'Time Over'**
-  String get timeOver;
-
-  /// No description provided for @cancellationRefundMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'You can use this money to reserve another doctor or request a refund'**
-  String get cancellationRefundMessage;
 }
 
 class _AppLocalizationsDelegate

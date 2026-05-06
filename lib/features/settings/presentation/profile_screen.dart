@@ -614,7 +614,7 @@ class ProfileScreen extends StatelessWidget {
               context,
               icon: Icons.phone_outlined,
               title: context.l10n.phoneNumber,
-              value: "01234567890",
+              value: "01096575757",
               isDarkMode: isDarkMode,
             ),
             SizedBox(height: 24.h),

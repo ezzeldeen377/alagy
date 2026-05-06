@@ -189,11 +189,17 @@ class DoctorDetailPage extends StatelessWidget {
                                   icon: Icons.route,
                                   label: context.l10n.viewOnMap,
                                   color: Colors.blue,
-                                  onTap: () async {
-                                    context.push(ShowLocationScreen(
-                                      lat: doctor.latitude ?? 30.0444,
-                                      lng: doctor.longitude ?? 31.2357,
-                                    ));
+                                  onTap: () {
+                                    final lat = doctor.latitude;
+                                    final lng = doctor.longitude;
+                                    
+                                    if (lat != null && lng != null) {
+                                      Navigator.of(context, rootNavigator: true).push(
+                                        MaterialPageRoute(
+                                          builder: (_) => ShowLocationScreen(lat: lat, lng: lng),
+                                        ),
+                                      );
+                                    }
                                   },
                                 ),
                             ],

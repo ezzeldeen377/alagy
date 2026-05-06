@@ -83,6 +83,7 @@ Future<T> executeTryAndCatchForDataLayer<T>(Future<T> Function() action) async {
       throw NoInternetException(GlobalL10n.instance.tryCatchNetworkError);
     }
   } on FirebaseAuthException catch (e) {
+    print("@@@@@@@@@@@@@@${e.toString()}   ${e.code}");
     switch (e.code) {
       case 'invalid-credential':
         throw FirebaseAuthException(

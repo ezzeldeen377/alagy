@@ -1,10 +1,13 @@
+import 'package:alagy/core/helpers/extensions.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
+
 import 'package:alagy/core/common/screens/view_full_image.dart';
 import 'package:alagy/core/helpers/navigator.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/features/doctor_details/presentation/bloc/add_doctor_cubit/add_doctor_cubit.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomProfilePicture extends StatelessWidget {
   const CustomProfilePicture({super.key});
@@ -63,7 +66,7 @@ class CustomProfilePicture extends StatelessWidget {
           bottom: 0,
           right: 0,
           child: GestureDetector(
-            onTap: () => cubit.pickPofilePicture(),
+            onTap: () => _showImagePickerBottomSheet(context, cubit),
             child: CircleAvatar(
               radius: 18.r,
               backgroundColor: AppColor.primaryColor,
@@ -72,6 +75,91 @@ class CustomProfilePicture extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  void _showImagePickerBottomSheet(
+      BuildContext context, AddDoctorCubit cubit) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+      ),
+      builder: (_) => Container(
+        padding: EdgeInsets.all(20.w),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              context.l10n.selectProfilePhoto,
+              style: TextStyle(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(height: 20.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildImagePickerOption(
+                  context,
+                  icon: Icons.camera_alt,
+                  label: context.l10n.camera,
+                  onTap: () {
+                    Navigator.pop(context);
+                    cubit.pickPofilePicture(ImageSource.camera);
+                  },
+                ),
+                _buildImagePickerOption(
+                  context,
+                  icon: Icons.photo_library,
+                  label: context.l10n.gallery,
+                  onTap: () {
+                    Navigator.pop(context);
+                    cubit.pickPofilePicture(ImageSource.gallery);
+                  },
+                ),
+              ],
+            ),
+            SizedBox(height: 20.h),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildImagePickerOption(
+    BuildContext context, {
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(15.w),
+            decoration: BoxDecoration(
+              color: AppColor.primaryColor.withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              icon,
+              size: 30.sp,
+              color: AppColor.primaryColor,
+            ),
+          ),
+          SizedBox(height: 8.h),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

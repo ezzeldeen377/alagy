@@ -9,18 +9,6 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get today => 'Today';
-
-  @override
-  String get thisWeek => 'This Week';
-
-  @override
-  String get thisMonth => 'This Month';
-
-  @override
-  String get allTime => 'All Time';
-
-  @override
   String get accept => 'Accept';
 
   @override
@@ -67,6 +55,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get afternoon => 'Afternoon';
+
+  @override
+  String get allTime => 'All Time';
 
   @override
   String get alreadyHaveAccount => 'Already have an account?';
@@ -261,6 +252,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancellationReason => 'Cancellation Reason';
 
   @override
+  String get cancellationRefundMessage =>
+      'You can use this money to reserve another doctor or request a refund';
+
+  @override
   String get cancellationWarning3Hours =>
       'Cancellation within 3 hours of the appointment will result in a 50% deduction from the refund amount.';
 
@@ -340,6 +335,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get confirmNewPassword => 'Confirm New Password';
+
+  @override
+  String get connectWithApple => 'Continue with Apple';
 
   @override
   String get connectWithGoogle => 'Connect with Google';
@@ -778,6 +776,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get goodMorning => 'Good Morning';
 
   @override
+  String get goToGoogleMaps => 'Go to Google Maps';
+
+  @override
   String greeting(Object name) {
     return 'Hi, $name!';
   }
@@ -814,6 +815,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get internalMedicine => 'Internal Medicine';
+
+  @override
+  String get internalWallet => 'Internal Wallet';
 
   @override
   String get invalidAmount => 'Invalid amount';
@@ -1010,9 +1014,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onlinePayment => 'Online Payment';
 
   @override
-  String get internalWallet => 'Internal Wallet';
-
-  @override
   String get ophthalmology => 'Ophthalmology';
 
   @override
@@ -1038,7 +1039,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get passwordResetEmailSent =>
-      'Password reset email sent. Please check your inbox.';
+      'Password reset email sent. Please check your inbox and spam folder.';
 
   @override
   String get passwordsDoNotMatch => 'Passwords do not match';
@@ -1458,10 +1459,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get themeArabic => 'تغيير المظهر';
 
   @override
+  String get thisMonth => 'This Month';
+
+  @override
+  String get thisWeek => 'This Week';
+
+  @override
   String get thursday => 'Thursday';
 
   @override
   String get time => 'Time';
+
+  @override
+  String get timeOver => 'Time Over';
+
+  @override
+  String get today => 'Today';
 
   @override
   String get todaysAppointments => 'Today\'s Appointments';
@@ -1734,14 +1747,4 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get youllSeeNotificationsHere =>
       'You\'ll see notifications here when you receive them';
-
-  @override
-  String get goToGoogleMaps => 'Go to Google Maps';
-
-  @override
-  String get timeOver => 'Time Over';
-
-  @override
-  String get cancellationRefundMessage =>
-      'You can use this money to reserve another doctor or request a refund';
 }

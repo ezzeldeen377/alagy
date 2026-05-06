@@ -3,7 +3,7 @@ description: ''
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 
-version: 1.0.1+4
+version: 1.0.1+5
 
 environment:
   sdk: ^3.6.1
@@ -17,9 +17,10 @@ dependencies:
   flutter_bloc: ^9.1.0
   flutter_screenutil: ^5.9.3
   cupertino_icons: ^1.0.8
-  firebase_core: ^4.0.0
-  firebase_auth: ^6.0.1
-  cloud_firestore: ^6.0.0
+  firebase_core: ^4.7.0
+  firebase_auth: ^6.4.0
+  cloud_firestore: ^6.3.0
+  firebase_remote_config: ^6.0.0
   dartz: ^0.10.1
   get_it: ^8.0.3
   injectable: ^2.5.0
@@ -31,6 +32,8 @@ dependencies:
   badges: ^3.1.2
   flutter_secure_storage: ^9.2.4
   google_sign_in: ^6.3.0
+  sign_in_with_apple: ^7.0.1
+  crypto: ^3.0.7
   animated_text_kit: ^4.2.3
   flutter_animate: ^4.5.2
   fluttertoast: ^8.2.12
@@ -63,6 +66,7 @@ dev_dependencies:
   injectable_generator: ^2.7.0
   flutter_native_splash: ^2.4.6
   flutter_launcher_icons: ^0.14.3
+  rename: ^3.1.0
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true

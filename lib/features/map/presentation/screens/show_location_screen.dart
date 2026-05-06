@@ -18,7 +18,7 @@ class ShowLocationScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<ShowLocationScreen> {
-  late GoogleMapController _mapController;
+  GoogleMapController? _mapController;
 
   Future<void> _openGoogleMaps() async {
     final String googleMapsUrl =
@@ -37,7 +37,10 @@ class _MapScreenState extends State<ShowLocationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final LatLng doctorLocation = LatLng(widget.lat, widget.lng);
+    // Ensure coordinates are finite to avoid native LatLng crashes
+    final double safeLat = widget.lat.isFinite ? widget.lat : 30.0444;
+    final double safeLng = widget.lng.isFinite ? widget.lng : 31.2357;
+    final LatLng doctorLocation = LatLng(safeLat, safeLng);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -64,13 +67,17 @@ class _MapScreenState extends State<ShowLocationScreen> {
             },
             onMapCreated: (GoogleMapController controller) {
               _mapController = controller;
-              if (isDark) {
-                controller.setMapStyle(AppConstants.darkMapStyle);
-              } else {
-                controller.setMapStyle(null);
+              try {
+                if (isDark) {
+                  controller.setMapStyle(AppConstants.darkMapStyle);
+                } else {
+                  controller.setMapStyle(null);
+                }
+              } catch (e) {
+                debugPrint("Error setting map style: $e");
               }
             },
-            myLocationEnabled: true,
+            myLocationEnabled: false,
             myLocationButtonEnabled: false,
             zoomControlsEnabled: false,
           ),
@@ -103,7 +110,6 @@ class _MapScreenState extends State<ShowLocationScreen> {
 
   @override
   void dispose() {
-    _mapController.dispose();
     super.dispose();
   }
 }

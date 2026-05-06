@@ -5,8 +5,8 @@ extension NavigatorExtension on BuildContext {
   NavigatorState get navigator => Navigator.of(this);
 
   /// Push a new route onto the navigator
-  Future<T?> push<T extends Object?>(Widget page) {
-    return navigator.push<T>(
+  Future<T?> push<T extends Object?>(Widget page, {bool rootNavigator = false}) {
+    return Navigator.of(this, rootNavigator: rootNavigator).push<T>(
       MaterialPageRoute(builder: (_) => page),
     );
   }

@@ -1,9 +1,13 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:alagy/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/helpers/spacer.dart';
 import 'package:alagy/core/routes/routes.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/features/authentication/presentation/widgets/sign_in/custome_title_text.dart';
+import 'package:alagy/features/authentication/presentation/widgets/sign_up/apple_button.dart';
+import 'package:alagy/features/authentication/presentation/widgets/sign_up/google_button%20copy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +18,6 @@ import '../../../../core/utils/custom_button.dart';
 import '../widgets/sign_in/custom_dont_have_account_row.dart';
 import '../widgets/sign_in/custom_sign_in_input_fields.dart';
 import '../widgets/sign_in/custom_sign_in_listener.dart';
-import '../widgets/sign_up/google_button.dart';
 
 class SignInScreen extends StatelessWidget {
   final bool canClose;
@@ -153,6 +156,31 @@ class SignInScreen extends StatelessWidget {
                             },
                           ),
                           SizedBox(height: 10.h),
+                          if (!kIsWeb && Platform.isIOS) ...[
+                            BlocBuilder<SignInCubit, SignInState>(
+                              builder: (context, state) {
+                                return Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 30.w),
+                                  child: AppleButton(
+                                    isLoading: state.isAppleAuthLoading,
+                                    onTapButton: () {
+                                      if (context
+                                              .read<AppUserCubit>()
+                                              .authStateSubscription !=
+                                          null) {
+                                        context
+                                            .read<AppUserCubit>()
+                                            .cancelAuthListener();
+                                      }
+                                      context.read<SignInCubit>().appleAuth();
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                            SizedBox(height: 10.h),
+                          ],
                         ],
                       )
                           .animate()

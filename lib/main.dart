@@ -7,7 +7,9 @@ import 'package:alagy/core/helpers/extensions.dart';
 import 'package:alagy/core/helpers/global_l10n.dart';
 import 'package:alagy/core/helpers/notification_service.dart';
 import 'package:alagy/core/l10n/app_localizations.dart';
+import 'package:alagy/core/navigator/app_navigator_key.dart';
 import 'package:alagy/core/routes/router_genrator.dart';
+import 'package:alagy/core/services/remote_config_service.dart';
 import 'package:alagy/core/theme/app_color.dart';
 import 'package:alagy/core/utils/show_snack_bar.dart';
 import 'package:alagy/features/authentication/presentation/cubits/sign_in_cubit/sign_in_cubit.dart';
@@ -40,11 +42,12 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   timeago.setLocaleMessages('ar', timeago.ArMessages());
-  NotificationService.instance.initialize();
-  NotificationService.instance.setupFlutterNotifications();
-
+  // Initialize notification service (handles APNS token for iOS)
+  await NotificationService.instance.initialize();
+  await NotificationService.instance.setupFlutterNotifications();
   Bloc.observer = SimpleBlocObserver();
   configureDependencies();
+  await getIt<RemoteConfigService>().initialize();
   // Initialize admin module
   runApp(MultiBlocProvider(
     providers: [
@@ -75,6 +78,7 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return MaterialApp(
             title: 'Rosheta',
+            navigatorKey: appNavigatorKey,
             themeAnimationCurve: Curves.easeInOutCubic,
             themeAnimationDuration: Duration(milliseconds: 400),
             themeAnimationStyle: AnimationStyle.noAnimation,

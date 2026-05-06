@@ -7,6 +7,7 @@ import 'package:alagy/features/doctor_details/presentation/bloc/add_doctor_cubit
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
@@ -101,9 +102,9 @@ class AddDoctorCubit extends Cubit<AddDoctorState> {
         latitude: latitude, longitude: longitude, selectedAddress: address));
   }
 
-  Future<void> pickPofilePicture() async {
+  Future<void> pickPofilePicture(ImageSource source) async {
     emit(state.copyWith(status: AddDoctorStatus.pickProfileImageLoading));
-    final image = await pickImage();
+    final image = await pickImage(source);
     if (image != null) {
       emit(state.copyWith(
         status: AddDoctorStatus.pickProfileImageSuccess,

@@ -64,8 +64,10 @@ class _DoctorManagementScreenState extends State<DoctorManagementScreen>
       body: BlocConsumer<AdminCubit, AdminState>(
         listener: (context, state) {
           if (state.isError) {
-            showSnackBar(context, state.errorMessage ?? context.l10n.anErrorOccurred,backgroundColor: Colors.red);
-            
+            print(state.errorMessage);
+            showSnackBar(
+                context, state.errorMessage ?? context.l10n.anErrorOccurred,
+                backgroundColor: Colors.red);
           }
         },
         builder: (context, state) {
@@ -151,7 +153,7 @@ class _DoctorManagementScreenState extends State<DoctorManagementScreen>
             showActions: showActions,
             onUpgradeToVip: () => context
                 .read<AdminCubit>()
-                .toggleVipStatus(doctor.uid, doctor.isVip??false),
+                .toggleVipStatus(doctor.uid, doctor.isVip ?? false),
             onApprove: showActions
                 ? () => _showConfirmationDialog(
                       context,
