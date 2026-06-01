@@ -13,7 +13,8 @@ class RemoteConfigService {
 
     await _remoteConfig.setConfigSettings(RemoteConfigSettings(
       fetchTimeout: const Duration(seconds: 10),
-      minimumFetchInterval: kDebugMode ? Duration.zero : const Duration(hours: 1),
+      minimumFetchInterval:
+          const Duration(seconds: 0), // Force fetch for testing
     ));
 
     await fetchAndActivate();
@@ -23,17 +24,21 @@ class RemoteConfigService {
     try {
       final updated = await _remoteConfig.fetchAndActivate();
       print('Remote Config fetchAndActivate: $updated');
+      final all = _remoteConfig.getAll();
+      all.forEach((key, value) {
+        print('Remote Config Key: $key, Value: ${value.asString()}');
+      });
     } catch (e) {
       print('Remote Config fetch error: $e');
     }
   }
 
   bool get showOnlinePayment {
-    final valueInt = _remoteConfig.getInt('showOnlinePayment');
-    final valueBool = _remoteConfig.getBool('showOnlinePayment');
-    print('showOnlinePayment (int): $valueInt');
-    print('showOnlinePayment (bool): $valueBool');
-    // Return true if either the int value is 1 or the bool value is true
-    return valueInt == 1 || valueBool;
+    final val = _remoteConfig.getValue('showOnlinePayment');
+    final asString = val.asString();
+
+    // Return true if the string is '1' or 'true' or int is 1
+    if (asString == '1' || asString.toLowerCase() == 'true') return true;
+    return val.asInt() == 1 || val.asBool();
   }
 }
